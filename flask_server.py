@@ -161,5 +161,6 @@ def get_kpi_data(survey_id):
         return jsonify({"error": f"Failed to get KPI data: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    # Make sure to run on port 8000
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    # Make sure to run on port 8000 and be accessible from other processes
+    logger.info("Starting Flask server on 0.0.0.0:8000")
+    app.run(host='0.0.0.0', port=8000, debug=True, threaded=True)

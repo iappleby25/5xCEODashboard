@@ -26,10 +26,10 @@ try:
     
     logger.info("NLP environment initialized successfully")
     
-    # Import and run Flask server
-    from flask_server import app
-    logger.info("Starting Flask server...")
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    # Import flask_server's main code without running app.run() again 
+    # (flask_server already has app.run() in its __main__ block)
+    import flask_server
+    logger.info("Imported Flask server successfully, starting from flask_server.py...")
     
 except ImportError as e:
     logger.error(f"Failed to import required modules: {str(e)}")
