@@ -10,6 +10,7 @@ import {
   HelpCircle, 
   Settings 
 } from "lucide-react";
+import logoSvg from "../assets/5xceo-logo.svg";
 
 interface TopNavbarProps {
   onMenuClick: () => void;
@@ -38,6 +39,12 @@ export default function TopNavbar({ onMenuClick, onVoiceSearchClick }: TopNavbar
       >
         <Menu className="h-5 w-5" />
       </button>
+      
+      {/* Logo and Title */}
+      <div className="hidden md:flex items-center mr-6">
+        <img src={logoSvg} alt="5xCEO Logo" className="h-8 w-8 mr-2" />
+        <h1 className="text-xl font-bold text-neutral-900">5xCEO</h1>
+      </div>
       
       {/* Search */}
       <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">

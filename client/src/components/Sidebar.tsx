@@ -11,6 +11,7 @@ import {
   HelpCircle,
   User
 } from "lucide-react";
+import logoSvg from "../assets/5xceo-logo.svg";
 
 interface SidebarProps {
   isMobile: boolean;
@@ -51,10 +52,8 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
   return (
     <aside className={sidebarClasses}>
       <div className="p-4 border-b border-neutral-200 flex items-center space-x-2">
-        <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-md flex items-center justify-center">
-          <Waypoints className="h-5 w-5 text-white" />
-        </div>
-        <h1 className="font-semibold text-lg">DataInsight Hub</h1>
+        <img src={logoSvg} alt="5xCEO Logo" className="h-8 w-8" />
+        <h1 className="font-semibold text-lg">5xCEO</h1>
       </div>
       
       <nav className="flex-1 overflow-y-auto py-4">
