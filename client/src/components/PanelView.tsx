@@ -9,7 +9,7 @@ interface PanelViewProps {
   onClose: () => void;
   onNext: () => void;
   onPrevious: () => void;
-  viewMode: 'myCEO' | '5xCEO';
+  viewMode: 'MyCEO' | '5xCEO';
 }
 
 const PanelView: React.FC<PanelViewProps> = ({
@@ -119,7 +119,7 @@ const PanelView: React.FC<PanelViewProps> = ({
                 </div>
               </div>
 
-              {viewMode === 'myCEO' && (
+              {viewMode === 'MyCEO' && (
                 <>
                   <div>
                     <div className="flex justify-between mb-1">

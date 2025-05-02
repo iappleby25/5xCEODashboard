@@ -5,12 +5,12 @@ import PanelView from '@/components/PanelView';
 import { assessmentData, FrameworkCategory, getCategoryColor } from '@/lib/mockData';
 
 const FiveXCEO = () => {
-  const [activeView, setActiveView] = useState<'myCEO' | '5xCEO'>('5xCEO');
+  const [activeView, setActiveView] = useState<'MyCEO' | '5xCEO'>('5xCEO');
   const [selectedCategory, setSelectedCategory] = useState<FrameworkCategory | null>(null);
 
   const handleToggleView = () => {
     // In 5xCEO page, this would navigate to MyCEO page instead
-    window.location.href = '/myCEO';
+    window.location.href = '/MyCEO';
   };
 
   const handleSelectCategory = (category: FrameworkCategory) => {
@@ -84,7 +84,7 @@ const FiveXCEO = () => {
               onSelectCategory={handleSelectCategory}
             />
             <div className="text-center mt-6 text-sm text-neutral-500">
-              Click on any category to view detailed metrics or click the center button to switch to myCEO view
+              Click on any category to view detailed metrics or click the center button to switch to MyCEO view
             </div>
           </div>
         </motion.div>

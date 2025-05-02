@@ -67,7 +67,7 @@ const MyCEO = () => {
       >
         <motion.div variants={itemVariants} className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-neutral-900">
-            myCEO Assessment Dashboard
+            MyCEO Assessment Dashboard
           </h1>
           <p className="text-neutral-600 mt-2">
             Raw assessment data showing importance and agreement scores across the 5 framework categories.
@@ -131,7 +131,7 @@ const MyCEO = () => {
                 onClose={handleClosePanel}
                 onNext={handleNextCategory}
                 onPrevious={handlePreviousCategory}
-                viewMode="myCEO"
+                viewMode="MyCEO"
               />
             </div>
           </div>
