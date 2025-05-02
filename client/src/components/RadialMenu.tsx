@@ -40,20 +40,13 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
     };
   }, []);
 
-  // Calculate positions for the 5 panels in a pentagon shape with specific offsets
+  // Calculate positions for the 5 panels in a perfect pentagon shape, with nodes touching
   const getPosition = (index: number, total: number) => {
-    // Start at the top (270 degrees) and go clockwise with custom angles
-    // Adjust angles to better match the design image
-    const angles = [
-      -Math.PI/2,      // top (Strategic Clarity)
-      -Math.PI/6,      // top-right (Scalable Talent)
-      Math.PI/3,       // bottom-right (Relentless Focus)
-      2*Math.PI/3,     // bottom-left (Disciplined Execution)
-      7*Math.PI/6      // top-left (Energized Culture)
-    ];
+    // Perfect pentagon with equal spacing between nodes
+    const angle = (index / total) * 2 * Math.PI - Math.PI / 2; // Start at the top
     
-    const radius = 95; // Distance from center
-    const angle = angles[index];
+    // Increase radius to make nodes touch edge-to-edge
+    const radius = 65; // Distance from center to create edge-to-edge contact
     const x = radius * Math.cos(angle);
     const y = radius * Math.sin(angle);
     return { x, y };
@@ -72,12 +65,12 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
         return (
           <motion.div
             key={category.id}
-            className={`absolute z-10 w-24 h-24 rounded-full 
+            className={`absolute z-10 w-28 h-28 rounded-full 
                       ${colors.bg} ${colors.border} border shadow-md
                       flex flex-col items-center cursor-pointer overflow-visible`}
             style={{
-              left: `calc(50% + ${x}px - 3rem)`,
-              top: `calc(50% + ${y}px - 3rem)`,
+              left: `calc(50% + ${x}px - 3.5rem)`,
+              top: `calc(50% + ${y}px - 3.5rem)`,
             }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -107,18 +100,18 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
         );
       })}
 
-      {/* Center Toggle Button (using a div wrapper to maintain position) */}
-      <div className="absolute z-30 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28">
+      {/* Center Toggle Button - positioned below the nodes */}
+      <div className="absolute z-0 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28">
         <motion.button
           className={`w-full h-full rounded-full 
-                      flex items-center justify-center text-white font-bold shadow-lg text-lg
+                      flex items-center justify-center text-white font-bold shadow-md text-lg
                       ${activeView === 'MyCEO' ? 'bg-blue-600' : 'bg-orange-500'}`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           initial={{ scale: 1 }}
           animate={{ 
             scale: 1,
-            boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.25)'
+            boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.2)'
           }}
           transition={{ duration: 0.2 }}
           onClick={onToggleView}
