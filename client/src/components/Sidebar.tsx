@@ -14,7 +14,7 @@ import {
   BarChart,
   PieChart
 } from "lucide-react";
-import logoSvg from "../assets/5xceo-logo.svg";
+import logoSvg from "../assets/advantage-ceo-logo.svg";
 
 interface SidebarProps {
   isMobile: boolean;

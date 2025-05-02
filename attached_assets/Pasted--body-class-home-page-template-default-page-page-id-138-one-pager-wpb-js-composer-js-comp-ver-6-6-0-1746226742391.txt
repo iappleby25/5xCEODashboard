@@ -1,0 +1,619 @@
+<body class="home page-template-default page page-id-138 one-pager wpb-js-composer js-comp-ver-6.6.0 vc_responsive">
+
+
+
+
+<div id="page" class="layout-fullwidth header-style-3">
+
+			<a href="#page" class="scroll-top-button"></a>
+	
+	
+		
+		<div id="site-header-wrapper" class="site-header-wrapper-transparent ">
+
+			
+			
+			<header id="site-header" class="site-header animated-header mobile-menu-layout-default ios-load" role="banner">
+								
+				<div class="header-background">
+					<div class="container container-fullwidth">
+						<div class="header-main logo-position-left header-colors-light header-layout-default header-layout-fullwidth header-style-3">
+																							<div class="site-title">
+											<div class="site-logo" style="width:150px;">
+			<a href="https://advantageceo.com/" rel="home">
+									<span class="logo" style="min-width: 150px;"><img data-tgpli-src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_1x.png" data-tgpli-srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_3x.png 3x" alt="Advantage CEO" style="width:150px;" class="default" data-tgpli-inited="" id="tgpli-68154caf66f2a" srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_3x.png 3x" src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_1x.png"><script>window.tgpQueue.add('tgpli-68154caf66f2a')</script><noscript><img src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_1x.png" srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_20fa9313f41c092d08e521a921d79beb_3x.png 3x" alt="Advantage CEO" style="width:150px;" class="default"/></noscript><img data-tgpli-src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png" data-tgpli-srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_3x.png 3x" alt="Advantage CEO" style="width: 130px; margin-left: -150px; display: inline;" class="small light" data-tgpli-inited="" id="tgpli-68154caf66f67" srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_3x.png 3x" src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png"><script>window.tgpQueue.add('tgpli-68154caf66f67')</script><noscript><img src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png" srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_3x.png 3x" alt="Advantage CEO" style="width:130px;" class="small light"/></noscript><img data-tgpli-src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png" data-tgpli-srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_3x.png 3x" alt="Advantage CEO" style="width: 130px; margin-left: -150px;" class="small" data-tgpli-inited="" id="tgpli-68154caf66f76" srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_3x.png 3x" src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png"><script>window.tgpQueue.add('tgpli-68154caf66f76')</script><noscript><img src="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png" srcset="https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_1x.png 1x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_2x.png 2x,https://advantageceo.com/wp-content/uploads/thegem-logos/logo_5fb228518f6c9fcf81ef7d8b125f5788_3x.png 3x" alt="Advantage CEO" style="width:130px;" class="small"/></noscript></span>
+							</a>
+		</div>
+										</div>
+																											<nav id="primary-navigation" class="site-navigation primary-navigation" role="navigation">
+											<button class="menu-toggle dl-trigger">Primary Menu<span class="menu-line-1"></span><span class="menu-line-2"></span><span class="menu-line-3"></span></button>																							<ul id="primary-menu" class="nav-menu styled no-responsive dl-menu"><li id="menu-item-142" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-142 megamenu-first-element"><a href="#advantage-ceo">Home</a></li>
+<li id="menu-item-144" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-144 megamenu-first-element"><a href="#journey">Approach</a></li>
+<li id="menu-item-145" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-145 megamenu-first-element"><a href="#our-chairs">Our Chairs</a></li>
+<li id="menu-item-146" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-146 megamenu-first-element"><a href="#interested">Apply/Contact</a></li>
+<li class="menu-item menu-item-search"><a href="#"></a><div class="minisearch"><form role="search" id="searchform" class="sf" action="https://advantageceo.com/" method="GET"><input id="searchform-input" class="sf-input" type="text" placeholder="Search..." name="s"><span class="sf-submit-icon"></span><input id="searchform-submit" class="sf-submit" type="submit" value=""></form></div></li></ul>																																</nav>
+																														</div>
+					</div>
+				</div>
+			</header><!-- #site-header -->
+					</div><!-- #site-header-wrapper -->
+
+	
+	<div id="main" class="site-main">
+
+<div id="main-content" class="main-content">
+
+<div class="gem-slideshow">
+			<!-- START AdvantageCEO Slider REVOLUTION SLIDER 6.4.6 -->
+			<rs-fullwidth-wrap id="rev_slider_7_1_forcefullwidth" style=""><rs-module-wrap id="rev_slider_7_1_wrapper" data-source="gallery" style="background: transparent; padding: 0px; width: 2269px; height: 1130px; visibility: visible; margin-top: 0px; margin-bottom: 0px; position: absolute; max-height: none; overflow: visible; left: 0px;"><rs-module id="rev_slider_7_1" style="width: 2269px; height: 100%; max-height: none;" data-version="6.4.6" data-idcheck="true" class="revslider-initialised rev_redraw_on_blurfocus" data-slideactive="rs-16">
+					
+					<rs-static-layers data-key="staticlayers"><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap" style="position: absolute; display: block; pointer-events: auto; left: 1120px; top: 876px; z-index: 12; visibility: visible;"><rs-loop-wrap style="position: absolute; display: block; height: 43px; width: 29px; opacity: 1; transform-origin: 50% 50% 0px; min-height: 43px; min-width: 29px; transform: perspective(600px) translate3d(0px, -18.4543px, 0px); filter: none;"><rs-mask-wrap style="position: absolute; display: block; overflow: visible;"><rs-layer id="slider-7-slide-7-layer-8" class="scroll-to-anchor rs-layer-static rs-layer rs-waction rs-wclickaction" data-type="image" data-rsp_ch="on" data-xy="x:c;y:b;yo:80px;" data-text="l:22;a:inherit;" data-dim="w:['29px','29px','29px','29px'];h:['43px','43px','43px','43px'];" data-actions="o:click;a:scrollbelow;offset:-100;sp:300;e:none;" data-onslides="s:1;" data-frame_0="tp:600;" data-frame_1="tp:600;e:power2.inOut;st:500;sR:500;" data-frame_999="o:0;tp:600;e:nothing;st:w;sR:8200;" data-loop_0="y:-20;" data-loop_999="e:power1.in;yym:t;yys:t;yyf:t;" style="z-index: 12; color: rgb(255, 255, 255); width: 29px; height: 43px; min-height: 0px; min-width: 0px; max-height: none; max-width: none; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; visibility: visible;" data-startslide="1" data-endslide="2" data-idcheck="true" data-stylerecorder="true" data-initialised="true"><img data-tgpli-src="//advantageceo.com/wp-content/uploads/2017/07/mouse_icon.png" class="tp-rs-img" width="29" height="43" data-tgpli-inited="" id="tgpli-68154caf66f8a" data-no-retina="" src="https://advantageceo.com/wp-content/uploads/2017/07/mouse_icon.png" data-src-rs-ref="https://advantageceo.com/wp-content/uploads/2017/07/mouse_icon.png" style="position: relative; height: 100%; width: 100%;"><script>window.tgpQueue.add('tgpli-68154caf66f8a')</script><noscript><img src="//advantageceo.com/wp-content/uploads/2017/07/mouse_icon.png" class="tp-rs-img" width="29" height="43" data-no-retina></noscript> 
+							</rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+					--></rs-static-layers>
+				<rs-loader style="background-color: rgb(255, 255, 255); display: none;" class="spinner2 "><div class="dot1"></div><div class="dot2"></div><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></rs-loader><rs-progress style="visibility:hidden;"><rs-progress-bar style="background: rgba(255, 255, 255, 0.5);"></rs-progress-bar></rs-progress><rs-slides style="visibility: visible; max-height: none; height: 100%; width: 100%; overflow: hidden;">
+						<rs-slide data-key="rs-16" data-title="Slide" data-anim="r:0;p:transparent;" data-in="o:0;" data-out="o:0;" data-originalindex="1" data-origindex="0" data-description="" style="overflow: hidden; height: 100%; width: 100%; z-index: 20; opacity: 1; visibility: inherit;" data-sba="" data-scroll-based="false" data-owidth="1920" data-oheight="1200" data-rspausetimeronce="0" data-isactiveslide="true"><rs-sbg-px style="transform: translate(0px); backface-visibility: hidden; left: 0px; top: 0px; position: absolute;"><rs-sbg-wrap data-key="rs-16" data-owidth="1920" data-oheight="1200"><!--Runtime Modification - Img tag is Still Available for SEO Goals in Source - <img src="//advantageceo.com/wp-content/uploads/2020/03/PrivateEquity-Large3.jpg" title="PrivateEquity-Large3" width="1920" height="1200" class="rev-slidebg tp-rs-img" data-bg="p:center top;" data-parallax="6" data-no-retina="">--><rs-sbg class="" data-bgcolor="transparent" style="width: 100%; height: 100%;" data-src-rs-ref="https://advantageceo.com/wp-content/uploads/2020/03/PrivateEquity-Large3.jpg"><canvas style="width: 100%; height: 100%; background-color: transparent; opacity: 1; filter: none;" width="2960" height="1474"></canvas></rs-sbg></rs-sbg-wrap></rs-sbg-px>
+							
+<!--
+							--><rs-layer-wrap class="rs-parallax-wrap" style="position: absolute; display: block; pointer-events: auto; left: 756px; top: 315px; z-index: 8; visibility: visible;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position: absolute; display: block; transform-origin: 50% 50% 0px; transform: translate(0px); overflow: hidden;"><rs-layer id="slider-7-slide-16-layer-1" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:-200px,-165px,-80px,-120px;" data-text="s:54,44,40,28;l:100,82,80,40;fw:300;a:center;" data-frame_0="x:-100%;" data-frame_0_mask="u:t;" data-frame_1="st:1490;sp:1000;sR:1490;" data-frame_1_mask="u:t;" data-frame_999="x:0;y:0;z:0;sX:1;sY:1;o:1;rX:0;rY:0;rZ:0;skX:0;skY:0;tp:600;e:none;st:w;sp:50;sR:15510;" data-frame_999_chars="d:10;o:0;" style="z-index: 8; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 100px; letter-spacing: 0px; font-weight: 300; font-size: 54px; transform-origin: 50% 50% 0px; opacity: 1; transform: perspective(600px); visibility: visible;" data-idcheck="true" data-stylerecorder="true" data-initialised="true"><div style="display: block; text-align: center; position: relative;" class="rs_splitted_lines"><div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">W</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">e</div></div> <div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">c</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">o</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">n</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">n</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">e</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">c</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">t</div></div> <div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">a</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">n</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">d</div></div> <div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">s</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">t</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">r</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">e</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">n</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">g</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">t</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">h</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">e</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">n</div></div> </div></rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap" style="position: absolute; display: block; pointer-events: auto; left: 1054px; top: 576px; z-index: 16; visibility: visible;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position: absolute; display: block; transform-origin: 50% 50% 0px; transform: translate3d(0px, 0px, 0px); overflow: hidden;"><rs-layer id="slider-7-slide-16-layer-4" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:61px,50px,105px,11px;" data-text="s:54,44,40,28;l:100,82,80,40;fw:300;a:center;" data-frame_0="o:1;" data-frame_0_chars="d:5;x:105%;o:1;rY:45deg;rZ:90deg;" data-frame_0_mask="u:t;" data-frame_1="st:4190;sp:1200;sR:4190;" data-frame_1_chars="e:power4.inOut;d:10;rZ:0deg;" data-frame_1_mask="u:t;" data-frame_999="x:0;y:0;z:0;sX:1;sY:1;o:1;rX:0;rY:0;rZ:0;skX:0;skY:0;tp:600;e:none;st:w;sp:50;sR:11910;" data-frame_999_chars="d:10;o:0;" style="z-index: 16; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 100px; letter-spacing: 0px; font-weight: 300; font-size: 54px; transform-origin: 50% 50% 0px; transform: perspective(600px) translate3d(0px, 0px, 0px); opacity: 1; visibility: visible;" data-idcheck="true" data-stylerecorder="true" data-initialised="true"><div style="display: block; text-align: center; position: relative;" class="rs_splitted_lines"><div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; opacity: 1; transform: translate3d(166.615px, 0px, 0px) rotate(89.999deg) rotateY(44.9995deg); color: rgb(255, 255, 255);" class="rs_splitted_chars">f</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; opacity: 1; transform: translate(166.617px) rotate(90deg) rotateY(45deg);" class="rs_splitted_chars">a</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; opacity: 1; transform: translate(166.617px) rotate(90deg) rotateY(45deg);" class="rs_splitted_chars">s</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; opacity: 1; transform: translate(166.617px) rotate(90deg) rotateY(45deg);" class="rs_splitted_chars">t</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; opacity: 1; transform: translate(166.617px) rotate(90deg) rotateY(45deg);" class="rs_splitted_chars">e</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; opacity: 1; transform: translate(166.617px) rotate(90deg) rotateY(45deg);" class="rs_splitted_chars">r</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; opacity: 1; transform: translate(166.617px) rotate(90deg) rotateY(45deg);" class="rs_splitted_chars">.</div></div> </div></rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap" style="position: absolute; display: block; pointer-events: auto; left: 660.5px; top: 515px; z-index: 10; visibility: visible; transform: perspective(601px);"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position: absolute; display: block; overflow: visible;"><rs-layer id="slider-7-slide-16-layer-5" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:-42px,-34px,38px,-33px;" data-text="s:54,44,30,22;l:16,13,16,16;fw:700;a:center;" data-frame_0="sX:0.9;sY:0.9;" data-frame_1="y:15px,12px,9px,5px;e:power2.inOut;st:3300;sp:1000;sR:3300;" data-frame_999="o:0;tp:600;e:none;st:5870;sp:500;sR:1570;" style="z-index: 10; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 16px; letter-spacing: 0px; font-weight: 700; font-size: 54px; transform-origin: 50% 50% 0px; opacity: 0.9998; transform: translate3d(0px, 14.9964px, 0px); visibility: visible;" data-idcheck="true" data-stylerecorder="true" data-initialised="true">INCREASE SHAREHOLDER VALUE 
+							</rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap" style="position: absolute; display: block; pointer-events: auto; left: 730px; top: 389px; z-index: 9; visibility: visible;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position: absolute; display: block; transform-origin: 50% 50% 0px; transform: translate(0px); overflow: hidden;"><rs-layer id="slider-7-slide-16-layer-11" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:-126px,-104px,-21px,-74px;" data-text="s:54,44,40,28;l:100,82,80,40;fw:300;a:center;" data-frame_0="x:100%;" data-frame_0_mask="u:t;" data-frame_1="st:2460;sp:1000;sR:2460;" data-frame_1_mask="u:t;" data-frame_999="x:0;y:0;z:0;sX:1;sY:1;o:1;rX:0;rY:0;rZ:0;skX:0;skY:0;tp:600;e:none;st:w;sp:50;sR:14540;" data-frame_999_chars="d:10;o:0;" style="z-index: 9; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 100px; letter-spacing: 0px; font-weight: 300; font-size: 54px; transform-origin: 50% 50% 0px; opacity: 1; transform: perspective(600px); visibility: visible;" data-idcheck="true" data-stylerecorder="true" data-initialised="true"><div style="display: block; text-align: center; position: relative;" class="rs_splitted_lines"><div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">p</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">r</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">i</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">v</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">a</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">t</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">e</div></div> <div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">e</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">q</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">u</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">i</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">t</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">y</div></div> <div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">b</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">a</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">c</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">k</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">e</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">d</div></div> <div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">C</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">E</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">O</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">s</div></div> <div style="position:relative;display:inline-block;" class="rs_splitted_words"><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">t</div><div style="position: relative; display: inline-block; transform-origin: 50% 50% 0px; transform: translate(0px); opacity: 1; color: rgb(255, 255, 255);" class="rs_splitted_chars">o</div></div> </div></rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap " style="position: absolute; display: block; pointer-events: none; left: 709.5px; top: 515px; z-index: 11;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position:absolute;display:block;"><rs-layer id="slider-7-slide-16-layer-12" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:-42px,-34px,38px,-33px;" data-text="s:54,44,30,22;l:16,13,16,16;fw:700;a:center;" data-frame_0="sX:0.9;sY:0.9;" data-frame_1="y:15px,12px,9px,5px;e:power2.inOut;st:6160;sp:1000;sR:6160;" data-frame_999="o:0;tp:600;e:none;st:8530;sp:500;sR:1370;" style="z-index: 11; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 16px; letter-spacing: 0px; font-weight: 700; font-size: 54px; transform-origin: 50% 50% 0px; opacity: 0; transform: scale(0.9);" data-idcheck="true" data-stylerecorder="true" data-initialised="true">MAKE CONFIDENT DECISIONS 
+							</rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap " style="position: absolute; display: block; pointer-events: none; left: 919.5px; top: 515px; z-index: 15;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position:absolute;display:block;"><rs-layer id="slider-7-slide-16-layer-13" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:-42px,-34px,38px,-33px;" data-text="s:54,44,30,22;l:16,13,16,16;fw:700;a:center;" data-frame_0="sX:0.9;sY:0.9;" data-frame_1="y:15px,12px,9px,5px;e:power2.inOut;st:16610;sp:1000;sR:16610;" data-frame_999="o:0;tp:600;e:none;st:w;sp:500;sR:390;" style="z-index: 15; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 16px; letter-spacing: 0px; font-weight: 700; font-size: 54px; transform-origin: 50% 50% 0px; opacity: 0; transform: scale(0.9);" data-idcheck="true" data-stylerecorder="true" data-initialised="true">CREATE VALUE 
+							</rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap " style="position: absolute; display: block; pointer-events: none; left: 985.5px; top: 515px; z-index: 13;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position:absolute;display:block;"><rs-layer id="slider-7-slide-16-layer-14" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:-42px,-34px,38px,-33px;" data-text="s:54,44,30,22;l:16,13,16,16;fw:700;a:center;" data-frame_0="sX:0.9;sY:0.9;" data-frame_1="y:15px,12px,9px,5px;e:power2.inOut;st:11510;sp:1000;sR:11510;" data-frame_999="o:0;tp:600;e:none;st:13820;sp:500;sR:1310;" style="z-index: 13; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 16px; letter-spacing: 0px; font-weight: 700; font-size: 54px; transform-origin: 50% 50% 0px; opacity: 0; transform: scale(0.9);" data-idcheck="true" data-stylerecorder="true" data-initialised="true">INNOVATE 
+							</rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap " style="position: absolute; display: block; pointer-events: none; left: 1039.5px; top: 515px; z-index: 14;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position:absolute;display:block;"><rs-layer id="slider-7-slide-16-layer-15" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:-42px,-34px,38px,-33px;" data-text="s:54,44,30,22;l:16,13,16,16;fw:700;a:center;" data-frame_0="sX:0.9;sY:0.9;" data-frame_1="y:15px,12px,9px,5px;e:power2.inOut;st:14170;sp:1000;sR:14170;" data-frame_999="o:0;tp:600;e:none;st:16230;sp:500;sR:1060;" style="z-index: 14; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 16px; letter-spacing: 0px; font-weight: 700; font-size: 54px; transform-origin: 50% 50% 0px; opacity: 0; transform: scale(0.9);" data-idcheck="true" data-stylerecorder="true" data-initialised="true">GROW 
+							</rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap " style="position: absolute; display: block; pointer-events: none; left: 952.5px; top: 515px; z-index: 12;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position:absolute;display:block;"><rs-layer id="slider-7-slide-16-layer-16" class="Montserat rs-layer" data-type="text" data-color="rgba(255, 255, 255, 1)" data-rsp_ch="on" data-xy="x:c;y:m;yo:-42px,-34px,38px,-33px;" data-text="s:54,44,30,22;l:16,13,16,16;fw:700;a:center;" data-frame_0="sX:0.9;sY:0.9;" data-frame_1="y:15px,12px,9px,5px;e:power2.inOut;st:8870;sp:1000;sR:8870;" data-frame_999="o:0;tp:600;e:none;st:11160;sp:500;sR:1290;" style="z-index: 12; font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: center; line-height: 16px; letter-spacing: 0px; font-weight: 700; font-size: 54px; transform-origin: 50% 50% 0px; opacity: 0; transform: scale(0.9);" data-idcheck="true" data-stylerecorder="true" data-initialised="true">TRANSFORM 
+							</rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+
+							--><rs-layer-wrap class="rs-parallax-wrap " style="position: absolute; display: block; pointer-events: none; left: 1023.5px; top: 692px; z-index: 17;"><rs-loop-wrap style="position:absolute;display:block;"><rs-mask-wrap style="position:absolute;display:block;"><rs-layer id="slider-7-slide-16-layer-22" class="rev-btn rs-layer rs-waction rs-wclickaction" data-type="button" data-rsp_ch="on" data-xy="x:c;yo:561px,490px,632px,420px;" data-text="w:normal;s:24,19,14,18;l:50,41,31,43;fw:700;" data-dim="minh:0px,none,none,none;" data-actions="o:click;a:scrollbelow;offset:-100px;sp:300ms;e:none;" data-padding="r:40,33,25,35;l:40,33,25,35;" data-border="bor:3px,3px,3px,3px;" data-frame_0="x:0,0,0,0px;y:0,0,0,0px;" data-frame_1="x:0,0,0,0px;y:0,0,0,0px;st:5790;sR:5790;" data-frame_999="o:0;st:w;sR:11910;" data-frame_hover="bgc:#a31315;bor:3px,3px,3px,3px;sp:100;e:power1.inOut;bri:120%;" style="z-index: 17; background-color: rgb(230, 34, 41); font-family: Montserrat; height: auto; width: auto; color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; text-align: left; line-height: 50px; letter-spacing: 0px; font-weight: 700; font-size: 24px; padding-left: 40px; border-radius: 3px; padding-right: 40px; backdrop-filter: none; filter: brightness(100%); transform-origin: 50% 50% 0px; opacity: 0; transform: translate(0px);" data-idcheck="true" data-stylerecorder="true" data-initialised="true">Learn More 
+							</rs-layer></rs-mask-wrap></rs-loop-wrap></rs-layer-wrap><!--
+-->						</rs-slide>
+					</rs-slides></rs-module>
+				
+				<script type="text/javascript">
+					setREVStartSize({c: 'rev_slider_7_1',rl:[1240,1024,778,480],el:[868,768,960,720],gw:[1240,1024,778,480],gh:[868,768,960,720],type:'standard',justify:'',layout:'fullscreen',offsetContainer:'',offset:'',mh:"0"});
+					var	revapi7,
+						tpj;
+					function revinit_revslider71() {
+					jQuery(function() {
+						tpj = jQuery;
+						revapi7 = tpj("#rev_slider_7_1");
+						if(revapi7==undefined || revapi7.revolution == undefined){
+							revslider_showDoubleJqueryError("rev_slider_7_1");
+						}else{
+							revapi7.revolution({
+								sliderLayout:"fullscreen",
+								duration:"18000ms",
+								visibilityLevels:"1240,1024,778,480",
+								gridwidth:"1240,1024,778,480",
+								gridheight:"868,768,960,720",
+								spinner:"spinner2",
+								perspectiveType:"local",
+								editorheight:"868,768,960,720",
+								responsiveLevels:"1240,1024,778,480",
+								progressBar:{disableProgressBar:true},
+								navigation: {
+									mouseScrollNavigation:false,
+									onHoverStop:false,
+									touch: {
+										touchenabled:true
+									}
+								},
+								parallax: {
+									levels:[5,10,15,20,25,30,35,40,45,46,47,48,49,50,51,55],
+									type:"scroll",
+									origo:"slidercenter",
+									speedbg:250,
+									speedls:250
+								},
+								fallbacks: {
+									allowHTML5AutoPlayOnAndroid:true
+								},
+							});
+						}
+						
+					});
+					} // End of RevInitScript
+				var once_revslider71 = false;
+				if (document.readyState === "loading") {document.addEventListener('readystatechange',function() { if((document.readyState === "interactive" || document.readyState === "complete") && !once_revslider71 ) { once_revslider71 = true; revinit_revslider71();}});} else {once_revslider71 = true; revinit_revslider71();}
+				</script>
+				<script>
+					var htmlDivCss = unescape(".bullet%2C%20.no-bullet%20%7B%0A%20%20%20%20position%3A%20relative%20%21important%3B%0A%20%20%20%20display%3A%20inline-block%20%21important%3B%0A%20%20%20%20letter-spacing%3A%206px%20%21important%3B%0A%20%20%20%20padding%3A%200%2020px%20%21important%3B%0A%7D%0A.bullet%3Abefore%20%7B%0A%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20width%3A%206px%3B%0A%20%20%20%20height%3A%206px%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-top%3A%20-3px%3B%0A%20%20%20%20right%3A%20-2px%3B%0A%20%20%20%20background%3A%20%230085d3%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20-webkit-border-radius%3A%2050%25%3B%0A%20%20%20%20-moz-border-radius%3A%2050%25%3B%0A%7D%0Abody%20.slideshow-preloader%20%7B%0A%09height%3A%201080px%3B%0A%7D%0A%40media%20%28max-width%3A%201259px%29%20%7B%0A%09body%20.slideshow-preloader%20%7B%0A%09%09height%3A%20868px%3B%0A%09%7D%0A%7D%0A%40media%20%28max-width%3A%20979px%29%20%7B%0A%09body%20.slideshow-preloader%20%7B%0A%09%09height%3A%20768px%3B%0A%09%7D%0A%7D%0A%40media%20%28max-width%3A%20767px%29%20%7B%0A%09body%20.slideshow-preloader%20%7B%0A%09%09height%3A%20960px%3B%0A%09%7D%0A%7D%0A%40media%20%28max-width%3A%20480px%29%20%7B%0A%09body%20.slideshow-preloader%20%7B%0A%09%09height%3A%20720px%3B%0A%09%7D%0A%7D%0A%40media%20%28max-width%3A%20480px%29%20%7B%0A%09.bullet%2C%20.no-bullet%20%7B%0A%09%09letter-spacing%3A%201px%20%21important%3B%0A%20%20%20%20%09padding%3A%200%2010px%20%21important%3B%0A%09%7D%0A%7D");
+					var htmlDiv = document.getElementById('rs-plugin-settings-inline-css');
+					if(htmlDiv) {
+						htmlDiv.innerHTML = htmlDiv.innerHTML + htmlDivCss;
+					}else{
+						var htmlDiv = document.createElement('div');
+						htmlDiv.innerHTML = '<style>' + htmlDivCss + '</style>';
+						document.getElementsByTagName('head')[0].appendChild(htmlDiv.childNodes[0]);
+					}
+				</script>
+				<script>
+					var htmlDivCss = unescape("%23rev_slider_7_1_wrapper%20rs-loader.spinner2%7B%20background-color%3A%20%23FFFFFF%20%21important%3B%20%7D");
+					var htmlDiv = document.getElementById('rs-plugin-settings-inline-css');
+					if(htmlDiv) {
+						htmlDiv.innerHTML = htmlDiv.innerHTML + htmlDivCss;
+					}else{
+						var htmlDiv = document.createElement('div');
+						htmlDiv.innerHTML = '<style>' + htmlDivCss + '</style>';
+						document.getElementsByTagName('head')[0].appendChild(htmlDiv.childNodes[0]);
+					}
+				</script>
+			</rs-module-wrap><rs-fw-forcer style="height:1130px"></rs-fw-forcer></rs-fullwidth-wrap>
+			<!-- END REVOLUTION SLIDER -->
+</div>
+<div class="block-content no-bottom-margin no-top-margin">
+	<div class="container">
+		<div class="panel row">
+
+			<div class="panel-center col-xs-12">
+				<article id="post-138" class="post-138 page type-page status-publish">
+
+					<div class="entry-content post-content">
+                        
+						
+							
+						
+						<div class="vc_row-full-width-before"></div><div id="advantage-ceo" data-vc-full-width="true" data-vc-full-width-init="true" data-vc-stretch-content="true" class="vc_row wpb_row vc_row-fluid vc_custom_1584538452304 thegem-custom-68154caf4a4da4256 vc_row-o-equal-height vc_row-flex" style="position: relative; left: -528.283px; width: 2269px; box-sizing: border-box;"><script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("advantage-ceo")); }</script><div class="custom-bottom-border wpb_column vc_column_container vc_col-sm-12 thegem-custom-68154caf4b785927 vc_col-has-fill"><div class="vc_column-inner vc_custom_1584388850431"><div class="wpb_wrapper">
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<h2 style="text-align: center;"><span style="color: #ffffff;">The only peer organization exclusively for private equity backed CEOs</span></h2>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="styled-subtitle" style="text-align: center;"><em><span style="color: #ffffff;">“I have received more value from AdvantageCEO in two months than in an entire year with my former highly regarded CEO group.” – CEO Member</span></em></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-bottom: 10px;"></div></div></div></div><div class="custom-bottom-border wpb_column vc_column_container vc_col-sm-6 thegem-custom-68154caf4be9b6600 vc_col-has-fill"><div class="vc_column-inner vc_custom_1584475773489"><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 150px;"></div><div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-10 vc_col-sm-offset-1 vc_col-xs-offset-1 vc_col-xs-10"><div class="vc_column-inner "><div class="wpb_wrapper">
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p><strong><span style="color: #ffffff; font-size: 28px; font-family: 'Hind'; letter-spacing: 0.03em;">Joining an AdvantageCEO Group</span></strong></p>
+
+			</div>
+		</div>
+	
+<div class="vc_separator wpb_content_element vc_separator_align_center vc_sep_width_20 vc_sep_border_width_2 vc_sep_pos_align_left vc_separator_no_text vc_custom_1584385411569  vc_custom_1584385411569"><span class="vc_sep_holder vc_sep_holder_l"><span style="border-color:#e62229;" class="vc_sep_line"></span></span><span class="vc_sep_holder vc_sep_holder_r"><span style="border-color:#e62229;" class="vc_sep_line"></span></span>
+</div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586361523041">
+			<div class="wpb_wrapper">
+				<p><span style="color: #ffffff;">AdvantageCEO peer groups help accelerate growth and profitability by ensuring value is created from <strong>ALL</strong> group members. How? We carefully screen CEO candidates for skills and fit, then assign our members accordingly. We recognize time is valuable, so we create a network of CEOs that can be relied upon for years to come. Our program is highly selective and offered to a limited number of CEOs each year.</span></p>
+
+			</div>
+		</div>
+	
+</div></div></div></div><div class="clearboth"></div><div class="gem-divider " style="margin-top: 60px;"></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-6 thegem-custom-68154caf4e1229830 vc_col-has-fill"><div class="vc_column-inner vc_custom_1584478798202"><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 150px;"></div><div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-10 vc_col-sm-offset-1 vc_col-xs-offset-1 vc_col-xs-10"><div class="vc_column-inner "><div class="wpb_wrapper">
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p><strong><span style="color: #ffffff; font-size: 28px; font-family: 'Hind'; letter-spacing: 0.03em;">We Understand Private Equity</span></strong></p>
+
+			</div>
+		</div>
+	
+<div class="vc_separator wpb_content_element vc_separator_align_center vc_sep_width_20 vc_sep_border_width_2 vc_sep_pos_align_left vc_separator_no_text vc_custom_1584385419709  vc_custom_1584385419709"><span class="vc_sep_holder vc_sep_holder_l"><span style="border-color:#e62229;" class="vc_sep_line"></span></span><span class="vc_sep_holder vc_sep_holder_r"><span style="border-color:#e62229;" class="vc_sep_line"></span></span>
+</div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586361554086">
+			<div class="wpb_wrapper">
+				<p><span style="color: #ffffff;">We coach, advise and consult to top CEOs of middle market private equity backed companies. Additionally, we work with many private equity firms (or sponsors) directly. We understand the need for accelerated growth in compressed timeframes.</span></p>
+
+			</div>
+		</div>
+	
+</div></div></div></div><div class="clearboth"></div><div class="gem-divider " style="margin-top: 60px;"></div></div></div></div></div><div class="vc_row-full-width vc_clearfix"></div><div class="vc_row-full-width-before"></div><div id="journey" data-vc-full-width="true" data-vc-full-width-init="true" data-vc-parallax="1.5" data-vc-parallax-image="https://advantageceo.com/wp-content/uploads/2020/03/Journey-background.png" class="vc_row wpb_row vc_row-fluid vc_custom_1584538228178 thegem-custom-68154caf4ed0a7062 vc_row-has-fill vc_row-o-equal-height vc_row-flex vc_general vc_parallax vc_parallax-content-moving" style="position: relative; left: -528.283px; box-sizing: border-box; width: 2269px; padding-left: 528.283px; padding-right: 528.717px;"><script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("journey")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-68154caf4f6594107"><div class="vc_column-inner "><div class="wpb_wrapper">
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<h1 style="text-align: center;">Your Journey Starts Together</h1>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="styled-subtitle" style="text-align: center;">Once you are matched with a CEO peer group (no more than 8 in a group), we begin the process together, as a team, led by our experienced chairs. Our structuring process ensures you won’t spend time getting others up to speed or trying to fit into existing relationships. Rather, you will immediately benefit from shared experiences and build strong relationships that will continue to grow in value over time.</div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider hide_devider" style="margin-top: 35px;"></div><div class="vc_separator wpb_content_element vc_separator_align_center vc_sep_width_100 vc_sep_border_width_3 vc_sep_pos_align_center vc_separator_no_text  custom-separator"><span class="vc_sep_holder vc_sep_holder_l"><span style="border-color:#0085d3;" class="vc_sep_line"></span></span><span class="vc_sep_holder vc_sep_holder_r"><span style="border-color:#0085d3;" class="vc_sep_line"></span></span>
+</div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-4 thegem-custom-68154caf4fe6e4788"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="gem-textbox "><div class="gem-textbox-inner" style=""><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 30px;padding-bottom: 55px;"><div class="centered-box"><div class="gem-icon gem-icon-pack-material gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #fcfcfc;margin-top: 10px;margin-bottom: 20px;border-color: #8ec2da;opacity: 1;"><div class="gem-icon-inner" style="background-color: #fcfcfc;"><span class="gem-icon-half-1" style="color: #e62229;"><span class="back-angle"></span></span><span class="gem-icon-half-2" style="color: #e62229;"><span class="back-angle"></span></span></div></div></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586361083054">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;">Our CEO cohorts are thoughtfully crafted with dynamic leaders from across the US.</p>
+
+			</div>
+		</div>
+	
+</div></div></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-4 thegem-custom-68154caf503998382"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="gem-textbox "><div class="gem-textbox-inner" style=""><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 30px;padding-bottom: 55px;"><div class="centered-box"><div class="gem-icon gem-icon-pack-material gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #fcfcfc;margin-top: 10px;margin-bottom: 20px;border-color: #8ec2da;opacity: 1;"><div class="gem-icon-inner" style="background-color: #fcfcfc;"><span class="gem-icon-half-1" style="color: #e62229;"><span class="back-angle"></span></span><span class="gem-icon-half-2" style="color: #e62229;"><span class="back-angle"></span></span></div></div></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586361165376">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;">The AdvantageCEO approach (both virtual and in-person) is incredibly time efficient.</p>
+
+			</div>
+		</div>
+	
+</div></div></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-4 thegem-custom-68154caf507dd2704"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="gem-textbox "><div class="gem-textbox-inner" style=""><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 30px;padding-bottom: 55px;"><div class="centered-box"><div class="gem-icon gem-icon-pack-material gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #fcfcfc;margin-top: 10px;margin-bottom: 20px;border-color: #8ec2da;opacity: 1;"><div class="gem-icon-inner" style="background-color: #fcfcfc;"><span class="gem-icon-half-1" style="color: #e62229;"><span class="back-angle"></span></span><span class="gem-icon-half-2" style="color: #e62229;"><span class="back-angle"></span></span></div></div></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586361185685">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;">Learning involves your peers and co-chairs, as well as world-class guest speakers.</p>
+
+			</div>
+		</div>
+	
+</div></div></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-68154caf50bf0974"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="vc_row wpb_row vc_inner vc_row-fluid vc_column-gap-5 vc_row-o-equal-height vc_row-o-content-top vc_row-flex"><div class="wpb_column vc_column_container vc_col-sm-2"><div class="vc_column-inner "><div class="wpb_wrapper"></div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="gem-textbox "><div class="gem-textbox-inner" style=""><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 30px;padding-bottom: 55px;"><div class="centered-box"><div class="gem-icon gem-icon-pack-material gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #fcfcfc;margin-top: 10px;margin-bottom: 20px;border-color: #8ec2da;opacity: 1;"><div class="gem-icon-inner" style="background-color: #fcfcfc;"><span class="gem-icon-half-1" style="color: #e62229;"><span class="back-angle"></span></span><span class="gem-icon-half-2" style="color: #e62229;"><span class="back-angle"></span></span></div></div></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586361214666">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;">Our participants develop strong, professional relationships that grow within and beyond the formal group structure.</p>
+
+			</div>
+		</div>
+	
+</div></div></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="gem-textbox "><div class="gem-textbox-inner" style=""><div class="gem-textbox-content" style="background-color: #ffffff;background-position: center top;padding-top: 30px;padding-bottom: 55px;"><div class="centered-box"><div class="gem-icon gem-icon-pack-material gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #fcfcfc;margin-top: 10px;margin-bottom: 20px;border-color: #8ec2da;opacity: 1;"><div class="gem-icon-inner" style="background-color: #fcfcfc;"><span class="gem-icon-half-1" style="color: #e62229;"><span class="back-angle"></span></span><span class="gem-icon-half-2" style="color: #e62229;"><span class="back-angle"></span></span></div></div></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586361235387">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;">The unique needs of our CEOs are met through our customized approach.</p>
+
+			</div>
+		</div>
+	
+<div class="vc_empty_space" style="height: 8px"><span class="vc_empty_space_inner"></span></div></div></div></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-2"><div class="vc_column-inner "><div class="wpb_wrapper"></div></div></div></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="styled-subtitle" style="text-align: center;"><span style="color: #1a1a1a;"><em>“In a CEO forum, you would be happy to derive value from ~ 25% of the members. With AdvantageCEO, I am finding value from each CEO in every discussion, not just the topics that I initiate.” – CEO Member</em></span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider hide_devider" style="margin-top: 100px;"></div></div></div></div><div class="vc_parallax-inner skrollable skrollable-before" style="height: 150%; background-image: url(&quot;https://advantageceo.com/wp-content/uploads/2020/03/Journey-background.png&quot;); top: -50%;" data-bottom-top="top: -50%;" data-top-bottom="top: 0%;"></div></div><div class="vc_row-full-width vc_clearfix"></div>
+<style>
+#journey .vc_col-has-fill>.vc_column-inner, #journey .vc_row-has-fill+.vc_row-full-width+.vc_row>.vc_column_container>.vc_column-inner, #journey .vc_row-has-fill+.vc_row>.vc_column_container>.vc_column-inner, #journey .vc_row-has-fill>.vc_column_container>.vc_column-inner {
+    padding-top: Opx !important;
+}
+</style>
+<div id="our-chairs" class="vc_row wpb_row vc_row-fluid vc_custom_1584537933302 thegem-custom-68154caf521f33575"><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-68154caf524f94725"><div class="vc_column-inner "><div class="wpb_wrapper"><div id="fullwidth-block-68154caf52b72" class="fullwidth-block clearfix" style="padding-top: 132px; padding-bottom: 188px; width: 2268.57px; left: -549.283px;"><script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-68154caf52b72")); }</script><div class="tgpli-inited tgpli-background-inited fullwidth-block-background" style="background-image: url(https://advantageceo.com/wp-content/uploads/2020/03/AdvantageCEO-banner-scaled.jpg);background-repeat: no-repeat; background-size: cover;background-position: center top;" id="tgpli-68154caf670b8"><script>window.tgpQueue.add('tgpli-68154caf670b8')</script></div><div class="fullwidth-block-inner"><div class="clearboth"></div><div class="gem-divider " style="margin-top: -10px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="title-h1" style="text-align: center;"><span style="color: #ffffff;">Our Chairs</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 20px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="styled-subtitle" style="text-align: center;"><span style="color: #fff; display: block; max-width: 610px; margin: 0 auto;">Our success in helping our clients to create more value faster connects directly to our disciplined approach and ability to leverage our expertise in private equity.</span></div>
+
+			</div>
+		</div>
+	
+</div></div></div></div></div></div><div class="vc_row-full-width-before"></div><div id="vc_row-68154caf53185" data-vc-full-width="true" data-vc-full-width-init="true" class="vc_row wpb_row vc_row-fluid custom_overflow our_leaders vc_custom_1584537925683 thegem-custom-68154caf531709033 vc_row-has-fill" style="position: relative; left: -528.283px; box-sizing: border-box; width: 2269px; padding-left: 528.283px; padding-right: 528.717px;"><script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-68154caf53185")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-xs thegem-custom-68154caf534c03484"><div class="vc_column-inner vc_custom_1585594387405"><div class="wpb_wrapper"><div class="vc_row wpb_row vc_inner vc_row-fluid vc_row-o-equal-height vc_row-flex"><div class="wpb_column vc_column_container vc_col-sm-6 vc_col-has-fill"><div class="vc_column-inner vc_custom_1583945989837"><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 50px;"></div><div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-14 gem-wrapbox-position-centered" style="width: 128px;"><div class="gem-wrapbox-inner "><img decoding="async" class="gem-wrapbox-element img-responsive" data-tgpli-src="https://advantageceo.com/wp-content/uploads/2020/03/Taavo-Godtfredsen-Picture-400px.png" alt="" data-tgpli-inited="" data-tgpli-image-inited="" id="tgpli-68154caf66fa5"><script>window.tgpQueue.add('tgpli-68154caf66fa5')</script><noscript><img decoding="async" class="gem-wrapbox-element img-responsive" src="https://advantageceo.com/wp-content/uploads/2020/03/Taavo-Godtfredsen-Picture-400px.png" alt=""/></noscript></div></div></div><div class="clearboth"></div><div class="gem-divider " style="margin-top: 33px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="title-h5" style="text-align: center;"><span style="color: #e62229;">Taavo Godtfredsen</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: -17px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="small-body" style="text-align: center;"><span style="color: #99a9b5;">Talent and Leadership Expert</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 30px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586794491585">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;"><strong><em>Taavo has worked with various CEOs and executives across multiple private equity portfolio companies. He has an incredible ability to coach and grow leaders who not only grow their teams and their businesses but deliver on value creation in a way that is truly sustainable for the organization and equity owners.</em></strong></p>
+<p style="text-align: center;"><em>-CEO, Private Equity Portfolio Company</em></p>
+<p style="font-weight: 400; text-align: center;">Taavo Godtfredsen is an advisor and coach to private equity and venture capital leaders and CEOs and is the co-founder of AdvantageCEO, the world’s only peer organization for private equity CEOs. Taavo was a successful business leader and owner turned CEO coach. He is also the leadership and coaching advisor to the global 100 Coaches Organization founded by Marshall Goldsmith, the world’s most influential leadership thinker. (Thinkers50).</p>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 30px;"></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-6 vc_col-has-fill"><div class="vc_column-inner vc_custom_1585593083798"><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 50px;"></div><div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-14 gem-wrapbox-position-centered" style="width: 128px;"><div class="gem-wrapbox-inner "><img decoding="async" class="gem-wrapbox-element img-responsive" data-tgpli-src="https://advantageceo.com/wp-content/uploads/2020/03/Samantha-Allison-Headshot3.png" alt="" data-tgpli-inited="" data-tgpli-image-inited="" id="tgpli-68154caf66fb1"><script>window.tgpQueue.add('tgpli-68154caf66fb1')</script><noscript><img decoding="async" class="gem-wrapbox-element img-responsive" src="https://advantageceo.com/wp-content/uploads/2020/03/Samantha-Allison-Headshot3.png" alt=""/></noscript></div></div></div><div class="clearboth"></div><div class="gem-divider " style="margin-top: 33px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="title-h5" style="text-align: center;"><span style="color: #e62229;">Samantha Allison</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: -17px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="small-body" style="text-align: center;"><span style="color: #99a9b5;">Strategy and M&amp;A Integration Expert</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 30px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586794515649">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;"><strong><em>Sam is a top integration and business strategy expert. She worked with us during a time of rapid change, overseeing a wide array of mission-critical projects and moving us from our public company parent to become private equity-backed. She is a great partner who can engage the entire team for success.</em></strong></p>
+<p style="text-align: center;"><em>-CEO, Private Equity Portfolio Company </em></p>
+<p style="font-weight: 400; text-align: center;">Samantha Allison is a strategic advisor and M&amp;A integration expert to private equity companies, and is the co-founder of AdvantageCEO, the world’s only peer organization for private equity CEOs. As one of the youngest executives at GE, Sam held a variety of leadership roles in financial services and healthcare. Sam is a graduate of GE’s exclusive Financial Management Program and Corporate Audit Staff, and is a Certified Six Sigma Black Belt, Quality Leader and Change Acceleration Process facilitator.</p>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 30px;"></div></div></div></div></div><div class="gem-button-container gem-button-position-center thegem-button-68154caf555be1598" "=""><a title="Our Team" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 3px;background-color: #e62229;color: #ffffff;" onmouseleave="this.style.backgroundColor='#e62229';this.style.color='#ffffff';" onmouseenter="this.style.backgroundColor='#b21a1a';this.style.color='#ffffff';" href="https://advantageceo.com/our-chairs/" target="_self">Learn More About Us</a></div> <div class="clearboth"></div><div class="gem-divider hide_devider" style="margin-top: 100px;"></div></div></div></div></div><div class="vc_row-full-width vc_clearfix"></div><div class="vc_row-full-width-before"></div><div id="vc_row-68154caf55b75" data-vc-full-width="true" data-vc-full-width-init="true" class="vc_row wpb_row vc_row-fluid custom_overflow our_leaders vc_custom_1584537925683 thegem-custom-68154caf55b4c6276 vc_row-has-fill" style="position: relative; left: -528.283px; box-sizing: border-box; width: 2269px; padding-left: 528.283px; padding-right: 528.717px;"><script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("vc_row-68154caf55b75")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 vc_hidden-lg vc_hidden-md vc_hidden-sm thegem-custom-68154caf55f817010"><div class="vc_column-inner vc_custom_1585594504333"><div class="wpb_wrapper"><div class="vc_row wpb_row vc_inner vc_row-fluid vc_row-o-equal-height vc_row-flex"><div class="wpb_column vc_column_container vc_col-sm-6 vc_col-has-fill"><div class="vc_column-inner vc_custom_1585594533986"><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 50px;"></div><div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-14 gem-wrapbox-position-centered" style="width: 128px;"><div class="gem-wrapbox-inner "><img decoding="async" class="gem-wrapbox-element img-responsive" data-tgpli-src="https://advantageceo.com/wp-content/uploads/2020/03/Taavo-Godtfredsen-Picture-400px.png" alt="" data-tgpli-inited="" data-tgpli-image-inited="" id="tgpli-68154caf66ffd"><script>window.tgpQueue.add('tgpli-68154caf66ffd')</script><noscript><img decoding="async" class="gem-wrapbox-element img-responsive" src="https://advantageceo.com/wp-content/uploads/2020/03/Taavo-Godtfredsen-Picture-400px.png" alt=""/></noscript></div></div></div><div class="clearboth"></div><div class="gem-divider " style="margin-top: 33px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="title-h5" style="text-align: center;"><span style="color: #e62229;">Taavo Godtfredsen</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: -17px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="small-body" style="text-align: center;"><span style="color: #99a9b5;">Talent and Leadership Expert</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 30px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1585345724642">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;"><strong><em>Taavo has worked with various CEOs and executives across multiple Private Equity portfolio companies. He has an incredible ability to coach and grow leaders who not only grow their teams and their businesses but deliver on value creation in a way that is truly sustainable for the organization and equity owners.</em></strong></p>
+<p style="text-align: center;"><em>-CEO, Private Equity Portfolio Company</em></p>
+<p style="font-weight: 400; text-align: center;">Taavo Godtfredsen is an advisor and coach to private equity and venture capital leaders and CEOs and is the co-founder of AdvantageCEO, the world’s only peer organization for private equity CEOs. Taavo was a successful business leader and owner turned CEO coach. He is also the leadership and coaching advisor to the global 100 Coaches Organization founded by Marshall Goldsmith, <em>the world’s most influential leadership thinker.</em> (Thinkers50).</p>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 30px;"></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-6 vc_col-has-fill"><div class="vc_column-inner vc_custom_1585594525116"><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 50px;"></div><div class="centered-box gem-image-centered-box"><div class="gem-image gem-wrapbox gem-wrapbox-style-14 gem-wrapbox-position-centered" style="width: 128px;"><div class="gem-wrapbox-inner "><img decoding="async" class="gem-wrapbox-element img-responsive" data-tgpli-src="https://advantageceo.com/wp-content/uploads/2020/03/Samantha-Allison-Headshot3.png" alt="" data-tgpli-inited="" data-tgpli-image-inited="" id="tgpli-68154caf6700b"><script>window.tgpQueue.add('tgpli-68154caf6700b')</script><noscript><img decoding="async" class="gem-wrapbox-element img-responsive" src="https://advantageceo.com/wp-content/uploads/2020/03/Samantha-Allison-Headshot3.png" alt=""/></noscript></div></div></div><div class="clearboth"></div><div class="gem-divider " style="margin-top: 33px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="title-h5" style="text-align: center;"><span style="color: #e62229;">Samantha Allison</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: -17px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="small-body" style="text-align: center;"><span style="color: #99a9b5;">Strategy and M&amp;A Integration Expert</span></div>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 30px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1585667776221">
+			<div class="wpb_wrapper">
+				<p style="text-align: center;"><strong><em>Sam is a top integration and business strategy expert. She worked with us during a time of rapid change, overseeing a wide array of mission-critical projects and moving us from our public-company parent to become private-equity-backed. She is a great partner who can engage the entire team for success.</em></strong></p>
+<p style="text-align: center;"><em>-CEO, Private Equity Portfolio Company </em></p>
+<p style="font-weight: 400; text-align: center;">Samantha Allison is a strategic advisor and M&amp;A integration expert to private equity companies, and is the co-founder of AdvantageCEO, the world’s only peer organization for private equity CEOs. As one of the youngest executives at GE, Sam held a variety of leadership roles in financial services and healthcare. Sam is a graduate of GE’s exclusive Financial Management Program and Corporate Audit Staff, and is a Certified Six Sigma Black Belt, Quality Leader and Change Acceleration Process facilitator.</p>
+
+			</div>
+		</div>
+	
+<div class="clearboth"></div><div class="gem-divider " style="margin-top: 30px;"></div></div></div></div></div><div class="gem-button-container gem-button-position-center thegem-button-68154caf579395650" "=""><a title="Our Team" class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal gem-button-no-uppercase" style="border-radius: 3px;background-color: #e62229;color: #ffffff;" onmouseleave="this.style.backgroundColor='#e62229';this.style.color='#ffffff';" onmouseenter="this.style.backgroundColor='#b21a1a';this.style.color='#ffffff';" href="https://advantageceo.com/our-chairs/" target="_self">Learn More About Us</a></div> <div class="clearboth"></div><div class="gem-divider hide_devider" style="margin-top: 100px;"></div></div></div></div></div><div class="vc_row-full-width vc_clearfix"></div><div class="vc_row-full-width-before"></div><div id="interested" data-vc-full-width="true" data-vc-full-width-init="true" class="vc_row wpb_row vc_row-fluid vc_custom_1584042602777 thegem-custom-68154caf57e984537" style="position: relative; left: -528.283px; box-sizing: border-box; width: 2269px; padding-left: 528.283px; padding-right: 528.717px;"><script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("interested")); }</script><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-68154caf583657921"><div class="vc_column-inner vc_custom_1584043812644"><div class="wpb_wrapper"><div id="fullwidth-block-68154caf58b9c" class="fullwidth-block fullwidth-block-parallax-vertical clearfix" data-mobile-parallax-enable="0" style="padding-top: 150px; padding-bottom: 100px; width: 2268.57px; left: -549.283px;"><script type="text/javascript">if (typeof(gem_fix_fullwidth_position) == "function") { gem_fix_fullwidth_position(document.getElementById("fullwidth-block-68154caf58b9c")); }</script><div class="tgpli-inited tgpli-background-inited fullwidth-block-background" style="background-image: url(https://advantageceo.com/wp-content/uploads/2017/07/7.jpg);background-repeat: no-repeat; background-size: cover;background-position: center top;" id="tgpli-68154caf670e2"><script>window.tgpQueue.add('tgpli-68154caf670e2')</script></div><div class="fullwidth-block-inner"><div class="container"><div class="clearboth"></div><div class="gem-divider " style="margin-top: -10px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="title-h2" style="text-align: center;"><span style="color: #1b1e20;">Interested in Learning More?</span></div>
+
+			</div>
+		</div>
+	
+
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="styled-subtitle" style="text-align: center;">Please review the qualification criteria before submitting your contact information. Once received, an AdvantageCEO representative will reach out to you to schedule an interview as part of the screening process. If you have any questions about membership, please email us at <a href="mailto:membership@advantageceo.com">membership@AdvantageCEO.com.</a></div>
+
+			</div>
+		</div>
+	
+<div class="vc_separator wpb_content_element vc_separator_align_center vc_sep_width_100 vc_sep_border_width_3 vc_sep_pos_align_center vc_separator_no_text  custom-separator"><span class="vc_sep_holder vc_sep_holder_l"><span style="border-color:#0085d3;" class="vc_sep_line"></span></span><span class="vc_sep_holder vc_sep_holder_r"><span style="border-color:#0085d3;" class="vc_sep_line"></span></span>
+</div><div class="clearboth"></div><div class="gem-divider " style="margin-top: 70px;"></div><div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="gem-textbox  centered-box"><div class="gem-textbox-inner" style="border: 1px solid #8ec2da;border-top-right-radius: 25px;border-bottom-right-radius: 25px;border-bottom-left-radius: 25px;"><div class="gem-textbox-title" style="color: #000000;background-color: #ffffff;padding-left: 25px;padding-right: 25px;"><div class="gem-textbox-title-icon"><div class="gem-icon gem-icon-pack-material gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #fcfcfc;border-color: #8ec2da;opacity: 1;"><div class="gem-icon-inner" style="background-color: #fcfcfc;"><span class="gem-icon-half-1" style="color: #e62229;"><span class="back-angle"></span></span><span class="gem-icon-half-2" style="color: #e62229;"><span class="back-angle"></span></span></div></div></div></div><div class="gem-textbox-content" style="background-color: #ffffff;background-repeat: no-repeat; background-size: cover;background-position: center top;padding-top: 25px;padding-bottom: 25px;padding-left: 25px;padding-right: 25px;">
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586372212415">
+			<div class="wpb_wrapper">
+				<p><span style="color: #000000;"><b>Qualifying Title &amp; Ownership</b></span></p>
+<p>To join an AdvantageCEO group, you must be a Chief Executive Officer of a private equity backed mid-market corporation.</p>
+
+			</div>
+		</div>
+	
+</div></div></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-6"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="gem-textbox  centered-box"><div class="gem-textbox-inner" style="border: 1px solid #8ec2da;border-top-right-radius: 25px;border-bottom-right-radius: 25px;border-bottom-left-radius: 25px;"><div class="gem-textbox-title" style="background-color: #ffffff;padding-left: 25px;padding-right: 25px;"><div class="gem-textbox-title-icon"><div class="gem-icon gem-icon-pack-material gem-icon-size-medium  gem-icon-shape-circle" style="border-color: #fcfcfc;border-color: #8ec2da;opacity: 1;"><div class="gem-icon-inner" style="background-color: #fcfcfc;"><span class="gem-icon-half-1" style="color: #e62229;"><span class="back-angle"></span></span><span class="gem-icon-half-2" style="color: #e62229;"><span class="back-angle"></span></span></div></div></div></div><div class="gem-textbox-content" style="background-color: #ffffff;background-repeat: no-repeat; background-size: cover;background-position: center top;padding-top: 25px;padding-bottom: 25px;padding-left: 25px;padding-right: 25px;">
+	
+		<div class="wpb_text_column wpb_content_element  vc_custom_1586372229384">
+			<div class="wpb_wrapper">
+				<p><span style="color: #000000;"><b>CEO Selection</b></span></p>
+<p>We screen for CEOs who have a strong record of success, humility, and embrace continuous improvement.</p>
+
+			</div>
+		</div>
+	
+</div></div></div></div></div></div></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<div class="styled-subtitle" style="text-align: center;">Please email us at <a href="mailto:membership@advantageceo.com">membership@AdvantageCEO.com</a> or fill out the form below.</div>
+
+			</div>
+		</div>
+	
+<div role="form" class="wpcf7" id="wpcf7-f1907-p138-o1" lang="en-US" dir="ltr">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/#wpcf7-f1907-p138-o1" method="post" class="wpcf7-form gem-contact-form-white init" novalidate="novalidate" data-status="init">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="1907">
+<input type="hidden" name="_wpcf7_version" value="5.6.3">
+<input type="hidden" name="_wpcf7_locale" value="en_US">
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1907-p138-o1">
+<input type="hidden" name="_wpcf7_container_post" value="138">
+<input type="hidden" name="_wpcf7_posted_data_hash" value="">
+</div>
+<div class="contact-form row">
+<p><strong style="padding-left: 25px; color: #3C3950;">Membership:</strong> <span style="padding-left: 25px;"><span class="wpcf7-form-control-wrap" data-name="checkbox-605"><span class="wpcf7-form-control wpcf7-checkbox wpcf7-validates-as-required"><span class="wpcf7-list-item first"><input type="checkbox" name="checkbox-605[]" value="I am a CEO interested in becoming a member."><span class="wpcf7-list-item-label">I am a CEO interested in becoming a member.</span></span><span class="wpcf7-list-item last"><input type="checkbox" name="checkbox-605[]" value="I am a leader in a private equity firm and I am interested in membership for our portfolio CEO(s)."><span class="wpcf7-list-item-label">I am a leader in a private equity firm and I am interested in membership for our portfolio CEO(s).</span></span></span></span></span></p>
+<div style="margin-bottom: 40px;" class="col-lg-4 col-md-4 col-xs-12"><span class="wpcf7-form-control-wrap" data-name="your-firstname"><input type="text" name="your-firstname" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="First Name*"></span></div>
+<div style="margin-bottom: 40px;" class="col-lg-4 col-md-4 col-xs-12"><span class="wpcf7-form-control-wrap" data-name="your-lastname"><input type="text" name="your-lastname" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Last Name*"></span></div>
+<div style="margin-bottom: 40px;" class="col-lg-4 col-md-4 col-xs-12"><span class="wpcf7-form-control-wrap" data-name="your-title"><input type="text" name="your-title" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Title"></span></div>
+<div style="margin-bottom: 40px;" class="col-lg-4 col-md-4 col-xs-12"><span class="wpcf7-form-control-wrap" data-name="your-company"><input type="text" name="your-company" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Company*"></span></div>
+<div style="margin-bottom: 40px;" class="col-lg-4 col-md-4 col-xs-12"><span class="wpcf7-form-control-wrap" data-name="your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email*"></span></div>
+<div style="margin-bottom: 40px;" class="col-lg-4 col-md-4 col-xs-12"><span class="wpcf7-form-control-wrap" data-name="tel-262"><input type="tel" name="tel-262" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-tel" aria-invalid="false" placeholder="Phone Number"></span></div>
+<div style="margin-bottom: 40px;" class="col-lg-12 col-md-12 col-xs-12"><span class="wpcf7-form-control-wrap" data-name="your-pe"><input type="text" name="your-pe" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Private Equity Owner(s)"></span></div>
+<div style="margin-bottom: 15px;" class="col-lg-12 col-md-12 col-xs-12"><span class="wpcf7-form-control-wrap" data-name="your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="General Description of Your Inquiry"></textarea></span></div>
+<div class="col-lg-12 col-md-12 col-xs-12"><div class="gem-button-container gem-button-position-center thegem-button-68154caf5ba036762" "=""><input class="gem-button gem-button-size-medium gem-button-style-flat gem-button-text-weight-normal wpcf7-form-control wpcf7-submit gem-button-wpcf-custom" style="border-radius: 3px;background-color: #E62229;" onmouseleave="this.style.backgroundColor='#E62229';" onmouseenter="this.style.backgroundColor='#C11719';" id="" tabindex="" type="submit" value="Start the Dialogue"></div> </div>
+</div>
+<div class="wpcf7-response-output" aria-hidden="true"></div></form></div></div></div></div></div></div></div></div><div class="vc_row-full-width vc_clearfix"></div>
+					</div><!-- .entry-content -->
+
+					
+					
+					
+					
+					
+				</article><!-- #post-## -->
+
+			</div>
+
+			
+		</div>
+
+	</div>
+</div><!-- .block-content -->
+
+</div><!-- #main-content -->
+
+
+		</div><!-- #main -->
+		<div id="lazy-loading-point"></div>
+
+												<footer class="custom-footer">
+													<div class="container"><div id="vc_row-68154caf5dc8c" class="vc_row wpb_row vc_row-fluid thegem-custom-68154caf5dc612325"><div class="wpb_column vc_column_container vc_col-sm-6 thegem-custom-68154caf5e1013642"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 35px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p>Copyright © 2020-2021 AdvantageCEO. All rights reserved.</p>
+
+			</div>
+		</div>
+	
+</div></div></div><div class="wpb_column vc_column_container vc_col-sm-6 thegem-custom-68154caf5e5de5273"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 35px;"></div>
+	
+		<div class="wpb_text_column wpb_content_element ">
+			<div class="wpb_wrapper">
+				<p style="text-align: right;"><a href="https://advantageceo.com/privacy-policy/">Privacy Policy</a></p>
+<div id="gtx-trans" style="position: absolute; left: -79px; top: -17px;">
+<div class="gtx-trans-icon"></div>
+</div>
+
+			</div>
+		</div>
+	
+</div></div></div></div><div id="vc_row-68154caf5ebb4" class="vc_row wpb_row vc_row-fluid thegem-custom-68154caf5eb9e4997"><div class="wpb_column vc_column_container vc_col-sm-12 thegem-custom-68154caf5ee714963"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="clearboth"></div><div class="gem-divider " style="margin-top: 35px;"></div></div></div></div></div>
+</div>
+										</footer>
+									<footer id="colophon" class="site-footer" role="contentinfo">
+				<div class="container">
+					
+<div class="row inline-row footer-widget-area" role="complementary" style="position: relative; height: 0px;">
+	</div><!-- .footer-widget-area -->
+				</div>
+			</footer><!-- #colophon -->
+			
+						
+			</div><!-- #page -->
+
+	
+	<script type="text/html" id="wpb-modifications"></script><link href="https://fonts.googleapis.com/css?family=Montserrat:300%2C700%7CRoboto:400" rel="stylesheet" property="stylesheet" media="all" type="text/css">
+
+		<script type="text/javascript">
+		if(typeof revslider_showDoubleJqueryError === "undefined") {
+			function revslider_showDoubleJqueryError(sliderID) {
+				var err = "<div class='rs_error_message_box'>";
+				err += "<div class='rs_error_message_oops'>Oops...</div>";
+				err += "<div class='rs_error_message_content'>";
+				err += "You have some jquery.js library include that comes after the Slider Revolution files js inclusion.<br>";
+				err += "To fix this, you can:<br>&nbsp;&nbsp;&nbsp; 1. Set 'Module General Options' -> 'Advanced' -> 'jQuery & OutPut Filters' -> 'Put JS to Body' to on";
+				err += "<br>&nbsp;&nbsp;&nbsp; 2. Find the double jQuery.js inclusion and remove it";
+				err += "</div>";
+			err += "</div>";
+				var slider = document.getElementById(sliderID); slider.innerHTML = err; slider.style.display = "block";
+			}
+		}
+		</script>
+
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/jquery.dlmenu.js?ver=6.7.1" id="jquery-dlmenu-js"></script>
+<script type="text/javascript" id="thegem-menu-init-script-js-extra">
+/* <![CDATA[ */
+var thegem_dlmenu_settings = {"backLabel":"Back","showCurrentLabel":"Show this page"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/thegem-menu_init.js?ver=6.7.1" id="thegem-menu-init-script-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/svg4everybody.js?ver=6.7.1" id="svg4everybody-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/thegem-form-elements.js?ver=6.7.1" id="thegem-form-elements-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/jquery.easing.js?ver=6.7.1" id="jquery-easing-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/thegem-header.js?ver=6.7.1" id="thegem-header-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/functions.js?ver=6.7.1" id="thegem-scripts-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/fancyBox/jquery.mousewheel.pack.js?ver=6.7.1" id="jquery-mousewheel-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/fancyBox/jquery.fancybox.min.js?ver=6.7.1" id="jquery-fancybox-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/fancyBox/jquery.fancybox-init.js?ver=6.7.1" id="fancybox-init-script-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.6.3" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-extra">
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/advantageceo.com\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.6.3" id="contact-form-7-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=6.6.0" id="wpb_composer_front_js-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/plugins/js_composer/assets/lib/bower/skrollr/dist/skrollr.min.js?ver=6.6.0" id="vc_jquery_skrollr_js-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/jquery.parallaxVertical.js?ver=6.7.1" id="thegem-parallax-vertical-js"></script>
+<script type="text/javascript" src="https://advantageceo.com/wp-content/themes/thegem/js/isotope.min.js?ver=6.7.1" id="isotope-js-js"></script>
+<script type="text/javascript">(function() {var parent = document.getElementById("page");var deferredFile1 = document.createElement("link");deferredFile1.rel = "stylesheet";deferredFile1.type = "text/css";deferredFile1.href = "https://advantageceo.com/wp-content/themes/thegem/css/icons-material.css?ver=6.7.1";document.body.appendChild(deferredFile1);window.addEventListener("load",function(){var elem = document.getElementById("thegem-preloader-inline-css"); if (elem!==null) setTimeout(function() {elem.parentNode.removeChild(elem)}, 300); });})();</script><link rel="stylesheet" type="text/css" href="https://advantageceo.com/wp-content/themes/thegem/css/icons-material.css?ver=6.7.1">
+
+
+</body>

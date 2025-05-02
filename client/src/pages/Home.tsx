@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 // Import the logo from assets
-import logoSvg from '../assets/5xceo-logo.svg';
+import logoSvg from '../assets/advantage-ceo-logo.svg';
 
 const Home = () => {
   return (
