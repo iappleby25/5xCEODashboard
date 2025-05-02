@@ -44,7 +44,7 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
   const getPosition = (index: number, total: number) => {
     // Start at the top (270 degrees) and go clockwise
     const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
-    const radius = 120; // Size of the radial menu
+    const radius = 105; // Reduced radius to allow center node to overlap
     const x = radius * Math.cos(angle);
     const y = radius * Math.sin(angle);
     return { x, y };
@@ -110,13 +110,18 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
       })}
 
       {/* Center Toggle Button (using a div wrapper to maintain position) */}
-      <div className="absolute z-20 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20">
+      <div className="absolute z-30 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24">
         <motion.button
           className={`w-full h-full rounded-full 
-                      flex items-center justify-center text-white font-bold shadow-lg
+                      flex items-center justify-center text-white font-bold shadow-lg text-lg
                       ${activeView === 'MyCEO' ? 'bg-blue-600' : 'bg-orange-500'}`}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          initial={{ scale: 1 }}
+          animate={{ 
+            scale: 1,
+            boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.25)'
+          }}
           transition={{ duration: 0.2 }}
           onClick={onToggleView}
         >
