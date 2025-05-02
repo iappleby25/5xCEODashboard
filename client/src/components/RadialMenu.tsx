@@ -109,18 +109,20 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
         );
       })}
 
-      {/* Center Toggle Button */}
-      <motion.button
-        className={`absolute z-20 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full 
-                    flex items-center justify-center text-white font-bold shadow-lg
-                    ${activeView === 'myCEO' ? 'bg-blue-600' : 'bg-orange-600'}`}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.2 }}
-        onClick={onToggleView}
-      >
-        {activeView === 'myCEO' ? 'myCEO' : '5xCEO'}
-      </motion.button>
+      {/* Center Toggle Button (using a div wrapper to maintain position) */}
+      <div className="absolute z-20 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20">
+        <motion.button
+          className={`w-full h-full rounded-full 
+                      flex items-center justify-center text-white font-bold shadow-lg
+                      ${activeView === 'myCEO' ? 'bg-blue-600' : 'bg-orange-500'}`}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+          onClick={onToggleView}
+        >
+          {activeView === 'myCEO' ? 'myCEO' : '5xCEO'}
+        </motion.button>
+      </div>
     </div>
   );
 };
