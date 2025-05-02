@@ -40,11 +40,20 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
     };
   }, []);
 
-  // Calculate positions for the 5 panels in a pentagon shape
+  // Calculate positions for the 5 panels in a pentagon shape with specific offsets
   const getPosition = (index: number, total: number) => {
-    // Start at the top (270 degrees) and go clockwise
-    const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
-    const radius = 90; // Further reduced radius to create overlap with center node
+    // Start at the top (270 degrees) and go clockwise with custom angles
+    // Adjust angles to better match the design image
+    const angles = [
+      -Math.PI/2,      // top (Strategic Clarity)
+      -Math.PI/6,      // top-right (Scalable Talent)
+      Math.PI/3,       // bottom-right (Relentless Focus)
+      2*Math.PI/3,     // bottom-left (Disciplined Execution)
+      7*Math.PI/6      // top-left (Energized Culture)
+    ];
+    
+    const radius = 95; // Distance from center
+    const angle = angles[index];
     const x = radius * Math.cos(angle);
     const y = radius * Math.sin(angle);
     return { x, y };
@@ -52,27 +61,7 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
 
   return (
     <div ref={containerRef} className="relative w-[350px] h-[350px] mx-auto">
-      {/* SVG Background for connecting lines */}
-      <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <g transform={`translate(${centerPoint.x}, ${centerPoint.y})`}>
-          {categories.map((category, index) => {
-            const pos = getPosition(index, categories.length);
-            return (
-              <line
-                key={`line-${category.id}`}
-                x1="0"
-                y1="0"
-                x2={pos.x}
-                y2={pos.y}
-                stroke="#e2e8f0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-                strokeLinecap="round"
-              />
-            );
-          })}
-        </g>
-      </svg>
+      {/* Removing connecting lines for a cleaner look to match design images */}
       
       {/* Radial Panels */}
       {categories.map((category, index) => {
@@ -101,12 +90,13 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
             onHoverEnd={() => setHoverCategory(null)}
             onClick={() => onSelectCategory(category)}
           >
-            {/* Position content based on the node's position to prevent overlap with center */}
-            <div className={`flex flex-col items-center justify-center w-full h-full 
-                          ${index === 0 ? 'pt-2 pb-6' : // top node - push content up
-                             index === 1 ? 'pr-2 pl-6' : // right node - push content right
-                             index === 2 ? 'pb-2 pt-6' : // bottom node - push content down
-                             index === 3 ? 'pl-2 pr-6' : // left node - push content left
+            {/* Position content based on the node's position to match the design image */}
+            <div className={`flex flex-col items-center justify-center w-full h-full
+                          ${index === 0 ? 'pt-1 pb-7' : // top node (Strategic Clarity) - push content up
+                             index === 1 ? 'pr-1 pl-5' : // top-right node (Scalable Talent) - push content right
+                             index === 2 ? 'pb-1 pt-5' : // bottom-right node (Relentless Focus) - push content down
+                             index === 3 ? 'pb-1 pt-5' : // bottom-left node (Disciplined Execution) - push content down
+                             index === 4 ? 'pr-5 pl-1' : // top-left node (Energized Culture) - push content left
                              'justify-center'}`}>
               <span className={`text-sm font-medium text-center px-1 ${colors.text}`}>
                 {category.name}
