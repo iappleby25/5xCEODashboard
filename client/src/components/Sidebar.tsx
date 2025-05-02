@@ -52,8 +52,8 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
   return (
     <aside className={sidebarClasses}>
       <div className="p-4 border-b border-neutral-200 flex items-center space-x-2">
-        <img src={logoSvg} alt="5xCEO Logo" className="h-8 w-8" />
-        <h1 className="font-semibold text-lg">5xCEO</h1>
+        <img src={logoSvg} alt="AdvantageCEO Logo" className="h-8 w-8" />
+        <h1 className="font-semibold text-lg">AdvantageCEO</h1>
       </div>
       
       <nav className="flex-1 overflow-y-auto py-4">

@@ -104,7 +104,12 @@ export default function Dashboard() {
       {/* AI Insight Panel */}
       <AiInsightPanel insight={insightData} />
 
-      {/* Dashboard Grid */}
+      {/* Section Headers */}
+      <div className="flex mt-6 mb-4 border-b border-neutral-200">
+        <h2 className="text-2xl font-bold text-neutral-800">myCEO</h2>
+      </div>
+
+      {/* myCEO Dashboard Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Charts (Luzmo Embedded) - Spans 2 columns */}
         <div className="lg:col-span-2">
@@ -116,11 +121,62 @@ export default function Dashboard() {
           {/* KPI Cards */}
           <KpiCards kpiData={kpiData} />
 
-          {/* GPT-4 Summary Card */}
-          <GptSummaryCard />
-
           {/* Recent Activity */}
           <RecentActivity activities={activities} />
+        </div>
+      </div>
+
+      {/* 5xCEO Section Header */}
+      <div className="flex mt-10 mb-4 border-b border-neutral-200">
+        <h2 className="text-2xl font-bold text-neutral-800">5xCEO</h2>
+      </div>
+
+      {/* 5xCEO Dashboard Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white rounded-lg shadow p-4">
+          <h3 className="text-lg font-semibold mb-4">5x Assessment Model</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-orange-100 rounded-lg p-4">
+              <h4 className="font-medium">Strategic Clarity</h4>
+              <p className="text-sm text-neutral-600">Score: 89%</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                <div className="bg-orange-500 h-2.5 rounded-full" style={{ width: '89%' }}></div>
+              </div>
+            </div>
+            <div className="bg-teal-100 rounded-lg p-4">
+              <h4 className="font-medium">Scalable Talent</h4>
+              <p className="text-sm text-neutral-600">Score: 87%</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                <div className="bg-teal-500 h-2.5 rounded-full" style={{ width: '87%' }}></div>
+              </div>
+            </div>
+            <div className="bg-red-100 rounded-lg p-4">
+              <h4 className="font-medium">Relentless Focus</h4>
+              <p className="text-sm text-neutral-600">Score: 77%</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                <div className="bg-red-500 h-2.5 rounded-full" style={{ width: '77%' }}></div>
+              </div>
+            </div>
+            <div className="bg-blue-100 rounded-lg p-4">
+              <h4 className="font-medium">Disciplined Execution</h4>
+              <p className="text-sm text-neutral-600">Score: 87%</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: '87%' }}></div>
+              </div>
+            </div>
+            <div className="bg-gray-100 rounded-lg p-4">
+              <h4 className="font-medium">Energized Culture</h4>
+              <p className="text-sm text-neutral-600">Score: 87%</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                <div className="bg-gray-500 h-2.5 rounded-full" style={{ width: '87%' }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          {/* GPT-4 Summary Card */}
+          <GptSummaryCard />
         </div>
       </div>
 

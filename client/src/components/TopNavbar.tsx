@@ -42,8 +42,8 @@ export default function TopNavbar({ onMenuClick, onVoiceSearchClick }: TopNavbar
       
       {/* Logo and Title */}
       <div className="hidden md:flex items-center mr-6">
-        <img src={logoSvg} alt="5xCEO Logo" className="h-8 w-8 mr-2" />
-        <h1 className="text-xl font-bold text-neutral-900">5xCEO</h1>
+        <img src={logoSvg} alt="AdvantageCEO Logo" className="h-8 w-8 mr-2" />
+        <h1 className="text-xl font-bold text-neutral-900">AdvantageCEO</h1>
       </div>
       
       {/* Search */}
