@@ -45,9 +45,9 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-10 space-x-4"
           >
-            <Link href="/myCEO">
+            <Link href="/MyCEO">
               <Button className="rounded-md px-5 py-3 text-base font-medium">
-                View myCEO Dashboard
+                MyCEO
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -56,7 +56,7 @@ const Home = () => {
                 variant="outline"
                 className="rounded-md px-5 py-3 text-base font-medium text-blue-600 border-blue-600"
               >
-                Explore 5xCEO Framework
+                5xCEO
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>

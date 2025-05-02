@@ -20,7 +20,7 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/upload" component={UploadData} />
       <Route path="/history" component={History} />
-      <Route path="/myCEO" component={MyCEO} />
+      <Route path="/MyCEO" component={MyCEO} />
       <Route path="/5xCEO" component={FiveXCEO} />
       <Route component={NotFound} />
     </Switch>

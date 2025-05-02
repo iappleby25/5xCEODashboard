@@ -5,7 +5,7 @@ import { getCategoryColor } from '../lib/mockData';
 
 interface RadialMenuProps {
   categories: FrameworkCategory[];
-  activeView: 'myCEO' | '5xCEO';
+  activeView: 'MyCEO' | '5xCEO';
   onToggleView: () => void;
   onSelectCategory: (category: FrameworkCategory) => void;
 }
@@ -114,13 +114,13 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
         <motion.button
           className={`w-full h-full rounded-full 
                       flex items-center justify-center text-white font-bold shadow-lg
-                      ${activeView === 'myCEO' ? 'bg-blue-600' : 'bg-orange-500'}`}
+                      ${activeView === 'MyCEO' ? 'bg-blue-600' : 'bg-orange-500'}`}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2 }}
           onClick={onToggleView}
         >
-          {activeView === 'myCEO' ? 'myCEO' : '5xCEO'}
+          {activeView === 'MyCEO' ? 'MyCEO' : '5xCEO'}
         </motion.button>
       </div>
     </div>

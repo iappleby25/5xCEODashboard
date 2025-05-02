@@ -5,7 +5,7 @@ import PanelView from '@/components/PanelView';
 import { assessmentData, FrameworkCategory } from '@/lib/mockData';
 
 const MyCEO = () => {
-  const [activeView, setActiveView] = useState<'myCEO' | '5xCEO'>('myCEO');
+  const [activeView, setActiveView] = useState<'MyCEO' | '5xCEO'>('MyCEO');
   const [selectedCategory, setSelectedCategory] = useState<FrameworkCategory | null>(null);
 
   const handleToggleView = () => {
