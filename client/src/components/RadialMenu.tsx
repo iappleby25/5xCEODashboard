@@ -40,23 +40,39 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
     };
   }, []);
 
-  // Calculate positions for the 5 panels in a flower-like pattern exactly matching the screenshot
+  // Calculate positions for the 5 panels in a pentagon shape
   const getPosition = (index: number, total: number) => {
-    // Custom positions for a flower pattern matching the screenshot
-    const positions = [
-      { x: 0, y: -50 },         // top (Strategic Clarity)
-      { x: 48, y: -15 },        // top-right (Scalable Talent)
-      { x: 29, y: 40 },         // bottom-right (Relentless Focus)
-      { x: -29, y: 40 },        // bottom-left (Disciplined Execution)
-      { x: -48, y: -15 }        // top-left (Energized Culture)
-    ];
-    
-    return positions[index];
+    // Start at the top (270 degrees) and go clockwise
+    const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
+    const radius = 105; // Reduced radius to allow center node to overlap
+    const x = radius * Math.cos(angle);
+    const y = radius * Math.sin(angle);
+    return { x, y };
   };
 
   return (
     <div ref={containerRef} className="relative w-[350px] h-[350px] mx-auto">
-      {/* Removing connecting lines for a cleaner look to match design images */}
+      {/* SVG Background for connecting lines */}
+      <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <g transform={`translate(${centerPoint.x}, ${centerPoint.y})`}>
+          {categories.map((category, index) => {
+            const pos = getPosition(index, categories.length);
+            return (
+              <line
+                key={`line-${category.id}`}
+                x1="0"
+                y1="0"
+                x2={pos.x}
+                y2={pos.y}
+                stroke="#e2e8f0"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+                strokeLinecap="round"
+              />
+            );
+          })}
+        </g>
+      </svg>
       
       {/* Radial Panels */}
       {categories.map((category, index) => {
@@ -68,8 +84,8 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
           <motion.div
             key={category.id}
             className={`absolute z-10 w-24 h-24 rounded-full 
-                      ${colors.bg} ${colors.border} border-0 shadow-sm
-                      flex flex-col items-center justify-center cursor-pointer overflow-visible`}
+                      ${colors.bg} ${colors.border} border shadow-md
+                      flex flex-col items-center justify-center cursor-pointer`}
             style={{
               left: `calc(50% + ${x}px - 3rem)`,
               top: `calc(50% + ${y}px - 3rem)`,
@@ -85,29 +101,26 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
             onHoverEnd={() => setHoverCategory(null)}
             onClick={() => onSelectCategory(category)}
           >
-            {/* Position content based on the node's position to match the design image */}
-            <div className="flex flex-col items-center justify-center w-full h-full px-1">
-              <span className={`text-sm font-medium text-center px-1 ${colors.text}`}>
-                {category.name}
-              </span>
-              <span className="mt-1 text-sm font-bold">{category.performance}%</span>
-            </div>
+            <span className={`text-sm font-medium text-center px-1 ${colors.text}`}>
+              {category.name}
+            </span>
+            <span className="mt-1 text-sm font-bold">{category.performance}%</span>
           </motion.div>
         );
       })}
 
-      {/* Center Toggle Button - positioned below the nodes */}
-      <div className="absolute z-0 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14">
+      {/* Center Toggle Button (using a div wrapper to maintain position) */}
+      <div className="absolute z-30 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24">
         <motion.button
           className={`w-full h-full rounded-full 
-                      flex items-center justify-center text-white font-bold shadow-sm text-sm
+                      flex items-center justify-center text-white font-bold shadow-lg text-lg
                       ${activeView === 'MyCEO' ? 'bg-blue-600' : 'bg-orange-500'}`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           initial={{ scale: 1 }}
           animate={{ 
             scale: 1,
-            boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.1)'
+            boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.25)'
           }}
           transition={{ duration: 0.2 }}
           onClick={onToggleView}
