@@ -9,7 +9,10 @@ import {
   LineChart, 
   Settings, 
   HelpCircle,
-  User
+  User,
+  Home,
+  BarChart,
+  PieChart
 } from "lucide-react";
 import logoSvg from "../assets/5xceo-logo.svg";
 
@@ -64,8 +67,32 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
               <li>
                 <Link href="/" onClick={isMobile ? onClose : undefined}>
                   <a className={linkClasses("/")}>
+                    <Home className="mr-3 h-4 w-4" />
+                    Home
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/dashboard" onClick={isMobile ? onClose : undefined}>
+                  <a className={linkClasses("/dashboard")}>
                     <LayoutDashboard className="mr-3 h-4 w-4" />
                     Dashboard
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/myCEO" onClick={isMobile ? onClose : undefined}>
+                  <a className={linkClasses("/myCEO")}>
+                    <BarChart className="mr-3 h-4 w-4" />
+                    myCEO
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/5xCEO" onClick={isMobile ? onClose : undefined}>
+                  <a className={linkClasses("/5xCEO")}>
+                    <PieChart className="mr-3 h-4 w-4" />
+                    5xCEO
                   </a>
                 </Link>
               </li>

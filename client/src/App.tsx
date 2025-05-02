@@ -9,13 +9,19 @@ import Dashboard from "@/pages/Dashboard";
 import UploadData from "@/pages/UploadData";
 import History from "@/pages/History";
 import NotFound from "@/pages/not-found";
+import Home from "@/pages/Home";
+import MyCEO from "@/pages/MyCEO";
+import FiveXCEO from "@/pages/5xCEO";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Dashboard} />
+      <Route path="/" component={Home} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/upload" component={UploadData} />
       <Route path="/history" component={History} />
+      <Route path="/myCEO" component={MyCEO} />
+      <Route path="/5xCEO" component={FiveXCEO} />
       <Route component={NotFound} />
     </Switch>
   );
