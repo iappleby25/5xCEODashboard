@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 // Import the logo from assets
-import logoSvg from '../assets/advantage-ceo-logo.svg';
+import logoSvg from '../assets/advantage-ceo-logo-new.svg';
 
 const Home = () => {
   return (
@@ -17,7 +17,7 @@ const Home = () => {
             transition={{ duration: 0.5 }}
             className="flex justify-center mb-8"
           >
-            <img src={logoSvg} alt="AdvantageCEO Logo" className="h-24 w-24" />
+            <img src={logoSvg} alt="AdvantageCEO Logo" className="h-32 w-auto" />
           </motion.div>
           
           <motion.h1
