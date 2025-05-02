@@ -85,7 +85,7 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
             key={category.id}
             className={`absolute z-10 w-24 h-24 rounded-full 
                       ${colors.bg} ${colors.border} border shadow-md
-                      flex flex-col items-center justify-center cursor-pointer`}
+                      flex flex-col items-center cursor-pointer overflow-visible`}
             style={{
               left: `calc(50% + ${x}px - 3rem)`,
               top: `calc(50% + ${y}px - 3rem)`,
@@ -101,10 +101,18 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
             onHoverEnd={() => setHoverCategory(null)}
             onClick={() => onSelectCategory(category)}
           >
-            <span className={`text-sm font-medium text-center px-1 ${colors.text}`}>
-              {category.name}
-            </span>
-            <span className="mt-1 text-sm font-bold">{category.performance}%</span>
+            {/* Position content based on the node's position to prevent overlap with center */}
+            <div className={`flex flex-col items-center justify-center w-full h-full 
+                          ${index === 0 ? 'pt-2 pb-6' : // top node - push content up
+                             index === 1 ? 'pr-2 pl-6' : // right node - push content right
+                             index === 2 ? 'pb-2 pt-6' : // bottom node - push content down
+                             index === 3 ? 'pl-2 pr-6' : // left node - push content left
+                             'justify-center'}`}>
+              <span className={`text-sm font-medium text-center px-1 ${colors.text}`}>
+                {category.name}
+              </span>
+              <span className="mt-1 text-sm font-bold">{category.performance}%</span>
+            </div>
           </motion.div>
         );
       })}
