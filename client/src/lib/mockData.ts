@@ -81,44 +81,44 @@ export const getCategoryColor = (categoryId: string): { bg: string; text: string
   switch (categoryId) {
     case 'strategic-clarity':
       return { 
-        bg: 'bg-orange-100',
-        text: 'text-orange-800',
-        border: 'border-orange-300',
-        accent: 'bg-orange-500'
+        bg: 'bg-amber-50',
+        text: 'text-amber-800',
+        border: 'border-amber-100',
+        accent: 'bg-amber-500'
       };
     case 'scalable-talent':
       return { 
-        bg: 'bg-teal-100',
-        text: 'text-teal-800',
-        border: 'border-teal-300',
-        accent: 'bg-teal-500'
+        bg: 'bg-green-50',
+        text: 'text-green-700',
+        border: 'border-green-100',
+        accent: 'bg-green-500'
       };
     case 'relentless-focus':
       return { 
-        bg: 'bg-red-100',
-        text: 'text-red-800',
-        border: 'border-red-300',
+        bg: 'bg-red-50',
+        text: 'text-red-700',
+        border: 'border-red-100',
         accent: 'bg-red-500'
       };
     case 'disciplined-execution':
       return { 
-        bg: 'bg-blue-100',
-        text: 'text-blue-800',
-        border: 'border-blue-300',
+        bg: 'bg-blue-50',
+        text: 'text-blue-700',
+        border: 'border-blue-100',
         accent: 'bg-blue-500'
       };
     case 'energized-culture':
       return { 
-        bg: 'bg-purple-100',
-        text: 'text-purple-800',
-        border: 'border-purple-300',
+        bg: 'bg-purple-50',
+        text: 'text-purple-700',
+        border: 'border-purple-100',
         accent: 'bg-purple-500'
       };
     default:
       return { 
-        bg: 'bg-gray-100',
-        text: 'text-gray-800',
-        border: 'border-gray-300',
+        bg: 'bg-gray-50',
+        text: 'text-gray-700',
+        border: 'border-gray-100',
         accent: 'bg-gray-500'
       };
   }

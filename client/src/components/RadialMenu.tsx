@@ -40,16 +40,18 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
     };
   }, []);
 
-  // Calculate positions for the 5 panels in a perfect pentagon shape, with nodes touching
+  // Calculate positions for the 5 panels in a flower-like pattern exactly matching the screenshot
   const getPosition = (index: number, total: number) => {
-    // Perfect pentagon with equal spacing between nodes
-    const angle = (index / total) * 2 * Math.PI - Math.PI / 2; // Start at the top
+    // Custom positions for a flower pattern matching the screenshot
+    const positions = [
+      { x: 0, y: -50 },         // top (Strategic Clarity)
+      { x: 48, y: -15 },        // top-right (Scalable Talent)
+      { x: 29, y: 40 },         // bottom-right (Relentless Focus)
+      { x: -29, y: 40 },        // bottom-left (Disciplined Execution)
+      { x: -48, y: -15 }        // top-left (Energized Culture)
+    ];
     
-    // Increase radius to make nodes touch edge-to-edge
-    const radius = 65; // Distance from center to create edge-to-edge contact
-    const x = radius * Math.cos(angle);
-    const y = radius * Math.sin(angle);
-    return { x, y };
+    return positions[index];
   };
 
   return (
@@ -65,12 +67,12 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
         return (
           <motion.div
             key={category.id}
-            className={`absolute z-10 w-28 h-28 rounded-full 
-                      ${colors.bg} ${colors.border} border shadow-md
-                      flex flex-col items-center cursor-pointer overflow-visible`}
+            className={`absolute z-10 w-24 h-24 rounded-full 
+                      ${colors.bg} ${colors.border} border-0 shadow-sm
+                      flex flex-col items-center justify-center cursor-pointer overflow-visible`}
             style={{
-              left: `calc(50% + ${x}px - 3.5rem)`,
-              top: `calc(50% + ${y}px - 3.5rem)`,
+              left: `calc(50% + ${x}px - 3rem)`,
+              top: `calc(50% + ${y}px - 3rem)`,
             }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -84,13 +86,7 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
             onClick={() => onSelectCategory(category)}
           >
             {/* Position content based on the node's position to match the design image */}
-            <div className={`flex flex-col items-center justify-center w-full h-full
-                          ${index === 0 ? 'pt-1 pb-7' : // top node (Strategic Clarity) - push content up
-                             index === 1 ? 'pr-1 pl-5' : // top-right node (Scalable Talent) - push content right
-                             index === 2 ? 'pb-1 pt-5' : // bottom-right node (Relentless Focus) - push content down
-                             index === 3 ? 'pb-1 pt-5' : // bottom-left node (Disciplined Execution) - push content down
-                             index === 4 ? 'pr-5 pl-1' : // top-left node (Energized Culture) - push content left
-                             'justify-center'}`}>
+            <div className="flex flex-col items-center justify-center w-full h-full px-1">
               <span className={`text-sm font-medium text-center px-1 ${colors.text}`}>
                 {category.name}
               </span>
@@ -101,17 +97,17 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
       })}
 
       {/* Center Toggle Button - positioned below the nodes */}
-      <div className="absolute z-0 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28">
+      <div className="absolute z-0 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14">
         <motion.button
           className={`w-full h-full rounded-full 
-                      flex items-center justify-center text-white font-bold shadow-md text-lg
+                      flex items-center justify-center text-white font-bold shadow-sm text-sm
                       ${activeView === 'MyCEO' ? 'bg-blue-600' : 'bg-orange-500'}`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           initial={{ scale: 1 }}
           animate={{ 
             scale: 1,
-            boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.2)'
+            boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.1)'
           }}
           transition={{ duration: 0.2 }}
           onClick={onToggleView}
