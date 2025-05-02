@@ -14,7 +14,7 @@ import {
   BarChart,
   PieChart
 } from "lucide-react";
-import logoSvg from "../assets/advantage-ceo-logo-new.svg";
+import logoSvg from "../assets/advantage-ceo-final.svg";
 
 interface SidebarProps {
   isMobile: boolean;
@@ -55,7 +55,7 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
   return (
     <aside className={sidebarClasses}>
       <div className="p-4 border-b border-neutral-200 flex items-center space-x-2">
-        <img src={logoSvg} alt="AdvantageCEO Logo" className="h-8 w-8" />
+        <img src={logoSvg} alt="AdvantageCEO Logo" className="h-10 w-auto" />
         <h1 className="font-semibold text-lg">AdvantageCEO</h1>
       </div>
       

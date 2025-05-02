@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- AdvantageCEO Logo based on the screenshot -->
+  <g transform="translate(50, 50)">
+    <!-- Blue diagonal lines -->
+    <polygon points="0,70 30,0 55,0 25,70" fill="#4aacd8" />
+    <polygon points="40,70 70,0 95,0 65,70" fill="#4aacd8" />
+    
+    <!-- Red diagonal line -->
+    <polygon points="110,0 150,70 125,70 85,0" fill="#e63946" />
+    
+    <!-- Text -->
+    <text x="85" y="100" font-family="Arial, sans-serif" font-size="16" font-weight="bold" letter-spacing="1" text-anchor="middle" fill="#4aacd8">
+      ADVANTAGE<tspan fill="#e63946">CEO</tspan>
+    </text>
+  </g>
+</svg>
