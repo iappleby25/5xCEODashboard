@@ -1,17 +1,42 @@
+import React, { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ListFilter } from "lucide-react";
+import {
+  ChevronDown,
+  Filter,
+  Calendar,
+  BarChart,
+  XCircle,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
-interface ViewLevel {
+// Define the interface for view levels
+export interface ViewLevel {
   value: string;
   label: string;
 }
 
-interface TimePeriod {
+// Define the interface for time periods
+export interface TimePeriod {
   value: string;
   label: string;
 }
 
+// Define the props for the FilterBar component
 interface FilterBarProps {
   viewLevels: ViewLevel[];
   timePeriods: TimePeriod[];
@@ -21,12 +46,18 @@ interface FilterBarProps {
   departmentFilter: string;
   surveyTypeFilter: string;
   responseStatusFilter: string;
+  selectedCompany?: string;
+  selectedRole?: string;
+  companies: string[];
+  roles: string[];
   onViewLevelChange: (value: string) => void;
   onTimePeriodChange: (value: string) => void;
   onToggleAdvancedFilters: () => void;
   onDepartmentFilterChange: (value: string) => void;
   onSurveyTypeFilterChange: (value: string) => void;
   onResponseStatusFilterChange: (value: string) => void;
+  onCompanyChange?: (value: string) => void;
+  onRoleChange?: (value: string) => void;
 }
 
 export default function FilterBar({
@@ -38,25 +69,40 @@ export default function FilterBar({
   departmentFilter,
   surveyTypeFilter,
   responseStatusFilter,
+  selectedCompany,
+  selectedRole,
+  companies,
+  roles,
   onViewLevelChange,
   onTimePeriodChange,
   onToggleAdvancedFilters,
   onDepartmentFilterChange,
   onSurveyTypeFilterChange,
   onResponseStatusFilterChange,
+  onCompanyChange,
+  onRoleChange,
 }: FilterBarProps) {
+  // Find the current view level's label
+  const currentViewLevelLabel = viewLevels.find(
+    (level) => level.value === currentViewLevel
+  )?.label || "All Levels";
+
+  // Find the current time period's label
+  const currentTimePeriodLabel = timePeriods.find(
+    (period) => period.value === currentTimePeriod
+  )?.label || "All Time";
+
   return (
-    <div className="bg-white rounded-lg shadow-sm mb-6 p-4">
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-        <h2 className="text-lg font-semibold mb-4 lg:mb-0">Survey Analytics Dashboard</h2>
-        
-        <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-          {/* Level Filter */}
-          <div className="min-w-[200px]">
-            <label className="block text-sm font-medium text-neutral-500 mb-1">View Level</label>
+    <div className="p-4 border-b border-neutral-200 bg-white">
+      <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+        <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-y-0 md:space-x-4">
+          <div>
+            <label className="text-xs font-medium text-neutral-500 mb-1 block">
+              View Level
+            </label>
             <Select value={currentViewLevel} onValueChange={onViewLevelChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select view level" />
+              <SelectTrigger className="h-9 w-[180px]">
+                <SelectValue placeholder="Select level" />
               </SelectTrigger>
               <SelectContent>
                 {viewLevels.map((level) => (
@@ -67,13 +113,86 @@ export default function FilterBar({
               </SelectContent>
             </Select>
           </div>
-          
-          {/* Date Range */}
-          <div className="min-w-[200px]">
-            <label className="block text-sm font-medium text-neutral-500 mb-1">Time Period</label>
+
+          {currentViewLevel === "team" && (
+            <>
+              <div>
+                <label className="text-xs font-medium text-neutral-500 mb-1 block">
+                  Company
+                </label>
+                <Select 
+                  value={selectedCompany} 
+                  onValueChange={onCompanyChange}
+                  disabled={!onCompanyChange}
+                >
+                  <SelectTrigger className="h-9 w-[180px]">
+                    <SelectValue placeholder="Select company" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {companies.map((company) => (
+                      <SelectItem key={company} value={company}>
+                        {company}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className="text-xs font-medium text-neutral-500 mb-1 block">
+                  Role
+                </label>
+                <Select 
+                  value={selectedRole} 
+                  onValueChange={onRoleChange}
+                  disabled={!onRoleChange}
+                >
+                  <SelectTrigger className="h-9 w-[180px]">
+                    <SelectValue placeholder="Select role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {roles.map((role) => (
+                      <SelectItem key={role} value={role}>
+                        {role}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </>
+          )}
+
+          {currentViewLevel === "company" && (
+            <div>
+              <label className="text-xs font-medium text-neutral-500 mb-1 block">
+                Company
+              </label>
+              <Select 
+                value={selectedCompany} 
+                onValueChange={onCompanyChange}
+                disabled={!onCompanyChange}
+              >
+                <SelectTrigger className="h-9 w-[180px]">
+                  <SelectValue placeholder="Select company" />
+                </SelectTrigger>
+                <SelectContent>
+                  {companies.map((company) => (
+                    <SelectItem key={company} value={company}>
+                      {company}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
+          <div>
+            <label className="text-xs font-medium text-neutral-500 mb-1 block">
+              Time Period
+            </label>
             <Select value={currentTimePeriod} onValueChange={onTimePeriodChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select time period" />
+              <SelectTrigger className="h-9 w-[180px]">
+                <SelectValue placeholder="Select period" />
               </SelectTrigger>
               <SelectContent>
                 {timePeriods.map((period) => (
@@ -84,86 +203,82 @@ export default function FilterBar({
               </SelectContent>
             </Select>
           </div>
-          
-          {/* Advanced Filters Button */}
-          <div className="flex items-end">
-            <Button 
-              variant="outline" 
-              className="h-[38px]"
-              onClick={onToggleAdvancedFilters}
-            >
-              <ListFilter className="h-4 w-4 mr-2" />
-              Advanced Filters
-            </Button>
-          </div>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className={cn({
+              "bg-primary-light/10 text-primary border-primary": showAdvancedFilters,
+            })}
+            onClick={onToggleAdvancedFilters}
+          >
+            <Filter className="mr-2 h-4 w-4" />
+            Filters
+            {showAdvancedFilters ? (
+              <XCircle className="ml-2 h-4 w-4" />
+            ) : (
+              <ChevronDown className="ml-2 h-4 w-4" />
+            )}
+          </Button>
         </div>
       </div>
-      
-      {/* Advanced filters section */}
+
       {showAdvancedFilters && (
-        <div className="mt-4 pt-4 border-t border-neutral-200">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Department */}
-            <div>
-              <label className="block text-sm font-medium text-neutral-500 mb-1">Department</label>
-              <Select value={departmentFilter} onValueChange={onDepartmentFilterChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select department" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Departments</SelectItem>
-                  <SelectItem value="engineering">Engineering</SelectItem>
-                  <SelectItem value="marketing">Marketing</SelectItem>
-                  <SelectItem value="sales">Sales</SelectItem>
-                  <SelectItem value="support">Support</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            {/* Survey Type */}
-            <div>
-              <label className="block text-sm font-medium text-neutral-500 mb-1">Survey Type</label>
-              <Select value={surveyTypeFilter} onValueChange={onSurveyTypeFilterChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select survey type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="engagement">Engagement</SelectItem>
-                  <SelectItem value="pulse">Pulse</SelectItem>
-                  <SelectItem value="onboarding">Onboarding</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            {/* Response Status */}
-            <div>
-              <label className="block text-sm font-medium text-neutral-500 mb-1">Response Status</label>
-              <Select value={responseStatusFilter} onValueChange={onResponseStatusFilterChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select response status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Responses</SelectItem>
-                  <SelectItem value="complete">Complete</SelectItem>
-                  <SelectItem value="partial">Partial</SelectItem>
-                  <SelectItem value="not_started">Not Started</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="text-xs font-medium text-neutral-500 mb-1 block">
+              Department
+            </label>
+            <Select value={departmentFilter} onValueChange={onDepartmentFilterChange}>
+              <SelectTrigger className="h-9">
+                <SelectValue placeholder="All Departments" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Departments</SelectItem>
+                <SelectItem value="engineering">Engineering</SelectItem>
+                <SelectItem value="sales">Sales</SelectItem>
+                <SelectItem value="marketing">Marketing</SelectItem>
+                <SelectItem value="hr">HR</SelectItem>
+                <SelectItem value="product">Product</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-          
-          <div className="flex justify-end mt-4 space-x-2">
-            <Button variant="outline" onClick={() => {
-              onDepartmentFilterChange("all");
-              onSurveyTypeFilterChange("all");
-              onResponseStatusFilterChange("all");
-            }}>
-              Reset
-            </Button>
-            <Button onClick={onToggleAdvancedFilters}>
-              Apply Filters
-            </Button>
+
+          <div>
+            <label className="text-xs font-medium text-neutral-500 mb-1 block">
+              Survey Type
+            </label>
+            <Select value={surveyTypeFilter} onValueChange={onSurveyTypeFilterChange}>
+              <SelectTrigger className="h-9">
+                <SelectValue placeholder="All Types" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="employee">Employee Engagement</SelectItem>
+                <SelectItem value="customer">Customer Satisfaction</SelectItem>
+                <SelectItem value="pulse">Pulse Check</SelectItem>
+                <SelectItem value="exit">Exit Interview</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <label className="text-xs font-medium text-neutral-500 mb-1 block">
+              Response Status
+            </label>
+            <Select value={responseStatusFilter} onValueChange={onResponseStatusFilterChange}>
+              <SelectTrigger className="h-9">
+                <SelectValue placeholder="All Statuses" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="complete">Complete</SelectItem>
+                <SelectItem value="partial">Partial</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       )}

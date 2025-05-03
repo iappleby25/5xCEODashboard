@@ -9,7 +9,8 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-def process_csv_data(file_content: str, survey_type: str, period: str) -> Dict[str, Any]:
+def process_csv_data(file_content: str, survey_type: str, period: str, view_level: str = "holding", 
+                 company: Optional[str] = None, role: Optional[str] = None) -> Dict[str, Any]:
     """
     Process CSV data from uploaded file
     
@@ -17,6 +18,9 @@ def process_csv_data(file_content: str, survey_type: str, period: str) -> Dict[s
         file_content: String containing CSV content
         survey_type: Type of survey (Employee Survey, Customer Feedback, etc.)
         period: Survey period (Q1 2023, etc.)
+        view_level: Level to filter data at (individual, team, company, holding)
+        company: Company name to filter by (for company and team view levels)
+        role: Role to filter by (for team view level)
         
     Returns:
         Dictionary containing processed data
@@ -25,12 +29,26 @@ def process_csv_data(file_content: str, survey_type: str, period: str) -> Dict[s
         # Parse CSV content
         df = pd.read_csv(io.StringIO(file_content))
         
-        # Clean column names
-        df.columns = [col.strip().lower().replace(' ', '_') for col in df.columns]
-        
         # Basic data validation
         if df.empty:
             raise ValueError("CSV file is empty")
+        
+        # Apply view level filtering
+        # First make sure we have the columns needed for filtering
+        if 'Company name' in df.columns and 'Role' in df.columns:
+            # Apply filters based on view_level
+            if view_level == "company" and company:
+                df = df[df['Company name'] == company]
+            elif view_level == "team" and company and role:
+                df = df[
+                    (df['Company name'] == company) & 
+                    (df['Role'] == role)
+                ]
+            # 'holding' level uses the full dataset
+            # 'individual' level is not implemented yet
+        
+        # Clean column names after filtering
+        df.columns = [col.strip().lower().replace(' ', '_') for col in df.columns]
         
         # Process based on survey type
         if survey_type == 'Employee Survey':
