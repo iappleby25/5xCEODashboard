@@ -1,195 +1,367 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import FilterBar from "@/components/FilterBar";
-import AiInsightPanel from "@/components/AiInsightPanel";
-import EmbeddedDashboard from "@/components/EmbeddedDashboard";
+import React, { useState, useEffect } from "react";
+import AppShell from "@/components/AppShell";
+import FilterBar, { ViewLevel, TimePeriod } from "@/components/FilterBar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 import KpiCards from "@/components/KpiCards";
-import GptSummaryCard from "@/components/GptSummaryCard";
-import RecentActivity from "@/components/RecentActivity";
 import DataTable from "@/components/DataTable";
-import VoiceAssistant from "@/components/VoiceAssistant";
-import { Activity, Department, Response } from "@shared/schema";
+import { filterSurveyData, getUniqueCompanies, getUniqueRoles, SurveyData, ViewLevelType } from "@/lib/dataProcessor";
+import { useQuery } from "@tanstack/react-query";
 
-interface ViewLevel {
-  value: string;
-  label: string;
-}
-
-interface TimePeriod {
-  value: string;
-  label: string;
-}
-
-const viewLevels: ViewLevel[] = [
-  { value: "all", label: "All Companies" },
-  { value: "company", label: "Company" },
-  { value: "individual", label: "Individual" },
-];
-
-const timePeriods: TimePeriod[] = [
-  { value: "30d", label: "Last 30 days" },
-  { value: "90d", label: "Last 90 days" },
-  { value: "6m", label: "Last 6 months" },
-  { value: "1y", label: "Last year" },
-  { value: "custom", label: "Custom range" },
+// Mock data for testing
+const mockSurveyData: SurveyData[] = [
+  {
+    companyName: "EcoWave",
+    role: "LEADERSHIP TEAM",
+    responses: {
+      id: 1,
+      totalPoints: 78,
+      status: "complete"
+    }
+  },
+  {
+    companyName: "GlobalSolutions",
+    role: "PE & BOD",
+    responses: {
+      id: 2,
+      totalPoints: 85,
+      status: "complete"
+    }
+  },
+  {
+    companyName: "GlobalSolutions",
+    role: "CEO",
+    responses: {
+      id: 3,
+      totalPoints: 92,
+      status: "complete"
+    }
+  }
 ];
 
 export default function Dashboard() {
-  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
-  const [viewLevel, setViewLevel] = useState<string>("all");
-  const [timePeriod, setTimePeriod] = useState<string>("30d");
+  // Define view levels for the filter
+  const viewLevels: ViewLevel[] = [
+    { value: "individual", label: "Individual" },
+    { value: "team", label: "Team" },
+    { value: "company", label: "Company" },
+    { value: "holding", label: "Holding" }
+  ];
+
+  // Define time periods for the filter
+  const timePeriods: TimePeriod[] = [
+    { value: "q2_2023", label: "Q2 2023" },
+    { value: "q1_2023", label: "Q1 2023" },
+    { value: "q4_2022", label: "Q4 2022" },
+    { value: "q3_2022", label: "Q3 2022" },
+    { value: "all", label: "All Time" }
+  ];
+
+  // State for filters
+  const [currentViewLevel, setCurrentViewLevel] = useState<ViewLevelType>("holding");
+  const [currentTimePeriod, setCurrentTimePeriod] = useState("all");
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [departmentFilter, setDepartmentFilter] = useState<string>("all");
-  const [surveyTypeFilter, setSurveyTypeFilter] = useState<string>("all");
-  const [responseStatusFilter, setResponseStatusFilter] = useState<string>("all");
+  const [departmentFilter, setDepartmentFilter] = useState("all");
+  const [surveyTypeFilter, setSurveyTypeFilter] = useState("all");
+  const [responseStatusFilter, setResponseStatusFilter] = useState("all");
+  const [selectedCompany, setSelectedCompany] = useState<string | undefined>(undefined);
+  const [selectedRole, setSelectedRole] = useState<string | undefined>(undefined);
+  
+  // Compute filtered data based on selected filters
+  const [filteredData, setFilteredData] = useState<SurveyData[]>(mockSurveyData);
 
-  // Fetch departments
-  const { data: departments } = useQuery<Department[]>({
-    queryKey: ["/api/departments"],
+  // Get unique companies and roles
+  const companies = getUniqueCompanies(mockSurveyData);
+  const roles = getUniqueRoles(mockSurveyData);
+
+  // Fetch survey data (simulated)
+  const { data: surveyData, isLoading } = useQuery({
+    queryKey: ['/api/surveys'],
+    queryFn: async () => {
+      // In a real implementation, this would fetch from the API
+      return Promise.resolve(mockSurveyData);
+    },
   });
 
-  // Fetch responses
-  const { data: responses } = useQuery<Response[]>({
-    queryKey: ["/api/responses"],
-  });
+  // Apply filters when dependencies change
+  useEffect(() => {
+    if (surveyData) {
+      const filtered = filterSurveyData(
+        surveyData,
+        currentViewLevel,
+        selectedCompany,
+        selectedRole
+      );
+      setFilteredData(filtered);
+    }
+  }, [
+    surveyData,
+    currentViewLevel,
+    selectedCompany,
+    selectedRole,
+    currentTimePeriod,
+    departmentFilter,
+    surveyTypeFilter,
+    responseStatusFilter
+  ]);
 
-  // Fetch activities
-  const { data: activities } = useQuery<Activity[]>({
-    queryKey: ["/api/activities"],
-  });
-
-  // Fetch insights from the most recent survey
-  const { data: insightData } = useQuery({
-    queryKey: ["/api/generate-insights/1"],
-  });
-
-  // Fetch KPI data for the dashboard
-  const { data: kpiData } = useQuery({
-    queryKey: ["/api/kpi-data/1"],
-  });
-
-  // Get Luzmo dashboard embed code
-  const { data: luzmoEmbed } = useQuery({
-    queryKey: ["/api/luzmo-dashboard/1"],
-  });
-
-  const toggleVoiceAssistant = () => {
-    setShowVoiceAssistant(!showVoiceAssistant);
+  // Handle view level change
+  const handleViewLevelChange = (value: string) => {
+    setCurrentViewLevel(value as ViewLevelType);
+    // Reset company and role when changing view level
+    if (value === "holding") {
+      setSelectedCompany(undefined);
+      setSelectedRole(undefined);
+    }
   };
 
-  const toggleAdvancedFilters = () => {
-    setShowAdvancedFilters(!showAdvancedFilters);
+  // Handle company change
+  const handleCompanyChange = (value: string) => {
+    setSelectedCompany(value);
+    if (currentViewLevel === "team") {
+      // Reset role when changing company in team view
+      setSelectedRole(undefined);
+    }
+  };
+
+  // Handle role change
+  const handleRoleChange = (value: string) => {
+    setSelectedRole(value);
   };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-neutral-100 p-4 lg:p-6">
-      {/* Filter Controls */}
-      <FilterBar
-        viewLevels={viewLevels}
-        timePeriods={timePeriods}
-        currentViewLevel={viewLevel}
-        currentTimePeriod={timePeriod}
-        showAdvancedFilters={showAdvancedFilters}
-        departmentFilter={departmentFilter}
-        surveyTypeFilter={surveyTypeFilter}
-        responseStatusFilter={responseStatusFilter}
-        onViewLevelChange={setViewLevel}
-        onTimePeriodChange={setTimePeriod}
-        onToggleAdvancedFilters={toggleAdvancedFilters}
-        onDepartmentFilterChange={setDepartmentFilter}
-        onSurveyTypeFilterChange={setSurveyTypeFilter}
-        onResponseStatusFilterChange={setResponseStatusFilter}
-      />
+    <AppShell>
+      <div className="flex-1">
+        <FilterBar
+          viewLevels={viewLevels}
+          timePeriods={timePeriods}
+          currentViewLevel={currentViewLevel}
+          currentTimePeriod={currentTimePeriod}
+          showAdvancedFilters={showAdvancedFilters}
+          departmentFilter={departmentFilter}
+          surveyTypeFilter={surveyTypeFilter}
+          responseStatusFilter={responseStatusFilter}
+          selectedCompany={selectedCompany}
+          selectedRole={selectedRole}
+          companies={companies}
+          roles={roles}
+          onViewLevelChange={handleViewLevelChange}
+          onTimePeriodChange={setCurrentTimePeriod}
+          onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
+          onDepartmentFilterChange={setDepartmentFilter}
+          onSurveyTypeFilterChange={setSurveyTypeFilter}
+          onResponseStatusFilterChange={setResponseStatusFilter}
+          onCompanyChange={handleCompanyChange}
+          onRoleChange={handleRoleChange}
+        />
 
-      {/* AI Insight Panel */}
-      <AiInsightPanel insight={insightData} />
+        <div className="p-4">
+          <Tabs defaultValue="overview" className="w-full">
+            <TabsList className="grid w-full md:w-auto grid-cols-3 h-auto">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="details">Details</TabsTrigger>
+              <TabsTrigger value="insights">Insights</TabsTrigger>
+            </TabsList>
 
-      {/* Section Headers */}
-      <div className="flex mt-6 mb-4 border-b border-neutral-200">
-        <h2 className="text-2xl font-bold text-neutral-800">myCEO</h2>
-      </div>
+            <TabsContent value="overview" className="space-y-4 mt-4">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Current View Level
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">
+                      {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {currentViewLevel === "team" ? "Company + Role" : 
+                       currentViewLevel === "company" ? "Company only" : 
+                       currentViewLevel === "individual" ? "User only" : "All data"}
+                    </p>
+                  </CardContent>
+                </Card>
 
-      {/* myCEO Dashboard Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Charts (Luzmo Embedded) - Spans 2 columns */}
-        <div className="lg:col-span-2">
-          <EmbeddedDashboard embedInfo={luzmoEmbed} />
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Selected Company
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">
+                      {selectedCompany || "All Companies"}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {(currentViewLevel === "team" || currentViewLevel === "company") ? 
+                        "Filtered to specific company" : "No company filter applied"}
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Selected Role
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">
+                      {selectedRole || "All Roles"}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {currentViewLevel === "team" ? 
+                        "Filtered to specific role" : "No role filter applied"}
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <KpiCards />
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Data Overview</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                      <div className="flex flex-col space-y-1">
+                        <span className="text-sm font-medium text-neutral-500">Total Records</span>
+                        <span className="text-2xl font-bold">
+                          {filteredData?.length || 0}
+                        </span>
+                      </div>
+                      <div className="flex flex-col space-y-1">
+                        <span className="text-sm font-medium text-neutral-500">Companies</span>
+                        <span className="text-2xl font-bold">
+                          {getUniqueCompanies(filteredData).length}
+                        </span>
+                      </div>
+                      <div className="flex flex-col space-y-1">
+                        <span className="text-sm font-medium text-neutral-500">Roles</span>
+                        <span className="text-2xl font-bold">
+                          {getUniqueRoles(filteredData).length}
+                        </span>
+                      </div>
+                      <div className="flex flex-col space-y-1">
+                        <span className="text-sm font-medium text-neutral-500">Avg. Score</span>
+                        <span className="text-2xl font-bold">
+                          {filteredData.length > 0
+                            ? Math.round(
+                                filteredData.reduce(
+                                  (sum, item) => sum + (item.responses.totalPoints || 0),
+                                  0
+                                ) / filteredData.length
+                              )
+                            : 0}
+                        </span>
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    <div>
+                      <h3 className="font-medium mb-2">Filtered Data Preview</h3>
+                      <div className="border rounded-md">
+                        <table className="min-w-full divide-y divide-neutral-200">
+                          <thead className="bg-neutral-50">
+                            <tr>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                                Company
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                                Role
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                                Total Points
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                                Status
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-neutral-200">
+                            {filteredData.map((item, index) => (
+                              <tr key={index}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
+                                  {item.companyName}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
+                                  {item.role}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
+                                  {item.responses.totalPoints}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
+                                  {item.responses.status}
+                                </td>
+                              </tr>
+                            ))}
+                            {filteredData.length === 0 && (
+                              <tr>
+                                <td colSpan={4} className="px-6 py-4 text-center text-sm text-neutral-500">
+                                  No data available with current filters
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="details" className="space-y-4 mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Detailed Analysis</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-neutral-600 mb-4">
+                    This section will show detailed analysis based on the selected view level:
+                    <strong>
+                      {" "}
+                      {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
+                    </strong>
+                    {selectedCompany && <span> for company <strong>{selectedCompany}</strong></span>}
+                    {selectedRole && <span> with role <strong>{selectedRole}</strong></span>}
+                  </p>
+
+                  <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
+                    <p className="text-neutral-400">Detailed visualizations would appear here</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="insights" className="space-y-4 mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>AI Insights</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-neutral-600 mb-4">
+                    This section will show AI-generated insights based on the filtered data for view level:
+                    <strong>
+                      {" "}
+                      {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
+                    </strong>
+                  </p>
+
+                  <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
+                    <p className="text-neutral-400">AI insights would appear here</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
-
-        {/* Summary Cards */}
-        <div className="space-y-6">
-          {/* KPI Cards */}
-          <KpiCards kpiData={kpiData} />
-
-          {/* Recent Activity */}
-          <RecentActivity activities={activities} />
-        </div>
       </div>
-
-      {/* 5xCEO Section Header */}
-      <div className="flex mt-10 mb-4 border-b border-neutral-200">
-        <h2 className="text-2xl font-bold text-neutral-800">5xCEO</h2>
-      </div>
-
-      {/* 5xCEO Dashboard Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-lg shadow p-4">
-          <h3 className="text-lg font-semibold mb-4">5x Assessment Model</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-orange-100 rounded-lg p-4">
-              <h4 className="font-medium">Strategic Clarity</h4>
-              <p className="text-sm text-neutral-600">Score: 89%</p>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                <div className="bg-orange-500 h-2.5 rounded-full" style={{ width: '89%' }}></div>
-              </div>
-            </div>
-            <div className="bg-teal-100 rounded-lg p-4">
-              <h4 className="font-medium">Scalable Talent</h4>
-              <p className="text-sm text-neutral-600">Score: 87%</p>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                <div className="bg-teal-500 h-2.5 rounded-full" style={{ width: '87%' }}></div>
-              </div>
-            </div>
-            <div className="bg-red-100 rounded-lg p-4">
-              <h4 className="font-medium">Relentless Focus</h4>
-              <p className="text-sm text-neutral-600">Score: 77%</p>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                <div className="bg-red-500 h-2.5 rounded-full" style={{ width: '77%' }}></div>
-              </div>
-            </div>
-            <div className="bg-blue-100 rounded-lg p-4">
-              <h4 className="font-medium">Disciplined Execution</h4>
-              <p className="text-sm text-neutral-600">Score: 87%</p>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: '87%' }}></div>
-              </div>
-            </div>
-            <div className="bg-gray-100 rounded-lg p-4">
-              <h4 className="font-medium">Energized Culture</h4>
-              <p className="text-sm text-neutral-600">Score: 87%</p>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                <div className="bg-gray-500 h-2.5 rounded-full" style={{ width: '87%' }}></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          {/* GPT-4 Summary Card */}
-          <GptSummaryCard />
-        </div>
-      </div>
-
-      {/* Data Tables Section */}
-      <div className="mt-6">
-        <DataTable responses={responses} departments={departments} />
-      </div>
-
-      {/* Voice Assistant Modal */}
-      <VoiceAssistant
-        isOpen={showVoiceAssistant}
-        onClose={toggleVoiceAssistant}
-      />
-    </div>
+    </AppShell>
   );
 }
