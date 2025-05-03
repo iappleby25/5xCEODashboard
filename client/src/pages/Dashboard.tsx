@@ -7,37 +7,7 @@ import KpiCards from "@/components/KpiCards";
 import DataTable from "@/components/DataTable";
 import { filterSurveyData, getUniqueCompanies, getUniqueRoles, SurveyData, ViewLevelType } from "@/lib/dataProcessor";
 import { useQuery } from "@tanstack/react-query";
-
-// Mock data for testing
-const mockSurveyData: SurveyData[] = [
-  {
-    companyName: "EcoWave",
-    role: "LEADERSHIP TEAM",
-    responses: {
-      id: 1,
-      totalPoints: 78,
-      status: "complete"
-    }
-  },
-  {
-    companyName: "GlobalSolutions",
-    role: "PE & BOD",
-    responses: {
-      id: 2,
-      totalPoints: 85,
-      status: "complete"
-    }
-  },
-  {
-    companyName: "GlobalSolutions",
-    role: "CEO",
-    responses: {
-      id: 3,
-      totalPoints: 92,
-      status: "complete"
-    }
-  }
-];
+import { mockCompanies, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
 
 export default function Dashboard() {
   // Define view levels for the filter
@@ -67,19 +37,37 @@ export default function Dashboard() {
   const [selectedCompany, setSelectedCompany] = useState<string | undefined>(undefined);
   const [selectedRole, setSelectedRole] = useState<string | undefined>(undefined);
   
+  // Convert mockCompanies to SurveyData format for consistency with Dashboard view
+  const convertedMockSurveyData: SurveyData[] = mockCompanies.map(company => ({
+    companyName: company.name,
+    role: "COMPANY", // Default role for converted companies
+    responses: {
+      id: company.id,
+      totalPoints: company.averageScore,
+      status: "complete"
+    },
+    scores: company.scores,
+    logo: company.logo
+  }));
+
+  // Combine both survey data sources to ensure we have all companies
+  const combinedMockSurveyData = [...allMockSurveyData, ...convertedMockSurveyData.filter(
+    item => !allMockSurveyData.some(existingItem => existingItem.companyName === item.companyName)
+  )];
+
   // Compute filtered data based on selected filters
-  const [filteredData, setFilteredData] = useState<SurveyData[]>(mockSurveyData);
+  const [filteredData, setFilteredData] = useState<SurveyData[]>(combinedMockSurveyData);
 
   // Get unique companies and roles
-  const companies = getUniqueCompanies(mockSurveyData);
-  const roles = getUniqueRoles(mockSurveyData);
+  const companies = getUniqueCompanies(combinedMockSurveyData);
+  const roles = getUniqueRoles(combinedMockSurveyData);
 
   // Fetch survey data (simulated)
   const { data: surveyData, isLoading } = useQuery({
     queryKey: ['/api/surveys'],
     queryFn: async () => {
       // In a real implementation, this would fetch from the API
-      return Promise.resolve(mockSurveyData);
+      return Promise.resolve(combinedMockSurveyData);
     },
   });
 
