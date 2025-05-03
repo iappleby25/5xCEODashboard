@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AppShell from "@/components/AppShell";
 import FilterBar, { ViewLevel, TimePeriod } from "@/components/FilterBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -131,237 +130,235 @@ export default function Dashboard() {
   };
 
   return (
-    <AppShell>
-      <div className="flex-1">
-        <FilterBar
-          viewLevels={viewLevels}
-          timePeriods={timePeriods}
-          currentViewLevel={currentViewLevel}
-          currentTimePeriod={currentTimePeriod}
-          showAdvancedFilters={showAdvancedFilters}
-          departmentFilter={departmentFilter}
-          surveyTypeFilter={surveyTypeFilter}
-          responseStatusFilter={responseStatusFilter}
-          selectedCompany={selectedCompany}
-          selectedRole={selectedRole}
-          companies={companies}
-          roles={roles}
-          onViewLevelChange={handleViewLevelChange}
-          onTimePeriodChange={setCurrentTimePeriod}
-          onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
-          onDepartmentFilterChange={setDepartmentFilter}
-          onSurveyTypeFilterChange={setSurveyTypeFilter}
-          onResponseStatusFilterChange={setResponseStatusFilter}
-          onCompanyChange={handleCompanyChange}
-          onRoleChange={handleRoleChange}
-        />
+    <div className="flex-1">
+      <FilterBar
+        viewLevels={viewLevels}
+        timePeriods={timePeriods}
+        currentViewLevel={currentViewLevel}
+        currentTimePeriod={currentTimePeriod}
+        showAdvancedFilters={showAdvancedFilters}
+        departmentFilter={departmentFilter}
+        surveyTypeFilter={surveyTypeFilter}
+        responseStatusFilter={responseStatusFilter}
+        selectedCompany={selectedCompany}
+        selectedRole={selectedRole}
+        companies={companies}
+        roles={roles}
+        onViewLevelChange={handleViewLevelChange}
+        onTimePeriodChange={setCurrentTimePeriod}
+        onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
+        onDepartmentFilterChange={setDepartmentFilter}
+        onSurveyTypeFilterChange={setSurveyTypeFilter}
+        onResponseStatusFilterChange={setResponseStatusFilter}
+        onCompanyChange={handleCompanyChange}
+        onRoleChange={handleRoleChange}
+      />
 
-        <div className="p-4">
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full md:w-auto grid-cols-3 h-auto">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="details">Details</TabsTrigger>
-              <TabsTrigger value="insights">Insights</TabsTrigger>
-            </TabsList>
+      <div className="p-4">
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid w-full md:w-auto grid-cols-3 h-auto">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="insights">Insights</TabsTrigger>
+          </TabsList>
 
-            <TabsContent value="overview" className="space-y-4 mt-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Current View Level
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {currentViewLevel === "team" ? "Company + Role" : 
-                       currentViewLevel === "company" ? "Company only" : 
-                       currentViewLevel === "individual" ? "User only" : "All data"}
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Selected Company
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {selectedCompany || "All Companies"}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {(currentViewLevel === "team" || currentViewLevel === "company") ? 
-                        "Filtered to specific company" : "No company filter applied"}
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Selected Role
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {selectedRole || "All Roles"}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {currentViewLevel === "team" ? 
-                        "Filtered to specific role" : "No role filter applied"}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <KpiCards />
-
+          <TabsContent value="overview" className="space-y-4 mt-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               <Card>
-                <CardHeader>
-                  <CardTitle>Data Overview</CardTitle>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Current View Level
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                      <div className="flex flex-col space-y-1">
-                        <span className="text-sm font-medium text-neutral-500">Total Records</span>
-                        <span className="text-2xl font-bold">
-                          {filteredData?.length || 0}
-                        </span>
-                      </div>
-                      <div className="flex flex-col space-y-1">
-                        <span className="text-sm font-medium text-neutral-500">Companies</span>
-                        <span className="text-2xl font-bold">
-                          {getUniqueCompanies(filteredData).length}
-                        </span>
-                      </div>
-                      <div className="flex flex-col space-y-1">
-                        <span className="text-sm font-medium text-neutral-500">Roles</span>
-                        <span className="text-2xl font-bold">
-                          {getUniqueRoles(filteredData).length}
-                        </span>
-                      </div>
-                      <div className="flex flex-col space-y-1">
-                        <span className="text-sm font-medium text-neutral-500">Avg. Score</span>
-                        <span className="text-2xl font-bold">
-                          {filteredData.length > 0
-                            ? Math.round(
-                                filteredData.reduce(
-                                  (sum, item) => sum + (item.responses.totalPoints || 0),
-                                  0
-                                ) / filteredData.length
-                              )
-                            : 0}
-                        </span>
-                      </div>
+                  <div className="text-2xl font-bold">
+                    {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {currentViewLevel === "team" ? "Company + Role" : 
+                     currentViewLevel === "company" ? "Company only" : 
+                     currentViewLevel === "individual" ? "User only" : "All data"}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Selected Company
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {selectedCompany || "All Companies"}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {(currentViewLevel === "team" || currentViewLevel === "company") ? 
+                      "Filtered to specific company" : "No company filter applied"}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Selected Role
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {selectedRole || "All Roles"}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {currentViewLevel === "team" ? 
+                      "Filtered to specific role" : "No role filter applied"}
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <KpiCards />
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Data Overview</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-sm font-medium text-neutral-500">Total Records</span>
+                      <span className="text-2xl font-bold">
+                        {filteredData?.length || 0}
+                      </span>
                     </div>
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-sm font-medium text-neutral-500">Companies</span>
+                      <span className="text-2xl font-bold">
+                        {getUniqueCompanies(filteredData).length}
+                      </span>
+                    </div>
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-sm font-medium text-neutral-500">Roles</span>
+                      <span className="text-2xl font-bold">
+                        {getUniqueRoles(filteredData).length}
+                      </span>
+                    </div>
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-sm font-medium text-neutral-500">Avg. Score</span>
+                      <span className="text-2xl font-bold">
+                        {filteredData.length > 0
+                          ? Math.round(
+                              filteredData.reduce(
+                                (sum, item) => sum + (item.responses.totalPoints || 0),
+                                0
+                              ) / filteredData.length
+                            )
+                          : 0}
+                      </span>
+                    </div>
+                  </div>
 
-                    <Separator />
+                  <Separator />
 
-                    <div>
-                      <h3 className="font-medium mb-2">Filtered Data Preview</h3>
-                      <div className="border rounded-md">
-                        <table className="min-w-full divide-y divide-neutral-200">
-                          <thead className="bg-neutral-50">
-                            <tr>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                Company
-                              </th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                Role
-                              </th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                Total Points
-                              </th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                Status
-                              </th>
+                  <div>
+                    <h3 className="font-medium mb-2">Filtered Data Preview</h3>
+                    <div className="border rounded-md">
+                      <table className="min-w-full divide-y divide-neutral-200">
+                        <thead className="bg-neutral-50">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                              Company
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                              Role
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                              Total Points
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                              Status
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-neutral-200">
+                          {filteredData.map((item, index) => (
+                            <tr key={index}>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
+                                {item.companyName}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
+                                {item.role}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
+                                {item.responses.totalPoints}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
+                                {item.responses.status}
+                              </td>
                             </tr>
-                          </thead>
-                          <tbody className="bg-white divide-y divide-neutral-200">
-                            {filteredData.map((item, index) => (
-                              <tr key={index}>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
-                                  {item.companyName}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
-                                  {item.role}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
-                                  {item.responses.totalPoints}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
-                                  {item.responses.status}
-                                </td>
-                              </tr>
-                            ))}
-                            {filteredData.length === 0 && (
-                              <tr>
-                                <td colSpan={4} className="px-6 py-4 text-center text-sm text-neutral-500">
-                                  No data available with current filters
-                                </td>
-                              </tr>
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
+                          ))}
+                          {filteredData.length === 0 && (
+                            <tr>
+                              <td colSpan={4} className="px-6 py-4 text-center text-sm text-neutral-500">
+                                No data available with current filters
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-            <TabsContent value="details" className="space-y-4 mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Detailed Analysis</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-neutral-600 mb-4">
-                    This section will show detailed analysis based on the selected view level:
-                    <strong>
-                      {" "}
-                      {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
-                    </strong>
-                    {selectedCompany && <span> for company <strong>{selectedCompany}</strong></span>}
-                    {selectedRole && <span> with role <strong>{selectedRole}</strong></span>}
-                  </p>
+          <TabsContent value="details" className="space-y-4 mt-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Detailed Analysis</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-neutral-600 mb-4">
+                  This section will show detailed analysis based on the selected view level:
+                  <strong>
+                    {" "}
+                    {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
+                  </strong>
+                  {selectedCompany && <span> for company <strong>{selectedCompany}</strong></span>}
+                  {selectedRole && <span> with role <strong>{selectedRole}</strong></span>}
+                </p>
 
-                  <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
-                    <p className="text-neutral-400">Detailed visualizations would appear here</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+                <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
+                  <p className="text-neutral-400">Detailed visualizations would appear here</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-            <TabsContent value="insights" className="space-y-4 mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>AI Insights</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-neutral-600 mb-4">
-                    This section will show AI-generated insights based on the filtered data for view level:
-                    <strong>
-                      {" "}
-                      {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
-                    </strong>
-                  </p>
+          <TabsContent value="insights" className="space-y-4 mt-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>AI Insights</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-neutral-600 mb-4">
+                  This section will show AI-generated insights based on the filtered data for view level:
+                  <strong>
+                    {" "}
+                    {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
+                  </strong>
+                </p>
 
-                  <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
-                    <p className="text-neutral-400">AI insights would appear here</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
+                <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
+                  <p className="text-neutral-400">AI insights would appear here</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-    </AppShell>
+    </div>
   );
 }
