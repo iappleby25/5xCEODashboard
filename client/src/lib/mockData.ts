@@ -1,140 +1,357 @@
+import { CompanyData, SurveyData } from "./dataProcessor";
+
+// 5xCEO Framework categories
 export interface FrameworkCategory {
   id: string;
   name: string;
   description: string;
-  avgImportance: number; // Scale of 1-5
-  avgAgreement: number; // Scale of 1-5
-  performance: number; // Percentage derived from importance and agreement
-  improvementOpportunity: string;
-  detailedInsights: string;
+  questions: { id: string; text: string; }[];
+  score: number;
 }
 
-export interface AssessmentData {
-  id: string;
-  title: string;
-  date: string;
-  companyName: string;
-  categories: FrameworkCategory[];
-}
+export const getCategoryColor = (categoryId: string): string => {
+  const colors: Record<string, string> = {
+    'strategic-clarity': '#FF5722',  // Orange
+    'scalable-talent': '#4CAF50',    // Green
+    'relentless-focus': '#2196F3',   // Blue
+    'disciplined-execution': '#9C27B0', // Purple
+    'energized-culture': '#FFC107'   // Amber
+  };
+  
+  return colors[categoryId] || '#757575'; // Default to gray
+};
 
-// This data structure represents the 5xCEO framework with mock data
-export const assessmentData: AssessmentData = {
-  id: "assessment-2025-05-02",
-  title: "5xCEO Assessment",
-  date: "May 2, 2025",
-  companyName: "Acme Corporation",
-  categories: [
-    {
-      id: "strategic-clarity",
-      name: "Strategic Clarity",
-      description: "The ability to develop and communicate a clear, compelling vision and strategy.",
-      avgImportance: 4.8,
-      avgAgreement: 4.3,
-      performance: 89,
-      improvementOpportunity: "Improve cascade of strategic priorities to all team members.",
-      detailedInsights: "Your organization demonstrates strong strategic clarity at the leadership level. Executives and senior managers have a clear understanding of the company's vision and direction. However, there's an opportunity to better cascade these priorities to mid-level managers and individual contributors. Consider implementing quarterly strategic review sessions with broader team participation."
-    },
-    {
-      id: "scalable-talent",
-      name: "Scalable Talent",
-      description: "The systems and processes for attracting, developing, and retaining exceptional people.",
-      avgImportance: 4.6,
-      avgAgreement: 4.0,
-      performance: 87,
-      improvementOpportunity: "Enhance leadership development programs for middle management.",
-      detailedInsights: "Your talent acquisition processes are strong, bringing in high-quality candidates. Retention rates are above industry average, particularly for senior roles. The opportunity lies in developing a more robust leadership pipeline, especially at the middle management level. Consider implementing a formal mentorship program and creating more structured career progression paths."
-    },
-    {
-      id: "relentless-focus",
-      name: "Relentless Focus",
-      description: "The discipline to concentrate resources on the highest-value activities and avoid distractions.",
-      avgImportance: 4.5,
-      avgAgreement: 3.5,
-      performance: 77,
-      improvementOpportunity: "Implement more rigorous project prioritization framework.",
-      detailedInsights: "This is your most significant opportunity area. While the organization has a clear strategy, execution sometimes suffers from taking on too many initiatives simultaneously. Teams report feeling stretched across multiple priorities. Consider implementing a more rigorous project prioritization framework and be more selective about which opportunities to pursue."
-    },
-    {
-      id: "disciplined-execution",
-      name: "Disciplined Execution",
-      description: "The ability to consistently meet or exceed commitments and drive results.",
-      avgImportance: 4.7,
-      avgAgreement: 4.1,
-      performance: 87,
-      improvementOpportunity: "Strengthen accountability mechanisms for key deliverables.",
-      detailedInsights: "Your organization demonstrates strong execution capabilities, particularly in core business operations. Project delivery is generally on-time and within budget. The opportunity area is in strengthening accountability mechanisms for cross-functional initiatives where ownership can sometimes become diffused. Consider implementing a RACI matrix for major initiatives."
-    },
-    {
-      id: "energized-culture",
-      name: "Energized Culture",
-      description: "The environment that fosters engagement, innovation, and high performance.",
-      avgImportance: 4.5,
-      avgAgreement: 3.9,
-      performance: 87,
-      improvementOpportunity: "Address work-life balance concerns in high-growth departments.",
-      detailedInsights: "Your company culture is generally strong with high engagement scores. Employees report feeling aligned with the company mission and values. The main opportunity area is around work-life balance, particularly in high-growth departments where workload has increased significantly. Consider reviewing resource allocation and implementing more flexible work arrangements."
+// Generate interpretation text based on score
+export const generateInterpretation = (category: FrameworkCategory, viewMode: 'MyCEO' | '5xCEO'): string => {
+  const { score, name } = category;
+  
+  if (viewMode === '5xCEO') {
+    if (score >= 80) {
+      return `Strong performance in ${name}. The company demonstrates excellent capabilities in this area.`;
+    } else if (score >= 60) {
+      return `Satisfactory performance in ${name}. There are some areas that could be improved.`;
+    } else {
+      return `Weak performance in ${name}. This area needs significant improvement and focus.`;
     }
-  ]
-};
-
-export const getCategoryColor = (categoryId: string): { bg: string; text: string; border: string; accent: string } => {
-  switch (categoryId) {
-    case 'strategic-clarity':
-      return { 
-        bg: 'bg-orange-100',
-        text: 'text-orange-800',
-        border: 'border-orange-300',
-        accent: 'bg-orange-500'
-      };
-    case 'scalable-talent':
-      return { 
-        bg: 'bg-teal-100',
-        text: 'text-teal-800',
-        border: 'border-teal-300',
-        accent: 'bg-teal-500'
-      };
-    case 'relentless-focus':
-      return { 
-        bg: 'bg-red-100',
-        text: 'text-red-800',
-        border: 'border-red-300',
-        accent: 'bg-red-500'
-      };
-    case 'disciplined-execution':
-      return { 
-        bg: 'bg-blue-100',
-        text: 'text-blue-800',
-        border: 'border-blue-300',
-        accent: 'bg-blue-500'
-      };
-    case 'energized-culture':
-      return { 
-        bg: 'bg-purple-100',
-        text: 'text-purple-800',
-        border: 'border-purple-300',
-        accent: 'bg-purple-500'
-      };
-    default:
-      return { 
-        bg: 'bg-gray-100',
-        text: 'text-gray-800',
-        border: 'border-gray-300',
-        accent: 'bg-gray-500'
-      };
+  } else {
+    // MyCEO view is more data-focused and less interpretive
+    if (score >= 80) {
+      return `Score of ${score}% indicates high performance in ${name}.`;
+    } else if (score >= 60) {
+      return `Score of ${score}% shows average performance in ${name}.`;
+    } else {
+      return `Score of ${score}% reveals challenges in ${name} that need to be addressed.`;
+    }
   }
 };
 
-// Helper function to simulate AI interpretation (placeholder for GPT)
-export const generateInterpretation = (categoryId: string): string => {
-  const category = assessmentData.categories.find(c => c.id === categoryId);
-  
-  if (!category) {
-    return "No interpretation available for this category.";
+// Assessment data for the 5xCEO framework
+export const assessmentData: FrameworkCategory[] = [
+  {
+    id: 'strategic-clarity',
+    name: 'Strategic Clarity',
+    description: 'Clear and compelling vision, strategy and plan that everyone understands',
+    questions: [
+      { id: 'sc1', text: 'How clear is the company vision to all employees?' },
+      { id: 'sc2', text: 'Does the strategy align with market opportunities?' },
+      { id: 'sc3', text: 'How effectively is the strategy communicated throughout the organization?' }
+    ],
+    score: 85
+  },
+  {
+    id: 'scalable-talent',
+    name: 'Scalable Talent',
+    description: 'Right people in the right roles with the right capabilities',
+    questions: [
+      { id: 'st1', text: 'Does the company attract and retain top talent?' },
+      { id: 'st2', text: 'Are roles clearly defined with appropriate accountability?' },
+      { id: 'st3', text: 'Does the company invest in employee development?' }
+    ],
+    score: 72
+  },
+  {
+    id: 'relentless-focus',
+    name: 'Relentless Focus',
+    description: 'Unwavering attention on the few things that matter most',
+    questions: [
+      { id: 'rf1', text: 'How effectively does the company prioritize initiatives?' },
+      { id: 'rf2', text: 'Does the leadership team avoid distraction from core objectives?' },
+      { id: 'rf3', text: 'Are resources allocated to support key priorities?' }
+    ],
+    score: 68
+  },
+  {
+    id: 'disciplined-execution',
+    name: 'Disciplined Execution',
+    description: 'Consistent and reliable delivery of results',
+    questions: [
+      { id: 'de1', text: 'Does the company consistently meet its targets?' },
+      { id: 'de2', text: 'Are performance metrics clearly defined and tracked?' },
+      { id: 'de3', text: 'Is there accountability for results throughout the organization?' }
+    ],
+    score: 79
+  },
+  {
+    id: 'energized-culture',
+    name: 'Energized Culture',
+    description: 'Environment that unleashes everyone\'s best work',
+    questions: [
+      { id: 'ec1', text: 'How engaged are employees on average?' },
+      { id: 'ec2', text: 'Does the culture align with the company\'s values?' },
+      { id: 'ec3', text: 'Is continuous improvement encouraged and rewarded?' }
+    ],
+    score: 81
   }
-  
-  return `Based on the assessment data for ${category.name}, your organization is performing at ${category.performance}% effectiveness. 
-  
-The primary improvement opportunity is to ${category.improvementOpportunity.toLowerCase()}
+];
 
-${category.detailedInsights}`;
+// Mock company logos (we'll use placeholder SVGs)
+export const createCompanyLogo = (name: string, color: string): string => {
+  // Create a simple SVG logo based on the first letter of the company name
+  const firstLetter = name.charAt(0).toUpperCase();
+  
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="10" fill="${color}" />
+      <text x="50" y="55" font-family="Arial" font-size="50" font-weight="bold" text-anchor="middle" fill="white">${firstLetter}</text>
+    </svg>
+  `;
 };
+
+// Create a data URL from SVG
+export const svgToDataURL = (svg: string): string => {
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+};
+
+// Mock company data with 5xCEO framework scores
+export const mockCompanies: CompanyData[] = [
+  {
+    id: 1,
+    name: "EcoWave",
+    logo: svgToDataURL(createCompanyLogo("EcoWave", "#4CAF50")),
+    averageScore: 85,
+    scores: {
+      strategicClarity: 90,
+      scalableTalent: 82,
+      relentlessFocus: 88,
+      disciplinedExecution: 85,
+      energizedCulture: 80,
+      totalScore: 85
+    },
+    insights: [
+      "Strongest area is Strategic Clarity at 90%",
+      "Area needing most improvement: Energized Culture at 80%",
+      "Overall performance is excellent"
+    ]
+  },
+  {
+    id: 2,
+    name: "GlobalSolutions",
+    logo: svgToDataURL(createCompanyLogo("GlobalSolutions", "#2196F3")),
+    averageScore: 72,
+    scores: {
+      strategicClarity: 76,
+      scalableTalent: 65,
+      relentlessFocus: 70,
+      disciplinedExecution: 78,
+      energizedCulture: 71,
+      totalScore: 72
+    },
+    insights: [
+      "Strongest area is Disciplined Execution at 78%",
+      "Area needing most improvement: Scalable Talent at 65%",
+      "Overall performance is satisfactory with room for improvement"
+    ]
+  },
+  {
+    id: 3,
+    name: "TechVision",
+    logo: svgToDataURL(createCompanyLogo("TechVision", "#9C27B0")),
+    averageScore: 92,
+    scores: {
+      strategicClarity: 94,
+      scalableTalent: 92,
+      relentlessFocus: 90,
+      disciplinedExecution: 93,
+      energizedCulture: 91,
+      totalScore: 92
+    },
+    insights: [
+      "Strongest area is Strategic Clarity at 94%",
+      "Area needing most improvement: Relentless Focus at 90%",
+      "Overall performance is excellent"
+    ]
+  },
+  {
+    id: 4,
+    name: "AlphaInnovate",
+    logo: svgToDataURL(createCompanyLogo("AlphaInnovate", "#FF5722")),
+    averageScore: 55,
+    scores: {
+      strategicClarity: 62,
+      scalableTalent: 48,
+      relentlessFocus: 53,
+      disciplinedExecution: 59,
+      energizedCulture: 53,
+      totalScore: 55
+    },
+    insights: [
+      "Strongest area is Strategic Clarity at 62%",
+      "Area needing most improvement: Scalable Talent at 48%",
+      "Overall performance needs significant improvement"
+    ]
+  },
+  {
+    id: 5,
+    name: "QuantumCorp",
+    logo: svgToDataURL(createCompanyLogo("QuantumCorp", "#673AB7")),
+    averageScore: 68,
+    scores: {
+      strategicClarity: 71,
+      scalableTalent: 65,
+      relentlessFocus: 62,
+      disciplinedExecution: 74,
+      energizedCulture: 68,
+      totalScore: 68
+    },
+    insights: [
+      "Strongest area is Disciplined Execution at 74%",
+      "Area needing most improvement: Relentless Focus at 62%",
+      "Overall performance is satisfactory with room for improvement"
+    ]
+  },
+  {
+    id: 6,
+    name: "MomentumFuel",
+    logo: svgToDataURL(createCompanyLogo("MomentumFuel", "#FFC107")),
+    averageScore: 78,
+    scores: {
+      strategicClarity: 80,
+      scalableTalent: 76,
+      relentlessFocus: 82,
+      disciplinedExecution: 74,
+      energizedCulture: 78,
+      totalScore: 78
+    },
+    insights: [
+      "Strongest area is Relentless Focus at 82%",
+      "Area needing most improvement: Disciplined Execution at 74%",
+      "Overall performance is satisfactory with room for improvement"
+    ]
+  },
+  {
+    id: 7,
+    name: "NexaGrowth",
+    logo: svgToDataURL(createCompanyLogo("NexaGrowth", "#00BCD4")),
+    averageScore: 83,
+    scores: {
+      strategicClarity: 85,
+      scalableTalent: 84,
+      relentlessFocus: 80,
+      disciplinedExecution: 82,
+      energizedCulture: 84,
+      totalScore: 83
+    },
+    insights: [
+      "Strongest area is Strategic Clarity at 85%",
+      "Area needing most improvement: Relentless Focus at 80%",
+      "Overall performance is excellent"
+    ]
+  },
+  {
+    id: 8,
+    name: "FusionDynamics",
+    logo: svgToDataURL(createCompanyLogo("FusionDynamics", "#E91E63")),
+    averageScore: 45,
+    scores: {
+      strategicClarity: 52,
+      scalableTalent: 42,
+      relentlessFocus: 38,
+      disciplinedExecution: 49,
+      energizedCulture: 44,
+      totalScore: 45
+    },
+    insights: [
+      "Strongest area is Strategic Clarity at 52%",
+      "Area needing most improvement: Relentless Focus at 38%",
+      "Overall performance needs significant improvement"
+    ]
+  },
+  {
+    id: 9,
+    name: "VitalSync",
+    logo: svgToDataURL(createCompanyLogo("VitalSync", "#8BC34A")),
+    averageScore: 76,
+    scores: {
+      strategicClarity: 79,
+      scalableTalent: 77,
+      relentlessFocus: 75,
+      disciplinedExecution: 72,
+      energizedCulture: 77,
+      totalScore: 76
+    },
+    insights: [
+      "Strongest area is Strategic Clarity at 79%",
+      "Area needing most improvement: Disciplined Execution at 72%",
+      "Overall performance is satisfactory with room for improvement"
+    ]
+  }
+];
+
+// Mock survey data for MyCEO view
+export const mockSurveyData: SurveyData[] = [
+  {
+    companyName: "EcoWave",
+    role: "LEADERSHIP TEAM",
+    responses: {
+      id: 1,
+      totalPoints: 78,
+      status: "complete"
+    },
+    scores: mockCompanies[0].scores,
+    logo: mockCompanies[0].logo
+  },
+  {
+    companyName: "GlobalSolutions",
+    role: "PE & BOD",
+    responses: {
+      id: 2,
+      totalPoints: 85,
+      status: "complete"
+    },
+    scores: mockCompanies[1].scores,
+    logo: mockCompanies[1].logo
+  },
+  {
+    companyName: "GlobalSolutions",
+    role: "CEO",
+    responses: {
+      id: 3,
+      totalPoints: 92,
+      status: "complete"
+    },
+    scores: mockCompanies[1].scores,
+    logo: mockCompanies[1].logo
+  },
+  {
+    companyName: "TechVision",
+    role: "LEADERSHIP TEAM",
+    responses: {
+      id: 4,
+      totalPoints: 90,
+      status: "complete"
+    },
+    scores: mockCompanies[2].scores,
+    logo: mockCompanies[2].logo
+  },
+  {
+    companyName: "AlphaInnovate",
+    role: "CEO",
+    responses: {
+      id: 5,
+      totalPoints: 55,
+      status: "in_progress"
+    },
+    scores: mockCompanies[3].scores,
+    logo: mockCompanies[3].logo
+  }
+];

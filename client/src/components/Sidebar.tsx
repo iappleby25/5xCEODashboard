@@ -131,10 +131,12 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-neutral-600 hover:bg-neutral-100">
-                  <LineChart className="mr-3 h-4 w-4" />
-                  Comparisons
-                </a>
+                <Link href="/comparisons" onClick={isMobile ? onClose : undefined}>
+                  <a className={linkClasses("/comparisons")}>
+                    <LineChart className="mr-3 h-4 w-4" />
+                    Comparisons
+                  </a>
+                </Link>
               </li>
             </ul>
           </li>

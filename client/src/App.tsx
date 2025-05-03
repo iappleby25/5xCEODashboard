@@ -12,6 +12,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import MyCEO from "@/pages/MyCEO";
 import FiveXCEO from "@/pages/5xCEO";
+import Comparisons from "@/pages/Comparisons";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/history" component={History} />
       <Route path="/MyCEO" component={MyCEO} />
       <Route path="/5xCEO" component={FiveXCEO} />
+      <Route path="/comparisons" component={Comparisons} />
       <Route component={NotFound} />
     </Switch>
   );
