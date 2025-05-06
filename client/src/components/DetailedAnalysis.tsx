@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
@@ -6,6 +6,8 @@ import {
   ResponsiveContainer, PieChart, Pie, Cell, RadarChart, PolarGrid, 
   PolarAngleAxis, PolarRadiusAxis, Radar
 } from 'recharts';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { SurveyData, CompanyScores, formatRadarData } from '@/lib/dataProcessor';
 
 // Colors for charts
@@ -24,6 +26,43 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
   selectedCompany, 
   selectedRole 
 }) => {
+  // State for dialog to show company-specific scores
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [companyScores, setCompanyScores] = useState<Array<{ company: string; score: number }>>([]);
+
+  // Handle click on a bar in the chart
+  const handleBarClick = (data: any, index: number) => {
+    const category = data.name;
+    const categoryKey = getCategoryKey(category);
+    
+    if (categoryKey) {
+      // Get all companies with scores for this category
+      const scores = filteredData
+        .filter(item => item.scores)
+        .map(item => ({
+          company: item.companyName,
+          score: item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0
+        }))
+        .sort((a, b) => b.score - a.score); // Sort highest to lowest
+      
+      setSelectedCategory(category);
+      setCompanyScores(scores);
+      setDialogOpen(true);
+    }
+  };
+
+  // Convert category display name to the key in CompanyScores
+  const getCategoryKey = (category: string): string | null => {
+    switch (category) {
+      case 'Strategic Clarity': return 'strategicClarity';
+      case 'Scalable Talent': return 'scalableTalent';
+      case 'Relentless Focus': return 'relentlessFocus';
+      case 'Disciplined Execution': return 'disciplinedExecution';
+      case 'Energized Culture': return 'energizedCulture';
+      default: return null;
+    }
+  };
   // Calculate average scores across all dimensions
   const aggregateScores = (): CompanyScores => {
     if (!filteredData.length) {
@@ -176,7 +215,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                           const words = payload.value.split(' ');
                           return (
                             <g transform={`translate(${x},${y})`}>
-                              {words.map((word, index) => (
+                              {words.map((word: string, index: number) => (
                                 <text
                                   key={index}
                                   x={0}
@@ -196,7 +235,13 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                       <YAxis domain={[0, 100]} />
                       <Tooltip formatter={(value) => [`${value}%`, 'Score']} />
                       <Legend />
-                      <Bar dataKey="value" fill="#2563eb" name="Score (%)" />
+                      <Bar 
+                        dataKey="value" 
+                        fill="#2563eb" 
+                        name="Score (%)" 
+                        onClick={handleBarClick}
+                        cursor="pointer"
+                      />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -372,6 +417,52 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           </CardContent>
         </Card>
       )}
+
+      {/* Dialog to show company scores when bar is clicked */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>{selectedCategory} Scores by Company</DialogTitle>
+            <DialogDescription>
+              Click on any bar in the chart to view detailed scores for each company.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="overflow-y-auto max-h-[60vh]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Company</TableHead>
+                  <TableHead className="text-right">Score</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {companyScores.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{item.company}</TableCell>
+                    <TableCell className="text-right">
+                      <span 
+                        className={`font-semibold ${
+                          item.score >= 80 ? 'text-green-600' : 
+                          item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                        }`}
+                      >
+                        {item.score}%
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {companyScores.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                      No company data available
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
