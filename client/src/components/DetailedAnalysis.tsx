@@ -37,13 +37,30 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     const categoryKey = getCategoryKey(category);
     
     if (categoryKey) {
-      // Get all companies with scores for this category
-      const scores = filteredData
-        .filter(item => item.scores)
-        .map(item => ({
-          company: item.companyName,
-          score: item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0
-        }))
+      // Create a Map to store unique companies with their scores
+      const companyScoreMap = new Map<string, number>();
+      
+      // Populate the map with company names and scores
+      filteredData
+        .filter(item => item.scores && item.companyName)
+        .forEach(item => {
+          const companyName = item.companyName;
+          const score = item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0;
+          
+          // If company already exists in map, we keep the highest score
+          if (companyScoreMap.has(companyName)) {
+            const existingScore = companyScoreMap.get(companyName) || 0;
+            if (score > existingScore) {
+              companyScoreMap.set(companyName, score);
+            }
+          } else {
+            companyScoreMap.set(companyName, score);
+          }
+        });
+      
+      // Convert map to array and sort
+      const scores = Array.from(companyScoreMap.entries())
+        .map(([company, score]) => ({ company, score }))
         .sort((a, b) => b.score - a.score); // Sort highest to lowest
       
       setSelectedCategory(category);
@@ -412,6 +429,11 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
               )}
               <p>
                 <span className="font-medium">Records Analyzed:</span> {filteredData.length}
+              </p>
+              <p>
+                <span className="font-medium">Companies Analyzed:</span> {
+                  Array.from(new Set(filteredData.map(item => item.companyName))).filter(Boolean).length
+                }
               </p>
             </div>
           </CardContent>
