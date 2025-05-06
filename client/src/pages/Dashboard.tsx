@@ -169,8 +169,9 @@ export default function Dashboard() {
         onDepartmentFilterChange={setDepartmentFilter}
         onSurveyTypeFilterChange={setSurveyTypeFilter}
         onResponseStatusFilterChange={setResponseStatusFilter}
-        onCompanyChange={handleCompanyChange}
-        onRoleChange={handleRoleChange}
+        // Only provide company/role change handlers for PE & BOD users
+        onCompanyChange={user?.role === 'PE & BOD' ? handleCompanyChange : undefined}
+        onRoleChange={user?.role === 'PE & BOD' ? handleRoleChange : undefined}
       />
 
       <div className="p-4">
