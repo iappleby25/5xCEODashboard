@@ -163,10 +163,36 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={prepareBarChartData()}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 70 }}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" angle={-45} textAnchor="end" height={70} />
+                      <XAxis 
+                        dataKey="name" 
+                        angle={0} 
+                        interval={0}
+                        height={60}
+                        tick={(props) => {
+                          const { x, y, payload } = props;
+                          const words = payload.value.split(' ');
+                          return (
+                            <g transform={`translate(${x},${y})`}>
+                              {words.map((word, index) => (
+                                <text
+                                  key={index}
+                                  x={0}
+                                  y={0}
+                                  dy={14 + index * 12}
+                                  textAnchor="middle"
+                                  fill="#666"
+                                  fontSize={12}
+                                >
+                                  {word}
+                                </text>
+                              ))}
+                            </g>
+                          );
+                        }}
+                      />
                       <YAxis domain={[0, 100]} />
                       <Tooltip formatter={(value) => [`${value}%`, 'Score']} />
                       <Legend />
