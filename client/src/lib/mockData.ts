@@ -297,53 +297,6 @@ export const mockCompanies: CompanyData[] = [
   }
 ];
 
-export const assessmentData = {
-  companyName: "GlobalSolutions",
-  date: "2025-05-06",
-  categories: [
-    {
-      id: "strategic-clarity",
-      name: "Strategic Clarity",
-      performance: 85,
-      avgImportance: 4.2,
-      avgAgreement: 4.5,
-      improvementOpportunity: "Align team objectives with company vision"
-    },
-    {
-      id: "disciplined-execution",
-      name: "Disciplined Execution",
-      performance: 78,
-      avgImportance: 4.8,
-      avgAgreement: 4.0,
-      improvementOpportunity: "Strengthen project management processes"
-    },
-    {
-      id: "relentless-focus",
-      name: "Relentless Focus",
-      performance: 92,
-      avgImportance: 4.6,
-      avgAgreement: 4.7,
-      improvementOpportunity: "Maintain prioritization of key initiatives"
-    },
-    {
-      id: "scalable-talent",
-      name: "Scalable Talent",
-      performance: 75,
-      avgImportance: 4.4,
-      avgAgreement: 3.9,
-      improvementOpportunity: "Develop leadership pipeline"
-    },
-    {
-      id: "energized-culture",
-      name: "Energized Culture",
-      performance: 88,
-      avgImportance: 4.3,
-      avgAgreement: 4.2,
-      improvementOpportunity: "Foster innovation and collaboration"
-    }
-  ]
-};
-
 // Mock survey data for MyCEO view
 export const mockSurveyData: SurveyData[] = [
   {
