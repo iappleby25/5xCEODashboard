@@ -43,20 +43,11 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-10 space-x-4"
+            className="mt-10"
           >
-            <Link href="/MyCEO">
-              <Button className="rounded-md px-5 py-3 text-base font-medium">
-                MyCEO
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/5xCEO">
-              <Button
-                variant="outline"
-                className="rounded-md px-5 py-3 text-base font-medium text-blue-600 border-blue-600"
-              >
-                5xCEO
+            <Link href="/login">
+              <Button className="rounded-md px-8 py-3 text-base font-medium">
+                Login
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
