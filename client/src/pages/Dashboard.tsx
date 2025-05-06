@@ -9,15 +9,24 @@ import DetailedAnalysis from "@/components/DetailedAnalysis";
 import { filterSurveyData, getUniqueCompanies, getUniqueRoles, SurveyData, ViewLevelType } from "@/lib/dataProcessor";
 import { useQuery } from "@tanstack/react-query";
 import { mockCompanies, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Dashboard() {
-  // Define view levels for the filter
-  const viewLevels: ViewLevel[] = [
-    { value: "individual", label: "Individual" },
-    { value: "team", label: "Team" },
-    { value: "company", label: "Company" },
-    { value: "holding", label: "Holding" }
-  ];
+  const { user } = useAuth();
+  
+  // Define view levels for the filter based on user role
+  const viewLevels: ViewLevel[] = user?.role === 'PE & BOD' 
+    ? [
+        { value: "individual", label: "Individual" },
+        { value: "team", label: "Team" },
+        { value: "company", label: "Company" },
+        { value: "holding", label: "Holding" }
+      ]
+    : [
+        { value: "individual", label: "Individual" },
+        { value: "team", label: "Team" },
+        { value: "company", label: "Company" }
+      ];
 
   // Define time periods for the filter
   const timePeriods: TimePeriod[] = [
@@ -28,14 +37,18 @@ export default function Dashboard() {
     { value: "all", label: "All Time" }
   ];
 
-  // State for filters
-  const [currentViewLevel, setCurrentViewLevel] = useState<ViewLevelType>("holding");
+  // State for filters - default to company view for CEO/LEADERSHIP users
+  const defaultViewLevel = user?.role === 'PE & BOD' ? "holding" : "company";
+  const [currentViewLevel, setCurrentViewLevel] = useState<ViewLevelType>(defaultViewLevel);
   const [currentTimePeriod, setCurrentTimePeriod] = useState("all");
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [departmentFilter, setDepartmentFilter] = useState("all");
   const [surveyTypeFilter, setSurveyTypeFilter] = useState("all");
   const [responseStatusFilter, setResponseStatusFilter] = useState("all");
-  const [selectedCompany, setSelectedCompany] = useState<string | undefined>(undefined);
+  
+  // For CEO/LEADERSHIP users, default to their company (GlobalSolutions)
+  const defaultCompany = user?.role !== 'PE & BOD' ? "GlobalSolutions" : undefined;
+  const [selectedCompany, setSelectedCompany] = useState<string | undefined>(defaultCompany);
   const [selectedRole, setSelectedRole] = useState<string | undefined>(undefined);
   
   // Convert mockCompanies to SurveyData format for consistency with Dashboard view
@@ -96,17 +109,34 @@ export default function Dashboard() {
 
   // Handle view level change
   const handleViewLevelChange = (value: string) => {
+    // For non-PE & BOD users, prevent setting view level to holding
+    if (value === "holding" && user?.role !== "PE & BOD") {
+      return;
+    }
+    
     setCurrentViewLevel(value as ViewLevelType);
-    // Reset company and role when changing view level
+    
+    // Reset company and role when changing view level to holding
     if (value === "holding") {
       setSelectedCompany(undefined);
       setSelectedRole(undefined);
+    }
+    
+    // For CEO and LEADERSHIP users, ensure company is always set to GlobalSolutions
+    if (user?.role !== "PE & BOD" && !selectedCompany) {
+      setSelectedCompany("GlobalSolutions");
     }
   };
 
   // Handle company change
   const handleCompanyChange = (value: string) => {
+    // For CEO and LEADERSHIP users, only allow GlobalSolutions
+    if (user?.role !== "PE & BOD" && value !== "GlobalSolutions") {
+      return;
+    }
+    
     setSelectedCompany(value);
+    
     if (currentViewLevel === "team") {
       // Reset role when changing company in team view
       setSelectedRole(undefined);

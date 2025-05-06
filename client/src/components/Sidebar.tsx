@@ -82,7 +82,7 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                 <Link href="/dashboard" onClick={isMobile ? onClose : undefined}>
                   <a className={linkClasses("/dashboard")}>
                     <LayoutDashboard className="mr-3 h-4 w-4" />
-                    Dashboard
+                    Performance Overview
                   </a>
                 </Link>
               </li>
