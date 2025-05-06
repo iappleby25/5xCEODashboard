@@ -8,12 +8,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useQuery } from "@tanstack/react-query";
 import { CompanyData } from "@/lib/dataProcessor";
 import { mockCompanies } from "@/lib/mockData";
+import { useAuth } from "@/context/AuthContext";
+import { AlertTriangle, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Comparisons() {
+  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("alphabetical");
   const [selectedCompany, setSelectedCompany] = useState<CompanyData | undefined>(undefined);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+  // Check if user is PE & BOD
+  const isPortfolioUser = user?.role === 'PE & BOD';
 
   // Fetch companies data (using mock for now)
   const { data: companies = [], isLoading } = useQuery({
@@ -22,6 +29,8 @@ export default function Comparisons() {
       // In a real implementation, this would fetch from the API
       return Promise.resolve(mockCompanies);
     },
+    // Only fetch if user is a PE & BOD user
+    enabled: isPortfolioUser
   });
 
   // Filter companies based on search term
@@ -56,6 +65,37 @@ export default function Comparisons() {
   const handleCloseDetail = () => {
     setIsDetailOpen(false);
   };
+  
+  // Render restricted access message for non-PE & BOD users
+  if (!isPortfolioUser) {
+    return (
+      <div className="flex-1 p-6">
+        <h1 className="text-2xl font-bold mb-6">Company Comparisons</h1>
+        
+        <Card className="bg-yellow-50 border-yellow-200">
+          <CardContent className="pt-6">
+            <div className="flex flex-col items-center text-center p-6 gap-4">
+              <div className="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center">
+                <Lock className="h-8 w-8 text-yellow-700" />
+              </div>
+              <h2 className="text-xl font-semibold text-yellow-800">Access Restricted</h2>
+              <p className="text-yellow-700 max-w-md">
+                Comparative insights are only available at the portfolio level. 
+                Please log in with a PE & BOD account to access benchmarking across companies.
+              </p>
+              
+              <div className="flex items-center justify-center mt-4 gap-2 bg-white p-4 rounded-lg border border-yellow-200 w-full max-w-md">
+                <AlertTriangle className="h-5 w-5 text-yellow-600" />
+                <p className="text-sm text-yellow-700">
+                  Your current role ({user?.role}) is limited to single-company view.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 p-6">

@@ -12,9 +12,11 @@ import {
   User,
   Home,
   BarChart,
-  PieChart
+  PieChart,
+  LogOut
 } from "lucide-react";
 import logoSvg from "../assets/advantage-ceo-final.svg";
+import { useAuth } from "@/context/AuthContext";
 
 interface SidebarProps {
   isMobile: boolean;
@@ -24,6 +26,7 @@ interface SidebarProps {
 
 export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
   const [location] = useLocation();
+  const { user, logout, isAuthenticated } = useAuth();
 
   // If it's a mobile sidebar and it's not open, don't render
   if (isMobile && !isOpen) {
@@ -51,6 +54,9 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
       }
     );
   };
+  
+  // Check if user is PE & BOD role to enable comparisons
+  const canAccessComparisons = user?.role === 'PE & BOD';
 
   return (
     <aside className={sidebarClasses}>
@@ -130,14 +136,16 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                   AI Insights
                 </a>
               </li>
-              <li>
-                <Link href="/comparisons" onClick={isMobile ? onClose : undefined}>
-                  <a className={linkClasses("/comparisons")}>
-                    <LineChart className="mr-3 h-4 w-4" />
-                    Comparisons
-                  </a>
-                </Link>
-              </li>
+              {canAccessComparisons && (
+                <li>
+                  <Link href="/comparisons" onClick={isMobile ? onClose : undefined}>
+                    <a className={linkClasses("/comparisons")}>
+                      <LineChart className="mr-3 h-4 w-4" />
+                      Comparisons
+                    </a>
+                  </Link>
+                </li>
+              )}
             </ul>
           </li>
           
@@ -168,15 +176,39 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
       </nav>
       
       <div className="border-t border-neutral-200 p-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center">
-            <User className="h-4 w-4 text-neutral-500" />
+        {isAuthenticated && user ? (
+          <div className="flex flex-col space-y-2">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center">
+                <User className="h-4 w-4 text-neutral-500" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">{user.email}</p>
+                <p className="text-xs text-neutral-400">{user.role}</p>
+              </div>
+            </div>
+            <button 
+              onClick={() => {
+                logout();
+                onClose();
+                window.location.href = '/';
+              }}
+              className="flex items-center px-4 py-2 text-sm rounded-md text-red-600 hover:bg-red-50 mt-2"
+            >
+              <LogOut className="mr-3 h-4 w-4" />
+              Logout
+            </button>
           </div>
-          <div>
-            <p className="text-sm font-medium">Alex Johnson</p>
-            <p className="text-xs text-neutral-400">Administrator</p>
+        ) : (
+          <div className="flex items-center space-x-3">
+            <Link href="/login" onClick={isMobile ? onClose : undefined}>
+              <a className="flex items-center px-4 py-2 text-sm rounded-md text-blue-600 hover:bg-blue-50">
+                <User className="mr-3 h-4 w-4" />
+                Login
+              </a>
+            </Link>
           </div>
-        </div>
+        )}
       </div>
     </aside>
   );
