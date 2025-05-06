@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import KpiCards from "@/components/KpiCards";
 import DataTable from "@/components/DataTable";
+import DetailedAnalysis from "@/components/DetailedAnalysis";
 import { filterSurveyData, getUniqueCompanies, getUniqueRoles, SurveyData, ViewLevelType } from "@/lib/dataProcessor";
 import { useQuery } from "@tanstack/react-query";
 import { mockCompanies, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
@@ -303,26 +304,12 @@ export default function Dashboard() {
           </TabsContent>
 
           <TabsContent value="details" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Detailed Analysis</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-neutral-600 mb-4">
-                  This section will show detailed analysis based on the selected view level:
-                  <strong>
-                    {" "}
-                    {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
-                  </strong>
-                  {selectedCompany && <span> for company <strong>{selectedCompany}</strong></span>}
-                  {selectedRole && <span> with role <strong>{selectedRole}</strong></span>}
-                </p>
-
-                <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
-                  <p className="text-neutral-400">Detailed visualizations would appear here</p>
-                </div>
-              </CardContent>
-            </Card>
+            <DetailedAnalysis 
+              filteredData={filteredData} 
+              currentViewLevel={currentViewLevel}
+              selectedCompany={selectedCompany}
+              selectedRole={selectedRole}
+            />
           </TabsContent>
 
           <TabsContent value="insights" className="space-y-4 mt-4">
