@@ -135,8 +135,13 @@ export default function Comparisons() {
 
   return (
     <div className="flex-1 p-6">
-      <div className="flex flex-wrap justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Company Comparisons</h1>
+      <div className="flex flex-wrap justify-between items-start mb-6">
+        <div>
+          <h1 className="text-2xl font-bold">Company Comparisons</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Hold <kbd className="px-1 py-0.5 text-xs bg-muted border rounded">Shift</kbd> + click on companies to select up to 4 for comparison
+          </p>
+        </div>
         
         {selectedCompanies.length >= 2 && (
           <Button 

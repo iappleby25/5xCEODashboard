@@ -45,12 +45,25 @@ export default function CompanyComparison({
   
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl w-full">
-        <DialogHeader>
-          <DialogTitle className="text-2xl">Company Comparison</DialogTitle>
-          <DialogDescription>
-            Side-by-side comparison of selected companies
-          </DialogDescription>
+      <DialogContent className="max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+        <DialogHeader className="sticky top-0 bg-white pb-4 z-10">
+          <div className="flex items-center justify-between">
+            <div>
+              <DialogTitle className="text-2xl">Company Comparison</DialogTitle>
+              <DialogDescription>
+                Side-by-side comparison of selected companies
+              </DialogDescription>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              onClick={onClose}
+            >
+              <span className="sr-only">Close</span>
+              <span className="text-2xl">&times;</span>
+            </Button>
+          </div>
         </DialogHeader>
 
         <div className="mt-4">
@@ -134,9 +147,9 @@ export default function CompanyComparison({
           </Table>
         </div>
 
-        <div className="mt-4 flex justify-end">
-          <Button variant="outline" onClick={onClose}>
-            Close
+        <div className="mt-6 pb-2 flex justify-end">
+          <Button variant="default" onClick={onClose} className="px-6">
+            Close Comparison
           </Button>
         </div>
       </DialogContent>
