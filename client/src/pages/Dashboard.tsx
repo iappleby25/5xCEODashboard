@@ -204,7 +204,22 @@ export default function Dashboard() {
       )}
 
       <div className="p-4">
-        <Tabs defaultValue={user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM' ? "details" : "overview"} className="w-full">
+        <Tabs 
+          defaultValue={(() => {
+            // Check if there's a tab parameter in the URL
+            const searchParams = new URLSearchParams(window.location.search);
+            const tabParam = searchParams.get('tab');
+            
+            // Return the tab param if valid, otherwise use role-based default
+            if (tabParam && ['overview', 'details', 'insights'].includes(tabParam)) {
+              return tabParam;
+            }
+            
+            // Default behavior based on user role
+            return user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM' ? "details" : "overview";
+          })()}
+          className="w-full"
+        >
           <TabsList className={`grid w-full md:w-auto ${user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM' ? 'grid-cols-2' : 'grid-cols-3'} h-auto`}>
             {user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM' && <TabsTrigger value="overview">Overview</TabsTrigger>}
             <TabsTrigger value="details">Details</TabsTrigger>

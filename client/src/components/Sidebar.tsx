@@ -147,10 +147,14 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-neutral-600 hover:bg-neutral-100">
+                <Link
+                  href="/dashboard?tab=insights"
+                  onClick={isMobile ? onClose : undefined}
+                  className={linkClasses(location.includes("insights") ? "/dashboard?tab=insights" : "")}
+                >
                   <Waypoints className="mr-3 h-4 w-4" />
                   AI Insights
-                </a>
+                </Link>
               </li>
               {isPeBod && (
                 <li>
