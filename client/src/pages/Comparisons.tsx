@@ -60,8 +60,8 @@ export default function Comparisons() {
 
   // Handle company tile click
   const handleCompanyClick = (company: CompanyData) => {
-    // If shift is pressed, add to comparison selection
-    if (window.event && (window.event as MouseEvent).shiftKey) {
+    // If Ctrl/Cmd is pressed, add to comparison selection
+    if (window.event && ((window.event as MouseEvent).ctrlKey || (window.event as MouseEvent).metaKey)) {
       handleCompanySelection(company);
     } else {
       // Normal click - open company details
@@ -139,7 +139,7 @@ export default function Comparisons() {
         <div>
           <h1 className="text-2xl font-bold">Company Comparisons</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Hold <kbd className="px-1 py-0.5 text-xs bg-muted border rounded">Shift</kbd> + click on companies to select up to 4 for comparison
+            Hold <kbd className="px-1 py-0.5 text-xs bg-muted border rounded">Ctrl</kbd> (or <kbd className="px-1 py-0.5 text-xs bg-muted border rounded">⌘ Cmd</kbd> on Mac) + click on companies to select up to 4 for comparison
           </p>
         </div>
         
@@ -160,7 +160,7 @@ export default function Comparisons() {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
               <h3 className="text-sm font-medium text-blue-700">Selected for comparison: {selectedCompanies.length}/4</h3>
-              <span className="ml-2 text-xs text-blue-600">(Hold shift + click to select companies)</span>
+              <span className="ml-2 text-xs text-blue-600">(Hold Ctrl/Cmd + click to select companies)</span>
             </div>
             <Button 
               variant="outline" 

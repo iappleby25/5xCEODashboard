@@ -98,7 +98,7 @@ export default function CompanyComparison({
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 mb-10">
           <h3 className="text-lg font-medium mb-4">Performance Metrics Comparison</h3>
           
           <Table>
@@ -147,11 +147,7 @@ export default function CompanyComparison({
           </Table>
         </div>
 
-        <div className="mt-6 pb-2 flex justify-end">
-          <Button variant="default" onClick={onClose} className="px-6">
-            Close Comparison
-          </Button>
-        </div>
+
       </DialogContent>
     </Dialog>
   );
