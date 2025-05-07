@@ -156,11 +156,12 @@ export default function AiInsightsView({ surveyId = 1 }: AiInsightsViewProps) {
                   <Loader2 className="h-8 w-8 animate-spin text-primary/70" />
                 </div>
               ) : (
-                <GptSummaryCard 
-                  surveyId={surveyId}
-                  onRefresh={() => console.log("Refresh summary")}
-                  onDownload={() => console.log("Download summary")}
-                  onFullReport={() => console.log("View full report")}
+                <SummaryFallback 
+                  summaryData={summaryReport}
+                  onRefresh={() => {
+                    console.log("Refresh summary");
+                    switchInsightType("summary");
+                  }}
                 />
               )}
             </TabsContent>

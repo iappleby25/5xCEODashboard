@@ -1,45 +1,38 @@
-import {
-  ArrowUpRight,
-  ChevronRight,
-  Download,
-  Loader2,
-  RefreshCcw,
-  Sparkles
-} from "lucide-react";
-import {
+import React from 'react';
+import { 
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
+  CardDescription,
+  CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useQuery } from "@tanstack/react-query";
-import { SummaryReport } from "@/types/insights";
 import { Progress } from "@/components/ui/progress";
+import { Sparkles, RefreshCcw, Download, ArrowUpRight, Loader2 } from "lucide-react";
 
-interface GptSummaryCardProps {
-  surveyId?: number;
-  onRefresh?: () => void;
-  onDownload?: () => void;
-  onFullReport?: () => void;
+interface ImprovementArea {
+  area: string;
+  percentage: number;
 }
 
-export default function GptSummaryCard({ 
-  surveyId = 1, 
-  onRefresh, 
-  onDownload,
-  onFullReport
-}: GptSummaryCardProps) {
-  // Fetch summary report
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: [`/api/generate-insights/${surveyId}/summary`],
-    retry: 2,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
+interface SummaryReport {
+  summary: string;
+  improvementAreas: ImprovementArea[];
+  recommendation: string;
+}
 
-  // Default data if fetch fails or is loading
+interface SummaryFallbackProps {
+  summaryData?: any;
+  onRefresh?: () => void;
+}
+
+export default function SummaryFallback({ 
+  summaryData,
+  onRefresh
+}: SummaryFallbackProps) {
+  
+  // Default data 
   const defaultData: SummaryReport = {
     summary: "Based on survey responses from 243 employees across 5 departments, there's a positive correlation between work-life balance improvements and overall satisfaction scores.",
     improvementAreas: [
@@ -50,21 +43,8 @@ export default function GptSummaryCard({
     recommendation: "Consider implementing more regular career development conversations and transparent project allocation."
   };
 
-  // Debug logs
-  console.log("Summary API data:", data);
-  console.log("Summary loading state:", isLoading);
-  console.log("Summary error:", error);
+  const reportData = summaryData || defaultData;
   
-  const summaryData = data || defaultData;
-  
-  const handleRefresh = async () => {
-    if (onRefresh) {
-      onRefresh();
-    } else {
-      await refetch();
-    }
-  };
-
   return (
     <Card className="bg-white rounded-lg shadow-sm">
       <CardHeader className="pb-2">
@@ -78,25 +58,17 @@ export default function GptSummaryCard({
               variant="ghost"
               size="icon"
               className="h-7 w-7 rounded-full hover:bg-primary/10"
-              onClick={handleRefresh}
-              disabled={isLoading}
+              onClick={onRefresh}
             >
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <RefreshCcw className="h-4 w-4" />
-              )}
+              <RefreshCcw className="h-4 w-4" />
             </Button>
-            {onDownload && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7 rounded-full hover:bg-primary/10"
-                onClick={onDownload}
-              >
-                <Download className="h-4 w-4" />
-              </Button>
-            )}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 rounded-full hover:bg-primary/10"
+            >
+              <Download className="h-4 w-4" />
+            </Button>
           </div>
         </div>
         <CardDescription>
@@ -105,12 +77,12 @@ export default function GptSummaryCard({
       </CardHeader>
       
       <CardContent className="text-sm space-y-4">
-        <p className="text-neutral-700">{summaryData.summary}</p>
+        <p className="text-neutral-700">{reportData.summary}</p>
         
         <div className="p-3 bg-accent/5 border-l-2 border-accent rounded">
           <p className="font-medium text-neutral-700 mb-2">Top improvement areas:</p>
           <div className="space-y-3">
-            {summaryData.improvementAreas.map((area, index) => (
+            {reportData.improvementAreas.map((area, index) => (
               <div key={index} className="space-y-1">
                 <div className="flex items-center justify-between text-sm">
                   <span>{area.area}</span>
@@ -128,14 +100,14 @@ export default function GptSummaryCard({
               Recommendation
             </Badge>
           </div>
-          <p className="text-neutral-700">{summaryData.recommendation}</p>
+          <p className="text-neutral-700">{reportData.recommendation}</p>
         </div>
         
         <div className="mt-3 text-right">
           <Button 
             variant="link" 
             className="text-sm text-primary hover:text-primary-dark p-0 gap-1" 
-            onClick={onFullReport}
+            onClick={() => window.open(`/report/1`, '_blank')}
           >
             <span>View full report</span>
             <ArrowUpRight className="h-3 w-3" />
