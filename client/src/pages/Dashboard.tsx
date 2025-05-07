@@ -163,13 +163,13 @@ export default function Dashboard() {
         selectedRole={selectedRole}
         companies={companies}
         roles={roles}
-        onViewLevelChange={handleViewLevelChange}
+        // Only provide view level and company/role change handlers for PE & BOD users
+        onViewLevelChange={user?.role === 'PE & BOD' ? handleViewLevelChange : undefined}
         onTimePeriodChange={setCurrentTimePeriod}
         onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
         onDepartmentFilterChange={setDepartmentFilter}
         onSurveyTypeFilterChange={setSurveyTypeFilter}
         onResponseStatusFilterChange={setResponseStatusFilter}
-        // Only provide company/role change handlers for PE & BOD users
         onCompanyChange={user?.role === 'PE & BOD' ? handleCompanyChange : undefined}
         onRoleChange={user?.role === 'PE & BOD' ? handleRoleChange : undefined}
       />

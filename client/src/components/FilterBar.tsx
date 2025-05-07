@@ -82,6 +82,8 @@ export default function FilterBar({
   onCompanyChange,
   onRoleChange,
 }: FilterBarProps) {
+  // Check if user can change view level (only PE & BOD can - based on whether the handler is provided)
+  const canChangeViewLevel = typeof onViewLevelChange === 'function' && viewLevels.length > 1;
   // Find the current view level's label
   const currentViewLevelLabel = viewLevels.find(
     (level) => level.value === currentViewLevel
@@ -96,23 +98,34 @@ export default function FilterBar({
     <div className="p-4 border-b border-neutral-200 bg-white">
       <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
         <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-y-0 md:space-x-4">
-          <div>
-            <label className="text-xs font-medium text-neutral-500 mb-1 block">
-              View Level
-            </label>
-            <Select value={currentViewLevel} onValueChange={onViewLevelChange}>
-              <SelectTrigger className="h-9 w-[180px]">
-                <SelectValue placeholder="Select level" />
-              </SelectTrigger>
-              <SelectContent>
-                {viewLevels.map((level) => (
-                  <SelectItem key={level.value} value={level.value}>
-                    {level.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {canChangeViewLevel ? (
+            <div>
+              <label className="text-xs font-medium text-neutral-500 mb-1 block">
+                View Level
+              </label>
+              <Select value={currentViewLevel} onValueChange={onViewLevelChange}>
+                <SelectTrigger className="h-9 w-[180px]">
+                  <SelectValue placeholder="Select level" />
+                </SelectTrigger>
+                <SelectContent>
+                  {viewLevels.map((level) => (
+                    <SelectItem key={level.value} value={level.value}>
+                      {level.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          ) : (
+            <div>
+              <label className="text-xs font-medium text-neutral-500 mb-1 block">
+                View Level
+              </label>
+              <div className="h-9 w-[180px] px-3 flex items-center rounded-md border border-neutral-200 bg-neutral-50 text-sm text-neutral-600">
+                {currentViewLevelLabel}
+              </div>
+            </div>
+          )}
 
           {currentViewLevel === "team" && (
             <>
