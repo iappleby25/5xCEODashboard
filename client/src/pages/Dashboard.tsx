@@ -32,6 +32,11 @@ export default function Dashboard() {
         { value: "company", label: "Company" },
         { value: "holding", label: "Holding" }
       ]
+    : user?.role === 'LEADERSHIP TEAM'
+    ? [
+        { value: "individual", label: "Individual" },
+        { value: "company", label: "Company" }
+      ]
     : [
         { value: "individual", label: "Individual" },
         { value: "team", label: "Team" },
@@ -47,9 +52,13 @@ export default function Dashboard() {
     { value: "all", label: "All Time" }
   ];
 
-  // State for filters - default to company view for CEO/LEADERSHIP users
-  const defaultViewLevel = user?.role === 'PE & BOD' ? "holding" : "company";
-  const [currentViewLevel, setCurrentViewLevel] = useState<ViewLevelType>(defaultViewLevel);
+  // State for filters - default to appropriate view level based on user role
+  const getDefaultViewLevel = (): ViewLevelType => {
+    if (user?.role === 'PE & BOD') return "holding";
+    if (user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM') return "company";
+    return "company";
+  };
+  const [currentViewLevel, setCurrentViewLevel] = useState<ViewLevelType>(getDefaultViewLevel());
   const [currentTimePeriod, setCurrentTimePeriod] = useState("all");
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [departmentFilter, setDepartmentFilter] = useState("all");
@@ -121,6 +130,11 @@ export default function Dashboard() {
   const handleViewLevelChange = (value: string) => {
     // For non-PE & BOD users, prevent setting view level to holding
     if (value === "holding" && user?.role !== "PE & BOD") {
+      return;
+    }
+    
+    // For LEADERSHIP TEAM users, prevent setting view level to team
+    if (value === "team" && user?.role === "LEADERSHIP TEAM") {
       return;
     }
     
