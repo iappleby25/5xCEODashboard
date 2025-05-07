@@ -1,21 +1,24 @@
 import { useState } from "react";
+import { 
+  Brain, 
+  ChevronDown, 
+  ChevronUp, 
+  MessageSquare, 
+  ThumbsDown, 
+  ThumbsUp 
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ChevronUp, ChevronDown, Brain, MessageSquare } from "lucide-react";
-
-interface Insight {
-  title: string;
-  content: string;
-  tags: string[];
-  isPositive: boolean;
-}
+import { Insight } from "@/types/insights";
 
 interface AiInsightPanelProps {
   insight?: Insight;
+  onFeedback?: (type: 'positive' | 'negative') => void;
+  onFollowUp?: () => void;
 }
 
-export default function AiInsightPanel({ insight }: AiInsightPanelProps) {
+export default function AiInsightPanel({ insight, onFeedback, onFollowUp }: AiInsightPanelProps) {
   const [isExpanded, setIsExpanded] = useState(true);
 
   // Default insight if none provided
@@ -70,11 +73,32 @@ export default function AiInsightPanel({ insight }: AiInsightPanelProps) {
           </div>
         </div>
         
-        <div className="flex-shrink-0 ml-auto hidden lg:flex">
+        <div className="flex-shrink-0 ml-auto hidden lg:flex space-x-2">
+          {onFeedback && (
+            <div className="flex items-center space-x-1 mr-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 rounded-full hover:bg-success/10 hover:text-success"
+                onClick={() => onFeedback('positive')}
+              >
+                <ThumbsUp className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 rounded-full hover:bg-error/10 hover:text-error"
+                onClick={() => onFeedback('negative')}
+              >
+                <ThumbsDown className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
           <Button 
             variant="outline" 
             size="sm" 
             className="text-primary border-primary/20 bg-primary/5 hover:bg-primary/10"
+            onClick={onFollowUp}
           >
             <MessageSquare className="h-3 w-3 mr-1" />
             Ask follow-up
@@ -89,11 +113,32 @@ export default function AiInsightPanel({ insight }: AiInsightPanelProps) {
       )}
       
       {isExpanded && (
-        <div className="mt-3 flex lg:hidden">
+        <div className="mt-3 flex items-center justify-between lg:hidden">
+          {onFeedback && (
+            <div className="flex items-center space-x-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 rounded-full hover:bg-success/10 hover:text-success"
+                onClick={() => onFeedback('positive')}
+              >
+                <ThumbsUp className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 rounded-full hover:bg-error/10 hover:text-error"
+                onClick={() => onFeedback('negative')}
+              >
+                <ThumbsDown className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
           <Button 
             variant="outline" 
             size="sm" 
             className="text-primary border-primary/20 bg-primary/5 hover:bg-primary/10"
+            onClick={onFollowUp}
           >
             <MessageSquare className="h-3 w-3 mr-1" />
             Ask follow-up
