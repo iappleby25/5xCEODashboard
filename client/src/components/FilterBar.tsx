@@ -23,6 +23,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
 
 // Define the interface for view levels
 export interface ViewLevel {
@@ -82,9 +83,13 @@ export default function FilterBar({
   onCompanyChange,
   onRoleChange,
 }: FilterBarProps) {
+  // Get user role from context
+  const { user } = useAuth();
+  
   // Check if the user can change view level based on their role
   // We'll use a dummy function if the handler isn't meant to do anything
   const canChangeViewLevel = viewLevels.length > 1;
+  
   // Find the current view level's label
   const currentViewLevelLabel = viewLevels.find(
     (level) => level.value === currentViewLevel
@@ -94,6 +99,9 @@ export default function FilterBar({
   const currentTimePeriodLabel = timePeriods.find(
     (period) => period.value === currentTimePeriod
   )?.label || "All Time";
+  
+  // Check if user is restricted (CEO or LEADERSHIP TEAM)
+  const isRestrictedUser = user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM';
 
   return (
     <div className="p-4 border-b border-neutral-200 bg-white">
@@ -176,7 +184,8 @@ export default function FilterBar({
             </>
           )}
 
-          {currentViewLevel === "company" && (
+          {/* Only show company dropdown for PE & BOD users */}
+          {currentViewLevel === "company" && !isRestrictedUser && (
             <div>
               <label className="text-xs font-medium text-neutral-500 mb-1 block">
                 Company
@@ -199,6 +208,18 @@ export default function FilterBar({
               </Select>
             </div>
           )}
+          
+          {/* For CEO/LEADERSHIP users show the company as read-only */}
+          {currentViewLevel === "company" && isRestrictedUser && (
+            <div>
+              <label className="text-xs font-medium text-neutral-500 mb-1 block">
+                Company
+              </label>
+              <div className="h-9 w-[180px] px-3 flex items-center rounded-md border border-neutral-200 bg-neutral-50 text-sm text-neutral-600">
+                {selectedCompany || "GlobalSolutions"}
+              </div>
+            </div>
+          )}
 
           <div>
             <label className="text-xs font-medium text-neutral-500 mb-1 block">
@@ -219,27 +240,31 @@ export default function FilterBar({
           </div>
         </div>
 
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className={cn({
-              "bg-primary-light/10 text-primary border-primary": showAdvancedFilters,
-            })}
-            onClick={onToggleAdvancedFilters}
-          >
-            <Filter className="mr-2 h-4 w-4" />
-            Filters
-            {showAdvancedFilters ? (
-              <XCircle className="ml-2 h-4 w-4" />
-            ) : (
-              <ChevronDown className="ml-2 h-4 w-4" />
-            )}
-          </Button>
-        </div>
+        {/* Only show filter button for PE & BOD users */}
+        {!isRestrictedUser && (
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className={cn({
+                "bg-primary-light/10 text-primary border-primary": showAdvancedFilters,
+              })}
+              onClick={onToggleAdvancedFilters}
+            >
+              <Filter className="mr-2 h-4 w-4" />
+              Filters
+              {showAdvancedFilters ? (
+                <XCircle className="ml-2 h-4 w-4" />
+              ) : (
+                <ChevronDown className="ml-2 h-4 w-4" />
+              )}
+            </Button>
+          </div>
+        )}
       </div>
 
-      {showAdvancedFilters && (
+      {/* Only show advanced filters for PE & BOD users */}
+      {showAdvancedFilters && !isRestrictedUser && (
         <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="text-xs font-medium text-neutral-500 mb-1 block">
