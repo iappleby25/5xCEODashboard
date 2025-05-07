@@ -362,13 +362,16 @@ export default function Dashboard() {
                 <CardTitle>AI Insights</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-neutral-600 mb-4">
-                  This section will show AI-generated insights based on the filtered data for view level:
-                  <strong>
-                    {" "}
-                    {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
-                  </strong>
-                </p>
+                {/* Only show context summary for non-CEO users */}
+                {user?.role !== 'CEO' && (
+                  <p className="text-neutral-600 mb-4">
+                    This section will show AI-generated insights based on the filtered data for view level:
+                    <strong>
+                      {" "}
+                      {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
+                    </strong>
+                  </p>
+                )}
 
                 <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
                   <p className="text-neutral-400">AI insights would appear here</p>
