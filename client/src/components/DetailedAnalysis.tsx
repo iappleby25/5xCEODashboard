@@ -464,89 +464,91 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         </Card>
       )}
 
-      {/* Detailed analysis cards - show these for all view types */}
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Strengths & Opportunities</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-md font-medium text-green-600 mb-2">Top Strengths</h3>
-                {strengths.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
-                    <span>{item.name}</span>
-                    <span className="font-semibold">{item.value}%</span>
-                  </div>
-                ))}
+      {/* Detailed analysis cards - only show if not in comparison view */}
+      {(!showComparison || currentViewLevel !== "compare") && (
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>Strengths & Opportunities</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-md font-medium text-green-600 mb-2">Top Strengths</h3>
+                  {strengths.map((item, index) => (
+                    <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
+                      <span>{item.name}</span>
+                      <span className="font-semibold">{item.value}%</span>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <h3 className="text-md font-medium text-amber-600 mb-2">Areas for Improvement</h3>
+                  {weaknesses.map((item, index) => (
+                    <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
+                      <span>{item.name}</span>
+                      <span className="font-semibold">{item.value}%</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div>
-                <h3 className="text-md font-medium text-amber-600 mb-2">Areas for Improvement</h3>
-                {weaknesses.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
-                    <span>{item.name}</span>
-                    <span className="font-semibold">{item.value}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Score Breakdown</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="font-medium">Overall Average Score:</span>
-                <span className={`text-xl font-bold ${averageScores.totalScore >= 80 ? 'text-green-600' : averageScores.totalScore >= 60 ? 'text-amber-600' : 'text-red-600'}`}>
-                  {averageScores.totalScore}%
-                </span>
-              </div>
-              <div className="space-y-2">
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div 
-                    className={`h-2.5 rounded-full ${averageScores.totalScore >= 80 ? 'bg-green-600' : averageScores.totalScore >= 60 ? 'bg-amber-500' : 'bg-red-600'}`}
-                    style={{ width: `${averageScores.totalScore}%` }}
-                  ></div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Score Breakdown</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">Overall Average Score:</span>
+                  <span className={`text-xl font-bold ${averageScores.totalScore >= 80 ? 'text-green-600' : averageScores.totalScore >= 60 ? 'text-amber-600' : 'text-red-600'}`}>
+                    {averageScores.totalScore}%
+                  </span>
                 </div>
-                
-                <div className="flex justify-between text-xs text-gray-600">
-                  <span>Needs Improvement</span>
-                  <span>Average</span>
-                  <span>Excellent</span>
+                <div className="space-y-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div 
+                      className={`h-2.5 rounded-full ${averageScores.totalScore >= 80 ? 'bg-green-600' : averageScores.totalScore >= 60 ? 'bg-amber-500' : 'bg-red-600'}`}
+                      style={{ width: `${averageScores.totalScore}%` }}
+                    ></div>
+                  </div>
+                  
+                  <div className="flex justify-between text-xs text-gray-600">
+                    <span>Needs Improvement</span>
+                    <span>Average</span>
+                    <span>Excellent</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="pt-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span>Strategic Clarity</span>
-                  <span>{averageScores.strategicClarity}%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span>Scalable Talent</span>
-                  <span>{averageScores.scalableTalent}%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span>Relentless Focus</span>
-                  <span>{averageScores.relentlessFocus}%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span>Disciplined Execution</span>
-                  <span>{averageScores.disciplinedExecution}%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span>Energized Culture</span>
-                  <span>{averageScores.energizedCulture}%</span>
+                <div className="pt-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span>Strategic Clarity</span>
+                    <span>{averageScores.strategicClarity}%</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Scalable Talent</span>
+                    <span>{averageScores.scalableTalent}%</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Relentless Focus</span>
+                    <span>{averageScores.relentlessFocus}%</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Disciplined Execution</span>
+                    <span>{averageScores.disciplinedExecution}%</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Energized Culture</span>
+                    <span>{averageScores.energizedCulture}%</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {/* Context Summary removed as requested */}
 
