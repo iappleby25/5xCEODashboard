@@ -10,9 +10,19 @@ import { filterSurveyData, getUniqueCompanies, getUniqueRoles, SurveyData, ViewL
 import { useQuery } from "@tanstack/react-query";
 import { mockCompanies, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
 import { useAuth } from "@/context/AuthContext";
+import { useLocation } from "wouter";
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const [_, navigate] = useLocation();
+  
+  // Redirect PE & BOD users to the Comparisons page
+  // They don't need access to the Performance Overview
+  useEffect(() => {
+    if (user?.role === 'PE & BOD') {
+      navigate('/comparisons');
+    }
+  }, [user, navigate]);
   
   // Define view levels for the filter based on user role
   const viewLevels: ViewLevel[] = user?.role === 'PE & BOD' 
