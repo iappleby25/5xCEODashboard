@@ -288,12 +288,27 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                       />
                       <YAxis domain={[0, 100]} />
                       <Tooltip 
-                        formatter={(value, name) => {
-                          // Fix the tooltip to show correct labels without company name in brackets
-                          return [`${value}%`, name === 'individual' 
-                            ? 'Individual' 
-                            : 'Company Avg'];
-                        }} 
+                        content={({ active, payload }) => {
+                          if (active && payload && payload.length) {
+                            return (
+                              <div className="custom-tooltip bg-white p-2 border border-gray-200 rounded-md">
+                                {payload.map((entry, index) => (
+                                  <div key={index} className="flex items-center mb-1">
+                                    <div 
+                                      className="w-4 h-4 mr-2 rounded-sm" 
+                                      style={{ backgroundColor: entry.dataKey === 'individual' ? '#8884d8' : '#ff7300' }}
+                                    />
+                                    <span className="mr-2">
+                                      {entry.dataKey === 'individual' ? 'Individual' : 'Company Avg'}:
+                                    </span>
+                                    <span className="font-semibold">{entry.value}%</span>
+                                  </div>
+                                ))}
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
                       />
                       <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: 70 }} />
                       <Bar 
