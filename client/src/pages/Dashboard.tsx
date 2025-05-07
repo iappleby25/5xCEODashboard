@@ -160,34 +160,37 @@ export default function Dashboard() {
 
   return (
     <div className="flex-1">
-      <FilterBar
-        viewLevels={viewLevels}
-        timePeriods={timePeriods}
-        currentViewLevel={currentViewLevel}
-        currentTimePeriod={currentTimePeriod}
-        showAdvancedFilters={showAdvancedFilters}
-        departmentFilter={departmentFilter}
-        surveyTypeFilter={surveyTypeFilter}
-        responseStatusFilter={responseStatusFilter}
-        selectedCompany={selectedCompany}
-        selectedRole={selectedRole}
-        companies={companies}
-        roles={roles}
-        // Handle all filter changes - conditionally based on user role
-        onViewLevelChange={handleViewLevelChange}
-        onTimePeriodChange={setCurrentTimePeriod}
-        onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
-        onDepartmentFilterChange={setDepartmentFilter}
-        onSurveyTypeFilterChange={setSurveyTypeFilter}
-        onResponseStatusFilterChange={setResponseStatusFilter}
-        onCompanyChange={handleCompanyChange}
-        onRoleChange={handleRoleChange}
-      />
+      {/* Hide filter bar completely for CEO users */}
+      {user?.role !== 'CEO' && (
+        <FilterBar
+          viewLevels={viewLevels}
+          timePeriods={timePeriods}
+          currentViewLevel={currentViewLevel}
+          currentTimePeriod={currentTimePeriod}
+          showAdvancedFilters={showAdvancedFilters}
+          departmentFilter={departmentFilter}
+          surveyTypeFilter={surveyTypeFilter}
+          responseStatusFilter={responseStatusFilter}
+          selectedCompany={selectedCompany}
+          selectedRole={selectedRole}
+          companies={companies}
+          roles={roles}
+          // Handle all filter changes - conditionally based on user role
+          onViewLevelChange={handleViewLevelChange}
+          onTimePeriodChange={setCurrentTimePeriod}
+          onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
+          onDepartmentFilterChange={setDepartmentFilter}
+          onSurveyTypeFilterChange={setSurveyTypeFilter}
+          onResponseStatusFilterChange={setResponseStatusFilter}
+          onCompanyChange={handleCompanyChange}
+          onRoleChange={handleRoleChange}
+        />
+      )}
 
       <div className="p-4">
-        <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full md:w-auto grid-cols-3 h-auto">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
+        <Tabs defaultValue={user?.role === 'CEO' ? "details" : "overview"} className="w-full">
+          <TabsList className={`grid w-full md:w-auto ${user?.role === 'CEO' ? 'grid-cols-2' : 'grid-cols-3'} h-auto`}>
+            {user?.role !== 'CEO' && <TabsTrigger value="overview">Overview</TabsTrigger>}
             <TabsTrigger value="details">Details</TabsTrigger>
             <TabsTrigger value="insights">Insights</TabsTrigger>
           </TabsList>
