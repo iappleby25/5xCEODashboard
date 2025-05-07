@@ -307,14 +307,39 @@ export const mockSurveyData: SurveyData[] = [
       totalPoints: 78,
       status: "complete"
     },
-    scores: mockCompanies[0].scores,
+    scores: {
+      strategicClarity: 85,
+      scalableTalent: 78,
+      relentlessFocus: 82,
+      disciplinedExecution: 80,
+      energizedCulture: 76,
+      totalScore: 80
+    },
+    logo: mockCompanies[0].logo
+  },
+  {
+    companyName: "EcoWave",
+    role: "CEO",
+    responses: {
+      id: 2,
+      totalPoints: 92,
+      status: "complete"
+    },
+    scores: {
+      strategicClarity: 95,
+      scalableTalent: 90,
+      relentlessFocus: 93,
+      disciplinedExecution: 92,
+      energizedCulture: 88,
+      totalScore: 92
+    },
     logo: mockCompanies[0].logo
   },
   {
     companyName: "GlobalSolutions",
     role: "PE & BOD",
     responses: {
-      id: 2,
+      id: 3,
       totalPoints: 85,
       status: "complete"
     },
@@ -325,7 +350,7 @@ export const mockSurveyData: SurveyData[] = [
     companyName: "GlobalSolutions",
     role: "CEO",
     responses: {
-      id: 3,
+      id: 4,
       totalPoints: 92,
       status: "complete"
     },
@@ -333,10 +358,28 @@ export const mockSurveyData: SurveyData[] = [
     logo: mockCompanies[1].logo
   },
   {
+    companyName: "GlobalSolutions",
+    role: "LEADERSHIP TEAM",
+    responses: {
+      id: 5,
+      totalPoints: 68,
+      status: "complete"
+    },
+    scores: {
+      strategicClarity: 70,
+      scalableTalent: 62,
+      relentlessFocus: 65,
+      disciplinedExecution: 80,
+      energizedCulture: 60,
+      totalScore: 68
+    },
+    logo: mockCompanies[1].logo
+  },
+  {
     companyName: "TechVision",
     role: "LEADERSHIP TEAM",
     responses: {
-      id: 4,
+      id: 6,
       totalPoints: 90,
       status: "complete"
     },
@@ -347,7 +390,7 @@ export const mockSurveyData: SurveyData[] = [
     companyName: "AlphaInnovate",
     role: "CEO",
     responses: {
-      id: 5,
+      id: 7,
       totalPoints: 55,
       status: "in_progress"
     },
