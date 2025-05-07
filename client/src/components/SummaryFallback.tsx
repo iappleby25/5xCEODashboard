@@ -11,19 +11,10 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Sparkles, RefreshCcw, Download, ArrowUpRight, Loader2 } from "lucide-react";
 
-interface ImprovementArea {
-  area: string;
-  percentage: number;
-}
-
-interface SummaryReport {
-  summary: string;
-  improvementAreas: ImprovementArea[];
-  recommendation: string;
-}
+import { SummaryReport } from "@/types/insights";
 
 interface SummaryFallbackProps {
-  summaryData?: any;
+  summaryData?: SummaryReport;
   onRefresh?: () => void;
 }
 
@@ -82,7 +73,7 @@ export default function SummaryFallback({
         <div className="p-3 bg-accent/5 border-l-2 border-accent rounded">
           <p className="font-medium text-neutral-700 mb-2">Top improvement areas:</p>
           <div className="space-y-3">
-            {reportData.improvementAreas.map((area, index) => (
+            {reportData.improvementAreas.map((area: { area: string; percentage: number }, index: number) => (
               <div key={index} className="space-y-1">
                 <div className="flex items-center justify-between text-sm">
                   <span>{area.area}</span>

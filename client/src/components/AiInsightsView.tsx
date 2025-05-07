@@ -18,6 +18,7 @@ import AiInsightPanel from "./AiInsightPanel";
 import GptSummaryCard from "./GptSummaryCard";
 import TopicClusterCard from "./TopicClusterCard";
 import AiFollowupDialog from "./AiFollowupDialog";
+import SummaryFallback from "./SummaryFallback";
 import useGptInsights from "@/hooks/useGptInsights";
 import { Insight } from "@/types/insights";
 
