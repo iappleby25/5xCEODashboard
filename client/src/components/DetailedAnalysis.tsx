@@ -211,7 +211,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className="mb-4">
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="comparative">Comparative</TabsTrigger>
+              <TabsTrigger value="comparative">Radar View</TabsTrigger>
               <TabsTrigger value="trends">Distribution</TabsTrigger>
             </TabsList>
 
@@ -270,7 +270,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
 
             <TabsContent value="comparative">
               <div className="mb-6">
-                <h3 className="text-lg font-medium mb-2">Company Score Comparison</h3>
+                <h3 className="text-lg font-medium mb-2">5xCEO Score Radar</h3>
                 <div className="h-[350px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart 
