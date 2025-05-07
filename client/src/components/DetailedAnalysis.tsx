@@ -272,30 +272,30 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           <CardContent>
             <div className="mb-6">
               {comparisonData.length > 0 ? (
-                <div className="h-[450px] w-full">
+                <div className="h-[500px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart
                       data={prepareComparisonChartData()}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 150 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis 
                         dataKey="subject" 
                         angle={-45} 
                         textAnchor="end"
-                        height={100}
-                        tick={{ dy: 30 }}
+                        height={120}
+                        tick={{ dy: 50 }}
                       />
                       <YAxis domain={[0, 100]} />
                       <Tooltip 
                         formatter={(value, name) => {
-                          // Fix the tooltip to show "Individual" instead of "Company"
+                          // Fix the tooltip to show correct labels without company name in brackets
                           return [`${value}%`, name === 'individual' 
-                            ? `Individual (${comparisonData[0]?.individualName || 'N/A'})` 
-                            : `Company Avg (${comparisonData[0]?.companyName || 'N/A'})`];
+                            ? 'Individual' 
+                            : 'Company Avg'];
                         }} 
                       />
-                      <Legend wrapperStyle={{ paddingTop: 20 }} />
+                      <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: 70 }} />
                       <Bar 
                         dataKey="individual" 
                         name="Individual" 
@@ -315,29 +315,6 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
               ) : (
                 <div className="flex items-center justify-center h-[300px] bg-neutral-50 rounded-md border border-neutral-200">
                   <p className="text-neutral-500">No comparison data available</p>
-                </div>
-              )}
-
-              {comparisonData.length > 0 && (
-                <div className="mt-6 p-4 bg-blue-50 rounded-md border border-blue-100">
-                  <h4 className="text-md font-medium text-blue-800 mb-2">Performance Insights</h4>
-                  <ul className="list-disc pl-5 space-y-2">
-                    {comparisonData.some(item => item.individual > item.company + 10) && (
-                      <li className="text-sm text-blue-700">
-                        Individual performance <span className="font-medium">exceeds</span> company average in some areas
-                      </li>
-                    )}
-                    {comparisonData.some(item => item.company > item.individual + 10) && (
-                      <li className="text-sm text-blue-700">
-                        Individual performance is <span className="font-medium">below</span> company average in some areas
-                      </li>
-                    )}
-                    {comparisonData.some(item => Math.abs(item.individual - item.company) <= 5) && (
-                      <li className="text-sm text-blue-700">
-                        Individual and company performance are <span className="font-medium">closely aligned</span> in some areas
-                      </li>
-                    )}
-                  </ul>
                 </div>
               )}
             </div>
@@ -556,39 +533,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         </Card>
       </div>
 
-      {/* Show Context Summary only for non-CEO users */}
-      {filteredData.length > 0 && user?.role !== 'CEO' && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Context Summary</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <p>
-                <span className="font-medium">View Level:</span> {currentViewLevel.charAt(0).toUpperCase() + currentViewLevel.slice(1)}
-              </p>
-              {selectedCompany && (
-                <p>
-                  <span className="font-medium">Company:</span> {selectedCompany}
-                </p>
-              )}
-              {selectedRole && (
-                <p>
-                  <span className="font-medium">Role:</span> {selectedRole}
-                </p>
-              )}
-              <p>
-                <span className="font-medium">Records Analyzed:</span> {filteredData.length}
-              </p>
-              <p>
-                <span className="font-medium">Companies Analyzed:</span> {
-                  Array.from(new Set(filteredData.map(item => item.companyName))).filter(Boolean).length
-                }
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      {/* Context Summary removed as requested */}
 
       {/* Dialog to show company scores when bar is clicked */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
