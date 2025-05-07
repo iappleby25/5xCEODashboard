@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
   ResponsiveContainer, PieChart, Pie, Cell, RadarChart, PolarGrid, 
-  PolarAngleAxis, PolarRadiusAxis, Radar
+  PolarAngleAxis, PolarRadiusAxis, Radar, LineChart, Line, ComposedChart
 } from 'recharts';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { SurveyData, CompanyScores, formatRadarData } from '@/lib/dataProcessor';
+import { SurveyData, CompanyScores, formatRadarData, ComparisonData, createComparisonData } from '@/lib/dataProcessor';
 import { useAuth } from "@/context/AuthContext";
 
 // Colors for charts
@@ -33,6 +33,31 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [companyScores, setCompanyScores] = useState<Array<{ company: string; score: number }>>([]);
+  
+  // State for comparison view
+  const [comparisonData, setComparisonData] = useState<ComparisonData[]>([]);
+  const [showComparison, setShowComparison] = useState(false);
+  
+  // Effect to handle comparison view
+  useEffect(() => {
+    // Only process comparison data when in compare view
+    if (currentViewLevel === "compare" && selectedCompany) {
+      // Split data into individual and company aggregates
+      const individualData = filteredData.filter(item => 
+        item.role && item.role !== "COMPANY" && item.companyName === selectedCompany
+      );
+      const companyData = filteredData.filter(item => 
+        item.role === "COMPANY" && item.companyName === selectedCompany
+      );
+      
+      // Create comparison data
+      const compData = createComparisonData(individualData, companyData);
+      setComparisonData(compData);
+      setShowComparison(true);
+    } else {
+      setShowComparison(false);
+    }
+  }, [currentViewLevel, selectedCompany, filteredData]);
 
   // Handle click on a bar in the chart
   const handleBarClick = (data: any, index: number) => {
