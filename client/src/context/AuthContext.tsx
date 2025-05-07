@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // User types
-export type UserRole = 'CEO' | 'LEADERSHIP TEAM' | 'PE & BOD';
+export type UserRole = 'CEO' | 'LEADERSHIP TEAM' | 'PE & BOD' | 'ADMIN';
 
 export interface User {
   email: string;
