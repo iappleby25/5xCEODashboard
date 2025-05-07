@@ -135,6 +135,147 @@ export function formatRadarData(scores: CompanyScores) {
   ];
 }
 
+// Data structure for individual vs company comparison
+export interface ComparisonData {
+  subject: string;
+  individual: number;
+  company: number;
+  individualName?: string;
+  companyName?: string;
+}
+
+// Create comparison data between individual and company data
+export function createComparisonData(individualData: SurveyData[], companyData: SurveyData[]): ComparisonData[] {
+  // If no data is available, return empty array
+  if (individualData.length === 0 || companyData.length === 0) {
+    return [];
+  }
+  
+  // Aggregate individual scores
+  const individualScores: CompanyScores = {
+    strategicClarity: 0,
+    scalableTalent: 0,
+    relentlessFocus: 0,
+    disciplinedExecution: 0,
+    energizedCulture: 0,
+    totalScore: 0
+  };
+  
+  let individualName = "";
+  
+  individualData.forEach(individual => {
+    if (individual.scores) {
+      individualScores.strategicClarity += individual.scores.strategicClarity;
+      individualScores.scalableTalent += individual.scores.scalableTalent;
+      individualScores.relentlessFocus += individual.scores.relentlessFocus;
+      individualScores.disciplinedExecution += individual.scores.disciplinedExecution;
+      individualScores.energizedCulture += individual.scores.energizedCulture;
+      individualScores.totalScore += individual.scores.totalScore;
+      
+      // Use the first individual's name for labeling
+      if (!individualName && individual.role) {
+        individualName = individual.role;
+      }
+    }
+  });
+  
+  // Calculate average individual scores
+  const individualCount = individualData.length;
+  if (individualCount > 0) {
+    individualScores.strategicClarity = Math.round(individualScores.strategicClarity / individualCount);
+    individualScores.scalableTalent = Math.round(individualScores.scalableTalent / individualCount);
+    individualScores.relentlessFocus = Math.round(individualScores.relentlessFocus / individualCount);
+    individualScores.disciplinedExecution = Math.round(individualScores.disciplinedExecution / individualCount);
+    individualScores.energizedCulture = Math.round(individualScores.energizedCulture / individualCount);
+    individualScores.totalScore = Math.round(individualScores.totalScore / individualCount);
+  }
+  
+  // Aggregate company scores
+  const companyScores: CompanyScores = {
+    strategicClarity: 0,
+    scalableTalent: 0,
+    relentlessFocus: 0,
+    disciplinedExecution: 0,
+    energizedCulture: 0,
+    totalScore: 0
+  };
+  
+  let companyName = "";
+  
+  companyData.forEach(company => {
+    if (company.scores) {
+      companyScores.strategicClarity += company.scores.strategicClarity;
+      companyScores.scalableTalent += company.scores.scalableTalent;
+      companyScores.relentlessFocus += company.scores.relentlessFocus;
+      companyScores.disciplinedExecution += company.scores.disciplinedExecution;
+      companyScores.energizedCulture += company.scores.energizedCulture;
+      companyScores.totalScore += company.scores.totalScore;
+      
+      // Use the company name for labeling
+      if (!companyName && company.companyName) {
+        companyName = company.companyName;
+      }
+    }
+  });
+  
+  // Calculate average company scores
+  const companyCount = companyData.length;
+  if (companyCount > 0) {
+    companyScores.strategicClarity = Math.round(companyScores.strategicClarity / companyCount);
+    companyScores.scalableTalent = Math.round(companyScores.scalableTalent / companyCount);
+    companyScores.relentlessFocus = Math.round(companyScores.relentlessFocus / companyCount);
+    companyScores.disciplinedExecution = Math.round(companyScores.disciplinedExecution / companyCount);
+    companyScores.energizedCulture = Math.round(companyScores.energizedCulture / companyCount);
+    companyScores.totalScore = Math.round(companyScores.totalScore / companyCount);
+  }
+  
+  // Create comparison data array
+  return [
+    {
+      subject: "Strategic Clarity",
+      individual: individualScores.strategicClarity,
+      company: companyScores.strategicClarity,
+      individualName,
+      companyName
+    },
+    {
+      subject: "Scalable Talent",
+      individual: individualScores.scalableTalent,
+      company: companyScores.scalableTalent,
+      individualName,
+      companyName
+    },
+    {
+      subject: "Relentless Focus",
+      individual: individualScores.relentlessFocus,
+      company: companyScores.relentlessFocus,
+      individualName,
+      companyName
+    },
+    {
+      subject: "Disciplined Execution",
+      individual: individualScores.disciplinedExecution,
+      company: companyScores.disciplinedExecution,
+      individualName,
+      companyName
+    },
+    {
+      subject: "Energized Culture",
+      individual: individualScores.energizedCulture,
+      company: companyScores.energizedCulture,
+      individualName,
+      companyName
+    },
+    {
+      subject: "Overall",
+      individual: individualScores.totalScore,
+      company: companyScores.totalScore,
+      individualName,
+      companyName
+    }
+  ];
+}
+
 // Generate key insights based on scores
 export function generateInsights(scores: CompanyScores): string[] {
   const insights: string[] = [];
@@ -165,106 +306,4 @@ export function generateInsights(scores: CompanyScores): string[] {
   return insights;
 }
 
-// Format data for company vs individual comparison
-export interface ComparisonData {
-  subject: string;
-  individual: number;
-  company: number;
-  individualName?: string;
-  companyName?: string;
-}
-
-// Create comparison data for individual vs company
-export function createComparisonData(individualData: SurveyData[], companyData: SurveyData[]): ComparisonData[] {
-  // Ensure we have data to compare
-  if (!individualData?.length || !companyData?.length) return [];
-  
-  // Get the first individual (we'll just use the first one for this example)
-  const individual = individualData[0];
-  
-  // Calculate the company average scores
-  const companyScores: CompanyScores = {
-    strategicClarity: 0,
-    scalableTalent: 0,
-    relentlessFocus: 0,
-    disciplinedExecution: 0,
-    energizedCulture: 0,
-    totalScore: 0
-  };
-  
-  // Sum all scores from company data
-  companyData.forEach(company => {
-    if (company.scores) {
-      companyScores.strategicClarity += company.scores.strategicClarity;
-      companyScores.scalableTalent += company.scores.scalableTalent;
-      companyScores.relentlessFocus += company.scores.relentlessFocus;
-      companyScores.disciplinedExecution += company.scores.disciplinedExecution;
-      companyScores.energizedCulture += company.scores.energizedCulture;
-      companyScores.totalScore += company.scores.totalScore;
-    }
-  });
-  
-  // Calculate averages
-  const companyCount = companyData.length;
-  if (companyCount > 0) {
-    companyScores.strategicClarity /= companyCount;
-    companyScores.scalableTalent /= companyCount;
-    companyScores.relentlessFocus /= companyCount;
-    companyScores.disciplinedExecution /= companyCount;
-    companyScores.energizedCulture /= companyCount;
-    companyScores.totalScore /= companyCount;
-  }
-  
-  // Create comparison data array
-  const comparisonData: ComparisonData[] = [];
-  
-  // Only proceed if the individual has scores
-  if (individual.scores) {
-    comparisonData.push(
-      {
-        subject: "Strategic Clarity",
-        individual: individual.scores.strategicClarity,
-        company: companyScores.strategicClarity,
-        individualName: individual.role,
-        companyName: individual.companyName
-      },
-      {
-        subject: "Scalable Talent",
-        individual: individual.scores.scalableTalent,
-        company: companyScores.scalableTalent,
-        individualName: individual.role,
-        companyName: individual.companyName
-      },
-      {
-        subject: "Relentless Focus",
-        individual: individual.scores.relentlessFocus,
-        company: companyScores.relentlessFocus,
-        individualName: individual.role,
-        companyName: individual.companyName
-      },
-      {
-        subject: "Disciplined Execution",
-        individual: individual.scores.disciplinedExecution,
-        company: companyScores.disciplinedExecution,
-        individualName: individual.role,
-        companyName: individual.companyName
-      },
-      {
-        subject: "Energized Culture",
-        individual: individual.scores.energizedCulture,
-        company: companyScores.energizedCulture,
-        individualName: individual.role,
-        companyName: individual.companyName
-      },
-      {
-        subject: "Total Score",
-        individual: individual.scores.totalScore,
-        company: companyScores.totalScore,
-        individualName: individual.role,
-        companyName: individual.companyName
-      }
-    );
-  }
-  
-  return comparisonData;
-}
+// No duplicated content - removed
