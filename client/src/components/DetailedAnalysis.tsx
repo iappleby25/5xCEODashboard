@@ -267,34 +267,35 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
       {showComparison && currentViewLevel === "compare" && (
         <Card>
           <CardHeader>
-            <CardTitle>Individual vs. Company Comparison</CardTitle>
+            <CardTitle>Performance Comparison</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="mb-6">
-              <h3 className="text-lg font-medium mb-2">Individual vs. Company Performance</h3>
               {comparisonData.length > 0 ? (
-                <div className="h-[400px] w-full">
+                <div className="h-[450px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart
                       data={prepareComparisonChartData()}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 50 }}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis 
                         dataKey="subject" 
                         angle={-45} 
                         textAnchor="end"
-                        height={80}
+                        height={100}
+                        tick={{ dy: 30 }}
                       />
                       <YAxis domain={[0, 100]} />
                       <Tooltip 
                         formatter={(value, name) => {
+                          // Fix the tooltip to show "Individual" instead of "Company"
                           return [`${value}%`, name === 'individual' 
                             ? `Individual (${comparisonData[0]?.individualName || 'N/A'})` 
-                            : `Company (${comparisonData[0]?.companyName || 'N/A'})`];
+                            : `Company Avg (${comparisonData[0]?.companyName || 'N/A'})`];
                         }} 
                       />
-                      <Legend />
+                      <Legend wrapperStyle={{ paddingTop: 20 }} />
                       <Bar 
                         dataKey="individual" 
                         name="Individual" 
