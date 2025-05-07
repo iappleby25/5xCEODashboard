@@ -73,53 +73,65 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
             <span className="px-4 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wider">Main</span>
             <ul className="mt-2 space-y-1">
               <li>
-                <Link href="/" onClick={isMobile ? onClose : undefined}>
-                  <a className={linkClasses("/")}>
-                    <Home className="mr-3 h-4 w-4" />
-                    Home
-                  </a>
+                <Link 
+                  href="/" 
+                  onClick={isMobile ? onClose : undefined}
+                  className={linkClasses("/")}
+                >
+                  <Home className="mr-3 h-4 w-4" />
+                  Home
                 </Link>
               </li>
               {isCeoOrLeadership && (
                 <li>
-                  <Link href="/dashboard" onClick={isMobile ? onClose : undefined}>
-                    <a className={linkClasses("/dashboard")}>
-                      <LayoutDashboard className="mr-3 h-4 w-4" />
-                      Performance Overview
-                    </a>
+                  <Link 
+                    href="/dashboard" 
+                    onClick={isMobile ? onClose : undefined}
+                    className={linkClasses("/dashboard")}
+                  >
+                    <LayoutDashboard className="mr-3 h-4 w-4" />
+                    Performance Overview
                   </Link>
                 </li>
               )}
               <li>
-                <Link href="/MyCEO" onClick={isMobile ? onClose : undefined}>
-                  <a className={linkClasses("/MyCEO")}>
-                    <BarChart className="mr-3 h-4 w-4" />
-                    MyCEO
-                  </a>
+                <Link 
+                  href="/MyCEO" 
+                  onClick={isMobile ? onClose : undefined}
+                  className={linkClasses("/MyCEO")}
+                >
+                  <BarChart className="mr-3 h-4 w-4" />
+                  MyCEO
                 </Link>
               </li>
               <li>
-                <Link href="/5xCEO" onClick={isMobile ? onClose : undefined}>
-                  <a className={linkClasses("/5xCEO")}>
-                    <PieChart className="mr-3 h-4 w-4" />
-                    5xCEO
-                  </a>
+                <Link 
+                  href="/5xCEO" 
+                  onClick={isMobile ? onClose : undefined}
+                  className={linkClasses("/5xCEO")}
+                >
+                  <PieChart className="mr-3 h-4 w-4" />
+                  5xCEO
                 </Link>
               </li>
               <li>
-                <Link href="/upload" onClick={isMobile ? onClose : undefined}>
-                  <a className={linkClasses("/upload")}>
-                    <UploadCloud className="mr-3 h-4 w-4" />
-                    Upload Data
-                  </a>
+                <Link 
+                  href="/upload" 
+                  onClick={isMobile ? onClose : undefined}
+                  className={linkClasses("/upload")}
+                >
+                  <UploadCloud className="mr-3 h-4 w-4" />
+                  Upload Data
                 </Link>
               </li>
               <li>
-                <Link href="/history" onClick={isMobile ? onClose : undefined}>
-                  <a className={linkClasses("/history")}>
-                    <Clock className="mr-3 h-4 w-4" />
-                    History
-                  </a>
+                <Link 
+                  href="/history" 
+                  onClick={isMobile ? onClose : undefined}
+                  className={linkClasses("/history")}
+                >
+                  <Clock className="mr-3 h-4 w-4" />
+                  History
                 </Link>
               </li>
             </ul>
@@ -142,11 +154,13 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
               </li>
               {isPeBod && (
                 <li>
-                  <Link href="/comparisons" onClick={isMobile ? onClose : undefined}>
-                    <a className={linkClasses("/comparisons")}>
-                      <LineChart className="mr-3 h-4 w-4" />
-                      Comparisons
-                    </a>
+                  <Link 
+                    href="/comparisons" 
+                    onClick={isMobile ? onClose : undefined}
+                    className={linkClasses("/comparisons")}
+                  >
+                    <LineChart className="mr-3 h-4 w-4" />
+                    Comparisons
                   </Link>
                 </li>
               )}
@@ -239,11 +253,13 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
           </div>
         ) : (
           <div className="flex items-center space-x-3">
-            <Link href="/login" onClick={isMobile ? onClose : undefined}>
-              <a className="flex items-center px-4 py-2 text-sm rounded-md text-blue-600 hover:bg-blue-50">
-                <User className="mr-3 h-4 w-4" />
-                Login
-              </a>
+            <Link 
+              href="/login" 
+              onClick={isMobile ? onClose : undefined}
+              className="flex items-center px-4 py-2 text-sm rounded-md text-blue-600 hover:bg-blue-50"
+            >
+              <User className="mr-3 h-4 w-4" />
+              Login
             </Link>
           </div>
         )}
