@@ -202,9 +202,9 @@ export default function Dashboard() {
       )}
 
       <div className="p-4">
-        <Tabs defaultValue={user?.role === 'CEO' ? "details" : "overview"} className="w-full">
-          <TabsList className={`grid w-full md:w-auto ${user?.role === 'CEO' ? 'grid-cols-2' : 'grid-cols-3'} h-auto`}>
-            {user?.role !== 'CEO' && <TabsTrigger value="overview">Overview</TabsTrigger>}
+        <Tabs defaultValue={user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM' ? "details" : "overview"} className="w-full">
+          <TabsList className={`grid w-full md:w-auto ${user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM' ? 'grid-cols-2' : 'grid-cols-3'} h-auto`}>
+            {user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM' && <TabsTrigger value="overview">Overview</TabsTrigger>}
             <TabsTrigger value="details">Details</TabsTrigger>
             <TabsTrigger value="insights">Insights</TabsTrigger>
           </TabsList>
@@ -376,8 +376,8 @@ export default function Dashboard() {
                 <CardTitle>AI Insights</CardTitle>
               </CardHeader>
               <CardContent>
-                {/* Only show context summary for non-CEO users */}
-                {user?.role !== 'CEO' && (
+                {/* Only show context summary for non-executive users */}
+                {user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM' && (
                   <p className="text-neutral-600 mb-4">
                     This section will show AI-generated insights based on the filtered data for view level:
                     <strong>
