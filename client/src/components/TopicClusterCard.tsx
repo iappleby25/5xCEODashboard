@@ -85,10 +85,18 @@ export default function TopicClusterCard({ topicClusters }: TopicClusterCardProp
                 <Progress 
                   value={cluster.sentimentScore * 100} 
                   className={`h-1.5 mt-1 ${
-                    cluster.sentimentScore >= 0.7 ? "[--progress-foreground:theme(colors.success)]" :
-                    cluster.sentimentScore >= 0.4 ? "[--progress-foreground:theme(colors.amber.500)]" :
-                    "[--progress-foreground:theme(colors.error)]"
+                    cluster.sentimentScore >= 0.7 ? "bg-success/20" :
+                    cluster.sentimentScore >= 0.4 ? "bg-amber-100" :
+                    "bg-error/20"
                   }`}
+                  style={{
+                    "--tw-bg-opacity": "1",
+                    "--progress-foreground-color": cluster.sentimentScore >= 0.7 
+                      ? "var(--success)" 
+                      : cluster.sentimentScore >= 0.4 
+                      ? "rgb(245 158 11)" 
+                      : "var(--error)"
+                  } as React.CSSProperties}
                 />
               </div>
             ))}

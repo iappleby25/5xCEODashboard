@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import KpiCards from "@/components/KpiCards";
 import DataTable from "@/components/DataTable";
 import DetailedAnalysis from "@/components/DetailedAnalysis";
+import AiInsightsView from "@/components/AiInsightsView";
 import { filterSurveyData, getUniqueCompanies, getUniqueRoles, SurveyData, ViewLevelType } from "@/lib/dataProcessor";
 import { useQuery } from "@tanstack/react-query";
 import { mockCompanies, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
@@ -372,27 +373,22 @@ export default function Dashboard() {
           </TabsContent>
 
           <TabsContent value="insights" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>AI Insights</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {/* Only show context summary for non-executive users */}
-                {user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM' && (
-                  <p className="text-neutral-600 mb-4">
-                    This section will show AI-generated insights based on the filtered data for view level:
+            {/* Only show context summary for non-executive users */}
+            {user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM' && (
+              <Card className="border-primary/10 bg-primary/5">
+                <CardContent className="pt-4">
+                  <p className="text-neutral-600">
+                    AI-generated insights based on the filtered data for view level:
                     <strong>
                       {" "}
                       {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
                     </strong>
                   </p>
-                )}
-
-                <div className="p-8 border rounded-md bg-neutral-50 flex items-center justify-center">
-                  <p className="text-neutral-400">AI insights would appear here</p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
+            
+            <AiInsightsView surveyId={1} />
           </TabsContent>
         </Tabs>
       </div>
