@@ -82,8 +82,9 @@ export default function FilterBar({
   onCompanyChange,
   onRoleChange,
 }: FilterBarProps) {
-  // Check if user can change view level (only PE & BOD can - based on whether the handler is provided)
-  const canChangeViewLevel = typeof onViewLevelChange === 'function' && viewLevels.length > 1;
+  // Check if the user can change view level based on their role
+  // We'll use a dummy function if the handler isn't meant to do anything
+  const canChangeViewLevel = viewLevels.length > 1;
   // Find the current view level's label
   const currentViewLevelLabel = viewLevels.find(
     (level) => level.value === currentViewLevel

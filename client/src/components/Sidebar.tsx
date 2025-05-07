@@ -55,8 +55,9 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
     );
   };
   
-  // Check if user is PE & BOD role to enable comparisons
-  const canAccessComparisons = user?.role === 'PE & BOD';
+  // Check role-based access permissions
+  const isPeBod = user?.role === 'PE & BOD';
+  const isCeoOrLeadership = user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM';
 
   return (
     <aside className={sidebarClasses}>
@@ -78,14 +79,16 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                   </a>
                 </Link>
               </li>
-              <li>
-                <Link href="/dashboard" onClick={isMobile ? onClose : undefined}>
-                  <a className={linkClasses("/dashboard")}>
-                    <LayoutDashboard className="mr-3 h-4 w-4" />
-                    Performance Overview
-                  </a>
-                </Link>
-              </li>
+              {isCeoOrLeadership && (
+                <li>
+                  <Link href="/dashboard" onClick={isMobile ? onClose : undefined}>
+                    <a className={linkClasses("/dashboard")}>
+                      <LayoutDashboard className="mr-3 h-4 w-4" />
+                      Performance Overview
+                    </a>
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link href="/MyCEO" onClick={isMobile ? onClose : undefined}>
                   <a className={linkClasses("/MyCEO")}>
@@ -136,7 +139,7 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                   AI Insights
                 </a>
               </li>
-              {canAccessComparisons && (
+              {isPeBod && (
                 <li>
                   <Link href="/comparisons" onClick={isMobile ? onClose : undefined}>
                     <a className={linkClasses("/comparisons")}>

@@ -163,15 +163,15 @@ export default function Dashboard() {
         selectedRole={selectedRole}
         companies={companies}
         roles={roles}
-        // Only provide view level and company/role change handlers for PE & BOD users
-        onViewLevelChange={user?.role === 'PE & BOD' ? handleViewLevelChange : undefined}
+        // Handle all filter changes - conditionally based on user role
+        onViewLevelChange={handleViewLevelChange}
         onTimePeriodChange={setCurrentTimePeriod}
         onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
         onDepartmentFilterChange={setDepartmentFilter}
         onSurveyTypeFilterChange={setSurveyTypeFilter}
         onResponseStatusFilterChange={setResponseStatusFilter}
-        onCompanyChange={user?.role === 'PE & BOD' ? handleCompanyChange : undefined}
-        onRoleChange={user?.role === 'PE & BOD' ? handleRoleChange : undefined}
+        onCompanyChange={handleCompanyChange}
+        onRoleChange={handleRoleChange}
       />
 
       <div className="p-4">
