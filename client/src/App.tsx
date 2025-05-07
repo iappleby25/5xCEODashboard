@@ -15,6 +15,7 @@ import Login from "@/pages/Login";
 import MyCEO from "@/pages/MyCEO";
 import FiveXCEO from "@/pages/5xCEO";
 import Comparisons from "@/pages/Comparisons";
+import UserManagement from "@/pages/UserManagement";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/MyCEO" component={MyCEO} />
       <Route path="/5xCEO" component={FiveXCEO} />
       <Route path="/comparisons" component={Comparisons} />
+      <Route path="/admin/users" component={UserManagement} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -177,14 +177,18 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
               </span>
               <ul className="mt-2 space-y-1">
                 <li>
-                  <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50">
-                    <Settings className="mr-3 h-4 w-4" />
+                  <Link 
+                    href="/admin/users" 
+                    onClick={isMobile ? onClose : undefined}
+                    className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50"
+                  >
+                    <User className="mr-3 h-4 w-4" />
                     User Management
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50">
-                    <Settings className="mr-3 h-4 w-4" />
+                    <BarChart4 className="mr-3 h-4 w-4" />
                     Data Configuration
                   </a>
                 </li>
