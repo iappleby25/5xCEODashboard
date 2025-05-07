@@ -4,11 +4,9 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogClose
+  DialogTitle
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 import { CompanyData, formatRadarData } from "@/lib/dataProcessor";
 import { 
   RadarChart, 
@@ -45,26 +43,15 @@ export default function CompanyDetailDialog({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl w-full">
         <DialogHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="w-12 h-12 mr-4 rounded-full overflow-hidden">
-                <img
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <DialogTitle className="text-2xl">{company.name}</DialogTitle>
+          <div className="flex items-center">
+            <div className="w-12 h-12 mr-4 rounded-full overflow-hidden">
+              <img
+                src={company.logo}
+                alt={`${company.name} logo`}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <DialogClose asChild>
-              <Button
-                variant="ghost"
-                className="p-2 rounded-full"
-                onClick={onClose}
-              >
-                <X className="h-5 w-5" />
-              </Button>
-            </DialogClose>
+            <DialogTitle className="text-2xl">{company.name}</DialogTitle>
           </div>
           <DialogDescription className="flex items-center mt-2">
             <span className="mr-2">Performance Score:</span>
@@ -147,10 +134,9 @@ export default function CompanyDetailDialog({
         </div>
 
         <div className="mt-4 flex justify-end">
-          <Button variant="outline" onClick={onClose} className="mr-2">
+          <Button variant="outline" onClick={onClose}>
             Close
           </Button>
-          <Button>View Full Report</Button>
         </div>
       </DialogContent>
     </Dialog>
