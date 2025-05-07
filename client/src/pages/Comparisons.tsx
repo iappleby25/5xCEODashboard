@@ -135,7 +135,55 @@ export default function Comparisons() {
 
   return (
     <div className="flex-1 p-6">
-      <h1 className="text-2xl font-bold mb-6">Company Comparisons</h1>
+      <div className="flex flex-wrap justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Company Comparisons</h1>
+        
+        {selectedCompanies.length >= 2 && (
+          <Button 
+            onClick={handleOpenComparison}
+            className="flex items-center gap-1"
+            variant="default"
+          >
+            <BarChart2 className="h-4 w-4 mr-1" />
+            Compare {selectedCompanies.length} Companies
+          </Button>
+        )}
+      </div>
+      
+      {selectedCompanies.length > 0 && (
+        <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-200">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center">
+              <h3 className="text-sm font-medium text-blue-700">Selected for comparison: {selectedCompanies.length}/4</h3>
+              <span className="ml-2 text-xs text-blue-600">(Hold shift + click to select companies)</span>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setSelectedCompanies([])}
+              className="text-xs"
+            >
+              Clear Selection
+            </Button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {selectedCompanies.map(company => (
+              <div key={company.id} className="bg-white px-2 py-1 rounded border border-blue-300 flex items-center text-sm">
+                {company.name}
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-6 w-6 p-1 ml-1" 
+                  onClick={() => handleCompanySelection(company)}
+                >
+                  <span className="sr-only">Remove</span>
+                  <span className="text-xs">&times;</span>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="flex-1">
@@ -177,6 +225,7 @@ export default function Comparisons() {
                   key={company.id}
                   company={company}
                   onClick={handleCompanyClick}
+                  isSelected={selectedCompanies.some(c => c.id === company.id)}
                 />
               ))}
               {sortedCompanies.length === 0 && (
@@ -197,6 +246,7 @@ export default function Comparisons() {
                   key={company.id}
                   company={company}
                   onClick={handleCompanyClick}
+                  isSelected={selectedCompanies.some(c => c.id === company.id)}
                 />
               ))}
               {greenCompanies.length === 0 && (
@@ -217,6 +267,7 @@ export default function Comparisons() {
                   key={company.id}
                   company={company}
                   onClick={handleCompanyClick}
+                  isSelected={selectedCompanies.some(c => c.id === company.id)}
                 />
               ))}
               {yellowCompanies.length === 0 && (
@@ -237,6 +288,7 @@ export default function Comparisons() {
                   key={company.id}
                   company={company}
                   onClick={handleCompanyClick}
+                  isSelected={selectedCompanies.some(c => c.id === company.id)}
                 />
               ))}
               {redCompanies.length === 0 && (
@@ -254,6 +306,15 @@ export default function Comparisons() {
         isOpen={isDetailOpen}
         onClose={handleCloseDetail}
       />
+      
+      {/* Company comparison dialog */}
+      {selectedCompanies.length >= 2 && (
+        <CompanyComparison
+          companies={selectedCompanies}
+          isOpen={isComparisonOpen}
+          onClose={handleCloseComparison}
+        />
+      )}
     </div>
   );
 }
