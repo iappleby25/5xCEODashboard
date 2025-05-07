@@ -82,22 +82,25 @@ export default function TopicClusterCard({ topicClusters }: TopicClusterCardProp
                   <span>Sentiment score</span>
                   <span>Mentions: {cluster.count}</span>
                 </div>
-                <Progress 
-                  value={cluster.sentimentScore * 100} 
-                  className={`h-1.5 mt-1 ${
+                <div className={`relative h-1.5 mt-1 w-full overflow-hidden rounded-full 
+                  ${
                     cluster.sentimentScore >= 0.7 ? "bg-success/20" :
                     cluster.sentimentScore >= 0.4 ? "bg-amber-100" :
                     "bg-error/20"
                   }`}
-                  style={{
-                    "--tw-bg-opacity": "1",
-                    "--progress-foreground-color": cluster.sentimentScore >= 0.7 
-                      ? "var(--success)" 
-                      : cluster.sentimentScore >= 0.4 
-                      ? "rgb(245 158 11)" 
-                      : "var(--error)"
-                  } as React.CSSProperties}
-                />
+                >
+                  <div 
+                    className="h-full w-full flex-1 transition-all"
+                    style={{
+                      transform: `translateX(-${100 - (cluster.sentimentScore * 100)}%)`,
+                      backgroundColor: cluster.sentimentScore >= 0.7 
+                        ? "hsl(var(--success))" 
+                        : cluster.sentimentScore >= 0.4 
+                        ? "rgb(245 158 11)" 
+                        : "hsl(var(--error))"
+                    }}
+                  />
+                </div>
               </div>
             ))}
           </div>
