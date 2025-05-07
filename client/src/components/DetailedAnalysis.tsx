@@ -9,6 +9,7 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { SurveyData, CompanyScores, formatRadarData } from '@/lib/dataProcessor';
+import { useAuth } from "@/context/AuthContext";
 
 // Colors for charts
 const COLORS = ['#2563eb', '#16a34a', '#f59e0b', '#dc2626', '#8b5cf6'];
@@ -26,6 +27,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
   selectedCompany, 
   selectedRole 
 }) => {
+  // Get the user role to determine what should be shown
+  const { user } = useAuth();
   // State for dialog to show company-specific scores
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -407,7 +410,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         </Card>
       </div>
 
-      {filteredData.length > 0 && (
+      {/* Show Context Summary only for non-CEO users */}
+      {filteredData.length > 0 && user?.role !== 'CEO' && (
         <Card>
           <CardHeader>
             <CardTitle>Context Summary</CardTitle>
