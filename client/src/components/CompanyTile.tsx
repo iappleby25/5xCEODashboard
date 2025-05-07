@@ -2,10 +2,12 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { getScoreColorClass } from "@/lib/dataProcessor";
 import { CompanyData } from "@/lib/dataProcessor";
+import { CheckCircle } from "lucide-react";
 
 interface CompanyTileProps {
   company: CompanyData;
   onClick: (company: CompanyData) => void;
+  isSelected?: boolean;
 }
 
 export default function CompanyTile({ company, onClick }: CompanyTileProps) {

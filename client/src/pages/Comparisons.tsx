@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CompanyTile from "@/components/CompanyTile";
 import CompanyDetailDialog from "@/components/CompanyDetailDialog";
+import CompanyComparison from "@/components/CompanyComparison";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -9,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CompanyData } from "@/lib/dataProcessor";
 import { mockCompanies } from "@/lib/mockData";
 import { useAuth } from "@/context/AuthContext";
-import { AlertTriangle, Lock } from "lucide-react";
+import { AlertTriangle, BarChart2, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Comparisons() {
@@ -18,6 +19,8 @@ export default function Comparisons() {
   const [sortBy, setSortBy] = useState("alphabetical");
   const [selectedCompany, setSelectedCompany] = useState<CompanyData | undefined>(undefined);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [selectedCompanies, setSelectedCompanies] = useState<CompanyData[]>([]);
+  const [isComparisonOpen, setIsComparisonOpen] = useState(false);
 
   // Check if user is PE & BOD
   const isPortfolioUser = user?.role === 'PE & BOD';
@@ -57,13 +60,46 @@ export default function Comparisons() {
 
   // Handle company tile click
   const handleCompanyClick = (company: CompanyData) => {
-    setSelectedCompany(company);
-    setIsDetailOpen(true);
+    // If shift is pressed, add to comparison selection
+    if (window.event && (window.event as MouseEvent).shiftKey) {
+      handleCompanySelection(company);
+    } else {
+      // Normal click - open company details
+      setSelectedCompany(company);
+      setIsDetailOpen(true);
+    }
   };
 
   // Close company detail dialog
   const handleCloseDetail = () => {
     setIsDetailOpen(false);
+  };
+  
+  // Handle company selection for comparison
+  const handleCompanySelection = (company: CompanyData) => {
+    setSelectedCompanies(prev => {
+      // If already selected, remove it
+      if (prev.some(c => c.id === company.id)) {
+        return prev.filter(c => c.id !== company.id);
+      }
+      // Otherwise add it (limit to 4 companies for readability)
+      else if (prev.length < 4) {
+        return [...prev, company];
+      }
+      return prev;
+    });
+  };
+  
+  // Open company comparison dialog
+  const handleOpenComparison = () => {
+    if (selectedCompanies.length >= 2) {
+      setIsComparisonOpen(true);
+    }
+  };
+  
+  // Close company comparison dialog
+  const handleCloseComparison = () => {
+    setIsComparisonOpen(false);
   };
   
   // Render restricted access message for non-PE & BOD users
