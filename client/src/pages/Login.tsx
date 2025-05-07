@@ -18,7 +18,8 @@ import { useAuth, UserRole } from '../context/AuthContext';
 const USERS = [
   { email: 'ceo@company.com', password: 'password', role: 'CEO' as UserRole },
   { email: 'leader@company.com', password: 'password', role: 'LEADERSHIP TEAM' as UserRole },
-  { email: 'pe@firm.com', password: 'password', role: 'PE & BOD' as UserRole }
+  { email: 'pe@firm.com', password: 'password', role: 'PE & BOD' as UserRole },
+  { email: 'admin@advantageceo.com', password: 'adminpassword', role: 'ADMIN' as UserRole }
 ];
 
 // Login form schema
@@ -152,7 +153,10 @@ const Login = () => {
               CEO: ceo@company.com | LEADERSHIP: leader@company.com | PE & BOD: pe@firm.com
             </div>
             <div className="text-xs text-center text-neutral-500">
-              Password: "password" for all accounts
+              ADMIN: admin@advantageceo.com (password: adminpassword)
+            </div>
+            <div className="text-xs text-center text-neutral-500">
+              Password for other accounts: "password"
             </div>
           </CardFooter>
         </Card>

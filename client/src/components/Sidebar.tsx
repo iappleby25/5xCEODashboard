@@ -56,8 +56,9 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
   };
   
   // Check role-based access permissions
-  const isPeBod = user?.role === 'PE & BOD';
-  const isCeoOrLeadership = user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM';
+  const isPeBod = user?.role === 'PE & BOD' || user?.role === 'ADMIN';
+  const isCeoOrLeadership = user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM' || user?.role === 'ADMIN';
+  const isAdmin = user?.role === 'ADMIN';
 
   return (
     <aside className={sidebarClasses}>
@@ -152,6 +153,37 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
             </ul>
           </li>
           
+          {isAdmin && (
+            <li className="mt-8 px-2">
+              <span className="px-4 py-2 text-xs font-semibold text-purple-500 uppercase tracking-wider flex items-center">
+                Admin
+                <span className="ml-2 px-1.5 py-0.5 text-[10px] font-bold bg-purple-100 text-purple-600 rounded-md">
+                  Full Access
+                </span>
+              </span>
+              <ul className="mt-2 space-y-1">
+                <li>
+                  <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50">
+                    <Settings className="mr-3 h-4 w-4" />
+                    User Management
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50">
+                    <Settings className="mr-3 h-4 w-4" />
+                    Data Configuration
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50">
+                    <Settings className="mr-3 h-4 w-4" />
+                    System Settings
+                  </a>
+                </li>
+              </ul>
+            </li>
+          )}
+          
           <li className="mt-8 px-2">
             <span className="px-4 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wider">Settings</span>
             <ul className="mt-2 space-y-1">
@@ -182,12 +214,15 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
         {isAuthenticated && user ? (
           <div className="flex flex-col space-y-2">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center">
-                <User className="h-4 w-4 text-neutral-500" />
+              <div className={`w-8 h-8 rounded-full ${isAdmin ? 'bg-purple-100' : 'bg-neutral-200'} flex items-center justify-center`}>
+                <User className={`h-4 w-4 ${isAdmin ? 'text-purple-500' : 'text-neutral-500'}`} />
               </div>
               <div>
                 <p className="text-sm font-medium">{user.email}</p>
-                <p className="text-xs text-neutral-400">{user.role}</p>
+                <p className={`text-xs ${isAdmin ? 'text-purple-500 font-semibold' : 'text-neutral-400'}`}>
+                  {user.role}
+                  {isAdmin && <span className="ml-1 px-1 py-0.5 text-[10px] bg-purple-100 text-purple-600 rounded-md">Admin</span>}
+                </p>
               </div>
             </div>
             <button 
