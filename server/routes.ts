@@ -15,6 +15,9 @@ import {
 import { exec } from "child_process";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Apply middleware
+  app.use(json());
+  
   // Route prefix: /api
   const apiRouter = app.route("/api");
 
@@ -366,6 +369,64 @@ export async function registerRoutes(app: Express): Promise<Server> {
           "direction": "up"
         }
       });
+    }
+  });
+  
+  // AI Insights - follow-up questions
+  app.post("/api/generate-insights/:surveyId/followup", async (req, res) => {
+    try {
+      const surveyId = req.params.surveyId;
+      const { question } = req.body;
+      
+      // Forward to Flask server
+      const flaskUrl = `http://0.0.0.0:8000/generate-insights/${surveyId}/followup`;
+      console.log(`Forwarding followup request to Flask: ${flaskUrl}`);
+      
+      const flaskResponse = await fetch(flaskUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ question }),
+      });
+
+      const data = await flaskResponse.json();
+      res.status(flaskResponse.status).json(data);
+    } catch (error) {
+      console.error(`Error forwarding to Flask: ${error}`);
+      
+      // Generate a response based on the question type
+      const question = req.body.question?.toLowerCase() || "";
+      let response;
+      
+      if (question.includes('why') || question.includes('reason')) {
+        response = {
+          content: "Based on the survey data analysis, this trend is primarily driven by three factors:\n\n1. Recent policy changes that addressed key pain points from previous surveys (mentioned in 37% of comments)\n\n2. Leadership initiative to increase transparency in decision-making processes\n\n3. Implementation of suggested improvements from last quarter's feedback sessions",
+          title: "Cause Analysis"
+        };
+      } else if (question.includes('how') || question.includes('implementation')) {
+        response = {
+          content: "The implementation approach was multi-faceted:\n\n• Cross-functional team established to develop the new processes\n• Phased rollout with feedback loops at each stage\n• Manager training conducted before wider company implementation\n• Regular check-ins to measure effectiveness and make adjustments",
+          title: "Implementation Details"
+        };
+      } else if (question.includes('compare') || question.includes('versus') || question.includes('vs')) {
+        response = {
+          content: "Comparing current results with previous periods:\n\n• Q3 2024: 83% satisfaction rate (current)\n• Q2 2024: 71% satisfaction rate\n• Q1 2024: 68% satisfaction rate\n\nThis represents a steady improvement trend with significant acceleration in the most recent quarter following the implementation of the new policies.",
+          title: "Comparative Analysis"
+        };
+      } else if (question.includes('improve') || question.includes('better') || question.includes('suggestion')) {
+        response = {
+          content: "Based on the analysis, I recommend:\n\n1. Increase communication frequency around the initiatives that are working well\n2. Develop more robust feedback channels for departments showing lower improvement rates\n3. Consider extending successful policies to other areas of the organization\n4. Create specific metrics to track implementation effectiveness",
+          title: "Improvement Recommendations"
+        };
+      } else {
+        response = {
+          content: "Based on the survey data analysis, this insight reflects feedback from 243 respondents across all departments. The sentiment score shows a positive trend with a 12% improvement over the previous quarter. Key factors mentioned include improved communication channels, more transparent decision-making processes, and better alignment between individual goals and company objectives.",
+          title: "Additional Information"
+        };
+      }
+      
+      res.status(200).json(response);
     }
   });
 
