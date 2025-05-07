@@ -272,112 +272,72 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           <CardContent>
             <div className="mb-6">
               {comparisonData.length > 0 ? (
-                <>
-                  <div className="h-[380px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <ComposedChart
-                        data={prepareComparisonChartData()}
-                        margin={{ top: 20, right: 30, left: 20, bottom: 120 }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis 
-                          dataKey="subject" 
-                          angle={-45} 
-                          textAnchor="end"
-                          height={100}
-                          tick={{ dy: 50 }}
-                        />
-                        <YAxis domain={[0, 100]} />
-                        <Tooltip 
-                          content={({ active, payload }) => {
-                            if (active && payload && payload.length) {
-                              return (
-                                <div className="custom-tooltip bg-white p-2 border border-gray-200 rounded-md">
-                                  {payload.map((entry, index) => (
-                                    <div key={index} className="flex items-center mb-1">
-                                      <div 
-                                        className="w-4 h-4 mr-2 rounded-sm" 
-                                        style={{ backgroundColor: entry.dataKey === 'individual' ? '#8884d8' : '#ff7300' }}
-                                      />
-                                      <span className="mr-2">
-                                        {entry.dataKey === 'individual' ? 'Individual' : 'Company Avg'}:
-                                      </span>
-                                      <span className="font-semibold">{entry.value}%</span>
-                                    </div>
-                                  ))}
-                                </div>
-                              );
-                            }
-                            return null;
-                          }}
-                        />
-                        <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: 60 }} />
-                        <Bar 
-                          dataKey="individual" 
-                          name="Individual" 
-                          fill="#8884d8" 
-                          barSize={20}
-                        />
-                        <Line
-                          type="monotone"
-                          dataKey="company"
-                          name="Company Avg"
-                          stroke="#ff7300"
-                          strokeWidth={2}
-                        />
-                      </ComposedChart>
-                    </ResponsiveContainer>
-                  </div>
-
-                  <div className="mt-8 grid grid-cols-3 gap-4">
-                    {/* Summary Cards */}
-                    <div className="rounded-lg border p-4 shadow-sm bg-blue-50 border-blue-100">
-                      <h3 className="text-md font-semibold mb-2 text-blue-700">Overall Gap</h3>
-                      <div className="flex items-center">
-                        <span className="text-3xl font-bold text-blue-800">{Math.abs(comparisonData.find(item => item.subject === 'Overall')?.individual || 0 - (comparisonData.find(item => item.subject === 'Overall')?.company || 0))}%</span>
-                        <span className="ml-2 text-sm text-blue-600">
-                          {(comparisonData.find(item => item.subject === 'Overall')?.individual || 0) > (comparisonData.find(item => item.subject === 'Overall')?.company || 0)
-                          ? 'above company avg'
-                          : 'below company avg'}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="rounded-lg border p-4 shadow-sm bg-green-50 border-green-100">
-                      <h3 className="text-md font-semibold mb-2 text-green-700">Strongest Area</h3>
-                      <div>
-                        {(() => {
-                          const strongestArea = [...comparisonData]
-                            .filter(item => item.subject !== 'Overall')
-                            .sort((a, b) => b.individual - a.individual)[0];
-                          return strongestArea ? (
-                            <>
-                              <p className="font-semibold text-green-800">{strongestArea.subject}</p>
-                              <p className="text-sm text-green-600">Your score: {strongestArea.individual}%</p>
-                            </>
-                          ) : null;
-                        })()}
-                      </div>
-                    </div>
-                    
-                    <div className="rounded-lg border p-4 shadow-sm bg-amber-50 border-amber-100">
-                      <h3 className="text-md font-semibold mb-2 text-amber-700">Growth Opportunity</h3>
-                      <div>
-                        {(() => {
-                          const weakestArea = [...comparisonData]
-                            .filter(item => item.subject !== 'Overall')
-                            .sort((a, b) => a.individual - b.individual)[0];
-                          return weakestArea ? (
-                            <>
-                              <p className="font-semibold text-amber-800">{weakestArea.subject}</p>
-                              <p className="text-sm text-amber-600">Your score: {weakestArea.individual}%</p>
-                            </>
-                          ) : null;
-                        })()}
-                      </div>
-                    </div>
-                  </div>
-                </>
+                <div className="h-[520px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <ComposedChart
+                      data={prepareComparisonChartData()}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 160 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis 
+                        dataKey="subject" 
+                        angle={-45} 
+                        textAnchor="end"
+                        height={140}
+                        tick={{ dy: 70, fontSize: 14 }}
+                      />
+                      <YAxis 
+                        domain={[0, 100]}
+                        tickCount={6}
+                        tickFormatter={(value) => `${value}%`}
+                      />
+                      <Tooltip 
+                        content={({ active, payload }) => {
+                          if (active && payload && payload.length) {
+                            return (
+                              <div className="custom-tooltip bg-white p-2 border border-gray-200 rounded-md">
+                                {payload.map((entry, index) => (
+                                  <div key={index} className="flex items-center mb-1">
+                                    <div 
+                                      className="w-4 h-4 mr-2 rounded-sm" 
+                                      style={{ backgroundColor: entry.dataKey === 'individual' ? '#8884d8' : '#ff7300' }}
+                                    />
+                                    <span className="mr-2">
+                                      {entry.dataKey === 'individual' ? 'Individual' : 'Company Avg'}:
+                                    </span>
+                                    <span className="font-semibold">{entry.value}%</span>
+                                  </div>
+                                ))}
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
+                      <Legend 
+                        verticalAlign="bottom" 
+                        wrapperStyle={{ paddingTop: 80 }}
+                        iconSize={12}
+                        iconType="square"
+                      />
+                      <Bar 
+                        dataKey="individual" 
+                        name="Individual" 
+                        fill="#8884d8" 
+                        barSize={40}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="company"
+                        name="Company Avg"
+                        stroke="#ff7300"
+                        strokeWidth={3}
+                        dot={{ r: 5 }}
+                        activeDot={{ r: 8 }}
+                      />
+                    </ComposedChart>
+                  </ResponsiveContainer>
+                </div>
               ) : (
                 <div className="flex items-center justify-center h-[300px] bg-neutral-50 rounded-md border border-neutral-200">
                   <p className="text-neutral-500">No comparison data available</p>
