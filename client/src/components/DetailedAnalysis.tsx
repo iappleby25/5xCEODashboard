@@ -409,36 +409,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     return formatRadarData(averageScores);
   };
 
-  // Find the highest and lowest scoring areas for the current view level
-  const findStrengthsAndWeaknesses = () => {
-    // If in holding view, show top/bottom companies
-    if (currentViewLevel === "holding") {
-      return findTopAndBottomCompanies();
-    }
-    
-    // If in company view, show top/bottom teams
-    if (currentViewLevel === "company" && selectedCompany) {
-      return findTopAndBottomTeams();
-    }
-    
-    // Otherwise (team view), show top/bottom framework categories
-    const scores = [
-      { name: 'Strategic Clarity', value: averageScores.strategicClarity },
-      { name: 'Scalable Talent', value: averageScores.scalableTalent },
-      { name: 'Relentless Focus', value: averageScores.relentlessFocus },
-      { name: 'Disciplined Execution', value: averageScores.disciplinedExecution },
-      { name: 'Energized Culture', value: averageScores.energizedCulture },
-    ];
-
-    const sortedScores = [...scores].sort((a, b) => b.value - a.value);
-    return {
-      strengths: sortedScores.slice(0, 2),
-      weaknesses: sortedScores.slice(-2).reverse()
-    };
-  };
-  
-  // Find top and bottom teams for company view
-  const findTopAndBottomTeams = () => {
+  // Get all teams for company view in sorted order
+  const findAllTeamsSorted = () => {
     // Get all roles/teams with their total scores for the selected company
     const teamScores = filteredData
       .filter(item => item.companyName === selectedCompany && item.role && item.scores)
@@ -455,12 +427,39 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         return unique;
       }, [] as { name: string, value: number }[]);
     
-    // Sort teams by score
-    const sortedTeams = [...teamScores].sort((a, b) => b.value - a.value);
+    // Sort teams by score, highest first
+    return [...teamScores].sort((a, b) => b.value - a.value);
+  };
+
+  // Find the highest and lowest scoring areas for the current view level
+  const findStrengthsAndWeaknesses = () => {
+    // If in holding view, show top/bottom companies
+    if (currentViewLevel === "holding") {
+      return findTopAndBottomCompanies();
+    }
     
+    // If in company view, show all teams sorted by score
+    if (currentViewLevel === "company" && selectedCompany) {
+      const sortedTeams = findAllTeamsSorted();
+      return {
+        strengths: sortedTeams, // All teams in sorted order
+        weaknesses: [] // Not used for company view
+      };
+    }
+    
+    // Otherwise (team view), show top/bottom framework categories
+    const scores = [
+      { name: 'Strategic Clarity', value: averageScores.strategicClarity },
+      { name: 'Scalable Talent', value: averageScores.scalableTalent },
+      { name: 'Relentless Focus', value: averageScores.relentlessFocus },
+      { name: 'Disciplined Execution', value: averageScores.disciplinedExecution },
+      { name: 'Energized Culture', value: averageScores.energizedCulture },
+    ];
+
+    const sortedScores = [...scores].sort((a, b) => b.value - a.value);
     return {
-      strengths: sortedTeams.slice(0, 3), // Top 3 teams
-      weaknesses: sortedTeams.slice(-3).reverse() // Bottom 3 teams
+      strengths: sortedScores.slice(0, 2),
+      weaknesses: sortedScores.slice(-2).reverse()
     };
   };
   
@@ -703,30 +702,56 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div>
-                  <h3 className="text-md font-medium text-green-600 mb-2">
-                    {currentViewLevel === "holding" ? "Top 3 Companies" : 
-                     currentViewLevel === "company" ? "Top 3 Teams" : "Top Strengths"}
-                  </h3>
-                  {strengths.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
-                      <span>{item.name}</span>
-                      <span className="font-semibold">{item.value}%</span>
+                {currentViewLevel === "company" ? (
+                  // For company view - show single sorted team list
+                  <div>
+                    <h3 className="text-md font-medium mb-2">Team Performance</h3>
+                    {strengths.map((item, index) => (
+                      <div 
+                        key={index} 
+                        className={`flex items-center justify-between mb-2 p-2 ${
+                          item.value >= 80 ? 'bg-green-50' : 
+                          item.value >= 60 ? 'bg-blue-50' : 'bg-amber-50'
+                        } rounded-md`}
+                      >
+                        <span>{item.name}</span>
+                        <span className={`font-semibold ${
+                          item.value >= 80 ? 'text-green-600' : 
+                          item.value >= 60 ? 'text-blue-600' : 'text-amber-600'
+                        }`}>{item.value}%</span>
+                      </div>
+                    ))}
+                    {strengths.length === 0 && (
+                      <div className="text-center py-2 text-neutral-500">No team data available</div>
+                    )}
+                  </div>
+                ) : (
+                  // For holding and team views - show strengths and weaknesses
+                  <>
+                    <div>
+                      <h3 className="text-md font-medium text-green-600 mb-2">
+                        {currentViewLevel === "holding" ? "Top 3 Companies" : "Top Strengths"}
+                      </h3>
+                      {strengths.map((item, index) => (
+                        <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
+                          <span>{item.name}</span>
+                          <span className="font-semibold">{item.value}%</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <div>
-                  <h3 className="text-md font-medium text-amber-600 mb-2">
-                    {currentViewLevel === "holding" ? "Bottom 3 Companies" : 
-                     currentViewLevel === "company" ? "Bottom 3 Teams" : "Areas for Improvement"}
-                  </h3>
-                  {weaknesses.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
-                      <span>{item.name}</span>
-                      <span className="font-semibold">{item.value}%</span>
+                    <div>
+                      <h3 className="text-md font-medium text-amber-600 mb-2">
+                        {currentViewLevel === "holding" ? "Bottom 3 Companies" : "Areas for Improvement"}
+                      </h3>
+                      {weaknesses.map((item, index) => (
+                        <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
+                          <span>{item.name}</span>
+                          <span className="font-semibold">{item.value}%</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                )}
               </div>
             </CardContent>
           </Card>
