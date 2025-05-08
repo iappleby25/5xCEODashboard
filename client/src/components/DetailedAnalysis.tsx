@@ -693,70 +693,74 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
 
       {/* Detailed analysis cards - only show if not in comparison view */}
       {(!showComparison || currentViewLevel !== "compare") && (
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                {currentViewLevel === "holding" ? "Company Performance" : "Framework Performance"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {currentViewLevel === "company" ? (
-                  // For company view - show single sorted team list
-                  <div>
-                    <h3 className="text-md font-medium mb-2">Team Performance</h3>
-                    {strengths.map((item, index) => (
-                      <div 
-                        key={index} 
-                        className={`flex items-center justify-between mb-2 p-2 ${
-                          item.value >= 80 ? 'bg-green-50' : 
-                          item.value >= 60 ? 'bg-blue-50' : 'bg-amber-50'
-                        } rounded-md`}
-                      >
-                        <span>{item.name}</span>
-                        <span className={`font-semibold ${
-                          item.value >= 80 ? 'text-green-600' : 
-                          item.value >= 60 ? 'text-blue-600' : 'text-amber-600'
-                        }`}>{item.value}%</span>
-                      </div>
-                    ))}
-                    {strengths.length === 0 && (
-                      <div className="text-center py-2 text-neutral-500">No team data available</div>
-                    )}
-                  </div>
-                ) : (
-                  // For holding and team views - show strengths and weaknesses
-                  <>
+        <div className={`grid gap-6 ${currentViewLevel !== "team" ? "md:grid-cols-2" : ""}`}>
+          {/* Only show Framework/Company Performance card in non-team views */}
+          {currentViewLevel !== "team" && (
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {currentViewLevel === "holding" ? "Company Performance" : "Framework Performance"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {currentViewLevel === "company" ? (
+                    // For company view - show single sorted team list
                     <div>
-                      <h3 className="text-md font-medium text-green-600 mb-2">
-                        {currentViewLevel === "holding" ? "Top 3 Companies" : "Top Strengths"}
-                      </h3>
+                      <h3 className="text-md font-medium mb-2">Team Performance</h3>
                       {strengths.map((item, index) => (
-                        <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
+                        <div 
+                          key={index} 
+                          className={`flex items-center justify-between mb-2 p-2 ${
+                            item.value >= 80 ? 'bg-green-50' : 
+                            item.value >= 60 ? 'bg-blue-50' : 'bg-amber-50'
+                          } rounded-md`}
+                        >
                           <span>{item.name}</span>
-                          <span className="font-semibold">{item.value}%</span>
+                          <span className={`font-semibold ${
+                            item.value >= 80 ? 'text-green-600' : 
+                            item.value >= 60 ? 'text-blue-600' : 'text-amber-600'
+                          }`}>{item.value}%</span>
                         </div>
                       ))}
+                      {strengths.length === 0 && (
+                        <div className="text-center py-2 text-neutral-500">No team data available</div>
+                      )}
                     </div>
-                    <div>
-                      <h3 className="text-md font-medium text-amber-600 mb-2">
-                        {currentViewLevel === "holding" ? "Bottom 3 Companies" : "Areas for Improvement"}
-                      </h3>
-                      {weaknesses.map((item, index) => (
-                        <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
-                          <span>{item.name}</span>
-                          <span className="font-semibold">{item.value}%</span>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+                  ) : (
+                    // For holding view - show top and bottom companies
+                    <>
+                      <div>
+                        <h3 className="text-md font-medium text-green-600 mb-2">
+                          Top 3 Companies
+                        </h3>
+                        {strengths.map((item, index) => (
+                          <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
+                            <span>{item.name}</span>
+                            <span className="font-semibold">{item.value}%</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        <h3 className="text-md font-medium text-amber-600 mb-2">
+                          Bottom 3 Companies
+                        </h3>
+                        {weaknesses.map((item, index) => (
+                          <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
+                            <span>{item.name}</span>
+                            <span className="font-semibold">{item.value}%</span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
-          <Card>
+          {/* Question Analysis card - shown in all views */}
+          <Card className={currentViewLevel === "team" ? "max-w-3xl mx-auto" : ""}>
             <CardHeader>
               <CardTitle>
                 Question Analysis
@@ -817,34 +821,32 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                           )}
                         </div>
 
-                        {/* Include framework category scores in a smaller section at the bottom for team and company view */}
-                        {currentViewLevel !== "holding" && (
-                          <div className="mt-4 pt-4 border-t border-gray-100">
-                            <h3 className="text-md font-medium mb-2">Framework Category Scores</h3>
-                            <div className="grid grid-cols-2 gap-2 text-sm">
-                              <div className="flex items-center justify-between">
-                                <span>Strategic Clarity</span>
-                                <span className="font-medium">{averageScores.strategicClarity}%</span>
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span>Scalable Talent</span>
-                                <span className="font-medium">{averageScores.scalableTalent}%</span>
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span>Relentless Focus</span>
-                                <span className="font-medium">{averageScores.relentlessFocus}%</span>
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span>Disciplined Execution</span>
-                                <span className="font-medium">{averageScores.disciplinedExecution}%</span>
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span>Energized Culture</span>
-                                <span className="font-medium">{averageScores.energizedCulture}%</span>
-                              </div>
+                        {/* Include framework category scores in a smaller section at the bottom for all views */}
+                        <div className="mt-4 pt-4 border-t border-gray-100">
+                          <h3 className="text-md font-medium mb-2">Framework Category Scores</h3>
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div className="flex items-center justify-between">
+                              <span>Strategic Clarity</span>
+                              <span className="font-medium">{averageScores.strategicClarity}%</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span>Scalable Talent</span>
+                              <span className="font-medium">{averageScores.scalableTalent}%</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span>Relentless Focus</span>
+                              <span className="font-medium">{averageScores.relentlessFocus}%</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span>Disciplined Execution</span>
+                              <span className="font-medium">{averageScores.disciplinedExecution}%</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span>Energized Culture</span>
+                              <span className="font-medium">{averageScores.energizedCulture}%</span>
                             </div>
                           </div>
-                        )}
+                        </div>
                       </>
                     );
                   })()}
