@@ -98,6 +98,25 @@ export default function Dashboard() {
     },
   });
 
+  // Set default selections when view level changes or component mounts
+  useEffect(() => {
+    if (surveyData && companies.length > 0 && roles.length > 0) {
+      // Set default company for company and team views
+      if ((currentViewLevel === "company" || currentViewLevel === "team") && !selectedCompany) {
+        if (user?.role !== "PE & BOD") {
+          setSelectedCompany("GlobalSolutions");
+        } else {
+          setSelectedCompany(companies[0]);
+        }
+      }
+      
+      // Set default role for team view
+      if (currentViewLevel === "team" && !selectedRole) {
+        setSelectedRole(roles[0]);
+      }
+    }
+  }, [currentViewLevel, companies, roles, surveyData, selectedCompany, selectedRole, user?.role]);
+
   // Apply filters when dependencies change
   useEffect(() => {
     if (surveyData) {
