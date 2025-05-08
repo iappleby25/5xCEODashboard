@@ -409,8 +409,14 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     return formatRadarData(averageScores);
   };
 
-  // Find the highest and lowest scoring areas
+  // Find the highest and lowest scoring areas for the current view level
   const findStrengthsAndWeaknesses = () => {
+    // If in holding view, show top/bottom companies
+    if (currentViewLevel === "holding") {
+      return findTopAndBottomCompanies();
+    }
+    
+    // Otherwise, show top/bottom framework categories
     const scores = [
       { name: 'Strategic Clarity', value: averageScores.strategicClarity },
       { name: 'Scalable Talent', value: averageScores.scalableTalent },
@@ -423,6 +429,33 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     return {
       strengths: sortedScores.slice(0, 2),
       weaknesses: sortedScores.slice(-2).reverse()
+    };
+  };
+  
+  // Find top and bottom companies for holding view
+  const findTopAndBottomCompanies = () => {
+    // Get all companies with their total scores
+    const companyScores = filteredData
+      .filter(item => item.companyName && item.scores)
+      .map(item => ({
+        name: item.companyName || "",
+        value: item.scores?.totalScore || 0
+      }))
+      // Remove duplicates by company name
+      .reduce((unique, item) => {
+        const exists = unique.find(i => i.name === item.name);
+        if (!exists) {
+          unique.push(item);
+        }
+        return unique;
+      }, [] as { name: string, value: number }[]);
+    
+    // Sort companies by score
+    const sortedCompanies = [...companyScores].sort((a, b) => b.value - a.value);
+    
+    return {
+      strengths: sortedCompanies.slice(0, 3), // Top 3 companies
+      weaknesses: sortedCompanies.slice(-3).reverse() // Bottom 3 companies
     };
   };
 
@@ -652,12 +685,16 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         <div className="grid gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Strengths & Opportunities</CardTitle>
+              <CardTitle>
+                {currentViewLevel === "holding" ? "Company Performance" : "Strengths & Opportunities"}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-md font-medium text-green-600 mb-2">Top Strengths</h3>
+                  <h3 className="text-md font-medium text-green-600 mb-2">
+                    {currentViewLevel === "holding" ? "Top 3 Companies" : "Top Strengths"}
+                  </h3>
                   {strengths.map((item, index) => (
                     <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
                       <span>{item.name}</span>
@@ -666,7 +703,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                   ))}
                 </div>
                 <div>
-                  <h3 className="text-md font-medium text-amber-600 mb-2">Areas for Improvement</h3>
+                  <h3 className="text-md font-medium text-amber-600 mb-2">
+                    {currentViewLevel === "holding" ? "Bottom 3 Companies" : "Areas for Improvement"}
+                  </h3>
                   {weaknesses.map((item, index) => (
                     <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
                       <span>{item.name}</span>
