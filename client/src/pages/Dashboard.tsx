@@ -21,7 +21,7 @@ export default function Dashboard() {
   // Now we allow them to access the Dashboard as well
   
   // Define view levels for the filter based on user role (order flipped as requested)
-  const viewLevels: ViewLevel[] = user?.role === 'PE & BOD' 
+  const viewLevels: ViewLevel[] = (user?.role === 'PE & BOD' || user?.role === 'ADMIN')
     ? [
         { value: "holding", label: "Holding" },
         { value: "company", label: "Company" },
@@ -54,7 +54,7 @@ export default function Dashboard() {
 
   // State for filters - default to appropriate view level based on user role
   const getDefaultViewLevel = (): ViewLevelType => {
-    if (user?.role === 'PE & BOD') return "holding";
+    if (user?.role === 'PE & BOD' || user?.role === 'ADMIN') return "holding";
     if (user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM') return "company";
     return "team"; // Default to team view for other users instead of individual
   };
@@ -120,7 +120,7 @@ export default function Dashboard() {
     if (surveyData && companies.length > 0 && roles.length > 0) {
       // Set default company for company and team views
       if ((currentViewLevel === "company" || currentViewLevel === "team") && !selectedCompany) {
-        if (user?.role !== "PE & BOD") {
+        if (user?.role !== "PE & BOD" && user?.role !== "ADMIN") {
           setSelectedCompany("GlobalSolutions");
         } else {
           setSelectedCompany(companies[0]);
@@ -158,8 +158,8 @@ export default function Dashboard() {
 
   // Handle view level change
   const handleViewLevelChange = (value: string) => {
-    // For non-PE & BOD users, prevent setting view level to holding
-    if (value === "holding" && user?.role !== "PE & BOD") {
+    // For non-PE/BOD/ADMIN users, prevent setting view level to holding
+    if (value === "holding" && user?.role !== "PE & BOD" && user?.role !== "ADMIN") {
       return;
     }
     
@@ -198,9 +198,9 @@ export default function Dashboard() {
 
   // Handle company change - this is now simplified as company is locked
   const handleCompanyChange = (value: string) => {
-    // Only PE & BOD users can change companies, all other roles are locked to GlobalSolutions
-    if (user?.role !== "PE & BOD") {
-      return; // No company change allowed for non-PE & BOD users
+    // Only PE & BOD and ADMIN users can change companies, all other roles are locked to GlobalSolutions
+    if (user?.role !== "PE & BOD" && user?.role !== "ADMIN") {
+      return; // No company change allowed for non-PE & BOD/ADMIN users
     }
     
     setSelectedCompany(value);

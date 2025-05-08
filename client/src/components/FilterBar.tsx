@@ -187,8 +187,8 @@ export default function FilterBar({
           </div>
         </div>
 
-        {/* Only show filter button for PE & BOD users */}
-        {!isRestrictedUser && (
+        {/* Only show filter button for PE & BOD and ADMIN users */}
+        {(!isRestrictedUser || user?.role === 'ADMIN') && (
           <div className="flex items-center space-x-2">
             <Button
               variant="outline"
@@ -210,8 +210,8 @@ export default function FilterBar({
         )}
       </div>
 
-      {/* Only show advanced filters for PE & BOD users */}
-      {showAdvancedFilters && !isRestrictedUser && (
+      {/* Only show advanced filters for PE & BOD and ADMIN users */}
+      {showAdvancedFilters && (!isRestrictedUser || user?.role === 'ADMIN') && (
         <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="text-xs font-medium text-neutral-500 mb-1 block">

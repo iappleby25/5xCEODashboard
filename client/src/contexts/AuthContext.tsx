@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 // Define types for user roles
-export type UserRole = 'CEO' | 'LEADERSHIP TEAM' | 'PE & BOD';
+export type UserRole = 'CEO' | 'LEADERSHIP TEAM' | 'PE & BOD' | 'ADMIN';
 
 // Interface for the authenticated user
 export interface AuthUser {
@@ -31,12 +31,17 @@ const USERS: Record<string, { password: string; role: UserRole; company?: string
   'leader@company.com': { 
     password: 'password', 
     role: 'LEADERSHIP TEAM',
-    company: 'EcoWave'  // This leader belongs to EcoWave
+    company: 'GlobalSolutions'  // This leader belongs to GlobalSolutions
   },
   'pe@firm.com': { 
     password: 'password', 
     role: 'PE & BOD'
     // No company specified as PE & BOD can see all companies
+  },
+  'admin@company.com': { 
+    password: 'password', 
+    role: 'ADMIN'
+    // No company specified as ADMIN can see all companies (same as PE & BOD)
   }
 };
 
