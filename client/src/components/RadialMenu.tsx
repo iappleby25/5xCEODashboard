@@ -97,11 +97,15 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
         const colors = getColorClasses(colorName);
         const isHovered = hoverCategory === category.id;
         
+        // Determine if this is Strategic Clarity or Relentless Focus for enhanced styling
+        const isHighlightCategory = category.id === 'strategic-clarity' || category.id === 'relentless-focus';
+        
         return (
           <motion.div
             key={category.id}
             className={`absolute z-10 w-24 h-24 rounded-full 
-                      ${colors.bg} ${colors.border} border shadow-md
+                      ${colors.bg} ${colors.border} border 
+                      ${isHighlightCategory ? 'shadow-lg border-2' : 'shadow-md'}
                       flex flex-col items-center justify-center cursor-pointer`}
             style={{
               left: `calc(50% + ${x}px - 3rem)`,
@@ -110,18 +114,25 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             animate={{
-              scale: isHovered ? 1.1 : 1,
-              boxShadow: isHovered ? '0px 0px 15px rgba(0, 0, 0, 0.2)' : '0px 0px 5px rgba(0, 0, 0, 0.1)',
+              scale: isHovered ? 1.1 : (isHighlightCategory ? 1.05 : 1),
+              boxShadow: isHovered 
+                ? '0px 0px 15px rgba(0, 0, 0, 0.2)' 
+                : (isHighlightCategory ? '0px 0px 10px rgba(0, 0, 0, 0.15)' : '0px 0px 5px rgba(0, 0, 0, 0.1)'),
             }}
             transition={{ duration: 0.2 }}
             onHoverStart={() => setHoverCategory(category.id)}
             onHoverEnd={() => setHoverCategory(null)}
             onClick={() => onSelectCategory(category)}
           >
-            <span className={`text-sm font-medium text-center px-1 ${colors.text}`}>
+            <span className={`text-sm font-medium text-center px-1 ${colors.text} ${isHighlightCategory ? 'font-bold' : ''}`}>
               {category.name}
             </span>
-            <span className="mt-1 text-sm font-bold">{category.score}%</span>
+            <span className={`mt-1 text-sm ${isHighlightCategory ? 'font-extrabold' : 'font-bold'}`}>
+              {category.score}%
+            </span>
+            {isHighlightCategory && (
+              <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${colorName === '#FF5722' ? 'bg-orange-500' : 'bg-blue-500'} animate-pulse`}></div>
+            )}
           </motion.div>
         );
       })}

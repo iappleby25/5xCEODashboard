@@ -227,6 +227,21 @@ const PanelView: React.FC<PanelViewProps> = ({
                 <p className="whitespace-pre-line">{interpretation}</p>
               </div>
             </div>
+            
+            {/* Triple Threat Solution Section */}
+            <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-lg font-semibold">Triple Threat Solution</h3>
+                <span className={`text-xs px-2 py-1 rounded-full ${colors.bg} ${colors.text}`}>GPT-Powered</span>
+              </div>
+              <div className="prose prose-sm">
+                <ul className="space-y-2 list-disc pl-5">
+                  {tripleThreatSolutions.map((solution, index) => (
+                    <li key={index} className="text-sm">{solution}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </motion.div>
         )}
       </motion.div>

@@ -7,6 +7,7 @@ from openai_service import generate_insights, analyze_text
 from luzmo_service import get_dashboard_embed
 from data_processor import process_csv_data, calculate_kpi_data
 from voice_processor import process_voice_command
+from openai_solution_service import generate_triple_threat_solutions
 
 app = Flask(__name__)
 
@@ -159,6 +160,27 @@ def get_kpi_data(survey_id):
     except Exception as e:
         logger.error(f"Error getting KPI data: {str(e)}")
         return jsonify({"error": f"Failed to get KPI data: {str(e)}"}), 500
+
+@app.route('/triple-threat-solutions/<string:category_id>', methods=['GET'])
+def get_triple_threat_solutions(category_id):
+    """
+    Generate Triple Threat Solutions for a specific 5xCEO category
+    """
+    try:
+        company_name = request.args.get('company')
+        
+        # Generate solutions for the category
+        solutions = generate_triple_threat_solutions(category_id, company_name)
+        
+        return jsonify({
+            "success": True,
+            "category": category_id,
+            "solutions": solutions
+        })
+    
+    except Exception as e:
+        logger.error(f"Error generating Triple Threat Solutions: {str(e)}")
+        return jsonify({"error": f"Failed to generate solutions: {str(e)}"}), 500
 
 if __name__ == '__main__':
     # Make sure to run on port 8000 and be accessible from other processes
