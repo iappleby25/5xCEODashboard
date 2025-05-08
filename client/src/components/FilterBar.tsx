@@ -164,17 +164,7 @@ export default function FilterBar({
             </div>
           )}
           
-          {/* For PE users in holding view, display locked placeholder value but don't show selector */}
-          {currentViewLevel === "holding" && isPeUser && (
-            <div>
-              <label className="text-xs font-medium text-neutral-500 mb-1 block">
-                PE Firm
-              </label>
-              <div className="h-9 w-[180px] px-3 flex items-center rounded-md border border-neutral-200 bg-neutral-50 text-sm text-neutral-600">
-                PE Firm Placeholder
-              </div>
-            </div>
-          )}
+          {/* PE users in holding view - PE Firm filter is hidden completely */}
 
           {/* Show company selector for company and team views (locked for CEO and LEADERSHIP TEAM) */}
           {(currentViewLevel === "company" || currentViewLevel === "team") && (
