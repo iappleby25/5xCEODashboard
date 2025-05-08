@@ -17,6 +17,9 @@ import { useLocation } from "wouter";
 // Original comment: We have 13 companies in the overview tab but had 9 when we started
 const mockCompanies = allMockCompanies.slice(0, 9);
 
+// Get the list of allowed company names (only the 9 original companies)
+const allowedCompanyNames = mockCompanies.map(company => company.name);
+
 export default function Dashboard() {
   const { user } = useAuth();
   const [_, navigate] = useLocation();
@@ -100,9 +103,11 @@ export default function Dashboard() {
   const surveyDataWithQuestions = getMockSurveyData();
   
   // Combine all survey data sources to ensure we have all companies and question data
+  // But only include data for the original 9 companies
   const combinedMockSurveyData = [
-    ...allMockSurveyData,
+    ...allMockSurveyData.filter(item => allowedCompanyNames.includes(item.companyName)),
     ...surveyDataWithQuestions.filter(item => 
+      allowedCompanyNames.includes(item.companyName) &&
       !allMockSurveyData.some(existingItem => 
         existingItem.companyName === item.companyName && existingItem.role === item.role
       )
