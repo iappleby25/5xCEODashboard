@@ -99,6 +99,36 @@ const MyCEO = () => {
           <p className="text-neutral-600 mt-2">
             Raw assessment data showing importance and agreement scores across the 5 framework categories.
           </p>
+          
+          {/* Role Selector - For Development Testing Only */}
+          <div className="mt-4 flex justify-center">
+            <div className="inline-flex rounded-md shadow-sm">
+              <button
+                className={`px-4 py-2 text-sm font-medium rounded-l-md ${userRole === "CEO" ? "bg-blue-600 text-white" : "bg-white text-gray-700 hover:bg-gray-50"}`}
+                onClick={() => setUserRole("CEO")}
+              >
+                CEO View
+              </button>
+              <button
+                className={`px-4 py-2 text-sm font-medium ${userRole === "PE & BOD" ? "bg-blue-600 text-white" : "bg-white text-gray-700 hover:bg-gray-50"}`}
+                onClick={() => setUserRole("PE & BOD")}
+              >
+                PE & BOD View
+              </button>
+              <button
+                className={`px-4 py-2 text-sm font-medium ${userRole === "LEADERSHIP TEAM" ? "bg-blue-600 text-white" : "bg-white text-gray-700 hover:bg-gray-50"}`}
+                onClick={() => setUserRole("LEADERSHIP TEAM")}
+              >
+                Leadership View
+              </button>
+              <button
+                className={`px-4 py-2 text-sm font-medium rounded-r-md ${userRole === "COMPANY" ? "bg-blue-600 text-white" : "bg-white text-gray-700 hover:bg-gray-50"}`}
+                onClick={() => setUserRole("COMPANY")}
+              >
+                Company View
+              </button>
+            </div>
+          </div>
         </motion.div>
 
         <motion.div variants={itemVariants} className="mb-8">
@@ -190,14 +220,16 @@ const MyCEO = () => {
                     // Determine if this category is selected
                     const isSelected = selectedAnalysisCategory === category.id;
                     // Create dynamic styles based on selection state
-                    const blockStyle = isSelected 
-                      ? `border-4 border-${getCategoryColor(category.id).slice(1)} bg-neutral-50 cursor-pointer rounded-lg p-4 shadow-md transform scale-105 transition-all duration-200` 
-                      : `border-2 border-${getCategoryColor(category.id).slice(1)} bg-neutral-50 hover:bg-neutral-100 cursor-pointer rounded-lg p-4 transition-all duration-200`;
+                    const borderColor = getCategoryColor(category.id);
+                    const blockClasses = isSelected 
+                      ? "border-4 bg-neutral-50 cursor-pointer rounded-lg p-4 shadow-md transform scale-105 transition-all duration-200" 
+                      : "border-2 bg-neutral-50 hover:bg-neutral-100 cursor-pointer rounded-lg p-4 transition-all duration-200";
                     
                     return (
                       <div 
                         key={category.id}
-                        className={blockStyle}
+                        className={blockClasses}
+                        style={{ borderColor: borderColor }}
                         onClick={() => handleAnalysisCategoryChange(category.id)}
                       >
                         <h3 className="font-medium">{category.name}</h3>

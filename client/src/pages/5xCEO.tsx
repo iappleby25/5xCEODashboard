@@ -456,8 +456,8 @@ const FiveXCEO = () => {
                   if (mainCompanyData && comparisonCompanyData) {
                     return (
                       <FocusEffectivenessComparison
-                        mainCompany={mainCompanyData}
-                        comparisonCompany={comparisonCompanyData}
+                        primaryCompany={mainCompanyData.name}
+                        comparisonCompany={comparisonCompanyData.name}
                         period={selectedPeriod}
                         selectedCategory={selectedAnalysisCategory || 'strategic-clarity'}
                       />
