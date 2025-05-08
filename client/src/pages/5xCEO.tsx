@@ -1,12 +1,67 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RadialMenu from '@/components/RadialMenu';
 import PanelView from '@/components/PanelView';
-import { assessmentData as frameworkCategories, FrameworkCategory, getCategoryColor } from '@/lib/mockData';
+import { 
+  assessmentData as defaultFrameworkCategories, 
+  FrameworkCategory, 
+  getCategoryColor,
+  mockCompanies 
+} from '@/lib/mockData';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const FiveXCEO = () => {
   const [activeView, setActiveView] = useState<'MyCEO' | '5xCEO'>('5xCEO');
   const [selectedCategory, setSelectedCategory] = useState<FrameworkCategory | null>(null);
+  const [selectedCompany, setSelectedCompany] = useState("GlobalSolutions");
+  const [frameworkCategories, setFrameworkCategories] = useState<FrameworkCategory[]>(defaultFrameworkCategories);
+
+  // Get available companies from mock data
+  const availableCompanies = mockCompanies.map(company => company.name);
+
+  // Handle company change
+  const handleCompanyChange = (company: string) => {
+    setSelectedCompany(company);
+    
+    // Create a copy of the framework categories and update the company and scores
+    const selectedCompanyData = mockCompanies.find(c => c.name === company);
+    
+    if (selectedCompanyData) {
+      // Update framework categories with company-specific data
+      const updatedCategories = defaultFrameworkCategories.map(category => {
+        return {
+          ...category,
+          company: company,
+          score: getCategoryScoreForCompany(category.id, selectedCompanyData)
+        };
+      });
+      
+      setFrameworkCategories(updatedCategories);
+    }
+  };
+
+  // Helper function to get the score for a specific category from company data
+  const getCategoryScoreForCompany = (categoryId: string, companyData: any) => {
+    switch (categoryId) {
+      case 'strategic-clarity':
+        return companyData.scores.strategicClarity;
+      case 'scalable-talent':
+        return companyData.scores.scalableTalent;
+      case 'relentless-focus':
+        return companyData.scores.relentlessFocus;
+      case 'disciplined-execution':
+        return companyData.scores.disciplinedExecution;
+      case 'energized-culture':
+        return companyData.scores.energizedCulture;
+      default:
+        return 70; // Default fallback score
+    }
+  };
+
+  // Set initial company data on component mount
+  useEffect(() => {
+    handleCompanyChange(selectedCompany);
+  }, []);
 
   const handleToggleView = () => {
     // Not used anymore since we only have one view
@@ -73,8 +128,27 @@ const FiveXCEO = () => {
 
         <motion.div variants={itemVariants} className="mb-8">
           <div className="bg-white p-4 rounded-xl shadow-md">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Company: GlobalSolutions</h2>
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-2">
+              <div className="flex flex-col md:flex-row md:items-center gap-3">
+                <div>
+                  <label className="text-sm text-neutral-500 font-medium mb-1 block">Company:</label>
+                  <Select 
+                    value={selectedCompany} 
+                    onValueChange={handleCompanyChange}
+                  >
+                    <SelectTrigger className="h-9 w-[200px]">
+                      <SelectValue placeholder="Select company" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableCompanies.map((company) => (
+                        <SelectItem key={company} value={company}>
+                          {company}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
               <div className="flex items-center space-x-3">
                 <label htmlFor="quarterSelect" className="text-sm text-neutral-500 font-medium">Quarter:</label>
                 <select 
@@ -111,8 +185,28 @@ const FiveXCEO = () => {
           <div className="bg-white p-4 rounded-xl shadow-md">
             <h2 className="text-xl font-semibold mb-4">Assessment Summary</h2>
             <p className="mb-4">
-              Based on the 5xCEO framework assessment, GlobalSolutions shows strengths in Strategic Clarity 
-              and Disciplined Execution, with opportunities for improvement in Relentless Focus.
+              Based on the 5xCEO framework assessment, {selectedCompany} shows strengths in 
+              {(() => {
+                const companyData = mockCompanies.find(c => c.name === selectedCompany);
+                if (companyData) {
+                  // Find the two highest scoring categories
+                  const scores = [
+                    { name: 'Strategic Clarity', score: companyData.scores.strategicClarity },
+                    { name: 'Scalable Talent', score: companyData.scores.scalableTalent },
+                    { name: 'Relentless Focus', score: companyData.scores.relentlessFocus },
+                    { name: 'Disciplined Execution', score: companyData.scores.disciplinedExecution },
+                    { name: 'Energized Culture', score: companyData.scores.energizedCulture }
+                  ];
+                  scores.sort((a, b) => b.score - a.score);
+                  
+                  // Find the lowest scoring category
+                  const lowestCategory = [...scores].sort((a, b) => a.score - b.score)[0];
+                  
+                  return <> <span className="font-medium">{scores[0].name}</span> and <span className="font-medium">{scores[1].name}</span>, 
+                  with opportunities for improvement in <span className="font-medium">{lowestCategory.name}</span>.</>;
+                }
+                return <> various categories.</>;
+              })()}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
