@@ -514,6 +514,27 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
       }
     });
     
+    // If no questions found in filtered data, generate questions based on categories
+    if (allQuestions.length === 0 && currentViewLevel === "team") {
+      // Generate questions for each framework category using the average scores
+      const categories = [
+        { name: 'Strategic Clarity', key: 'strategicClarity', score: averageScores.strategicClarity },
+        { name: 'Scalable Talent', key: 'scalableTalent', score: averageScores.scalableTalent },
+        { name: 'Relentless Focus', key: 'relentlessFocus', score: averageScores.relentlessFocus },
+        { name: 'Disciplined Execution', key: 'disciplinedExecution', score: averageScores.disciplinedExecution },
+        { name: 'Energized Culture', key: 'energizedCulture', score: averageScores.energizedCulture }
+      ];
+      
+      // Generate questions for each category
+      categories.forEach(category => {
+        const questions = getQuestionsForCategory(category.name);
+        const generatedScores = generateQuestionScores(category.name, category.key, category.score);
+        generatedScores.forEach(item => {
+          allQuestions.push(item);
+        });
+      });
+    }
+    
     // Group questions by name and calculate average score
     const questionMap = new Map<string, number[]>();
     allQuestions.forEach(item => {
