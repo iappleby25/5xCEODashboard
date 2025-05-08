@@ -134,18 +134,32 @@ export default function Dashboard() {
     
     setCurrentViewLevel(value as ViewLevelType);
     
-    // Reset company and role when changing view level to holding
+    // Set appropriate defaults based on view level
     if (value === "holding") {
+      // Reset both company and role when in holding view
       setSelectedCompany(undefined);
       setSelectedRole(undefined);
-    } else if (value === "team") {
-      // Reset role when changing to team view
+    } else if (value === "company") {
+      // Set default company for company view (GlobalSolutions for CEO/Leadership, first company for others)
+      if (user?.role !== "PE & BOD") {
+        setSelectedCompany("GlobalSolutions");
+      } else if (companies.length > 0) {
+        setSelectedCompany(companies[0]);
+      }
+      // Clear role selection in company view
       setSelectedRole(undefined);
-    }
-    
-    // For CEO and LEADERSHIP users, ensure company is always set to GlobalSolutions
-    if (user?.role !== "PE & BOD" && !selectedCompany) {
-      setSelectedCompany("GlobalSolutions");
+    } else if (value === "team") {
+      // Set default company and role for team view
+      if (user?.role !== "PE & BOD") {
+        setSelectedCompany("GlobalSolutions");
+      } else if (companies.length > 0) {
+        setSelectedCompany(companies[0]);
+      }
+      
+      // Set default role for team view
+      if (roles.length > 0) {
+        setSelectedRole(roles[0]);
+      }
     }
   };
 
