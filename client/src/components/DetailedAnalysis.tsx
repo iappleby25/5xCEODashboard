@@ -756,17 +756,18 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
               <div className="mb-2 text-sm font-medium">
                 Question scores for {selectedCategory}
               </div>
+            ) : currentViewLevel === "holding" ? (
+              // Three tabs for holding view
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="primary">Companies</TabsTrigger>
+                <TabsTrigger value="secondary">Teams</TabsTrigger>
+                <TabsTrigger value="tertiary">Questions</TabsTrigger>
+              </TabsList>
             ) : (
+              // Two tabs for company view
               <TabsList className="grid w-full grid-cols-2">
-                {/* Primary tab label changes based on view level */}
-                <TabsTrigger value="primary">
-                  {currentViewLevel === "company" ? "Teams" : "Companies"}
-                </TabsTrigger>
-                
-                {/* Secondary tab changes based on view level */}
-                <TabsTrigger value="secondary">
-                  {currentViewLevel === "holding" ? "Teams" : "Questions"}
-                </TabsTrigger>
+                <TabsTrigger value="primary">Teams</TabsTrigger>
+                <TabsTrigger value="secondary">Questions</TabsTrigger>
               </TabsList>
             )}
             
@@ -934,6 +935,49 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                   </TableBody>
                 </Table>
               </div>
+            </TabsContent>
+            
+            {/* Tertiary tab content - questions tab in holding view */}
+            <TabsContent value="tertiary" className="mt-4">
+              {currentViewLevel === "holding" && (
+                <div className="overflow-y-auto max-h-[60vh]">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Question</TableHead>
+                        <TableHead className="text-right">Score</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {/* Display question scores across all companies */}
+                      {questionScores.map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium">{item.question}</TableCell>
+                          <TableCell className="text-right">
+                            <span 
+                              className={`font-semibold ${
+                                item.score >= 80 ? 'text-green-600' : 
+                                item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                              }`}
+                            >
+                              {item.score}%
+                            </span>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                      
+                      {/* Show "no data" message */}
+                      {questionScores.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                            No question data available
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
             </TabsContent>
           </Tabs>
         </DialogContent>
