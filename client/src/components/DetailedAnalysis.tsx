@@ -45,16 +45,16 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
       console.log("Selected company:", selectedCompany);
       console.log("All filtered data:", filteredData);
       
-      // For Leadership Team users, we want to compare their individual scores to the company average
+      // For Leadership Team users, we want to compare their team scores to the company average
       
       // First, filter for Leadership Team data specifically when available
-      let individualData = filteredData.filter(item => 
+      let teamData = filteredData.filter(item => 
         item.role === "LEADERSHIP TEAM" && item.companyName === selectedCompany
       );
       
       // If no Leadership Team data available, fall back to other roles
-      if (individualData.length === 0) {
-        individualData = filteredData.filter(item => 
+      if (teamData.length === 0) {
+        teamData = filteredData.filter(item => 
           item.role === "CEO" && item.companyName === selectedCompany
         );
       }
@@ -65,16 +65,16 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         item.companyName === selectedCompany
       );
       
-      console.log("Individual data:", individualData);
+      console.log("Team data:", teamData);
       console.log("Company data:", companyData);
       
-      // Create comparison data - if no individual data, just use company data twice
+      // Create comparison data - if no team data, just use company data twice
       // This is just for demo purposes to ensure the UI shows something
       let compData: ComparisonData[] = [];
-      if (individualData.length > 0) {
-        compData = createComparisonData(individualData, companyData);
+      if (teamData.length > 0) {
+        compData = createComparisonData(teamData, companyData);
       } else if (companyData.length > 0) {
-        // For demo, create a synthetic comparison if no individual data exists
+        // For demo, create a synthetic comparison if no team data exists
         const demoCompany = { ...companyData[0] };
         demoCompany.role = "LEADERSHIP TEAM";
         compData = createComparisonData([demoCompany], companyData);
@@ -307,10 +307,10 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                                   <div key={index} className="flex items-center mb-1">
                                     <div 
                                       className="w-4 h-4 mr-2 rounded-sm" 
-                                      style={{ backgroundColor: entry.dataKey === 'individual' ? '#8884d8' : '#ff7300' }}
+                                      style={{ backgroundColor: entry.dataKey === 'team' ? '#8884d8' : '#ff7300' }}
                                     />
                                     <span className="mr-2">
-                                      {entry.dataKey === 'individual' ? 'Individual' : 'Company Avg'}:
+                                      {entry.dataKey === 'team' ? 'Team' : 'Company Avg'}:
                                     </span>
                                     <span className="font-semibold">{entry.value}%</span>
                                   </div>
@@ -328,8 +328,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                         iconType="square"
                       />
                       <Bar 
-                        dataKey="individual" 
-                        name="Individual" 
+                        dataKey="team" 
+                        name="Team" 
                         fill="#8884d8" 
                         barSize={40}
                       />

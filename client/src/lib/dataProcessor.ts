@@ -230,44 +230,44 @@ export function createComparisonData(teamData: SurveyData[], companyData: Survey
   return [
     {
       subject: "Strategic Clarity",
-      individual: individualScores.strategicClarity,
+      team: teamScores.strategicClarity,
       company: companyScores.strategicClarity,
-      individualName,
+      teamName,
       companyName
     },
     {
       subject: "Scalable Talent",
-      individual: individualScores.scalableTalent,
+      team: teamScores.scalableTalent,
       company: companyScores.scalableTalent,
-      individualName,
+      teamName,
       companyName
     },
     {
       subject: "Relentless Focus",
-      individual: individualScores.relentlessFocus,
+      team: teamScores.relentlessFocus,
       company: companyScores.relentlessFocus,
-      individualName,
+      teamName,
       companyName
     },
     {
       subject: "Disciplined Execution",
-      individual: individualScores.disciplinedExecution,
+      team: teamScores.disciplinedExecution,
       company: companyScores.disciplinedExecution,
-      individualName,
+      teamName,
       companyName
     },
     {
       subject: "Energized Culture",
-      individual: individualScores.energizedCulture,
+      team: teamScores.energizedCulture,
       company: companyScores.energizedCulture,
-      individualName,
+      teamName,
       companyName
     },
     {
       subject: "Overall",
-      individual: individualScores.totalScore,
+      team: teamScores.totalScore,
       company: companyScores.totalScore,
-      individualName,
+      teamName,
       companyName
     }
   ];
