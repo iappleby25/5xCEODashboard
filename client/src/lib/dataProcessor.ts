@@ -1,5 +1,5 @@
 // Define types for our data
-export type ViewLevelType = "individual" | "team" | "company" | "holding" | "compare";
+export type ViewLevelType = "team" | "company" | "holding" | "compare";
 
 // Company score categories based on the 5xCEO framework
 export interface CompanyScores {
@@ -54,10 +54,7 @@ export function filterSurveyData(
     filtered = filtered.filter(item => item.role === role);
   }
 
-  // For individual level, we'd typically filter by a specific user
-  // This would be implemented when user data is available
-  
-  // For compare view, we include individuals and company aggregate
+  // For compare view, we include team and company aggregate
   if (viewLevel === "compare" && company) {
     // We're already filtered to the company by the code above
     // The DetailedAnalysis component will handle the comparison logic
@@ -135,24 +132,24 @@ export function formatRadarData(scores: CompanyScores) {
   ];
 }
 
-// Data structure for individual vs company comparison
+// Data structure for team vs company comparison
 export interface ComparisonData {
   subject: string;
-  individual: number;
+  team: number;
   company: number;
-  individualName?: string;
+  teamName?: string;
   companyName?: string;
 }
 
-// Create comparison data between individual and company data
-export function createComparisonData(individualData: SurveyData[], companyData: SurveyData[]): ComparisonData[] {
+// Create comparison data between team and company data
+export function createComparisonData(teamData: SurveyData[], companyData: SurveyData[]): ComparisonData[] {
   // If no data is available, return empty array
-  if (individualData.length === 0 || companyData.length === 0) {
+  if (teamData.length === 0 || companyData.length === 0) {
     return [];
   }
   
-  // Aggregate individual scores
-  const individualScores: CompanyScores = {
+  // Aggregate team scores
+  const teamScores: CompanyScores = {
     strategicClarity: 0,
     scalableTalent: 0,
     relentlessFocus: 0,
@@ -161,33 +158,33 @@ export function createComparisonData(individualData: SurveyData[], companyData: 
     totalScore: 0
   };
   
-  let individualName = "";
+  let teamName = "";
   
-  individualData.forEach(individual => {
-    if (individual.scores) {
-      individualScores.strategicClarity += individual.scores.strategicClarity;
-      individualScores.scalableTalent += individual.scores.scalableTalent;
-      individualScores.relentlessFocus += individual.scores.relentlessFocus;
-      individualScores.disciplinedExecution += individual.scores.disciplinedExecution;
-      individualScores.energizedCulture += individual.scores.energizedCulture;
-      individualScores.totalScore += individual.scores.totalScore;
+  teamData.forEach(team => {
+    if (team.scores) {
+      teamScores.strategicClarity += team.scores.strategicClarity;
+      teamScores.scalableTalent += team.scores.scalableTalent;
+      teamScores.relentlessFocus += team.scores.relentlessFocus;
+      teamScores.disciplinedExecution += team.scores.disciplinedExecution;
+      teamScores.energizedCulture += team.scores.energizedCulture;
+      teamScores.totalScore += team.scores.totalScore;
       
-      // Use the first individual's name for labeling
-      if (!individualName && individual.role) {
-        individualName = individual.role;
+      // Use the first team's role name for labeling
+      if (!teamName && team.role) {
+        teamName = team.role;
       }
     }
   });
   
-  // Calculate average individual scores
-  const individualCount = individualData.length;
-  if (individualCount > 0) {
-    individualScores.strategicClarity = Math.round(individualScores.strategicClarity / individualCount);
-    individualScores.scalableTalent = Math.round(individualScores.scalableTalent / individualCount);
-    individualScores.relentlessFocus = Math.round(individualScores.relentlessFocus / individualCount);
-    individualScores.disciplinedExecution = Math.round(individualScores.disciplinedExecution / individualCount);
-    individualScores.energizedCulture = Math.round(individualScores.energizedCulture / individualCount);
-    individualScores.totalScore = Math.round(individualScores.totalScore / individualCount);
+  // Calculate average team scores
+  const teamCount = teamData.length;
+  if (teamCount > 0) {
+    teamScores.strategicClarity = Math.round(teamScores.strategicClarity / teamCount);
+    teamScores.scalableTalent = Math.round(teamScores.scalableTalent / teamCount);
+    teamScores.relentlessFocus = Math.round(teamScores.relentlessFocus / teamCount);
+    teamScores.disciplinedExecution = Math.round(teamScores.disciplinedExecution / teamCount);
+    teamScores.energizedCulture = Math.round(teamScores.energizedCulture / teamCount);
+    teamScores.totalScore = Math.round(teamScores.totalScore / teamCount);
   }
   
   // Aggregate company scores

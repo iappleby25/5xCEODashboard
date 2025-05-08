@@ -23,19 +23,16 @@ export default function Dashboard() {
   // Define view levels for the filter based on user role
   const viewLevels: ViewLevel[] = user?.role === 'PE & BOD' 
     ? [
-        { value: "individual", label: "Individual" },
         { value: "team", label: "Team" },
         { value: "company", label: "Company" },
         { value: "holding", label: "Holding" }
       ]
     : user?.role === 'LEADERSHIP TEAM'
     ? [
-        { value: "individual", label: "Individual" },
         { value: "company", label: "Company" },
         { value: "compare", label: "Compare" }
       ]
     : [
-        { value: "individual", label: "Individual" },
         { value: "team", label: "Team" },
         { value: "company", label: "Company" }
       ];
@@ -53,7 +50,7 @@ export default function Dashboard() {
   const getDefaultViewLevel = (): ViewLevelType => {
     if (user?.role === 'PE & BOD') return "holding";
     if (user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM') return "company";
-    return "company";
+    return "team"; // Default to team view for other users instead of individual
   };
   const [currentViewLevel, setCurrentViewLevel] = useState<ViewLevelType>(getDefaultViewLevel());
   const [currentTimePeriod, setCurrentTimePeriod] = useState("all");
@@ -140,6 +137,9 @@ export default function Dashboard() {
     // Reset company and role when changing view level to holding
     if (value === "holding") {
       setSelectedCompany(undefined);
+      setSelectedRole(undefined);
+    } else if (value === "team") {
+      // Reset role when changing to team view
       setSelectedRole(undefined);
     }
     
@@ -236,7 +236,7 @@ export default function Dashboard() {
                   <p className="text-xs text-muted-foreground mt-1">
                     {currentViewLevel === "team" ? "Company + Role" : 
                      currentViewLevel === "company" ? "Company only" : 
-                     currentViewLevel === "individual" ? "User only" : "All data"}
+                     currentViewLevel === "holding" ? "All companies" : "All data"}
                   </p>
                 </CardContent>
               </Card>
