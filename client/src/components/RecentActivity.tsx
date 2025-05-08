@@ -84,17 +84,6 @@ export default function RecentActivity({ activities }: RecentActivityProps) {
             </div>
           </div>
         ))}
-        
-        <div className="mt-3 text-center">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="text-neutral-500 hover:text-neutral-700 text-sm"
-            asChild
-          >
-            <a href="/history">View all activity</a>
-          </Button>
-        </div>
       </CardContent>
     </Card>
   );
