@@ -199,13 +199,18 @@ const FiveXCEO = () => {
                 <select 
                   id="quarterSelect" 
                   className="px-3 py-1 text-sm border border-neutral-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                  defaultValue="Q1 2023"
+                  value={selectedPeriod}
+                  onChange={(e) => setSelectedPeriod(e.target.value)}
                 >
                   <option value="Q1 2023">Q1 2023</option>
                   <option value="Q2 2023">Q2 2023</option>
                   <option value="Q3 2023">Q3 2023</option>
                   <option value="Q4 2023">Q4 2023</option>
                   <option value="Q1 2024">Q1 2024</option>
+                  <option value="Q2 2024">Q2 2024</option>
+                  <option value="Q3 2024">Q3 2024</option>
+                  <option value="Q4 2024">Q4 2024</option>
+                  <option value="Q1 2025">Q1 2025</option>
                 </select>
               </div>
             </div>
@@ -297,7 +302,7 @@ const FiveXCEO = () => {
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants}>
+        <motion.div variants={itemVariants} className="mb-8">
           <div className="bg-white p-4 rounded-xl shadow-md">
             <h2 className="text-xl font-semibold mb-4">Overall Recommendations</h2>
             <div className="space-y-4">
@@ -372,6 +377,47 @@ const FiveXCEO = () => {
             </div>
           </div>
         </motion.div>
+        
+        {/* Focus Effectiveness Analysis */}
+        <motion.div variants={itemVariants} className="mb-8">
+          {(() => {
+            const companyData = mockCompanies.find(c => c.name === selectedCompany);
+            if (companyData) {
+              return (
+                <FocusEffectivenessAnalysis
+                  companyName={companyData.name}
+                  period={selectedPeriod}
+                  trendPercentage={20}
+                  resourceOptimization={16}
+                  projectCompletionRate={13}
+                  strategicCapacity={11}
+                />
+              );
+            }
+            return null;
+          })()}
+        </motion.div>
+        
+        {/* Comparison Analysis - only show if comparison company is selected */}
+        {comparisonCompany && (
+          <motion.div variants={itemVariants} className="mb-8">
+            {(() => {
+              const mainCompanyData = mockCompanies.find(c => c.name === selectedCompany);
+              const comparisonCompanyData = mockCompanies.find(c => c.name === comparisonCompany);
+              
+              if (mainCompanyData && comparisonCompanyData) {
+                return (
+                  <FocusEffectivenessComparison
+                    mainCompany={mainCompanyData}
+                    comparisonCompany={comparisonCompanyData}
+                    period={selectedPeriod}
+                  />
+                );
+              }
+              return null;
+            })()}
+          </motion.div>
+        )}
       </motion.div>
 
       {/* Panel View Modal */}
