@@ -215,47 +215,48 @@ const PanelView: React.FC<PanelViewProps> = ({
           className="space-y-4"
           variants={itemVariants}
         >
-          {/* Triple Threat Solution Section - Moved up to align with Description */}
+          {/* Triple Threat Solution Section - Improved to match the screenshot */}
           <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
-            <div className="flex justify-between items-center mb-2">
+            <div className="flex justify-between items-center mb-3">
               <h3 className="text-lg font-semibold">Triple Threat Solution</h3>
-              <span className={`text-xs px-2 py-1 rounded-full ${colors.bg} ${colors.text}`}>GPT-Powered</span>
+              <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-800">GPT-Powered</span>
             </div>
-            <p className="text-sm text-neutral-600 mb-3">
+            <p className="text-sm text-neutral-600 mb-4">
               Based on current performance, focus on {category.name.toLowerCase()} initiatives that will drive business growth and team alignment.
             </p>
-            <div className="prose prose-sm">
-              <ul className="space-y-2 list-disc pl-5">
-                {tripleThreatSolutions.map((solution, index) => (
-                  <li key={index} className="text-sm">{solution}</li>
-                ))}
-              </ul>
+            <div className="space-y-3">
+              {tripleThreatSolutions.map((solution, index) => (
+                <div key={index} className="flex items-start">
+                  <span className="text-neutral-400 mr-2">•</span>
+                  <p className="text-sm text-neutral-700">{solution}</p>
+                </div>
+              ))}
             </div>
           </div>
           
-          {/* Dual Axis Performance Mockup - Added at the bottom */}
+          {/* Dual Axis Performance Mockup - Improved design based on screenshot */}
           <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
-            <h3 className="text-lg font-semibold mb-2">Performance Impact</h3>
+            <h3 className="text-lg font-semibold mb-3">Performance Impact</h3>
             
-            <div className="company-name text-center font-medium text-neutral-700 mb-3">
+            <div className="company-name text-center font-medium text-neutral-700 mb-4">
               {category.company || "ABC Company"}
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-6">
               <div>
-                <h4 className="text-sm font-medium text-center mb-2">Performance as-is</h4>
-                <div className="bg-neutral-100 rounded-lg p-3 h-32 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-neutral-200 flex items-center justify-center">
-                    <span className="text-xl font-bold">{category.score}%</span>
+                <h4 className="text-sm font-medium text-center mb-3">Performance as-is</h4>
+                <div className="bg-gray-50 rounded-lg p-4 h-36 flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-2xl font-bold text-gray-700">{category.score}%</span>
                   </div>
                 </div>
               </div>
               
               <div>
-                <h4 className="text-sm font-medium text-center mb-2">5x Solution</h4>
-                <div className="bg-neutral-100 rounded-lg p-3 h-32 flex items-center justify-center">
-                  <div className={`w-20 h-20 rounded-full ${colors.accent} flex items-center justify-center`}>
-                    <span className="text-xl font-bold text-white">{Math.min(100, Math.round(category.score * 1.3))}%</span>
+                <h4 className="text-sm font-medium text-center mb-3">5x Solution</h4>
+                <div className="bg-gray-50 rounded-lg p-4 h-36 flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-full bg-amber-400 flex items-center justify-center">
+                    <span className="text-2xl font-bold text-white">{Math.min(100, Math.round(category.score * 1.25))}%</span>
                   </div>
                 </div>
               </div>

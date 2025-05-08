@@ -50,7 +50,7 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
     return { x, y };
   };
 
-  // Helper function to convert color code to Tailwind classes
+  // Helper function to convert color code to Tailwind classes with improved colors
   const getColorClasses = (colorCode: string) => {
     const baseColor = colorCode === '#FF5722' ? 'orange' 
                     : colorCode === '#4CAF50' ? 'green' 
@@ -59,10 +59,32 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
                     : colorCode === '#FFC107' ? 'amber' 
                     : 'gray';
     
+    // Map to more custom tailwind colors for consistency and better appearance
     return {
-      bg: `bg-${baseColor}-100`,
-      text: `text-${baseColor}-800`,
-      border: `border-${baseColor}-300`
+      bg: baseColor === 'orange' ? 'bg-orange-50' 
+         : baseColor === 'green' ? 'bg-emerald-50'
+         : baseColor === 'blue' ? 'bg-sky-50'
+         : baseColor === 'purple' ? 'bg-violet-50'
+         : baseColor === 'amber' ? 'bg-amber-50'
+         : 'bg-gray-50',
+      text: baseColor === 'orange' ? 'text-orange-800' 
+          : baseColor === 'green' ? 'text-emerald-800'
+          : baseColor === 'blue' ? 'text-sky-800'
+          : baseColor === 'purple' ? 'text-violet-800'
+          : baseColor === 'amber' ? 'text-amber-800'
+          : 'text-gray-800',
+      border: baseColor === 'orange' ? 'border-orange-300' 
+            : baseColor === 'green' ? 'border-emerald-300'
+            : baseColor === 'blue' ? 'border-sky-300'
+            : baseColor === 'purple' ? 'border-violet-300'
+            : baseColor === 'amber' ? 'border-amber-300'
+            : 'border-gray-300',
+      accent: baseColor === 'orange' ? 'bg-orange-500' 
+             : baseColor === 'green' ? 'bg-emerald-500'
+             : baseColor === 'blue' ? 'bg-sky-500'
+             : baseColor === 'purple' ? 'bg-violet-500'
+             : baseColor === 'amber' ? 'bg-amber-500'
+             : 'bg-gray-500'
     };
   };
 
@@ -131,18 +153,18 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
               {category.score}%
             </span>
             {isHighlightCategory && (
-              <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${colorName === '#FF5722' ? 'bg-orange-500' : 'bg-blue-500'} animate-pulse`}></div>
+              <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${colors.accent} animate-pulse`}></div>
             )}
           </motion.div>
         );
       })}
 
-      {/* Center Toggle Button (using a div wrapper to maintain position) */}
+      {/* Center Button (using a div wrapper to maintain position) */}
       <div className="absolute z-30 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24">
         <motion.button
-          className={`w-full h-full rounded-full 
-                      flex items-center justify-center text-white font-bold shadow-lg text-lg
-                      ${activeView === 'MyCEO' ? 'bg-blue-600' : 'bg-orange-500'}`}
+          className="w-full h-full rounded-full 
+                    flex items-center justify-center text-white font-bold shadow-lg text-lg
+                    bg-amber-500"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           initial={{ scale: 1 }}
@@ -153,7 +175,7 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
           transition={{ duration: 0.2 }}
           onClick={onToggleView}
         >
-          {activeView === 'MyCEO' ? 'MyCEO' : '5xCEO'}
+          MyCEO
         </motion.button>
       </div>
     </div>

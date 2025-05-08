@@ -75,8 +75,19 @@ const FiveXCEO = () => {
           <div className="bg-white p-4 rounded-xl shadow-md">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">Company: GlobalSolutions</h2>
-              <div className="text-sm text-neutral-500">
-                Assessment Date: Q1 2023
+              <div className="flex items-center space-x-3">
+                <label htmlFor="quarterSelect" className="text-sm text-neutral-500 font-medium">Quarter:</label>
+                <select 
+                  id="quarterSelect" 
+                  className="px-3 py-1 text-sm border border-neutral-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  defaultValue="Q1 2023"
+                >
+                  <option value="Q1 2023">Q1 2023</option>
+                  <option value="Q2 2023">Q2 2023</option>
+                  <option value="Q3 2023">Q3 2023</option>
+                  <option value="Q4 2023">Q4 2023</option>
+                  <option value="Q1 2024">Q1 2024</option>
+                </select>
               </div>
             </div>
           </div>
@@ -84,7 +95,6 @@ const FiveXCEO = () => {
         
         <motion.div variants={itemVariants} className="mb-8">
           <div className="bg-white p-6 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-6 text-center">Interactive 5xCEO Framework</h2>
             <RadialMenu
               categories={frameworkCategories}
               activeView={activeView}
@@ -108,14 +118,24 @@ const FiveXCEO = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               {frameworkCategories.map((category) => {
                 const colorName = getCategoryColor(category.id);
-                const bgClass = `bg-${colorName === '#FF5722' ? 'orange' : colorName === '#4CAF50' ? 'green' : colorName === '#2196F3' ? 'blue' : colorName === '#9C27B0' ? 'purple' : colorName === '#FFC107' ? 'amber' : 'gray'}-100`;
-                const textClass = `text-${colorName === '#FF5722' ? 'orange' : colorName === '#4CAF50' ? 'green' : colorName === '#2196F3' ? 'blue' : colorName === '#9C27B0' ? 'purple' : colorName === '#FFC107' ? 'amber' : 'gray'}-800`;
-                const accentClass = `bg-${colorName === '#FF5722' ? 'orange' : colorName === '#4CAF50' ? 'green' : colorName === '#2196F3' ? 'blue' : colorName === '#9C27B0' ? 'purple' : colorName === '#FFC107' ? 'amber' : 'gray'}-500`;
+                
+                // Map to more custom tailwind colors for consistency
+                const baseColor = colorName === '#FF5722' ? 'orange' 
+                               : colorName === '#4CAF50' ? 'emerald' 
+                               : colorName === '#2196F3' ? 'sky' 
+                               : colorName === '#9C27B0' ? 'violet' 
+                               : colorName === '#FFC107' ? 'amber' 
+                               : 'gray';
+                
+                const bgClass = `bg-${baseColor}-50`;
+                const textClass = `text-${baseColor}-800`;
+                const accentClass = `bg-${baseColor}-500`;
+                const borderClass = `border-${baseColor}-200`;
                 
                 return (
                   <div 
                     key={category.id}
-                    className={`${bgClass} rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
+                    className={`${bgClass} border ${borderClass} rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
                     onClick={() => handleSelectCategory(category)}
                   >
                     <h3 className={`font-medium ${textClass}`}>{category.name}</h3>
