@@ -763,9 +763,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                   {currentViewLevel === "company" ? "Teams" : "Companies"}
                 </TabsTrigger>
                 
-                {/* Secondary tab is always Questions for company and holding views */}
+                {/* Secondary tab changes based on view level */}
                 <TabsTrigger value="secondary">
-                  Questions
+                  {currentViewLevel === "holding" ? "Teams" : "Questions"}
                 </TabsTrigger>
               </TabsList>
             )}
