@@ -22,9 +22,12 @@ const FiveXCEO = () => {
   const [comparisonCompany, setComparisonCompany] = useState<string | null>(null);
   const [frameworkCategories, setFrameworkCategories] = useState<FrameworkCategory[]>(defaultFrameworkCategories);
   const [selectedPeriod, setSelectedPeriod] = useState("Q1 2025");
+  
+  // New state for the selected analysis category
+  const [selectedAnalysisCategory, setSelectedAnalysisCategory] = useState<string | null>("strategic-clarity");
 
-  // Check if user is PE & BOD or ADMIN to show comparison feature
-  const canCompare = user?.role === 'PE & BOD' || user?.role === 'ADMIN';
+  // Temporarily allow comparison for all users for testing
+  const canCompare = true; // user?.role === 'PE & BOD' || user?.role === 'ADMIN';
 
   // Get available companies from mock data
   const availableCompanies = mockCompanies.map(company => company.name);
@@ -57,7 +60,9 @@ const FiveXCEO = () => {
   
   // Handle comparison company change
   const handleComparisonChange = (company: string) => {
+    console.log("Comparison company selected:", company);
     setComparisonCompany(company === "none" ? null : company);
+    console.log("comparisonCompany state after change:", company === "none" ? null : company);
   };
 
   // Helper function to get the score for a specific category from company data
@@ -94,6 +99,12 @@ const FiveXCEO = () => {
 
   const handleClosePanel = () => {
     setSelectedCategory(null);
+  };
+  
+  // New function to handle selecting an analysis category
+  const handleSelectAnalysisCategory = (categoryId: string) => {
+    console.log("Selected analysis category:", categoryId);
+    setSelectedAnalysisCategory(categoryId);
   };
 
   const handleNextCategory = () => {
@@ -259,7 +270,7 @@ const FiveXCEO = () => {
               })()}
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
               {frameworkCategories.map((category) => {
                 const colorName = getCategoryColor(category.id);
                 
@@ -271,16 +282,17 @@ const FiveXCEO = () => {
                                : colorName === '#FFC107' ? 'amber' 
                                : 'gray';
                 
-                const bgClass = `bg-${baseColor}-50`;
+                const isSelected = selectedAnalysisCategory === category.id;
+                const bgClass = isSelected ? `bg-${baseColor}-100` : `bg-${baseColor}-50`;
                 const textClass = `text-${baseColor}-800`;
                 const accentClass = `bg-${baseColor}-500`;
-                const borderClass = `border-${baseColor}-200`;
+                const borderClass = isSelected ? `border-${baseColor}-500 border-2` : `border-${baseColor}-200`;
                 
                 return (
                   <div 
                     key={category.id}
-                    className={`${bgClass} border ${borderClass} rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
-                    onClick={() => handleSelectCategory(category)}
+                    className={`${bgClass} border ${borderClass} rounded-lg p-4 cursor-pointer hover:shadow-md transition-all transform ${isSelected ? 'scale-105' : ''}`}
+                    onClick={() => handleSelectAnalysisCategory(category.id)}
                   >
                     <h3 className={`font-medium ${textClass}`}>{category.name}</h3>
                     <div className="mt-2">
@@ -292,9 +304,11 @@ const FiveXCEO = () => {
                         <div className={`${accentClass} h-2.5 rounded-full`} style={{ width: `${category.score}%` }}></div>
                       </div>
                     </div>
-                    <p className={`text-sm mt-2 ${textClass}`}>
-                      {category.description}
-                    </p>
+                    {isSelected && (
+                      <div className="mt-2 text-xs font-medium text-center text-green-600">
+                        Selected for Analysis
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -302,122 +316,159 @@ const FiveXCEO = () => {
           </div>
         </motion.div>
 
+        {/* Analysis Area with Company Selection */}
         <motion.div variants={itemVariants} className="mb-8">
           <div className="bg-white p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Overall Recommendations</h2>
-            <div className="space-y-4">
-              <p>
-                Based on the assessment data, focus on the following key improvement areas:
-              </p>
+            <h2 className="text-xl font-semibold mb-4">Category Analysis</h2>
+            
+            {/* Duplicate company selection for the analysis area */}
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 border-b pb-4 border-neutral-200">
+              <div className="flex flex-col md:flex-row md:items-center gap-3">
+                <div>
+                  <label className="text-sm text-neutral-500 font-medium mb-1 block">Company:</label>
+                  <Select 
+                    value={selectedCompany} 
+                    onValueChange={handleCompanyChange}
+                  >
+                    <SelectTrigger className="h-9 w-[200px]">
+                      <SelectValue placeholder="Select company" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableCompanies.map((company) => (
+                        <SelectItem key={company} value={company}>
+                          {company}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {canCompare && (
+                  <div>
+                    <label className="text-sm text-neutral-500 font-medium mb-1 block">Comparison:</label>
+                    <Select 
+                      value={comparisonCompany || "none"} 
+                      onValueChange={handleComparisonChange}
+                    >
+                      <SelectTrigger className="h-9 w-[200px]">
+                        <SelectValue placeholder="Compare with..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">None</SelectItem>
+                        {availableCompanies
+                          .filter(company => company !== selectedCompany)
+                          .map((company) => (
+                            <SelectItem key={company} value={company}>
+                              {company}
+                            </SelectItem>
+                          ))
+                        }
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center space-x-3">
+                <label htmlFor="analysisQuarterSelect" className="text-sm text-neutral-500 font-medium">Quarter:</label>
+                <select 
+                  id="analysisQuarterSelect" 
+                  className="px-3 py-1 text-sm border border-neutral-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  value={selectedPeriod}
+                  onChange={(e) => setSelectedPeriod(e.target.value)}
+                >
+                  <option value="Q1 2023">Q1 2023</option>
+                  <option value="Q2 2023">Q2 2023</option>
+                  <option value="Q3 2023">Q3 2023</option>
+                  <option value="Q4 2023">Q4 2023</option>
+                  <option value="Q1 2024">Q1 2024</option>
+                  <option value="Q2 2024">Q2 2024</option>
+                  <option value="Q3 2024">Q3 2024</option>
+                  <option value="Q4 2024">Q4 2024</option>
+                  <option value="Q1 2025">Q1 2025</option>
+                </select>
+              </div>
+            </div>
+            
+            {/* Focus Effectiveness Analysis */}
+            <div className="mb-8">
               {(() => {
                 const companyData = mockCompanies.find(c => c.name === selectedCompany);
                 if (companyData) {
-                  // Find the lowest scoring categories
-                  const scores = [
-                    { name: 'Strategic Clarity', key: 'strategicClarity', score: companyData.scores.strategicClarity },
-                    { name: 'Scalable Talent', key: 'scalableTalent', score: companyData.scores.scalableTalent },
-                    { name: 'Relentless Focus', key: 'relentlessFocus', score: companyData.scores.relentlessFocus },
-                    { name: 'Disciplined Execution', key: 'disciplinedExecution', score: companyData.scores.disciplinedExecution },
-                    { name: 'Energized Culture', key: 'energizedCulture', score: companyData.scores.energizedCulture }
-                  ];
+                  // Get category-specific information
+                  const category = selectedAnalysisCategory || 'strategic-clarity';
+                  const categoryName = frameworkCategories.find(c => c.id === category)?.name || 'Strategic Clarity';
                   
-                  // Sort scores from lowest to highest to identify areas needing improvement
-                  scores.sort((a, b) => a.score - b.score);
+                  // For demo purposes, we'll use different values based on the selected category
+                  const trendPercentageMap: Record<string, number> = {
+                    'strategic-clarity': 20,
+                    'scalable-talent': 15,
+                    'relentless-focus': 25,
+                    'disciplined-execution': 18,
+                    'energized-culture': 12
+                  };
                   
-                  // Create recommendations based on the lowest scoring categories
-                  const recommendations = [
-                    {
-                      category: 'strategicClarity',
-                      text: 'Develop a clearer vision and strategy that is communicated effectively to all employees.'
-                    },
-                    {
-                      category: 'scalableTalent',
-                      text: 'Enhance leadership development programs for middle management to strengthen hiring and retention.'
-                    },
-                    {
-                      category: 'relentlessFocus',
-                      text: 'Implement more rigorous project prioritization framework to improve focus on key initiatives.'
-                    },
-                    {
-                      category: 'disciplinedExecution',
-                      text: 'Create more structured processes for tracking performance and ensuring accountability.'
-                    },
-                    {
-                      category: 'energizedCulture',
-                      text: 'Address work-life balance concerns and strengthen company culture to improve engagement.'
-                    }
-                  ];
+                  const resourceOptimizationMap: Record<string, number> = {
+                    'strategic-clarity': 16,
+                    'scalable-talent': 12,
+                    'relentless-focus': 22,
+                    'disciplined-execution': 19,
+                    'energized-culture': 14
+                  };
                   
-                  // Get recommendations for the lowest 3 categories
-                  const topRecommendations = scores.slice(0, 3).map(score => {
-                    const recommendation = recommendations.find(rec => rec.category === score.key);
-                    return (
-                      <li key={score.key}>
-                        <span className="font-medium">{score.name}:</span> {recommendation?.text}
-                      </li>
-                    );
-                  });
+                  const projectCompletionRateMap: Record<string, number> = {
+                    'strategic-clarity': 13,
+                    'scalable-talent': 14,
+                    'relentless-focus': 18,
+                    'disciplined-execution': 21,
+                    'energized-culture': 11
+                  };
+                  
+                  const strategicCapacityMap: Record<string, number> = {
+                    'strategic-clarity': 11,
+                    'scalable-talent': 9,
+                    'relentless-focus': 16,
+                    'disciplined-execution': 14,
+                    'energized-culture': 10
+                  };
                   
                   return (
-                    <ol className="list-decimal pl-5 space-y-2">
-                      {topRecommendations}
-                    </ol>
+                    <FocusEffectivenessAnalysis
+                      companyName={companyData.name}
+                      period={selectedPeriod}
+                      trendPercentage={trendPercentageMap[category] || 20}
+                      resourceOptimization={resourceOptimizationMap[category] || 16}
+                      projectCompletionRate={projectCompletionRateMap[category] || 13}
+                      strategicCapacity={strategicCapacityMap[category] || 11}
+                    />
                   );
                 }
-                
-                // Default fallback recommendations
-                return (
-                  <ol className="list-decimal pl-5 space-y-2">
-                    <li>Implement more rigorous project prioritization framework to improve Relentless Focus.</li>
-                    <li>Enhance leadership development programs for middle management to strengthen Scalable Talent.</li>
-                    <li>Address work-life balance concerns in high-growth departments to sustain Energized Culture.</li>
-                  </ol>
-                );
+                return null;
               })()}
             </div>
+            
+            {/* Comparison Analysis - only show if comparison company is selected */}
+            {comparisonCompany && (
+              <div className="mt-8">
+                {(() => {
+                  const mainCompanyData = mockCompanies.find(c => c.name === selectedCompany);
+                  const comparisonCompanyData = mockCompanies.find(c => c.name === comparisonCompany);
+                  
+                  if (mainCompanyData && comparisonCompanyData) {
+                    return (
+                      <FocusEffectivenessComparison
+                        mainCompany={mainCompanyData}
+                        comparisonCompany={comparisonCompanyData}
+                        period={selectedPeriod}
+                        selectedCategory={selectedAnalysisCategory || 'strategic-clarity'}
+                      />
+                    );
+                  }
+                  return null;
+                })()}
+              </div>
+            )}
           </div>
         </motion.div>
-        
-        {/* Focus Effectiveness Analysis */}
-        <motion.div variants={itemVariants} className="mb-8">
-          {(() => {
-            const companyData = mockCompanies.find(c => c.name === selectedCompany);
-            if (companyData) {
-              return (
-                <FocusEffectivenessAnalysis
-                  companyName={companyData.name}
-                  period={selectedPeriod}
-                  trendPercentage={20}
-                  resourceOptimization={16}
-                  projectCompletionRate={13}
-                  strategicCapacity={11}
-                />
-              );
-            }
-            return null;
-          })()}
-        </motion.div>
-        
-        {/* Comparison Analysis - only show if comparison company is selected */}
-        {comparisonCompany && (
-          <motion.div variants={itemVariants} className="mb-8">
-            {(() => {
-              const mainCompanyData = mockCompanies.find(c => c.name === selectedCompany);
-              const comparisonCompanyData = mockCompanies.find(c => c.name === comparisonCompany);
-              
-              if (mainCompanyData && comparisonCompanyData) {
-                return (
-                  <FocusEffectivenessComparison
-                    mainCompany={mainCompanyData}
-                    comparisonCompany={comparisonCompanyData}
-                    period={selectedPeriod}
-                  />
-                );
-              }
-              return null;
-            })()}
-          </motion.div>
-        )}
       </motion.div>
 
       {/* Panel View Modal */}

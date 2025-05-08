@@ -7,6 +7,7 @@ interface FocusEffectivenessComparisonProps {
   mainCompany: CompanyData;
   comparisonCompany: CompanyData;
   period: string;
+  selectedCategory?: string;
 }
 
 const FocusEffectivenessComparison: React.FC<FocusEffectivenessComparisonProps> = ({
