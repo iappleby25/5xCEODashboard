@@ -231,9 +231,15 @@ export default function Dashboard() {
     setSelectedRole(value);
   };
   
-  // Handle firm change - currently no functionality per requirements
+  // Handle firm change
   const handleFirmChange = (value: string) => {
-    setSelectedFirm(value);
+    // For PE & BOD users, always set to placeholder regardless of the attempted value
+    if (user?.role === 'PE & BOD') {
+      setSelectedFirm("placeholder");
+    } else {
+      // For other users, allow changing the firm
+      setSelectedFirm(value);
+    }
   };
 
   return (

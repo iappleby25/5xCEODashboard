@@ -106,6 +106,9 @@ export default function FilterBar({
   
   // Check if user is restricted (CEO or LEADERSHIP TEAM)
   const isRestrictedUser = user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM';
+  
+  // Check if user is PE & BOD (needs special handling for PE firm filter)
+  const isPeUser = user?.role === 'PE & BOD';
 
   return (
     <div className="p-4 border-b border-neutral-200 bg-white">
@@ -140,8 +143,8 @@ export default function FilterBar({
             </div>
           )}
 
-          {/* Show firm selector for holding view */}
-          {currentViewLevel === "holding" && (
+          {/* Show firm selector for holding view - NOT for PE users */}
+          {currentViewLevel === "holding" && !isPeUser && (
             <div>
               <label className="text-xs font-medium text-neutral-500 mb-1 block">
                 PE Firm
@@ -158,6 +161,18 @@ export default function FilterBar({
                   <SelectItem value="placeholder">PE Firm Placeholder</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+          )}
+          
+          {/* For PE users in holding view, display locked placeholder value but don't show selector */}
+          {currentViewLevel === "holding" && isPeUser && (
+            <div>
+              <label className="text-xs font-medium text-neutral-500 mb-1 block">
+                PE Firm
+              </label>
+              <div className="h-9 w-[180px] px-3 flex items-center rounded-md border border-neutral-200 bg-neutral-50 text-sm text-neutral-600">
+                PE Firm Placeholder
+              </div>
             </div>
           )}
 
