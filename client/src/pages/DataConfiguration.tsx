@@ -22,7 +22,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 
 // Database table types for TypeScript
-type DBTable = "users" | "departments" | "surveys" | "responses" | "activities" | "insights";
+type DBTable = "users" | "departments" | "surveys" | "responses" | "activities";
 
 export default function DataConfiguration() {
   const { user } = useAuth();
@@ -69,7 +69,6 @@ export default function DataConfiguration() {
               <TabsTrigger value="surveys">Surveys</TabsTrigger>
               <TabsTrigger value="responses">Survey Responses</TabsTrigger>
               <TabsTrigger value="activities">Activities</TabsTrigger>
-              <TabsTrigger value="insights">AI Insights</TabsTrigger>
             </TabsList>
 
             {/* Users Table */}
@@ -158,25 +157,6 @@ export default function DataConfiguration() {
                   { key: "userId", label: "User ID" },
                   { key: "type", label: "Activity Type" },
                   { key: "description", label: "Description" },
-                  { key: "createdAt", label: "Created At", isDate: true }
-                ]}
-              />
-            </TabsContent>
-
-            {/* Insights Table */}
-            <TabsContent value="insights">
-              <DatabaseTable
-                title="AI Insights"
-                description="AI-generated insights from survey data"
-                data={tableData}
-                isLoading={isLoading}
-                error={error}
-                columns={[
-                  { key: "id", label: "ID" },
-                  { key: "surveyId", label: "Survey ID" },
-                  { key: "title", label: "Title" },
-                  { key: "content", label: "Content", truncate: true },
-                  { key: "isPositive", label: "Is Positive" },
                   { key: "createdAt", label: "Created At", isDate: true }
                 ]}
               />
