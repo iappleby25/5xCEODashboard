@@ -27,6 +27,11 @@ export default function Dashboard() {
         { value: "company", label: "Company" },
         { value: "team", label: "Team" }
       ]
+    : user?.role === 'CEO'
+    ? [
+        { value: "company", label: "Company" },
+        { value: "team", label: "Team" }
+      ]
     : user?.role === 'LEADERSHIP TEAM'
     ? [
         { value: "compare", label: "Compare" },
@@ -215,32 +220,30 @@ export default function Dashboard() {
 
   return (
     <div className="flex-1">
-      {/* Hide filter bar completely for CEO users */}
-      {user?.role !== 'CEO' && (
-        <FilterBar
-          viewLevels={viewLevels}
-          timePeriods={timePeriods}
-          currentViewLevel={currentViewLevel}
-          currentTimePeriod={currentTimePeriod}
-          showAdvancedFilters={showAdvancedFilters}
-          departmentFilter={departmentFilter}
-          surveyTypeFilter={surveyTypeFilter}
-          responseStatusFilter={responseStatusFilter}
-          selectedCompany={selectedCompany}
-          selectedRole={selectedRole}
-          companies={companies}
-          roles={roles}
-          // Handle all filter changes - conditionally based on user role
-          onViewLevelChange={handleViewLevelChange}
-          onTimePeriodChange={setCurrentTimePeriod}
-          onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
-          onDepartmentFilterChange={setDepartmentFilter}
-          onSurveyTypeFilterChange={setSurveyTypeFilter}
-          onResponseStatusFilterChange={setResponseStatusFilter}
-          onCompanyChange={handleCompanyChange}
-          onRoleChange={handleRoleChange}
-        />
-      )}
+      {/* Show filter bar for all users, CEO can now switch between views */}
+      <FilterBar
+        viewLevels={viewLevels}
+        timePeriods={timePeriods}
+        currentViewLevel={currentViewLevel}
+        currentTimePeriod={currentTimePeriod}
+        showAdvancedFilters={showAdvancedFilters}
+        departmentFilter={departmentFilter}
+        surveyTypeFilter={surveyTypeFilter}
+        responseStatusFilter={responseStatusFilter}
+        selectedCompany={selectedCompany}
+        selectedRole={selectedRole}
+        companies={companies}
+        roles={roles}
+        // Handle all filter changes - conditionally based on user role
+        onViewLevelChange={handleViewLevelChange}
+        onTimePeriodChange={setCurrentTimePeriod}
+        onToggleAdvancedFilters={() => setShowAdvancedFilters(!showAdvancedFilters)}
+        onDepartmentFilterChange={setDepartmentFilter}
+        onSurveyTypeFilterChange={setSurveyTypeFilter}
+        onResponseStatusFilterChange={setResponseStatusFilter}
+        onCompanyChange={handleCompanyChange}
+        onRoleChange={handleRoleChange}
+      />
 
       <div className="p-4">
         <Tabs 
