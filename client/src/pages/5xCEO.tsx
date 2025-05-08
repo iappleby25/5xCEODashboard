@@ -27,8 +27,8 @@ const FiveXCEO = () => {
   // New state for the selected analysis category
   const [selectedAnalysisCategory, setSelectedAnalysisCategory] = useState<string | null>("strategic-clarity");
 
-  // Temporarily allow comparison for all users for testing
-  const canCompare = true; // user?.role === 'PE & BOD' || user?.role === 'ADMIN';
+  // Only PE & BOD and ADMIN users can compare companies
+  const canCompare = user?.role === 'PE & BOD' || user?.role === 'ADMIN';
 
   // Get available companies from mock data
   const availableCompanies = mockCompanies.map(company => company.name);
