@@ -271,22 +271,6 @@ const PanelView: React.FC<PanelViewProps> = ({
               <p className="mt-3 mb-1 text-neutral-600">
                 Based on the 5xCEO framework assessment, GlobalSolutions shows strengths in Strategic Clarity and Disciplined Execution, with opportunities for improvement in Relentless Focus.
               </p>
-              
-              <h4 className="font-medium mt-4 mb-2 pt-2 border-t border-gray-200 text-neutral-700">Overall Recommendations</h4>
-              <div className="space-y-2">
-                <p className="flex items-start">
-                  <span className="text-neutral-400 mr-2">1.</span>
-                  <span className="text-neutral-600">Implement more rigorous project prioritization framework to improve Relentless Focus.</span>
-                </p>
-                <p className="flex items-start">
-                  <span className="text-neutral-400 mr-2">2.</span>
-                  <span className="text-neutral-600">Enhance leadership development programs for middle management to strengthen Scalable Talent.</span>
-                </p>
-                <p className="flex items-start">
-                  <span className="text-neutral-400 mr-2">3.</span>
-                  <span className="text-neutral-600">Address work-life balance concerns in high-growth departments to sustain Energized Culture.</span>
-                </p>
-              </div>
             </div>
           </motion.div>
         </div>
