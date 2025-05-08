@@ -22,21 +22,21 @@ const MyCEO = () => {
   };
 
   const handleNextCategory = () => {
-    const currentIndex = assessmentData.categories.findIndex(
+    const currentIndex = assessmentData.findIndex(
       (cat) => cat.id === selectedCategory?.id
     );
-    const nextIndex = (currentIndex + 1) % assessmentData.categories.length;
-    setSelectedCategory(assessmentData.categories[nextIndex]);
+    const nextIndex = (currentIndex + 1) % assessmentData.length;
+    setSelectedCategory(assessmentData[nextIndex]);
   };
 
   const handlePreviousCategory = () => {
-    const currentIndex = assessmentData.categories.findIndex(
+    const currentIndex = assessmentData.findIndex(
       (cat) => cat.id === selectedCategory?.id
     );
     const prevIndex = currentIndex === 0 
-      ? assessmentData.categories.length - 1 
+      ? assessmentData.length - 1 
       : currentIndex - 1;
-    setSelectedCategory(assessmentData.categories[prevIndex]);
+    setSelectedCategory(assessmentData[prevIndex]);
   };
 
   // Container animation
