@@ -17,10 +17,10 @@ export default function Dashboard() {
   const { user } = useAuth();
   const [_, navigate] = useLocation();
   
-  // Redirect PE & BOD users (but not admins) to the Comparisons page
+  // Redirect PE & BOD users to the Comparisons page
   // They don't need access to the Performance Overview
   useEffect(() => {
-    if (user?.role === 'PE & BOD' && user?.role !== 'ADMIN') {
+    if (user?.role === 'PE & BOD') {
       navigate('/comparisons');
     }
   }, [user, navigate]);
