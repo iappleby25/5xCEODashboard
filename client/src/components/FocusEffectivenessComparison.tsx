@@ -243,18 +243,20 @@ const FocusEffectivenessComparison: React.FC<FocusEffectivenessComparisonProps> 
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md mt-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-3">
         <div>
           <h2 className="text-2xl font-semibold">{comparisonTitle}</h2>
           <p className="text-sm text-neutral-500">{comparisonDescription}</p>
         </div>
-        <div className="bg-neutral-100 px-3 py-1 rounded-md text-sm font-medium">
-          {period}
-        </div>
-        <div className="flex items-center">
-          <span className="text-lg font-semibold">{primaryCompany}</span>
-          <ArrowUpDown className="h-4 w-4 mx-2" />
-          <span className="text-lg font-semibold">{comparisonCompany}</span>
+        <div className="flex gap-3 items-center">
+          <div className="bg-neutral-100 px-3 py-1 rounded-md text-sm font-medium">
+            {period}
+          </div>
+          <div className="flex items-center">
+            <span className="text-md font-medium text-blue-600">{primaryCompany}</span>
+            <ArrowUpDown className="h-4 w-4 mx-2" />
+            <span className="text-md font-medium text-green-600">{comparisonCompany}</span>
+          </div>
         </div>
       </div>
 
