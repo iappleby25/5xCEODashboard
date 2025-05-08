@@ -1,9 +1,11 @@
-import { Switch, Route, useLocation } from "wouter";
+import { Switch, Route } from "wouter";
+import { useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { useEffect } from "react";
 
 import AppShell from "@/components/AppShell";
 import Dashboard from "@/pages/Dashboard";
@@ -16,41 +18,61 @@ import FiveXCEO from "@/pages/5xCEO";
 import Comparisons from "@/pages/Comparisons";
 import UserManagement from "@/pages/UserManagement";
 
-function Router() {
+// Layout wrapper components
+const PublicRoute = ({ component: Component, ...rest }: { component: React.ComponentType<any>, path: string }) => {
+  return <Component {...rest} />;
+};
+
+const PrivateRoute = ({ component: Component, ...rest }: { component: React.ComponentType<any>, path: string }) => {
   const { isAuthenticated } = useAuth();
-  const [location] = useLocation();
+  const [, navigate] = useLocation();
   
-  // Public routes that don't need the AppShell layout
-  const publicRoutes = ['/', '/login'];
-  const isPublicRoute = publicRoutes.includes(location);
+  useEffect(() => {
+    // If not authenticated, redirect to login
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
   
-  // Determine if the current route should have the AppShell
-  const shouldShowAppShell = isAuthenticated || !isPublicRoute;
-  
-  // Function to render a component with or without AppShell
-  const renderWithLayout = (Component: React.ComponentType<any>) => {
-    return (props: any) => {
-      if (shouldShowAppShell) {
-        return (
-          <AppShell>
-            <Component {...props} />
-          </AppShell>
-        );
-      }
-      return <Component {...props} />;
-    };
-  };
+  // Only render the AppShell and component if authenticated
+  if (!isAuthenticated) {
+    return null; // Don't render anything while redirecting
+  }
   
   return (
+    <AppShell>
+      <Component {...rest} />
+    </AppShell>
+  );
+};
+
+function Router() {
+  return (
     <Switch>
+      {/* Public routes - no AppShell/Sidebar */}
       <Route path="/" component={Home} />
       <Route path="/login" component={Login} />
-      <Route path="/dashboard" component={renderWithLayout(Dashboard)} />
-      <Route path="/upload" component={renderWithLayout(UploadData)} />
-      <Route path="/history" component={renderWithLayout(History)} />
-      <Route path="/5xCEO" component={renderWithLayout(FiveXCEO)} />
-      <Route path="/comparisons" component={renderWithLayout(Comparisons)} />
-      <Route path="/admin/users" component={renderWithLayout(UserManagement)} />
+      
+      {/* Private routes - with AppShell/Sidebar */}
+      <Route path="/dashboard">
+        {(params) => <PrivateRoute component={Dashboard} path="/dashboard" />}
+      </Route>
+      <Route path="/upload">
+        {(params) => <PrivateRoute component={UploadData} path="/upload" />}
+      </Route>
+      <Route path="/history">
+        {(params) => <PrivateRoute component={History} path="/history" />}
+      </Route>
+      <Route path="/5xCEO">
+        {(params) => <PrivateRoute component={FiveXCEO} path="/5xCEO" />}
+      </Route>
+      <Route path="/comparisons">
+        {(params) => <PrivateRoute component={Comparisons} path="/comparisons" />}
+      </Route>
+      <Route path="/admin/users">
+        {(params) => <PrivateRoute component={UserManagement} path="/admin/users" />}
+      </Route>
+      
       {/* Redirect /MyCEO to /5xCEO for backward compatibility */}
       <Route path="/MyCEO">
         {() => {
@@ -58,6 +80,7 @@ function Router() {
           return null;
         }}
       </Route>
+      
       <Route component={NotFound} />
     </Switch>
   );
