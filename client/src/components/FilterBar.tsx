@@ -142,22 +142,29 @@ export default function FilterBar({
               <label className="text-xs font-medium text-neutral-500 mb-1 block">
                 Role
               </label>
-              <Select 
-                value={selectedRole} 
-                onValueChange={onRoleChange}
-                disabled={!onRoleChange}
-              >
-                <SelectTrigger className="h-9 w-[180px]">
-                  <SelectValue placeholder="Select role" />
-                </SelectTrigger>
-                <SelectContent>
-                  {roles.map((role) => (
-                    <SelectItem key={role} value={role}>
-                      {role}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {/* For LEADERSHIP TEAM users in team view, show locked role */}
+              {isRestrictedUser && selectedRole === "LEADERSHIP TEAM" ? (
+                <div className="h-9 w-[180px] px-3 flex items-center rounded-md border border-neutral-200 bg-neutral-50 text-sm text-neutral-600">
+                  LEADERSHIP TEAM
+                </div>
+              ) : (
+                <Select 
+                  value={selectedRole} 
+                  onValueChange={onRoleChange}
+                  disabled={!onRoleChange || (isRestrictedUser && selectedRole === "LEADERSHIP TEAM")}
+                >
+                  <SelectTrigger className="h-9 w-[180px]">
+                    <SelectValue placeholder="Select role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {roles.map((role) => (
+                      <SelectItem key={role} value={role}>
+                        {role}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </div>
           )}
 

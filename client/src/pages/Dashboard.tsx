@@ -35,6 +35,7 @@ export default function Dashboard() {
     : user?.role === 'LEADERSHIP TEAM'
     ? [
         { value: "company", label: "Company" },
+        { value: "team", label: "Team" },
         { value: "compare", label: "Compare" }
       ]
     : [
@@ -162,11 +163,6 @@ export default function Dashboard() {
       return;
     }
     
-    // For LEADERSHIP TEAM users, prevent setting view level to team
-    if (value === "team" && user?.role === "LEADERSHIP TEAM") {
-      return;
-    }
-    
     setCurrentViewLevel(value as ViewLevelType);
     
     // Set appropriate defaults based on view level
@@ -191,8 +187,10 @@ export default function Dashboard() {
         setSelectedCompany(companies[0]);
       }
       
-      // Set default role for team view
-      if (roles.length > 0) {
+      // Set default role for team view - for LEADERSHIP TEAM users, always set to LEADERSHIP TEAM role
+      if (user?.role === "LEADERSHIP TEAM") {
+        setSelectedRole("LEADERSHIP TEAM");
+      } else if (roles.length > 0) {
         setSelectedRole(roles[0]);
       }
     }
