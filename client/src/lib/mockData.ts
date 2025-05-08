@@ -359,7 +359,7 @@ export function getMockSurveyData(): SurveyData[] {
       };
       
       // Get deterministic values between 0-1 using the hash
-      const companyHash = getHashValue(company.name);
+      const companyHash = getHashValue(company); // company is a string
       const roleHash = getHashValue(role, companyHash);
       
       // Generate base score between 50-90 based on company and role
@@ -367,11 +367,11 @@ export function getMockSurveyData(): SurveyData[] {
       const variance = 10;
       
       // Generate variance for each category in a deterministic way
-      const strategicClarityVar = ((getHashValue(`${company.name}-${role}-strategic`) % 100) / 100) * variance * 2 - variance;
-      const scalableTalentVar = ((getHashValue(`${company.name}-${role}-talent`) % 100) / 100) * variance * 2 - variance;
-      const relentlessFocusVar = ((getHashValue(`${company.name}-${role}-focus`) % 100) / 100) * variance * 2 - variance;
-      const disciplinedExecutionVar = ((getHashValue(`${company.name}-${role}-execution`) % 100) / 100) * variance * 2 - variance;
-      const energizedCultureVar = ((getHashValue(`${company.name}-${role}-culture`) % 100) / 100) * variance * 2 - variance;
+      const strategicClarityVar = ((getHashValue(`${company}-${role}-strategic`) % 100) / 100) * variance * 2 - variance;
+      const scalableTalentVar = ((getHashValue(`${company}-${role}-talent`) % 100) / 100) * variance * 2 - variance;
+      const relentlessFocusVar = ((getHashValue(`${company}-${role}-focus`) % 100) / 100) * variance * 2 - variance;
+      const disciplinedExecutionVar = ((getHashValue(`${company}-${role}-execution`) % 100) / 100) * variance * 2 - variance;
+      const energizedCultureVar = ((getHashValue(`${company}-${role}-culture`) % 100) / 100) * variance * 2 - variance;
       
       // Apply the variance to the base score
       const strategicClarity = Math.min(100, Math.max(0, Math.round(baseScore + strategicClarityVar)));
@@ -383,7 +383,7 @@ export function getMockSurveyData(): SurveyData[] {
       const totalScore = Math.round((strategicClarity + scalableTalent + relentlessFocus + disciplinedExecution + energizedCulture) / 5);
       
       // Generate question scores for each category
-      const questionItems = [];
+      const questionItems: Array<{question: string; score: number; category: string}> = [];
       
       // Add questions with scores for each category
       Object.entries(questions).forEach(([category, categoryQuestions]) => {
@@ -396,7 +396,7 @@ export function getMockSurveyData(): SurveyData[] {
         
         categoryQuestions.forEach((question, qIndex) => {
           // Generate consistent question score based on the question text
-          const questionHash = getHashValue(`${company.name}-${role}-${category}-${qIndex}`);
+          const questionHash = getHashValue(`${company}-${role}-${category}-${qIndex}`);
           // Score varies a bit around the category base score (±8 points)
           const variance = ((questionHash % 100) / 100) * 16 - 8;
           const questionScore = Math.min(100, Math.max(0, Math.round(categoryBaseScore + variance)));
