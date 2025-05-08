@@ -215,8 +215,8 @@ export default function Dashboard() {
           })()}
           className="w-full"
         >
-          <TabsList className={`grid w-full md:w-auto ${user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM' ? 'grid-cols-2' : 'grid-cols-3'} h-auto`}>
-            {(user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM') && <TabsTrigger value="overview">Overview</TabsTrigger>}
+          <TabsList className="grid w-full md:w-auto grid-cols-3 h-auto">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="details">Details</TabsTrigger>
             <TabsTrigger value="insights">Insights</TabsTrigger>
           </TabsList>
@@ -383,20 +383,18 @@ export default function Dashboard() {
           </TabsContent>
 
           <TabsContent value="insights" className="space-y-4 mt-4">
-            {/* Only show context summary for non-executive users */}
-            {user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM' && (
-              <Card className="border-primary/10 bg-primary/5">
-                <CardContent className="pt-4">
-                  <p className="text-neutral-600">
-                    AI-generated insights based on the filtered data for view level:
-                    <strong>
-                      {" "}
-                      {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
-                    </strong>
-                  </p>
-                </CardContent>
-              </Card>
-            )}
+            {/* Show context summary for all users except CEO and LEADERSHIP TEAM */}
+            <Card className="border-primary/10 bg-primary/5">
+              <CardContent className="pt-4">
+                <p className="text-neutral-600">
+                  AI-generated insights based on the filtered data for view level:
+                  <strong>
+                    {" "}
+                    {viewLevels.find(level => level.value === currentViewLevel)?.label || "Holding"}
+                  </strong>
+                </p>
+              </CardContent>
+            </Card>
             
             <AiInsightsView surveyId={1} />
           </TabsContent>
