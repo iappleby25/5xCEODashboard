@@ -10,14 +10,9 @@ interface AppShellProps {
 export default function AppShell({ children }: AppShellProps) {
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
-  };
-
-  const toggleVoiceAssistant = () => {
-    setShowVoiceAssistant(!showVoiceAssistant);
   };
 
   return (
@@ -34,7 +29,6 @@ export default function AppShell({ children }: AppShellProps) {
         {/* Top Navigation */}
         <TopNavbar 
           onMenuClick={toggleSidebar}
-          onVoiceSearchClick={toggleVoiceAssistant}
         />
         
         {/* Main Content Area */}
