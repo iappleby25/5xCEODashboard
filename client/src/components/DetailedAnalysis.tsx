@@ -666,7 +666,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           <Card>
             <CardHeader>
               <CardTitle>
-                {currentViewLevel === "holding" ? "Company Performance" : "Strengths & Opportunities"}
+                {currentViewLevel === "holding" ? "Company Performance" : "Framework Performance"}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -700,7 +700,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           <Card>
             <CardHeader>
               <CardTitle>
-                {currentViewLevel === "holding" ? "Question Analysis" : "Score Breakdown"}
+                Question Analysis
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -726,68 +726,70 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                   </div>
                 </div>
 
-                {currentViewLevel === "holding" ? (
-                  // In holding view, show top and bottom question scores
-                  <div className="pt-4 space-y-4">
-                    {/* Get top and bottom questions */}
-                    {(() => {
-                      const { topQuestions, bottomQuestions } = findTopAndBottomQuestions();
-                      return (
-                        <>
-                          <div>
-                            <h3 className="text-md font-medium text-green-600 mb-2">Top 5 Questions</h3>
-                            {topQuestions.map((item, index) => (
-                              <div key={index} className="flex items-start justify-between mb-2 p-2 bg-green-50 rounded-md">
-                                <span className="text-sm break-words flex-1 mr-2">{item.question}</span>
-                                <span className="font-semibold whitespace-nowrap ml-2">{item.score}%</span>
+                <div className="pt-4 space-y-4">
+                  {/* Get top and bottom questions */}
+                  {(() => {
+                    const { topQuestions, bottomQuestions } = findTopAndBottomQuestions();
+                    return (
+                      <>
+                        <div>
+                          <h3 className="text-md font-medium text-green-600 mb-2">Top 5 Questions</h3>
+                          {topQuestions.map((item, index) => (
+                            <div key={index} className="flex items-start justify-between mb-2 p-2 bg-green-50 rounded-md">
+                              <span className="text-sm break-words flex-1 mr-2">{item.question}</span>
+                              <span className="font-semibold whitespace-nowrap ml-2">{item.score}%</span>
+                            </div>
+                          ))}
+                          {topQuestions.length === 0 && (
+                            <div className="text-center py-2 text-neutral-500">No question data available</div>
+                          )}
+                        </div>
+                        
+                        <div>
+                          <h3 className="text-md font-medium text-amber-600 mb-2">Bottom 5 Questions</h3>
+                          {bottomQuestions.map((item, index) => (
+                            <div key={index} className="flex items-start justify-between mb-2 p-2 bg-amber-50 rounded-md">
+                              <span className="text-sm break-words flex-1 mr-2">{item.question}</span>
+                              <span className="font-semibold whitespace-nowrap ml-2">{item.score}%</span>
+                            </div>
+                          ))}
+                          {bottomQuestions.length === 0 && (
+                            <div className="text-center py-2 text-neutral-500">No question data available</div>
+                          )}
+                        </div>
+
+                        {/* Include framework category scores in a smaller section at the bottom for team and company view */}
+                        {currentViewLevel !== "holding" && (
+                          <div className="mt-4 pt-4 border-t border-gray-100">
+                            <h3 className="text-md font-medium mb-2">Framework Category Scores</h3>
+                            <div className="grid grid-cols-2 gap-2 text-sm">
+                              <div className="flex items-center justify-between">
+                                <span>Strategic Clarity</span>
+                                <span className="font-medium">{averageScores.strategicClarity}%</span>
                               </div>
-                            ))}
-                            {topQuestions.length === 0 && (
-                              <div className="text-center py-2 text-neutral-500">No question data available</div>
-                            )}
-                          </div>
-                          
-                          <div>
-                            <h3 className="text-md font-medium text-amber-600 mb-2">Bottom 5 Questions</h3>
-                            {bottomQuestions.map((item, index) => (
-                              <div key={index} className="flex items-start justify-between mb-2 p-2 bg-amber-50 rounded-md">
-                                <span className="text-sm break-words flex-1 mr-2">{item.question}</span>
-                                <span className="font-semibold whitespace-nowrap ml-2">{item.score}%</span>
+                              <div className="flex items-center justify-between">
+                                <span>Scalable Talent</span>
+                                <span className="font-medium">{averageScores.scalableTalent}%</span>
                               </div>
-                            ))}
-                            {bottomQuestions.length === 0 && (
-                              <div className="text-center py-2 text-neutral-500">No question data available</div>
-                            )}
+                              <div className="flex items-center justify-between">
+                                <span>Relentless Focus</span>
+                                <span className="font-medium">{averageScores.relentlessFocus}%</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>Disciplined Execution</span>
+                                <span className="font-medium">{averageScores.disciplinedExecution}%</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>Energized Culture</span>
+                                <span className="font-medium">{averageScores.energizedCulture}%</span>
+                              </div>
+                            </div>
                           </div>
-                        </>
-                      );
-                    })()}
-                  </div>
-                ) : (
-                  // In team and company view, show framework category scores
-                  <div className="pt-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span>Strategic Clarity</span>
-                      <span>{averageScores.strategicClarity}%</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Scalable Talent</span>
-                      <span>{averageScores.scalableTalent}%</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Relentless Focus</span>
-                      <span>{averageScores.relentlessFocus}%</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Disciplined Execution</span>
-                      <span>{averageScores.disciplinedExecution}%</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Energized Culture</span>
-                      <span>{averageScores.energizedCulture}%</span>
-                    </div>
-                  </div>
-                )}
+                        )}
+                      </>
+                    );
+                  })()}
+                </div>
               </div>
             </CardContent>
           </Card>
