@@ -16,7 +16,7 @@ const MyCEO = () => {
   const [selectedCategory, setSelectedCategory] = useState<FrameworkCategory | null>(null);
   
   // State for analysis and comparison
-  const [selectedAnalysisCategory, setSelectedAnalysisCategory] = useState<string>('relentless-focus');
+  const [selectedAnalysisCategory, setSelectedAnalysisCategory] = useState<string>('energized-culture');
   const [selectedCompany, setSelectedCompany] = useState<string>("GlobalSolutions");
   const [comparisonCompany, setComparisonCompany] = useState<string | null>(null);
 

@@ -21,7 +21,7 @@ import {
 
 interface FocusEffectivenessComparisonProps {
   primaryCompany: string;
-  comparisonCompany: string;
+  comparisonCompany?: string;
   period: string;
   selectedCategory?: string;
 }

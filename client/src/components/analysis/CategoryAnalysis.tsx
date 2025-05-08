@@ -13,7 +13,7 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
   category,
   company,
   period,
-  comparisonCompany = 'FusionDynamics'
+  comparisonCompany
 }) => {
   // Data for each category (in real app would be fetched from API)
   const getCategoryData = () => {
@@ -326,6 +326,38 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
                 Hover over metrics to view detailed performance insights
               </div>
             )}
+            
+            <div className="mt-6 mb-8">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="h-5 w-5 text-green-500" />
+                <span className="text-lg font-medium">Trend analysis: <span className="text-green-500">{categoryData.trend}</span></span>
+              </div>
+              <p className="text-neutral-600">improvement over last 3 quarters</p>
+              <p className="mt-2 text-neutral-700">{categoryData.insightText}</p>
+            </div>
+
+            <div className="mt-8">
+              <h3 className="text-lg font-medium mb-4">Strategic Alignment Metrics</h3>
+              <div className="space-y-6">
+                {categoryData.metrics.map((metric) => (
+                  <div key={metric.name}>
+                    <div className="flex justify-between mb-1">
+                      <span>{metric.name}</span>
+                      <span className="text-green-500 font-medium">{metric.improvement}</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div 
+                        className="h-2.5 rounded-full" 
+                        style={{ 
+                          width: `${metric.value}%`,
+                          backgroundColor: categoryData.color
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </>
         ) : (
           <div className="text-center py-8 bg-gray-50 rounded-md border border-dashed border-gray-300">
@@ -337,38 +369,6 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
             </div>
           </div>
         )}
-      </div>
-
-      <div className="mt-6 mb-8">
-        <div className="flex items-center gap-2 mb-2">
-          <TrendingUp className="h-5 w-5 text-green-500" />
-          <span className="text-lg font-medium">Trend analysis: <span className="text-green-500">{categoryData.trend}</span></span>
-        </div>
-        <p className="text-neutral-600">improvement over last 3 quarters</p>
-        <p className="mt-2 text-neutral-700">{categoryData.insightText}</p>
-      </div>
-
-      <div className="mt-8">
-        <h3 className="text-lg font-medium mb-4">Strategic Alignment Metrics</h3>
-        <div className="space-y-6">
-          {categoryData.metrics.map((metric) => (
-            <div key={metric.name}>
-              <div className="flex justify-between mb-1">
-                <span>{metric.name}</span>
-                <span className="text-green-500 font-medium">{metric.improvement}</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div 
-                  className="h-2.5 rounded-full" 
-                  style={{ 
-                    width: `${metric.value}%`,
-                    backgroundColor: categoryData.color
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
