@@ -140,7 +140,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     }
   };
   
-  // Function to generate question scores for a category
+  // Function to generate question scores for a category with consistent results
   const generateQuestionScores = (
     category: string, 
     categoryKey: string, 
@@ -152,11 +152,16 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     const minScore = Math.max(50, baseScore - 10);
     const maxScore = Math.min(100, baseScore + 10);
     
-    return questions.map(question => {
-      // Generate a score within the range
+    return questions.map((question, index) => {
+      // Use a deterministic "random" value based on the category and question index
+      // This ensures the same question always gets the same score
+      const hash = category.charCodeAt(0) + question.length + (index * 7);
+      const pseudoRandomValue = (hash % 100) / 100; // Value between 0 and 1
+      
+      // Generate a consistent score within the range
       const scoreRange = maxScore - minScore;
-      const randomOffset = Math.floor(Math.random() * scoreRange);
-      const score = minScore + randomOffset;
+      const offset = Math.floor(pseudoRandomValue * scoreRange);
+      const score = minScore + offset;
       
       return {
         question,

@@ -347,15 +347,38 @@ export function getMockSurveyData(): SurveyData[] {
   companies.forEach((company, cIndex) => {
     // Generate data for each role
     roles.forEach((role, rIndex) => {
-      // Different scores based on role and company
-      const baseScore = 50 + Math.floor(Math.random() * 40);
+      // Generate consistent pseudo-random scores based on company and role
+      // Create a hash value from the company name and role to ensure consistency
+      const getHashValue = (str: string, seed: number = 0): number => {
+        let hash = seed;
+        for (let i = 0; i < str.length; i++) {
+          hash = ((hash << 5) - hash) + str.charCodeAt(i);
+          hash = hash & hash; // Convert to 32bit integer
+        }
+        return Math.abs(hash);
+      };
+      
+      // Get deterministic values between 0-1 using the hash
+      const companyHash = getHashValue(company.name);
+      const roleHash = getHashValue(role, companyHash);
+      
+      // Generate base score between 50-90 based on company and role
+      const baseScore = 50 + (((companyHash + roleHash) % 1000) / 1000) * 40;
       const variance = 10;
       
-      const strategicClarity = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
-      const scalableTalent = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
-      const relentlessFocus = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
-      const disciplinedExecution = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
-      const energizedCulture = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
+      // Generate variance for each category in a deterministic way
+      const strategicClarityVar = ((getHashValue(`${company.name}-${role}-strategic`) % 100) / 100) * variance * 2 - variance;
+      const scalableTalentVar = ((getHashValue(`${company.name}-${role}-talent`) % 100) / 100) * variance * 2 - variance;
+      const relentlessFocusVar = ((getHashValue(`${company.name}-${role}-focus`) % 100) / 100) * variance * 2 - variance;
+      const disciplinedExecutionVar = ((getHashValue(`${company.name}-${role}-execution`) % 100) / 100) * variance * 2 - variance;
+      const energizedCultureVar = ((getHashValue(`${company.name}-${role}-culture`) % 100) / 100) * variance * 2 - variance;
+      
+      // Apply the variance to the base score
+      const strategicClarity = Math.min(100, Math.max(0, Math.round(baseScore + strategicClarityVar)));
+      const scalableTalent = Math.min(100, Math.max(0, Math.round(baseScore + scalableTalentVar)));
+      const relentlessFocus = Math.min(100, Math.max(0, Math.round(baseScore + relentlessFocusVar)));
+      const disciplinedExecution = Math.min(100, Math.max(0, Math.round(baseScore + disciplinedExecutionVar)));
+      const energizedCulture = Math.min(100, Math.max(0, Math.round(baseScore + energizedCultureVar)));
       
       const totalScore = Math.round((strategicClarity + scalableTalent + relentlessFocus + disciplinedExecution + energizedCulture) / 5);
       
@@ -371,9 +394,12 @@ export function getMockSurveyData(): SurveyData[] {
           category === 'disciplinedExecution' ? disciplinedExecution : 
           energizedCulture;
         
-        categoryQuestions.forEach(question => {
-          // Score varies a bit around the category base score
-          const questionScore = Math.min(100, Math.max(0, categoryBaseScore + Math.floor(Math.random() * 16) - 8));
+        categoryQuestions.forEach((question, qIndex) => {
+          // Generate consistent question score based on the question text
+          const questionHash = getHashValue(`${company.name}-${role}-${category}-${qIndex}`);
+          // Score varies a bit around the category base score (±8 points)
+          const variance = ((questionHash % 100) / 100) * 16 - 8;
+          const questionScore = Math.min(100, Math.max(0, Math.round(categoryBaseScore + variance)));
           
           questionItems.push({
             question,
