@@ -77,6 +77,7 @@ export default function Dashboard() {
   const defaultCompany = (user?.role !== 'PE & BOD' && user?.role !== 'ADMIN') ? "GlobalSolutions" : undefined;
   const [selectedCompany, setSelectedCompany] = useState<string | undefined>(defaultCompany);
   const [selectedRole, setSelectedRole] = useState<string | undefined>(undefined);
+  const [selectedFirm, setSelectedFirm] = useState<string | undefined>("placeholder");
   
   // Convert mockCompanies to SurveyData format for consistency with Dashboard view
   const convertedMockSurveyData: SurveyData[] = mockCompanies.map(company => ({
@@ -229,6 +230,11 @@ export default function Dashboard() {
   const handleRoleChange = (value: string) => {
     setSelectedRole(value);
   };
+  
+  // Handle firm change - currently no functionality per requirements
+  const handleFirmChange = (value: string) => {
+    setSelectedFirm(value);
+  };
 
   return (
     <div className="flex-1">
@@ -244,6 +250,7 @@ export default function Dashboard() {
         responseStatusFilter={responseStatusFilter}
         selectedCompany={selectedCompany}
         selectedRole={selectedRole}
+        selectedFirm={selectedFirm}
         companies={companies}
         roles={roles}
         // Handle all filter changes - conditionally based on user role
@@ -255,6 +262,7 @@ export default function Dashboard() {
         onResponseStatusFilterChange={setResponseStatusFilter}
         onCompanyChange={handleCompanyChange}
         onRoleChange={handleRoleChange}
+        onFirmChange={handleFirmChange}
       />
 
       <div className="p-4">

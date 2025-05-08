@@ -49,6 +49,7 @@ interface FilterBarProps {
   responseStatusFilter: string;
   selectedCompany?: string;
   selectedRole?: string;
+  selectedFirm?: string;
   companies: string[];
   roles: string[];
   onViewLevelChange: (value: string) => void;
@@ -59,6 +60,7 @@ interface FilterBarProps {
   onResponseStatusFilterChange: (value: string) => void;
   onCompanyChange?: (value: string) => void;
   onRoleChange?: (value: string) => void;
+  onFirmChange?: (value: string) => void;
 }
 
 export default function FilterBar({
@@ -72,6 +74,7 @@ export default function FilterBar({
   responseStatusFilter,
   selectedCompany,
   selectedRole,
+  selectedFirm,
   companies,
   roles,
   onViewLevelChange,
@@ -82,6 +85,7 @@ export default function FilterBar({
   onResponseStatusFilterChange,
   onCompanyChange,
   onRoleChange,
+  onFirmChange,
 }: FilterBarProps) {
   // Get user role from context
   const { user } = useAuth();
@@ -133,6 +137,27 @@ export default function FilterBar({
               <div className="h-9 w-[180px] px-3 flex items-center rounded-md border border-neutral-200 bg-neutral-50 text-sm text-neutral-600">
                 {currentViewLevelLabel}
               </div>
+            </div>
+          )}
+
+          {/* Show firm selector for holding view */}
+          {currentViewLevel === "holding" && (
+            <div>
+              <label className="text-xs font-medium text-neutral-500 mb-1 block">
+                PE Firm
+              </label>
+              <Select 
+                value={selectedFirm || "placeholder"} 
+                onValueChange={onFirmChange}
+                disabled={!onFirmChange}
+              >
+                <SelectTrigger className="h-9 w-[180px]">
+                  <SelectValue placeholder="Select firm" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="placeholder">PE Firm Placeholder</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           )}
 
