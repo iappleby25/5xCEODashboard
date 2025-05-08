@@ -4,6 +4,8 @@ import { FrameworkCategory } from '../lib/mockData';
 import { getCategoryColor, generateInterpretation } from '../lib/mockData';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 interface PanelViewProps {
   category: FrameworkCategory;
@@ -23,6 +25,7 @@ const PanelView: React.FC<PanelViewProps> = ({
   const colorName = getCategoryColor(category.id);
   const interpretation = generateInterpretation(category, viewMode);
   const [hoveredMetric, setHoveredMetric] = useState<string | null>(null);
+  const [showImproved, setShowImproved] = useState<boolean>(false);
   
   // Helper function to convert color code to Tailwind classes with improved colors
   const getColorClasses = (colorCode: string) => {
@@ -444,7 +447,25 @@ const PanelView: React.FC<PanelViewProps> = ({
           <div className="grid grid-cols-2 gap-5">
             {/* Left side - Business Impact Metrics */}
             <div className="border border-gray-200 rounded-lg p-4">
-              <h4 className="text-sm font-medium mb-3">Business Impact Metrics</h4>
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="text-sm font-medium">Business Impact Metrics</h4>
+                {viewMode === 'MyCEO' && (
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant={showImproved ? "default" : "outline"}
+                        size="sm"
+                        className={`transition-all duration-300 ease-in-out ${showImproved ? 'bg-green-600 hover:bg-green-700 text-white' : 'text-gray-600'}`}
+                        onClick={() => setShowImproved(!showImproved)}
+                      >
+                        {showImproved ? "Improved" : "Current"}
+                      </Button>
+                    </div>
+                    <p className="text-xs text-gray-500">Compare performance impact before and after strategic optimization.</p>
+                  </div>
+                )}
+              </div>
+              
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between text-sm mb-1">
@@ -453,14 +474,40 @@ const PanelView: React.FC<PanelViewProps> = ({
                           category.id === 'disciplined-execution' ? 'Execution effectiveness' :
                           category.id === 'scalable-talent' ? 'Talent optimization' :
                           category.id === 'energized-culture' ? 'Employee engagement' : 'Primary metric'}</span>
-                    <span className="text-emerald-600 font-medium">+{Math.round(category.score / 5)}%</span>
+                    <motion.span 
+                      className="text-emerald-600 font-medium"
+                      key={`primary-${showImproved}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                        (showImproved ? '+28%' : '+14%') : 
+                        `+${Math.round(category.score / 5)}%`}
+                    </motion.span>
                   </div>
                   <div 
                     className="w-full bg-gray-100 rounded-full h-3 relative"
                     onMouseEnter={() => setHoveredMetric('primary')}
                     onMouseLeave={() => setHoveredMetric(null)}
                   >
-                    <div className="bg-emerald-500 h-3 rounded-full" style={{ width: `${category.score / 2 + 50}%` }}></div>
+                    <motion.div 
+                      className="bg-emerald-500 h-3 rounded-full" 
+                      style={{ 
+                        width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                          (showImproved ? '78%' : '64%') : 
+                          `${category.score / 2 + 50}%` 
+                      }}
+                      initial={{ width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                        (showImproved ? '64%' : '78%') : 
+                        `${category.score / 2 + 50}%` }}
+                      animate={{ 
+                        width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                          (showImproved ? '78%' : '64%') : 
+                          `${category.score / 2 + 50}%` 
+                      }}
+                      transition={{ duration: 0.5 }}
+                    />
                     {hoveredMetric === 'primary' && (
                       <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
                         <p className="text-xs font-semibold">Primary Metric Impact</p>
@@ -476,14 +523,40 @@ const PanelView: React.FC<PanelViewProps> = ({
                            category.id === 'disciplined-execution' ? 'On-time delivery' :
                            category.id === 'scalable-talent' ? 'Leadership capability' :
                            category.id === 'energized-culture' ? 'Innovation index' : 'Secondary metric'}</span>
-                    <span className="text-blue-600 font-medium">+{Math.round(category.score / 6)}%</span>
+                    <motion.span 
+                      className="text-blue-600 font-medium"
+                      key={`secondary-${showImproved}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                        (showImproved ? '+23%' : '+11%') : 
+                        `+${Math.round(category.score / 6)}%`}
+                    </motion.span>
                   </div>
                   <div 
                     className="w-full bg-gray-100 rounded-full h-3 relative"
                     onMouseEnter={() => setHoveredMetric('secondary')}
                     onMouseLeave={() => setHoveredMetric(null)}
                   >
-                    <div className="bg-blue-500 h-3 rounded-full" style={{ width: `${category.score / 2.2 + 45}%` }}></div>
+                    <motion.div 
+                      className="bg-blue-500 h-3 rounded-full" 
+                      style={{ 
+                        width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                          (showImproved ? '73%' : '61%') : 
+                          `${category.score / 2.2 + 45}%` 
+                      }}
+                      initial={{ width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                        (showImproved ? '61%' : '73%') : 
+                        `${category.score / 2.2 + 45}%` }}
+                      animate={{ 
+                        width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                          (showImproved ? '73%' : '61%') : 
+                          `${category.score / 2.2 + 45}%` 
+                      }}
+                      transition={{ duration: 0.5 }}
+                    />
                     {hoveredMetric === 'secondary' && (
                       <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
                         <p className="text-xs font-semibold">Secondary Metric Impact</p>
@@ -499,14 +572,40 @@ const PanelView: React.FC<PanelViewProps> = ({
                            category.id === 'disciplined-execution' ? 'Quality index' :
                            category.id === 'scalable-talent' ? 'Retention rate' :
                            category.id === 'energized-culture' ? 'Team effectiveness' : 'Tertiary metric'}</span>
-                    <span className="text-purple-600 font-medium">+{Math.round(category.score / 7)}%</span>
+                    <motion.span 
+                      className="text-purple-600 font-medium"
+                      key={`tertiary-${showImproved}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                        (showImproved ? '+20%' : '+10%') : 
+                        `+${Math.round(category.score / 7)}%`}
+                    </motion.span>
                   </div>
                   <div 
                     className="w-full bg-gray-100 rounded-full h-3 relative"
                     onMouseEnter={() => setHoveredMetric('tertiary')}
                     onMouseLeave={() => setHoveredMetric(null)}
                   >
-                    <div className="bg-purple-500 h-3 rounded-full" style={{ width: `${category.score / 2.5 + 40}%` }}></div>
+                    <motion.div 
+                      className="bg-purple-500 h-3 rounded-full" 
+                      style={{ 
+                        width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                          (showImproved ? '70%' : '60%') : 
+                          `${category.score / 2.5 + 40}%` 
+                      }}
+                      initial={{ width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                        (showImproved ? '60%' : '70%') : 
+                        `${category.score / 2.5 + 40}%` }}
+                      animate={{ 
+                        width: viewMode === 'MyCEO' && category.id === 'relentless-focus' ? 
+                          (showImproved ? '70%' : '60%') : 
+                          `${category.score / 2.5 + 40}%` 
+                      }}
+                      transition={{ duration: 0.5 }}
+                    />
                     {hoveredMetric === 'tertiary' && (
                       <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
                         <p className="text-xs font-semibold">Tertiary Metric Impact</p>
@@ -518,14 +617,25 @@ const PanelView: React.FC<PanelViewProps> = ({
               </div>
               <div className="mt-4">
                 <div className="bg-amber-50 p-3 rounded border border-amber-200">
-                  <p className="text-sm text-amber-800 font-medium">
+                  <motion.p 
+                    className="text-sm text-amber-800 font-medium"
+                    key={`value-${showImproved}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     {category.id === 'strategic-clarity' && "Total estimated value: $3.5M annual impact through improved execution and market position"}
-                    {category.id === 'relentless-focus' && "Total estimated value: $2.8M through capacity optimization and strategic acceleration"}
+                    {category.id === 'relentless-focus' && viewMode === 'MyCEO' ? 
+                      (showImproved ? 
+                        "Total estimated value: $5.6M through capacity optimization and strategic acceleration" : 
+                        "Total estimated value: $2.8M through capacity optimization and strategic acceleration"
+                      ) : 
+                      category.id === 'relentless-focus' && "Total estimated value: $2.8M through capacity optimization and strategic acceleration"}
                     {category.id === 'disciplined-execution' && "Total estimated value: $2.9M from market timing advantage and reduced delivery costs"}
                     {category.id === 'scalable-talent' && "Total estimated value: $2.3M from reduced talent costs and increased innovation value"}
                     {category.id === 'energized-culture' && "Total estimated value: $1.8M from enhanced retention and productivity gains"}
                     {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && "Total estimated value: $2.5M+ in combined business impact"}
-                  </p>
+                  </motion.p>
                 </div>
               </div>
             </div>
