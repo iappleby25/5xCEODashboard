@@ -1,9 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { 
-  Menu, 
-  Bell, 
-  HelpCircle, 
-  Settings 
+  Menu
 } from "lucide-react";
 import logoSvg from "../assets/5xceo-logo.svg";
 
@@ -23,24 +19,9 @@ export default function TopNavbar({ onMenuClick }: TopNavbarProps) {
       </button>
       
       {/* Logo and Title */}
-      <div className="flex items-center mr-6">
+      <div className="flex items-center">
         <img src={logoSvg} alt="AdvantageCEO Logo" className="h-8 w-8 mr-2" />
         <h1 className="text-xl font-bold text-neutral-900">AdvantageCEO</h1>
-      </div>
-      
-      {/* Spacer to replace the search area */}
-      <div className="flex-1"></div>
-      
-      <div className="flex items-center ml-auto space-x-4">
-        <button type="button" className="p-1.5 rounded-full text-neutral-500 hover:bg-neutral-100">
-          <Bell className="h-5 w-5" />
-        </button>
-        <button type="button" className="p-1.5 rounded-full text-neutral-500 hover:bg-neutral-100">
-          <HelpCircle className="h-5 w-5" />
-        </button>
-        <button type="button" className="p-1.5 rounded-full text-neutral-500 hover:bg-neutral-100">
-          <Settings className="h-5 w-5" />
-        </button>
       </div>
     </header>
   );
