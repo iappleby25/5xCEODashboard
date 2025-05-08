@@ -259,11 +259,71 @@ const FiveXCEO = () => {
               <p>
                 Based on the assessment data, focus on the following key improvement areas:
               </p>
-              <ol className="list-decimal pl-5 space-y-2">
-                <li>Implement more rigorous project prioritization framework to improve Relentless Focus.</li>
-                <li>Enhance leadership development programs for middle management to strengthen Scalable Talent.</li>
-                <li>Address work-life balance concerns in high-growth departments to sustain Energized Culture.</li>
-              </ol>
+              {(() => {
+                const companyData = mockCompanies.find(c => c.name === selectedCompany);
+                if (companyData) {
+                  // Find the lowest scoring categories
+                  const scores = [
+                    { name: 'Strategic Clarity', key: 'strategicClarity', score: companyData.scores.strategicClarity },
+                    { name: 'Scalable Talent', key: 'scalableTalent', score: companyData.scores.scalableTalent },
+                    { name: 'Relentless Focus', key: 'relentlessFocus', score: companyData.scores.relentlessFocus },
+                    { name: 'Disciplined Execution', key: 'disciplinedExecution', score: companyData.scores.disciplinedExecution },
+                    { name: 'Energized Culture', key: 'energizedCulture', score: companyData.scores.energizedCulture }
+                  ];
+                  
+                  // Sort scores from lowest to highest to identify areas needing improvement
+                  scores.sort((a, b) => a.score - b.score);
+                  
+                  // Create recommendations based on the lowest scoring categories
+                  const recommendations = [
+                    {
+                      category: 'strategicClarity',
+                      text: 'Develop a clearer vision and strategy that is communicated effectively to all employees.'
+                    },
+                    {
+                      category: 'scalableTalent',
+                      text: 'Enhance leadership development programs for middle management to strengthen hiring and retention.'
+                    },
+                    {
+                      category: 'relentlessFocus',
+                      text: 'Implement more rigorous project prioritization framework to improve focus on key initiatives.'
+                    },
+                    {
+                      category: 'disciplinedExecution',
+                      text: 'Create more structured processes for tracking performance and ensuring accountability.'
+                    },
+                    {
+                      category: 'energizedCulture',
+                      text: 'Address work-life balance concerns and strengthen company culture to improve engagement.'
+                    }
+                  ];
+                  
+                  // Get recommendations for the lowest 3 categories
+                  const topRecommendations = scores.slice(0, 3).map(score => {
+                    const recommendation = recommendations.find(rec => rec.category === score.key);
+                    return (
+                      <li key={score.key}>
+                        <span className="font-medium">{score.name}:</span> {recommendation?.text}
+                      </li>
+                    );
+                  });
+                  
+                  return (
+                    <ol className="list-decimal pl-5 space-y-2">
+                      {topRecommendations}
+                    </ol>
+                  );
+                }
+                
+                // Default fallback recommendations
+                return (
+                  <ol className="list-decimal pl-5 space-y-2">
+                    <li>Implement more rigorous project prioritization framework to improve Relentless Focus.</li>
+                    <li>Enhance leadership development programs for middle management to strengthen Scalable Talent.</li>
+                    <li>Address work-life balance concerns in high-growth departments to sustain Energized Culture.</li>
+                  </ol>
+                );
+              })()}
             </div>
           </div>
         </motion.div>
