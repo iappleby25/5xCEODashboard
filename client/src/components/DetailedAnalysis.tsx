@@ -29,11 +29,12 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
 }) => {
   // Get the user role to determine what should be shown
   const { user } = useAuth();
-  // State for dialog to show company-specific scores or team/role scores
+  // State for dialog to show company-specific scores, team/role scores, or question scores
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [companyScores, setCompanyScores] = useState<Array<{ company: string; score: number }>>([]);
   const [teamScores, setTeamScores] = useState<Array<{ role: string; score: number }>>([]);
+  const [questionScores, setQuestionScores] = useState<Array<{ question: string; score: number }>>([]);
   
   // State for comparison view
   const [comparisonData, setComparisonData] = useState<ComparisonData[]>([]);
@@ -99,7 +100,98 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
       setSelectedCategory(category);
       
       // Handle differently based on current view level
-      if (currentViewLevel === "company" && selectedCompany) {
+      if (currentViewLevel === "team" && selectedCompany && selectedRole) {
+        // In team view, show scores for individual questions in the selected category
+        // Define a set of mock questions for each category
+        const getQuestionsForCategory = (category: string): string[] => {
+          switch(category) {
+            case 'Strategic Clarity':
+              return [
+                "How well does leadership articulate a clear vision?",
+                "Are company goals consistently aligned with strategy?",
+                "Is the strategic decision-making process transparent?",
+                "How well are strategic priorities communicated?",
+                "Do employees understand how their work contributes to strategy?"
+              ];
+            case 'Scalable Talent':
+              return [
+                "How effective is the company's talent acquisition process?",
+                "Are professional development opportunities readily available?",
+                "How well does the company retain top performers?",
+                "Is there a clear career progression framework?",
+                "How effective is knowledge transfer within teams?"
+              ];
+            case 'Relentless Focus':
+              return [
+                "How well do team members prioritize high-impact activities?",
+                "Are meetings productive and outcome-focused?",
+                "How effectively are resources allocated to strategic initiatives?",
+                "Is there a clear process for eliminating low-value work?",
+                "How well does the team maintain focus during execution?"
+              ];
+            case 'Disciplined Execution':
+              return [
+                "How consistently are project deadlines met?",
+                "Are there clear accountability structures for deliverables?",
+                "How effectively are risks identified and mitigated?",
+                "Is there a structured approach to project management?",
+                "How well are execution metrics tracked and acted upon?"
+              ];
+            case 'Energized Culture':
+              return [
+                "How engaged are team members in their daily work?",
+                "Is there a strong sense of belonging and inclusion?",
+                "How effectively are company values demonstrated in daily operations?",
+                "Is feedback regularly exchanged at all levels?",
+                "How supportive is the work environment of innovation and creativity?"
+              ];
+            default:
+              return ["No specific questions available for this category"];
+          }
+        };
+        
+        // Generate random scores (70-90 range) for questions within 10% of the overall category score
+        const questions = getQuestionsForCategory(category);
+        
+        // Find the base score for this category from the filtered data
+        const categoryScore = filteredData
+          .filter(item => 
+            item.scores && 
+            item.companyName === selectedCompany && 
+            item.role === selectedRole
+          )
+          .reduce((total, item) => {
+            return total + (item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0);
+          }, 0);
+        
+        const baseScore = filteredData.length > 0 ? 
+          Math.round(categoryScore / filteredData.filter(item => 
+            item.scores && 
+            item.companyName === selectedCompany && 
+            item.role === selectedRole
+          ).length) : 75; // Default to 75 if no data
+          
+        // Generate scores for questions that are within +/- 10% of the base score
+        const minScore = Math.max(50, baseScore - 10);
+        const maxScore = Math.min(100, baseScore + 10);
+        
+        const questionList = questions.map(question => {
+          // Generate a score within the range
+          const scoreRange = maxScore - minScore;
+          const randomOffset = Math.floor(Math.random() * scoreRange);
+          const score = minScore + randomOffset;
+          
+          return {
+            question,
+            score
+          };
+        }).sort((a, b) => b.score - a.score); // Sort by score highest to lowest
+        
+        setQuestionScores(questionList);
+        setTeamScores([]);
+        setCompanyScores([]);
+      }
+      else if (currentViewLevel === "company" && selectedCompany) {
         // In company view, show scores for each team/role within the selected company
         const roleScoreMap = new Map<string, { total: number; count: number }>();
         
@@ -135,6 +227,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         
         setTeamScores(roleScores);
         setCompanyScores([]); // Clear company scores since we're showing team scores
+        setQuestionScores([]); // Clear question scores
       } else {
         // For holding view (or any other), show scores for each company
         const companyScoreMap = new Map<string, { total: number; count: number }>();
@@ -171,6 +264,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         
         setCompanyScores(scores);
         setTeamScores([]); // Clear team scores since we're showing company scores
+        setQuestionScores([]); // Clear question scores
       }
       
       setDialogOpen(true);
@@ -613,11 +707,18 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
 
       {/* Context Summary removed as requested */}
 
-      {/* Dialog to show company or team scores when bar is clicked */}
+      {/* Dialog to show company, team, or question scores when bar is clicked */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            {currentViewLevel === "company" && selectedCompany ? (
+            {currentViewLevel === "team" && selectedCompany && selectedRole ? (
+              <>
+                <DialogTitle>{selectedCategory} - Question Scores for {selectedRole}</DialogTitle>
+                <DialogDescription>
+                  Shows scores for individual questions within {selectedCategory} for {selectedRole} role.
+                </DialogDescription>
+              </>
+            ) : currentViewLevel === "company" && selectedCompany ? (
               <>
                 <DialogTitle>{selectedCategory} Scores by Team for {selectedCompany}</DialogTitle>
                 <DialogDescription>
@@ -637,7 +738,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
             <Table>
               <TableHeader>
                 <TableRow>
-                  {currentViewLevel === "company" && selectedCompany ? (
+                  {currentViewLevel === "team" && selectedCompany && selectedRole ? (
+                    <TableHead>Question</TableHead>
+                  ) : currentViewLevel === "company" && selectedCompany ? (
                     <TableHead>Team/Role</TableHead>
                   ) : (
                     <TableHead>Company</TableHead>
@@ -646,6 +749,23 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                 </TableRow>
               </TableHeader>
               <TableBody>
+                {/* Show question scores when in team view */}
+                {currentViewLevel === "team" && questionScores.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{item.question}</TableCell>
+                    <TableCell className="text-right">
+                      <span 
+                        className={`font-semibold ${
+                          item.score >= 80 ? 'text-green-600' : 
+                          item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                        }`}
+                      >
+                        {item.score}%
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                
                 {/* Show team scores when in company view */}
                 {currentViewLevel === "company" && teamScores.map((item, index) => (
                   <TableRow key={index}>
@@ -664,7 +784,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                 ))}
                 
                 {/* Show company scores in holding view */}
-                {currentViewLevel !== "company" && companyScores.map((item, index) => (
+                {currentViewLevel !== "team" && currentViewLevel !== "company" && companyScores.map((item, index) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium">{item.company}</TableCell>
                     <TableCell className="text-right">
@@ -680,7 +800,14 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                   </TableRow>
                 ))}
                 
-                {/* Show message when no data available */}
+                {/* Show messages when no data available */}
+                {currentViewLevel === "team" && questionScores.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                      No question data available for {selectedRole}
+                    </TableCell>
+                  </TableRow>
+                )}
                 {currentViewLevel === "company" && teamScores.length === 0 && (
                   <TableRow>
                     <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
@@ -688,7 +815,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                     </TableCell>
                   </TableRow>
                 )}
-                {currentViewLevel !== "company" && companyScores.length === 0 && (
+                {currentViewLevel !== "team" && currentViewLevel !== "company" && companyScores.length === 0 && (
                   <TableRow>
                     <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
                       No company data available
