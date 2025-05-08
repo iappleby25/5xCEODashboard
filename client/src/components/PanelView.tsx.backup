@@ -3,7 +3,6 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FrameworkCategory } from '../lib/mockData';
 import { getCategoryColor, generateInterpretation } from '../lib/mockData';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 
 interface PanelViewProps {
   category: FrameworkCategory;
@@ -22,7 +21,6 @@ const PanelView: React.FC<PanelViewProps> = ({
 }) => {
   const colorName = getCategoryColor(category.id);
   const interpretation = generateInterpretation(category, viewMode);
-  const [hoveredMetric, setHoveredMetric] = useState<string | null>(null);
   
   // Helper function to convert color code to Tailwind classes with improved colors
   const getColorClasses = (colorCode: string) => {
@@ -322,7 +320,6 @@ const PanelView: React.FC<PanelViewProps> = ({
           </div>
         </div>
       </motion.div>
-
       {/* Strategic Impact Analysis - Full width landscape section */}
       <motion.div 
         className="mt-6"
@@ -355,64 +352,20 @@ const PanelView: React.FC<PanelViewProps> = ({
                   <div className="relative h-32 flex items-end gap-8 pb-1">
                     {/* Bar chart showing score trend over last 4 quarters - larger size */}
                     <div className="flex-1 bg-gray-200 relative h-[65%] flex flex-col justify-end items-center">
-                      <div 
-                        className={`${colors.accent} w-full absolute bottom-0`} 
-                        style={{ height: '65%', opacity: 0.7 }}
-                        onMouseEnter={() => setHoveredMetric('Q2')}
-                        onMouseLeave={() => setHoveredMetric(null)}
-                      ></div>
+                      <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '65%', opacity: 0.7 }}></div>
                       <span className="text-xs font-medium absolute -bottom-6">Q2</span>
-                      {hoveredMetric === 'Q2' && (
-                        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-40">
-                          <p className="text-xs font-semibold">Q2 Performance: 65%</p>
-                          <p className="text-xs">Early strategic implementation phase</p>
-                        </div>
-                      )}
                     </div>
                     <div className="flex-1 bg-gray-200 relative h-[70%] flex flex-col justify-end items-center">
-                      <div 
-                        className={`${colors.accent} w-full absolute bottom-0`} 
-                        style={{ height: '70%', opacity: 0.8 }}
-                        onMouseEnter={() => setHoveredMetric('Q3')}
-                        onMouseLeave={() => setHoveredMetric(null)}
-                      ></div>
+                      <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '70%', opacity: 0.8 }}></div>
                       <span className="text-xs font-medium absolute -bottom-6">Q3</span>
-                      {hoveredMetric === 'Q3' && (
-                        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-40">
-                          <p className="text-xs font-semibold">Q3 Performance: 70%</p>
-                          <p className="text-xs">Initial gains from implementation efforts</p>
-                        </div>
-                      )}
                     </div>
                     <div className="flex-1 bg-gray-200 relative h-[78%] flex flex-col justify-end items-center">
-                      <div 
-                        className={`${colors.accent} w-full absolute bottom-0`} 
-                        style={{ height: '78%', opacity: 0.9 }}
-                        onMouseEnter={() => setHoveredMetric('Q4')}
-                        onMouseLeave={() => setHoveredMetric(null)}
-                      ></div>
+                      <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '78%', opacity: 0.9 }}></div>
                       <span className="text-xs font-medium absolute -bottom-6">Q4</span>
-                      {hoveredMetric === 'Q4' && (
-                        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-40">
-                          <p className="text-xs font-semibold">Q4 Performance: 78%</p>
-                          <p className="text-xs">Accelerated performance from system improvements</p>
-                        </div>
-                      )}
                     </div>
                     <div className="flex-1 bg-gray-200 relative h-[85%] flex flex-col justify-end items-center">
-                      <div 
-                        className={`${colors.accent} w-full absolute bottom-0`} 
-                        style={{ height: `${category.score}%` }}
-                        onMouseEnter={() => setHoveredMetric('Q1')}
-                        onMouseLeave={() => setHoveredMetric(null)}
-                      ></div>
+                      <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: `${category.score}%` }}></div>
                       <span className="text-xs font-medium absolute -bottom-6">Q1</span>
-                      {hoveredMetric === 'Q1' && (
-                        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-40">
-                          <p className="text-xs font-semibold">Q1 Performance: {category.score}%</p>
-                          <p className="text-xs">Current performance level</p>
-                        </div>
-                      )}
                     </div>
                     {/* Current target line */}
                     <div className="absolute top-0 left-0 right-0 border-t-2 border-dashed border-amber-400 flex justify-end">
@@ -455,18 +408,8 @@ const PanelView: React.FC<PanelViewProps> = ({
                           category.id === 'energized-culture' ? 'Employee engagement' : 'Primary metric'}</span>
                     <span className="text-emerald-600 font-medium">+{Math.round(category.score / 5)}%</span>
                   </div>
-                  <div 
-                    className="w-full bg-gray-100 rounded-full h-3 relative"
-                    onMouseEnter={() => setHoveredMetric('primary')}
-                    onMouseLeave={() => setHoveredMetric(null)}
-                  >
+                  <div className="w-full bg-gray-100 rounded-full h-3">
                     <div className="bg-emerald-500 h-3 rounded-full" style={{ width: `${category.score / 2 + 50}%` }}></div>
-                    {hoveredMetric === 'primary' && (
-                      <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
-                        <p className="text-xs font-semibold">Primary Metric Impact</p>
-                        <p className="text-xs">Directly impacts your competitive positioning and market response capability</p>
-                      </div>
-                    )}
                   </div>
                 </div>
                 <div>
@@ -478,18 +421,8 @@ const PanelView: React.FC<PanelViewProps> = ({
                            category.id === 'energized-culture' ? 'Innovation index' : 'Secondary metric'}</span>
                     <span className="text-blue-600 font-medium">+{Math.round(category.score / 6)}%</span>
                   </div>
-                  <div 
-                    className="w-full bg-gray-100 rounded-full h-3 relative"
-                    onMouseEnter={() => setHoveredMetric('secondary')}
-                    onMouseLeave={() => setHoveredMetric(null)}
-                  >
+                  <div className="w-full bg-gray-100 rounded-full h-3">
                     <div className="bg-blue-500 h-3 rounded-full" style={{ width: `${category.score / 2.2 + 45}%` }}></div>
-                    {hoveredMetric === 'secondary' && (
-                      <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
-                        <p className="text-xs font-semibold">Secondary Metric Impact</p>
-                        <p className="text-xs">Supports operational excellence and team performance</p>
-                      </div>
-                    )}
                   </div>
                 </div>
                 <div>
@@ -501,18 +434,8 @@ const PanelView: React.FC<PanelViewProps> = ({
                            category.id === 'energized-culture' ? 'Team effectiveness' : 'Tertiary metric'}</span>
                     <span className="text-purple-600 font-medium">+{Math.round(category.score / 7)}%</span>
                   </div>
-                  <div 
-                    className="w-full bg-gray-100 rounded-full h-3 relative"
-                    onMouseEnter={() => setHoveredMetric('tertiary')}
-                    onMouseLeave={() => setHoveredMetric(null)}
-                  >
+                  <div className="w-full bg-gray-100 rounded-full h-3">
                     <div className="bg-purple-500 h-3 rounded-full" style={{ width: `${category.score / 2.5 + 40}%` }}></div>
-                    {hoveredMetric === 'tertiary' && (
-                      <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
-                        <p className="text-xs font-semibold">Tertiary Metric Impact</p>
-                        <p className="text-xs">Long-term strategic advantage driver for sustainable growth</p>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
@@ -538,76 +461,36 @@ const PanelView: React.FC<PanelViewProps> = ({
                 <div className="flex items-center w-full">
                   <span className="text-sm w-32">Industry Average</span>
                   <div className="flex-1">
-                    <div 
-                      className="bg-gray-200 rounded-r-full h-5 relative"
-                      onMouseEnter={() => setHoveredMetric('industry')}
-                      onMouseLeave={() => setHoveredMetric(null)}
-                    >
+                    <div className="bg-gray-200 rounded-r-full h-5 relative">
                       <div className="absolute inset-y-0 left-0 bg-neutral-400 rounded-r-full" style={{ width: '65%' }}></div>
                       <span className="absolute inset-y-0 right-3 flex items-center text-xs font-medium">65%</span>
-                      {hoveredMetric === 'industry' && (
-                        <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
-                          <p className="text-xs font-semibold">Industry Average: 65%</p>
-                          <p className="text-xs">Typical performance level across your industry sector</p>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
                   <span className="text-sm w-32">Top Quartile</span>
                   <div className="flex-1">
-                    <div 
-                      className="bg-gray-200 rounded-r-full h-5 relative"
-                      onMouseEnter={() => setHoveredMetric('topQuartile')}
-                      onMouseLeave={() => setHoveredMetric(null)}
-                    >
+                    <div className="bg-gray-200 rounded-r-full h-5 relative">
                       <div className="absolute inset-y-0 left-0 bg-neutral-500 rounded-r-full" style={{ width: '82%' }}></div>
                       <span className="absolute inset-y-0 right-3 flex items-center text-xs font-medium">82%</span>
-                      {hoveredMetric === 'topQuartile' && (
-                        <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
-                          <p className="text-xs font-semibold">Top Quartile: 82%</p>
-                          <p className="text-xs">Performance level of leading competitors in your space</p>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
                   <span className="text-sm w-32">Your Company</span>
                   <div className="flex-1">
-                    <div 
-                      className="bg-gray-200 rounded-r-full h-5 relative"
-                      onMouseEnter={() => setHoveredMetric('yourCompany')}
-                      onMouseLeave={() => setHoveredMetric(null)}
-                    >
+                    <div className="bg-gray-200 rounded-r-full h-5 relative">
                       <div className={`absolute inset-y-0 left-0 ${colors.accent} rounded-r-full`} style={{ width: `${category.score}%` }}></div>
                       <span className="absolute inset-y-0 right-3 flex items-center text-xs font-medium">{category.score}%</span>
-                      {hoveredMetric === 'yourCompany' && (
-                        <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
-                          <p className="text-xs font-semibold">Your Company: {category.score}%</p>
-                          <p className="text-xs">Your current performance level represents {Math.round(category.score * 100 / 82)}% of top quartile capability</p>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
                   <span className="text-sm w-32">Target (2025)</span>
                   <div className="flex-1">
-                    <div 
-                      className="bg-gray-200 rounded-r-full h-5 relative"
-                      onMouseEnter={() => setHoveredMetric('target')}
-                      onMouseLeave={() => setHoveredMetric(null)}
-                    >
+                    <div className="bg-gray-200 rounded-r-full h-5 relative">
                       <div className="absolute inset-y-0 left-0 bg-amber-400 rounded-r-full" style={{ width: `${Math.min(100, Math.round(category.score * 1.25))}%` }}></div>
                       <span className="absolute inset-y-0 right-3 flex items-center text-xs font-medium">{Math.min(100, Math.round(category.score * 1.25))}%</span>
-                      {hoveredMetric === 'target' && (
-                        <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg z-10 w-48">
-                          <p className="text-xs font-semibold">Target (2025): {Math.min(100, Math.round(category.score * 1.25))}%</p>
-                          <p className="text-xs">Strategic target setting you ahead of current top quartile performance</p>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
