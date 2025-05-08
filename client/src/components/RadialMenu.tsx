@@ -50,6 +50,22 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
     return { x, y };
   };
 
+  // Helper function to convert color code to Tailwind classes
+  const getColorClasses = (colorCode: string) => {
+    const baseColor = colorCode === '#FF5722' ? 'orange' 
+                    : colorCode === '#4CAF50' ? 'green' 
+                    : colorCode === '#2196F3' ? 'blue' 
+                    : colorCode === '#9C27B0' ? 'purple' 
+                    : colorCode === '#FFC107' ? 'amber' 
+                    : 'gray';
+    
+    return {
+      bg: `bg-${baseColor}-100`,
+      text: `text-${baseColor}-800`,
+      border: `border-${baseColor}-300`
+    };
+  };
+
   return (
     <div ref={containerRef} className="relative w-[350px] h-[350px] mx-auto">
       {/* SVG Background for connecting lines */}
@@ -77,7 +93,8 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
       {/* Radial Panels */}
       {categories.map((category, index) => {
         const { x, y } = getPosition(index, categories.length);
-        const colors = getCategoryColor(category.id);
+        const colorName = getCategoryColor(category.id);
+        const colors = getColorClasses(colorName);
         const isHovered = hoverCategory === category.id;
         
         return (
@@ -104,7 +121,7 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
             <span className={`text-sm font-medium text-center px-1 ${colors.text}`}>
               {category.name}
             </span>
-            <span className="mt-1 text-sm font-bold">{category.performance}%</span>
+            <span className="mt-1 text-sm font-bold">{category.score}%</span>
           </motion.div>
         );
       })}

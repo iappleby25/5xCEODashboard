@@ -105,7 +105,7 @@ const MyCEO = () => {
           <div className="bg-white p-6 rounded-xl shadow-md">
             <h2 className="text-xl font-semibold mb-6 text-center">Interactive 5xCEO Framework</h2>
             <RadialMenu
-              categories={assessmentData}
+              categories={frameworkCategories}
               activeView={activeView}
               onToggleView={handleToggleView}
               onSelectCategory={handleSelectCategory}

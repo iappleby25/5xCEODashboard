@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RadialMenu from '@/components/RadialMenu';
 import PanelView from '@/components/PanelView';
-import { assessmentData, FrameworkCategory, getCategoryColor } from '@/lib/mockData';
+import { assessmentData as frameworkCategories, FrameworkCategory, getCategoryColor } from '@/lib/mockData';
 
 const FiveXCEO = () => {
   const [activeView, setActiveView] = useState<'MyCEO' | '5xCEO'>('5xCEO');
@@ -22,21 +22,21 @@ const FiveXCEO = () => {
   };
 
   const handleNextCategory = () => {
-    const currentIndex = assessmentData.findIndex(
+    const currentIndex = frameworkCategories.findIndex(
       (cat) => cat.id === selectedCategory?.id
     );
-    const nextIndex = (currentIndex + 1) % assessmentData.length;
-    setSelectedCategory(assessmentData[nextIndex]);
+    const nextIndex = (currentIndex + 1) % frameworkCategories.length;
+    setSelectedCategory(frameworkCategories[nextIndex]);
   };
 
   const handlePreviousCategory = () => {
-    const currentIndex = assessmentData.findIndex(
+    const currentIndex = frameworkCategories.findIndex(
       (cat) => cat.id === selectedCategory?.id
     );
     const prevIndex = currentIndex === 0 
-      ? assessmentData.length - 1 
+      ? frameworkCategories.length - 1 
       : currentIndex - 1;
-    setSelectedCategory(assessmentData[prevIndex]);
+    setSelectedCategory(frameworkCategories[prevIndex]);
   };
 
   // Container animation
@@ -78,7 +78,7 @@ const FiveXCEO = () => {
           <div className="bg-white p-6 rounded-xl shadow-md">
             <h2 className="text-xl font-semibold mb-6 text-center">Interactive 5xCEO Framework</h2>
             <RadialMenu
-              categories={assessmentData}
+              categories={frameworkCategories}
               activeView={activeView}
               onToggleView={handleToggleView}
               onSelectCategory={handleSelectCategory}
@@ -93,31 +93,35 @@ const FiveXCEO = () => {
           <div className="bg-white p-4 rounded-xl shadow-md">
             <h2 className="text-xl font-semibold mb-4">Assessment Summary</h2>
             <p className="mb-4">
-              Based on the 5xCEO framework assessment, {assessmentData.companyName} shows strengths in Strategic Clarity 
+              Based on the 5xCEO framework assessment, GlobalSolutions shows strengths in Strategic Clarity 
               and Disciplined Execution, with opportunities for improvement in Relentless Focus.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              {assessmentData.categories.map((category) => {
-                const colors = getCategoryColor(category.id);
+              {frameworkCategories.map((category) => {
+                const colorName = getCategoryColor(category.id);
+                const bgClass = `bg-${colorName === '#FF5722' ? 'orange' : colorName === '#4CAF50' ? 'green' : colorName === '#2196F3' ? 'blue' : colorName === '#9C27B0' ? 'purple' : colorName === '#FFC107' ? 'amber' : 'gray'}-100`;
+                const textClass = `text-${colorName === '#FF5722' ? 'orange' : colorName === '#4CAF50' ? 'green' : colorName === '#2196F3' ? 'blue' : colorName === '#9C27B0' ? 'purple' : colorName === '#FFC107' ? 'amber' : 'gray'}-800`;
+                const accentClass = `bg-${colorName === '#FF5722' ? 'orange' : colorName === '#4CAF50' ? 'green' : colorName === '#2196F3' ? 'blue' : colorName === '#9C27B0' ? 'purple' : colorName === '#FFC107' ? 'amber' : 'gray'}-500`;
+                
                 return (
                   <div 
                     key={category.id}
-                    className={`${colors.bg} rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
+                    className={`${bgClass} rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
                     onClick={() => handleSelectCategory(category)}
                   >
-                    <h3 className={`font-medium ${colors.text}`}>{category.name}</h3>
+                    <h3 className={`font-medium ${textClass}`}>{category.name}</h3>
                     <div className="mt-2">
                       <div className="flex justify-between text-sm mb-1">
                         <span>Performance:</span>
-                        <span className="font-medium">{category.performance}%</span>
+                        <span className="font-medium">{category.score}%</span>
                       </div>
                       <div className="w-full bg-white bg-opacity-50 rounded-full h-2.5">
-                        <div className={`${colors.accent} h-2.5 rounded-full`} style={{ width: `${category.performance}%` }}></div>
+                        <div className={`${accentClass} h-2.5 rounded-full`} style={{ width: `${category.score}%` }}></div>
                       </div>
                     </div>
-                    <p className={`text-sm mt-2 ${colors.text}`}>
-                      {category.improvementOpportunity}
+                    <p className={`text-sm mt-2 ${textClass}`}>
+                      {category.description}
                     </p>
                   </div>
                 );

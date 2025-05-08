@@ -19,8 +19,27 @@ const PanelView: React.FC<PanelViewProps> = ({
   onPrevious,
   viewMode,
 }) => {
-  const colors = getCategoryColor(category.id);
-  const interpretation = generateInterpretation(category.id);
+  const colorName = getCategoryColor(category.id);
+  const interpretation = generateInterpretation(category, viewMode);
+  
+  // Helper function to convert color code to Tailwind classes
+  const getColorClasses = (colorCode: string) => {
+    const baseColor = colorCode === '#FF5722' ? 'orange' 
+                    : colorCode === '#4CAF50' ? 'green' 
+                    : colorCode === '#2196F3' ? 'blue' 
+                    : colorCode === '#9C27B0' ? 'purple' 
+                    : colorCode === '#FFC107' ? 'amber' 
+                    : 'gray';
+    
+    return {
+      bg: `bg-${baseColor}-50`,
+      text: `text-${baseColor}-800`,
+      border: `border-${baseColor}-300`,
+      accent: `bg-${baseColor}-500`
+    };
+  };
+  
+  const colors = getColorClasses(colorName);
 
   // Animation variants
   const containerVariants = {
@@ -112,10 +131,10 @@ const PanelView: React.FC<PanelViewProps> = ({
               <div>
                 <div className="flex justify-between mb-1">
                   <span className="text-sm font-medium">Overall Performance</span>
-                  <span className="text-sm font-medium">{category.performance}%</span>
+                  <span className="text-sm font-medium">{category.score}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div className={`${colors.accent} h-2.5 rounded-full`} style={{ width: `${category.performance}%` }}></div>
+                  <div className={`${colors.accent} h-2.5 rounded-full`} style={{ width: `${category.score}%` }}></div>
                 </div>
               </div>
 
@@ -123,21 +142,21 @@ const PanelView: React.FC<PanelViewProps> = ({
                 <>
                   <div>
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm font-medium">Importance</span>
-                      <span className="text-sm font-medium">{category.avgImportance}/5</span>
+                      <span className="text-sm font-medium">Leadership Rating</span>
+                      <span className="text-sm font-medium">{Math.round(category.score * 0.9)}/100</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className={`${colors.accent} h-2.5 rounded-full`} style={{ width: `${(category.avgImportance / 5) * 100}%` }}></div>
+                      <div className={`${colors.accent} h-2.5 rounded-full`} style={{ width: `${Math.round(category.score * 0.9)}%` }}></div>
                     </div>
                   </div>
 
                   <div>
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm font-medium">Agreement</span>
-                      <span className="text-sm font-medium">{category.avgAgreement}/5</span>
+                      <span className="text-sm font-medium">Team Rating</span>
+                      <span className="text-sm font-medium">{Math.round(category.score * 0.85)}/100</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className={`${colors.accent} h-2.5 rounded-full`} style={{ width: `${(category.avgAgreement / 5) * 100}%` }}></div>
+                      <div className={`${colors.accent} h-2.5 rounded-full`} style={{ width: `${Math.round(category.score * 0.85)}%` }}></div>
                     </div>
                   </div>
                 </>
@@ -150,7 +169,7 @@ const PanelView: React.FC<PanelViewProps> = ({
             variants={itemVariants}
           >
             <h3 className="text-lg font-semibold mb-2">Improvement Opportunity</h3>
-            <p>{category.improvementOpportunity}</p>
+            <p>Based on current performance, focus on {category.name.toLowerCase()} initiatives that will drive business growth and team alignment.</p>
           </motion.div>
         </div>
 
