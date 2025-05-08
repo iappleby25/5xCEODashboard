@@ -26,6 +26,8 @@ const MyCEO = () => {
 
   const handleSelectCategory = (category: FrameworkCategory) => {
     setSelectedCategory(category);
+    // Also update the selected analysis category to match
+    setSelectedAnalysisCategory(category.id);
   };
 
   const handleClosePanel = () => {
@@ -37,7 +39,10 @@ const MyCEO = () => {
       (cat) => cat.id === selectedCategory?.id
     );
     const nextIndex = (currentIndex + 1) % frameworkCategories.length;
-    setSelectedCategory(frameworkCategories[nextIndex]);
+    const nextCategory = frameworkCategories[nextIndex];
+    setSelectedCategory(nextCategory);
+    // Also update the selected analysis category to match
+    setSelectedAnalysisCategory(nextCategory.id);
   };
 
   const handlePreviousCategory = () => {
@@ -47,7 +52,10 @@ const MyCEO = () => {
     const prevIndex = currentIndex === 0 
       ? frameworkCategories.length - 1 
       : currentIndex - 1;
-    setSelectedCategory(frameworkCategories[prevIndex]);
+    const prevCategory = frameworkCategories[prevIndex];
+    setSelectedCategory(prevCategory);
+    // Also update the selected analysis category to match
+    setSelectedAnalysisCategory(prevCategory.id);
   };
   
   // Handle analysis category selection
@@ -247,6 +255,11 @@ const MyCEO = () => {
                             <span>Score:</span>
                             <span className="font-medium">{category.score}%</span>
                           </div>
+                          {isSelected && (
+                            <div className="text-xs text-green-600 mt-1 font-medium">
+                              Selected for Analysis
+                            </div>
+                          )}
                         </div>
                       </div>
                     );

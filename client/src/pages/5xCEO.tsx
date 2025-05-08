@@ -95,6 +95,8 @@ const FiveXCEO = () => {
 
   const handleSelectCategory = (category: FrameworkCategory) => {
     setSelectedCategory(category);
+    // Also update the selected analysis category to match
+    setSelectedAnalysisCategory(category.id);
   };
 
   const handleClosePanel = () => {
@@ -112,7 +114,10 @@ const FiveXCEO = () => {
       (cat) => cat.id === selectedCategory?.id
     );
     const nextIndex = (currentIndex + 1) % frameworkCategories.length;
-    setSelectedCategory(frameworkCategories[nextIndex]);
+    const nextCategory = frameworkCategories[nextIndex];
+    setSelectedCategory(nextCategory);
+    // Also update the selected analysis category to match
+    setSelectedAnalysisCategory(nextCategory.id);
   };
 
   const handlePreviousCategory = () => {
@@ -122,7 +127,10 @@ const FiveXCEO = () => {
     const prevIndex = currentIndex === 0 
       ? frameworkCategories.length - 1 
       : currentIndex - 1;
-    setSelectedCategory(frameworkCategories[prevIndex]);
+    const prevCategory = frameworkCategories[prevIndex];
+    setSelectedCategory(prevCategory);
+    // Also update the selected analysis category to match
+    setSelectedAnalysisCategory(prevCategory.id);
   };
 
   // Container animation
