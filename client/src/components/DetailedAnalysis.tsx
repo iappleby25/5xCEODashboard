@@ -438,8 +438,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
 
   // Find the highest and lowest scoring areas for the current view level
   const findStrengthsAndWeaknesses = () => {
-    // If in holding view, show top/bottom companies
-    if (currentViewLevel === "holding") {
+    // If in holding or all survey takers view, show top/bottom companies
+    if (currentViewLevel === "holding" || currentViewLevel === "all") {
       return findTopAndBottomCompanies();
     }
     
@@ -468,7 +468,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     };
   };
   
-  // Find top and bottom companies for holding view
+  // Find top and bottom companies for holding and all survey takers view
   const findTopAndBottomCompanies = () => {
     // Get all companies with their total scores
     const companyScores = filteredData
