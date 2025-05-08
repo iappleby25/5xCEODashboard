@@ -320,7 +320,7 @@ const PanelView: React.FC<PanelViewProps> = ({
             </div>
           </div>
           
-          {/* Improved visualization section with multiple data-rich visualizations */}
+          {/* Improved visualization section with landscape layout matching the screenshot */}
           <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold">
@@ -339,41 +339,44 @@ const PanelView: React.FC<PanelViewProps> = ({
               </div>
             </div>
 
-            {/* Trend & Benchmark Section */}
-            <div className="grid grid-cols-1 gap-4 mb-5">
+            {/* Performance Trajectory - Full Width Top Section */}
+            <div className="mb-4">
               <div className="border border-gray-200 rounded-lg p-4">
                 <h4 className="text-sm font-medium mb-3">Performance Trajectory</h4>
-                <div className="flex items-center mb-2">
-                  <div className="w-1/2">
-                    <div className="relative h-24 flex items-end gap-1 pt-5 pb-1">
+                <div className="flex items-center gap-6">
+                  <div className="flex-1">
+                    <div className="relative h-20 flex items-end gap-3 pb-1">
                       {/* Simple bar chart showing score trend over last 4 quarters */}
-                      <div className="w-1/4 bg-gray-200 relative h-[60%] flex flex-col justify-end items-center">
+                      <div className="flex-1 bg-gray-200 relative h-[65%] flex flex-col justify-end items-center">
                         <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '65%', opacity: 0.7 }}></div>
                         <span className="text-[10px] font-medium absolute -bottom-5">Q2</span>
                       </div>
-                      <div className="w-1/4 bg-gray-200 relative h-[70%] flex flex-col justify-end items-center">
+                      <div className="flex-1 bg-gray-200 relative h-[70%] flex flex-col justify-end items-center">
                         <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '70%', opacity: 0.8 }}></div>
                         <span className="text-[10px] font-medium absolute -bottom-5">Q3</span>
                       </div>
-                      <div className="w-1/4 bg-gray-200 relative h-[78%] flex flex-col justify-end items-center">
+                      <div className="flex-1 bg-gray-200 relative h-[78%] flex flex-col justify-end items-center">
                         <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '78%', opacity: 0.9 }}></div>
                         <span className="text-[10px] font-medium absolute -bottom-5">Q4</span>
                       </div>
-                      <div className="w-1/4 bg-gray-200 relative h-[85%] flex flex-col justify-end items-center">
+                      <div className="flex-1 bg-gray-200 relative h-[85%] flex flex-col justify-end items-center">
                         <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: `${category.score}%` }}></div>
                         <span className="text-[10px] font-medium absolute -bottom-5">Q1</span>
                       </div>
                       {/* Current target line */}
-                      <div className="absolute top-2 left-0 right-0 border-t-2 border-dashed border-amber-400 flex justify-end">
+                      <div className="absolute top-0 left-0 right-0 border-t-2 border-dashed border-amber-400 flex justify-end">
                         <span className="bg-amber-400 text-white text-[10px] px-1 rounded">Target</span>
                       </div>
                     </div>
                   </div>
-                  <div className="w-1/2 pl-6">
-                    <p className="text-sm mb-2">
-                      <span className="font-medium">Trend analysis:</span> <span className="text-green-600">+20%</span> improvement over last 3 quarters
+                  <div className="w-48 shrink-0">
+                    <p className="text-sm mb-1">
+                      <span className="font-medium">Trend analysis:</span> <span className="text-green-600">+20%</span>
                     </p>
                     <p className="text-xs text-neutral-600">
+                      improvement over last 3 quarters
+                    </p>
+                    <p className="text-xs text-neutral-600 mt-2">
                       {category.id === 'strategic-clarity' && "Accelerating alignment is creating increasingly visible market advantages"}
                       {category.id === 'relentless-focus' && "Progressive improvement in prioritization is freeing up strategic resources"}
                       {category.id === 'disciplined-execution' && "Consistent execution gains are translating to improved delivery predictability"}
@@ -386,7 +389,7 @@ const PanelView: React.FC<PanelViewProps> = ({
               </div>
             </div>
 
-            {/* Business Impact & Benchmark Comparison Section */}
+            {/* Business Impact & Benchmark Comparison Section - Side by side below */}
             <div className="grid grid-cols-2 gap-4">
               {/* Left side - Business Impact Metrics */}
               <div className="border border-gray-200 rounded-lg p-3">
@@ -401,8 +404,8 @@ const PanelView: React.FC<PanelViewProps> = ({
                             category.id === 'energized-culture' ? 'Employee engagement' : 'Primary metric'}</span>
                       <span className="text-emerald-600 font-medium">+{Math.round(category.score / 5)}%</span>
                     </div>
-                    <div className="w-full bg-gray-100 rounded-full h-1.5">
-                      <div className="bg-emerald-500 h-1.5 rounded-full" style={{ width: `${category.score / 2 + 50}%` }}></div>
+                    <div className="w-full bg-gray-100 rounded-full h-2">
+                      <div className="bg-emerald-500 h-2 rounded-full" style={{ width: `${category.score / 2 + 50}%` }}></div>
                     </div>
                   </div>
                   <div>
@@ -414,8 +417,8 @@ const PanelView: React.FC<PanelViewProps> = ({
                              category.id === 'energized-culture' ? 'Innovation index' : 'Secondary metric'}</span>
                       <span className="text-blue-600 font-medium">+{Math.round(category.score / 6)}%</span>
                     </div>
-                    <div className="w-full bg-gray-100 rounded-full h-1.5">
-                      <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: `${category.score / 2.2 + 45}%` }}></div>
+                    <div className="w-full bg-gray-100 rounded-full h-2">
+                      <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${category.score / 2.2 + 45}%` }}></div>
                     </div>
                   </div>
                   <div>
@@ -427,8 +430,8 @@ const PanelView: React.FC<PanelViewProps> = ({
                              category.id === 'energized-culture' ? 'Team effectiveness' : 'Tertiary metric'}</span>
                       <span className="text-purple-600 font-medium">+{Math.round(category.score / 7)}%</span>
                     </div>
-                    <div className="w-full bg-gray-100 rounded-full h-1.5">
-                      <div className="bg-purple-500 h-1.5 rounded-full" style={{ width: `${category.score / 2.5 + 40}%` }}></div>
+                    <div className="w-full bg-gray-100 rounded-full h-2">
+                      <div className="bg-purple-500 h-2 rounded-full" style={{ width: `${category.score / 2.5 + 40}%` }}></div>
                     </div>
                   </div>
                 </div>
@@ -449,52 +452,48 @@ const PanelView: React.FC<PanelViewProps> = ({
               {/* Right side - Competitive Benchmark */}
               <div className="border border-gray-200 rounded-lg p-3">
                 <h4 className="text-sm font-medium mb-2">Competitive Benchmark</h4>
-                <div className="h-[140px] relative">
-                  {/* Simple competitive benchmark comparison */}
-                  <div className="absolute inset-0">
-                    <div className="w-full h-full flex flex-col justify-center space-y-4">
-                      <div className="flex items-center w-full px-1">
-                        <span className="text-xs w-28">Industry Average</span>
-                        <div className="flex-1 pl-2">
-                          <div className="bg-gray-200 rounded-r-full h-4 relative">
-                            <div className="absolute inset-y-0 left-0 bg-neutral-400 rounded-r-full" style={{ width: '65%' }}></div>
-                            <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">65%</span>
-                          </div>
-                        </div>
+                <div className="space-y-2">
+                  {/* Horizontal bar chart benchmark comparison */}
+                  <div className="flex items-center w-full">
+                    <span className="text-xs w-28">Industry Average</span>
+                    <div className="flex-1">
+                      <div className="bg-gray-200 rounded-r-full h-4 relative">
+                        <div className="absolute inset-y-0 left-0 bg-neutral-400 rounded-r-full" style={{ width: '65%' }}></div>
+                        <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">65%</span>
                       </div>
-                      <div className="flex items-center w-full px-1">
-                        <span className="text-xs w-28">Top Quartile</span>
-                        <div className="flex-1 pl-2">
-                          <div className="bg-gray-200 rounded-r-full h-4 relative">
-                            <div className="absolute inset-y-0 left-0 bg-neutral-500 rounded-r-full" style={{ width: '82%' }}></div>
-                            <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">82%</span>
-                          </div>
-                        </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center w-full">
+                    <span className="text-xs w-28">Top Quartile</span>
+                    <div className="flex-1">
+                      <div className="bg-gray-200 rounded-r-full h-4 relative">
+                        <div className="absolute inset-y-0 left-0 bg-neutral-500 rounded-r-full" style={{ width: '82%' }}></div>
+                        <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">82%</span>
                       </div>
-                      <div className="flex items-center w-full px-1">
-                        <span className="text-xs w-28">Your Company</span>
-                        <div className="flex-1 pl-2">
-                          <div className="bg-gray-200 rounded-r-full h-4 relative">
-                            <div className={`absolute inset-y-0 left-0 ${colors.accent} rounded-r-full`} style={{ width: `${category.score}%` }}></div>
-                            <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">{category.score}%</span>
-                          </div>
-                        </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center w-full">
+                    <span className="text-xs w-28">Your Company</span>
+                    <div className="flex-1">
+                      <div className="bg-gray-200 rounded-r-full h-4 relative">
+                        <div className={`absolute inset-y-0 left-0 ${colors.accent} rounded-r-full`} style={{ width: `${category.score}%` }}></div>
+                        <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">{category.score}%</span>
                       </div>
-                      <div className="flex items-center w-full px-1">
-                        <span className="text-xs w-28">Target (2025)</span>
-                        <div className="flex-1 pl-2">
-                          <div className="bg-gray-200 rounded-r-full h-4 relative">
-                            <div className="absolute inset-y-0 left-0 bg-amber-400 rounded-r-full" style={{ width: `${Math.min(100, Math.round(category.score * 1.25))}%` }}></div>
-                            <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">{Math.min(100, Math.round(category.score * 1.25))}%</span>
-                          </div>
-                        </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center w-full">
+                    <span className="text-xs w-28">Target (2025)</span>
+                    <div className="flex-1">
+                      <div className="bg-gray-200 rounded-r-full h-4 relative">
+                        <div className="absolute inset-y-0 left-0 bg-amber-400 rounded-r-full" style={{ width: `${Math.min(100, Math.round(category.score * 1.25))}%` }}></div>
+                        <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">{Math.min(100, Math.round(category.score * 1.25))}%</span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="mt-2">
+                <div className="mt-3">
                   <div className="bg-amber-50 p-2 rounded border border-amber-200">
-                    <p className="text-xs text-amber-800 font-medium">
+                    <p className="text-xs text-amber-800">
                       {category.id === 'strategic-clarity' && 
                         `Your organization is outperforming ${Math.round(category.score - 15)}% of your competitors, but there's a critical ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% gap separating you from industry leadership. Companies who close this gap typically see 3-4x greater market share growth in key segments.`}
                       {category.id === 'relentless-focus' && 
