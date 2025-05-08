@@ -115,9 +115,7 @@ const StrategicImpactAnalysis: React.FC<StrategicImpactAnalysisProps> = ({
                 <Tooltip formatter={(value) => [`${value}%`, 'Score']} />
                 <Bar 
                   dataKey="value" 
-                  fill={(data) => data.name === 'Your Company' ? '#f97316' : 
-                                data.name === 'Target (2025)' ? '#fbbf24' : 
-                                '#6b7280'}
+                  fill="#f97316"
                   barSize={20} 
                   radius={[0, 4, 4, 0]}
                 />

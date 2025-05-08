@@ -275,6 +275,7 @@ const MyCEO = () => {
                 category={selectedAnalysisCategory}
                 company={selectedCompany}
                 period="Q1 2023"
+                comparisonCompany={comparisonCompany || undefined}
               />
             </motion.div>
             
