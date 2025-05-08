@@ -4,7 +4,6 @@ import {
   LayoutDashboard, 
   UploadCloud, 
   Clock, 
-  Waypoints, 
   BarChart4, 
   LineChart, 
   Settings, 
@@ -133,16 +132,6 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                   <BarChart4 className="mr-3 h-4 w-4" />
                   Reports
                 </a>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard?tab=insights"
-                  onClick={isMobile ? onClose : undefined}
-                  className={linkClasses(location.includes("insights") ? "/dashboard?tab=insights" : "")}
-                >
-                  <Waypoints className="mr-3 h-4 w-4" />
-                  AI Insights
-                </Link>
               </li>
               {isPeBod && (
                 <li>
