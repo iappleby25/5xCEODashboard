@@ -253,80 +253,88 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
       </div>
 
       <div className="my-6">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-medium">Company Comparison</h3>
-          <div className="flex items-center gap-3 text-sm">
-            <div className="flex items-center">
-              <div className="w-3 h-3 rounded-full bg-blue-500 mr-1"></div>
-              <span>{company}</span>
-            </div>
-            <div className="flex items-center">
-              <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
-              <span>{comparisonCompany}</span>
-            </div>
-          </div>
-        </div>
-        <div className="h-[280px] border-t border-b border-dashed border-neutral-200 py-4">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart 
-              data={comparisonData} 
-              margin={{ top: 20, right: 30, left: 50, bottom: 10 }}
-              barGap={10}
-              layout="vertical"
-              onMouseMove={(data) => {
-                if (data.isTooltipActive && data.activePayload && data.activeLabel) {
-                  setActiveMetric(data.activeLabel as string);
-                }
-              }}
-              onMouseLeave={() => setActiveMetric(null)}
-            >
-              <CartesianGrid strokeDasharray="3 3" horizontal={true} />
-              <XAxis type="number" domain={[0, 100]} />
-              <YAxis 
-                dataKey="name" 
-                type="category" 
-                width={120}
-                tick={{ fontSize: 12 }}
-              />
-              <Tooltip 
-                formatter={(value, name) => [`${value}%`, name]}
-                labelFormatter={(label) => `Metric: ${label}`}
-              />
-              <Legend />
-              <Bar 
-                dataKey={company} 
-                name={company} 
-                fill="#3b82f6" 
-                radius={[0, 4, 4, 0]}
-              />
-              <Bar 
-                dataKey={comparisonCompany} 
-                name={comparisonCompany} 
-                fill="#10b981" 
-                radius={[0, 4, 4, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-        
-        {activeMetric && (
-          <div className="mt-4 p-4 bg-blue-50 border border-blue-100 rounded-md text-blue-800 transition-all duration-300">
-            <div className="flex items-start gap-2">
-              <Info className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <div>
-                <h4 className="font-medium text-blue-900 mb-1">Performance Insight</h4>
-                <p className="text-sm">
-                  {comparisonData.find(d => d.name === activeMetric)?.insight || 
-                   "Hover over a metric to see detailed performance insights."}
-                </p>
+        {comparisonCompany ? (
+          <>
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-medium">Company Comparison</h3>
+              <div className="flex items-center gap-3 text-sm">
+                <div className="flex items-center">
+                  <div className="w-3 h-3 rounded-full bg-blue-500 mr-1"></div>
+                  <span>{company}</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
+                  <span>{comparisonCompany}</span>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        
-        {!activeMetric && (
-          <div className="mt-4 p-3 bg-neutral-50 border border-neutral-100 rounded-md text-neutral-500 text-sm text-center">
-            Hover over metrics to view detailed performance insights
+            <div className="h-[280px] border-t border-b border-dashed border-neutral-200 py-4">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart 
+                  data={comparisonData} 
+                  margin={{ top: 20, right: 30, left: 50, bottom: 10 }}
+                  barGap={10}
+                  layout="horizontal"
+                  onMouseMove={(data) => {
+                    if (data.isTooltipActive && data.activePayload && data.activeLabel) {
+                      setActiveMetric(data.activeLabel as string);
+                    }
+                  }}
+                  onMouseLeave={() => setActiveMetric(null)}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis type="number" domain={[0, 100]} />
+                  <Tooltip 
+                    formatter={(value, name) => [`${value}%`, name]}
+                    labelFormatter={(label) => `Metric: ${label}`}
+                  />
+                  <Legend />
+                  <Bar 
+                    dataKey={company} 
+                    name={company} 
+                    fill="#3b82f6" 
+                    radius={[4, 4, 0, 0]}
+                  />
+                  <Bar 
+                    dataKey={comparisonCompany} 
+                    name={comparisonCompany} 
+                    fill="#10b981" 
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            
+            {activeMetric && (
+              <div className="mt-4 p-4 bg-blue-50 border border-blue-100 rounded-md text-blue-800 transition-all duration-300">
+                <div className="flex items-start gap-2">
+                  <Info className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-blue-900 mb-1">Performance Insight</h4>
+                    <p className="text-sm">
+                      {comparisonData.find(d => d.name === activeMetric)?.insight || 
+                       "Hover over a metric to see detailed performance insights."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {!activeMetric && (
+              <div className="mt-4 p-3 bg-neutral-50 border border-neutral-100 rounded-md text-neutral-500 text-sm text-center">
+                Hover over metrics to view detailed performance insights
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="text-center py-8 bg-gray-50 rounded-md border border-dashed border-gray-300">
+            <h3 className="text-lg font-medium text-gray-700 mb-2">Company Comparison</h3>
+            <p className="text-gray-500 mb-4">Select a comparison company to view performance metrics</p>
+            <div className="inline-flex items-center justify-center px-4 py-2 bg-blue-50 text-blue-600 rounded-md text-sm">
+              <Info className="h-4 w-4 mr-2" />
+              <span>Use the dropdown at the top to select a company to compare with {company}</span>
+            </div>
           </div>
         )}
       </div>

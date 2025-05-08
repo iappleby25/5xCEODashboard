@@ -1,6 +1,23 @@
 import React from 'react';
 import { BarChart2, ArrowUpDown, ExternalLink } from 'lucide-react';
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { 
+  Bar, 
+  BarChart, 
+  CartesianGrid, 
+  ResponsiveContainer, 
+  Tooltip, 
+  XAxis, 
+  YAxis,
+  PieChart,
+  Pie,
+  Cell,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  Legend
+} from 'recharts';
 
 interface FocusEffectivenessComparisonProps {
   primaryCompany: string;
@@ -265,37 +282,35 @@ const FocusEffectivenessComparison: React.FC<FocusEffectivenessComparisonProps> 
           <h3 className="text-lg font-medium mb-3">Comparative Metrics</h3>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart
+              <RadarChart 
+                outerRadius={90} 
+                width={730} 
+                height={250} 
                 data={comparisonData}
-                margin={{ top: 20, right: 10, left: 10, bottom: 30 }}
-                barSize={20}
-                layout="vertical"
               >
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-                <XAxis type="number" />
-                <YAxis 
-                  dataKey="name" 
-                  type="category"
-                  width={150}
-                  tick={{ fontSize: 12 }}
+                <PolarGrid />
+                <PolarAngleAxis dataKey="name" tick={{ fill: '#333', fontSize: 12 }} />
+                <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                <Radar 
+                  name={primaryCompany} 
+                  dataKey={primaryCompany} 
+                  stroke="#3b82f6" 
+                  fill="#3b82f6" 
+                  fillOpacity={0.5} 
                 />
+                <Radar 
+                  name={comparisonCompany} 
+                  dataKey={comparisonCompany} 
+                  stroke="#10b981" 
+                  fill="#10b981" 
+                  fillOpacity={0.5} 
+                />
+                <Legend />
                 <Tooltip 
                   formatter={(value, name) => [`${value}%`, name]}
                   labelFormatter={(label) => `Metric: ${label}`}
                 />
-                <Bar 
-                  dataKey={primaryCompany} 
-                  fill="#3b82f6" 
-                  radius={[0, 4, 4, 0]}
-                  name={primaryCompany}
-                />
-                <Bar 
-                  dataKey={comparisonCompany} 
-                  fill="#10b981" 
-                  radius={[0, 4, 4, 0]}
-                  name={comparisonCompany}
-                />
-              </BarChart>
+              </RadarChart>
             </ResponsiveContainer>
           </div>
         </div>
