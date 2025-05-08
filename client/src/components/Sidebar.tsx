@@ -82,18 +82,16 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                   Home
                 </Link>
               </li>
-              {isCeoOrLeadership && (
-                <li>
-                  <Link 
-                    href="/dashboard" 
-                    onClick={isMobile ? onClose : undefined}
-                    className={linkClasses("/dashboard")}
-                  >
-                    <LayoutDashboard className="mr-3 h-4 w-4" />
-                    Performance Overview
-                  </Link>
-                </li>
-              )}
+              <li>
+                <Link 
+                  href="/dashboard" 
+                  onClick={isMobile ? onClose : undefined}
+                  className={linkClasses("/dashboard")}
+                >
+                  <LayoutDashboard className="mr-3 h-4 w-4" />
+                  Performance Overview
+                </Link>
+              </li>
               <li>
                 <Link 
                   href="/MyCEO" 
