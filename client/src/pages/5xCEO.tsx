@@ -319,7 +319,7 @@ const FiveXCEO = () => {
         {/* Analysis Area with Company Selection */}
         <motion.div variants={itemVariants} className="mb-8">
           <div className="bg-white p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Category Analysis</h2>
+            <h2 className="text-xl font-semibold mb-4">Company Compare</h2>
             
             {/* Duplicate company selection for the analysis area */}
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 border-b pb-4 border-neutral-200">
