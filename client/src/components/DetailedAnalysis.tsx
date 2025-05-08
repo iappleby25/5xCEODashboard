@@ -35,6 +35,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
   const [companyScores, setCompanyScores] = useState<Array<{ company: string; score: number }>>([]);
   const [teamScores, setTeamScores] = useState<Array<{ role: string; score: number }>>([]);
   const [questionScores, setQuestionScores] = useState<Array<{ question: string; score: number }>>([]);
+  const [dialogActiveTab, setDialogActiveTab] = useState("primary"); // Tracks active tab in dialog
   
   // State for comparison view
   const [comparisonData, setComparisonData] = useState<ComparisonData[]>([]);
@@ -91,6 +92,79 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     }
   }, [currentViewLevel, selectedCompany, filteredData]);
 
+  // Function to get questions for a specific category
+  const getQuestionsForCategory = (category: string): string[] => {
+    switch(category) {
+      case 'Strategic Clarity':
+        return [
+          "How well does leadership articulate a clear vision?",
+          "Are company goals consistently aligned with strategy?",
+          "Is the strategic decision-making process transparent?",
+          "How well are strategic priorities communicated?",
+          "Do employees understand how their work contributes to strategy?"
+        ];
+      case 'Scalable Talent':
+        return [
+          "How effective is the company's talent acquisition process?",
+          "Are professional development opportunities readily available?",
+          "How well does the company retain top performers?",
+          "Is there a clear career progression framework?",
+          "How effective is knowledge transfer within teams?"
+        ];
+      case 'Relentless Focus':
+        return [
+          "How well do team members prioritize high-impact activities?",
+          "Are meetings productive and outcome-focused?",
+          "How effectively are resources allocated to strategic initiatives?",
+          "Is there a clear process for eliminating low-value work?",
+          "How well does the team maintain focus during execution?"
+        ];
+      case 'Disciplined Execution':
+        return [
+          "How consistently are project deadlines met?",
+          "Are there clear accountability structures for deliverables?",
+          "How effectively are risks identified and mitigated?",
+          "Is there a structured approach to project management?",
+          "How well are execution metrics tracked and acted upon?"
+        ];
+      case 'Energized Culture':
+        return [
+          "How engaged are team members in their daily work?",
+          "Is there a strong sense of belonging and inclusion?",
+          "How effectively are company values demonstrated in daily operations?",
+          "Is feedback regularly exchanged at all levels?",
+          "How supportive is the work environment of innovation and creativity?"
+        ];
+      default:
+        return ["No specific questions available for this category"];
+    }
+  };
+  
+  // Function to generate question scores for a category
+  const generateQuestionScores = (
+    category: string, 
+    categoryKey: string, 
+    baseScore: number
+  ): Array<{ question: string; score: number }> => {
+    const questions = getQuestionsForCategory(category);
+    
+    // Generate scores for questions that are within +/- 10% of the base score
+    const minScore = Math.max(50, baseScore - 10);
+    const maxScore = Math.min(100, baseScore + 10);
+    
+    return questions.map(question => {
+      // Generate a score within the range
+      const scoreRange = maxScore - minScore;
+      const randomOffset = Math.floor(Math.random() * scoreRange);
+      const score = minScore + randomOffset;
+      
+      return {
+        question,
+        score
+      };
+    }).sort((a, b) => b.score - a.score); // Sort by score highest to lowest
+  };
+  
   // Handle click on a bar in the chart
   const handleBarClick = (data: any, index: number) => {
     const category = data.name;
@@ -98,106 +172,57 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     
     if (categoryKey) {
       setSelectedCategory(category);
+      setDialogActiveTab("primary"); // Reset to primary tab
       
-      // Handle differently based on current view level
-      if (currentViewLevel === "team" && selectedCompany && selectedRole) {
-        // In team view, show scores for individual questions in the selected category
-        // Define a set of mock questions for each category
-        const getQuestionsForCategory = (category: string): string[] => {
-          switch(category) {
-            case 'Strategic Clarity':
-              return [
-                "How well does leadership articulate a clear vision?",
-                "Are company goals consistently aligned with strategy?",
-                "Is the strategic decision-making process transparent?",
-                "How well are strategic priorities communicated?",
-                "Do employees understand how their work contributes to strategy?"
-              ];
-            case 'Scalable Talent':
-              return [
-                "How effective is the company's talent acquisition process?",
-                "Are professional development opportunities readily available?",
-                "How well does the company retain top performers?",
-                "Is there a clear career progression framework?",
-                "How effective is knowledge transfer within teams?"
-              ];
-            case 'Relentless Focus':
-              return [
-                "How well do team members prioritize high-impact activities?",
-                "Are meetings productive and outcome-focused?",
-                "How effectively are resources allocated to strategic initiatives?",
-                "Is there a clear process for eliminating low-value work?",
-                "How well does the team maintain focus during execution?"
-              ];
-            case 'Disciplined Execution':
-              return [
-                "How consistently are project deadlines met?",
-                "Are there clear accountability structures for deliverables?",
-                "How effectively are risks identified and mitigated?",
-                "Is there a structured approach to project management?",
-                "How well are execution metrics tracked and acted upon?"
-              ];
-            case 'Energized Culture':
-              return [
-                "How engaged are team members in their daily work?",
-                "Is there a strong sense of belonging and inclusion?",
-                "How effectively are company values demonstrated in daily operations?",
-                "Is feedback regularly exchanged at all levels?",
-                "How supportive is the work environment of innovation and creativity?"
-              ];
-            default:
-              return ["No specific questions available for this category"];
-          }
-        };
+      // For all view levels, prepare question scores
+      let baseScore = 75; // Default
+      if (filteredData.length > 0) {
+        let relevantData = filteredData;
         
-        // Generate random scores (70-90 range) for questions within 10% of the overall category score
-        const questions = getQuestionsForCategory(category);
-        
-        // Find the base score for this category from the filtered data
-        const categoryScore = filteredData
-          .filter(item => 
+        // Filter data based on view level
+        if (currentViewLevel === "team" && selectedCompany && selectedRole) {
+          relevantData = filteredData.filter(item => 
             item.scores && 
             item.companyName === selectedCompany && 
             item.role === selectedRole
-          )
+          );
+        } else if (currentViewLevel === "company" && selectedCompany) {
+          relevantData = filteredData.filter(item => 
+            item.scores && 
+            item.companyName === selectedCompany
+          );
+        }
+        
+        // Calculate the base score from the relevant data
+        const categoryScore = relevantData
           .reduce((total, item) => {
             return total + (item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0);
           }, 0);
         
-        const baseScore = filteredData.length > 0 ? 
-          Math.round(categoryScore / filteredData.filter(item => 
-            item.scores && 
-            item.companyName === selectedCompany && 
-            item.role === selectedRole
-          ).length) : 75; // Default to 75 if no data
-          
-        // Generate scores for questions that are within +/- 10% of the base score
-        const minScore = Math.max(50, baseScore - 10);
-        const maxScore = Math.min(100, baseScore + 10);
-        
-        const questionList = questions.map(question => {
-          // Generate a score within the range
-          const scoreRange = maxScore - minScore;
-          const randomOffset = Math.floor(Math.random() * scoreRange);
-          const score = minScore + randomOffset;
-          
-          return {
-            question,
-            score
-          };
-        }).sort((a, b) => b.score - a.score); // Sort by score highest to lowest
-        
-        setQuestionScores(questionList);
-        setTeamScores([]);
-        setCompanyScores([]);
+        if (relevantData.length > 0) {
+          baseScore = Math.round(categoryScore / relevantData.length);
+        }
       }
-      else if (currentViewLevel === "company" && selectedCompany) {
-        // In company view, show scores for each team/role within the selected company
+      
+      // Generate question scores for all view levels
+      const questionList = generateQuestionScores(category, categoryKey, baseScore);
+      setQuestionScores(questionList);
+      
+      // For company and holding views, prepare team scores
+      if (currentViewLevel !== "team") {
         const roleScoreMap = new Map<string, { total: number; count: number }>();
         
-        // Populate the map with role names and scores for the selected company
-        filteredData
-          .filter(item => item.scores && item.role && item.companyName === selectedCompany)
+        // Filter data based on view level
+        let dataToProcess = filteredData;
+        if (currentViewLevel === "company" && selectedCompany) {
+          dataToProcess = filteredData.filter(item => 
+            item.companyName === selectedCompany
+          );
+        }
+        
+        // Populate the map with role names and scores
+        dataToProcess
+          .filter(item => item.scores && item.role)
           .forEach(item => {
             const role = item.role;
             const score = item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0;
@@ -226,10 +251,12 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           .sort((a, b) => b.score - a.score); // Sort highest to lowest
         
         setTeamScores(roleScores);
-        setCompanyScores([]); // Clear company scores since we're showing team scores
-        setQuestionScores([]); // Clear question scores
       } else {
-        // For holding view (or any other), show scores for each company
+        setTeamScores([]);
+      }
+      
+      // For holding view, prepare company scores
+      if (currentViewLevel === "holding" || currentViewLevel === "compare") {
         const companyScoreMap = new Map<string, { total: number; count: number }>();
         
         // Populate the map with company names and scores
@@ -263,8 +290,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           .sort((a, b) => b.score - a.score); // Sort highest to lowest
         
         setCompanyScores(scores);
-        setTeamScores([]); // Clear team scores since we're showing company scores
-        setQuestionScores([]); // Clear question scores
+      } else {
+        setCompanyScores([]);
       }
       
       setDialogOpen(true);
@@ -711,120 +738,202 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            {currentViewLevel === "team" && selectedCompany && selectedRole ? (
-              <>
-                <DialogTitle>{selectedCategory} - Question Scores for {selectedRole}</DialogTitle>
-                <DialogDescription>
-                  Shows scores for individual questions within {selectedCategory} for {selectedRole} role.
-                </DialogDescription>
-              </>
-            ) : currentViewLevel === "company" && selectedCompany ? (
-              <>
-                <DialogTitle>{selectedCategory} Scores by Team for {selectedCompany}</DialogTitle>
-                <DialogDescription>
-                  Shows average scores for each team/role within {selectedCompany} for the selected framework category.
-                </DialogDescription>
-              </>
-            ) : (
-              <>
-                <DialogTitle>{selectedCategory} Average Scores by Company</DialogTitle>
-                <DialogDescription>
-                  Shows average scores across all roles for each company for the selected framework category.
-                </DialogDescription>
-              </>
-            )}
+            <DialogTitle>{selectedCategory} - Detailed Analysis</DialogTitle>
+            <DialogDescription>
+              Analysis of {selectedCategory} framework category for {
+                currentViewLevel === "team" ? selectedRole : 
+                currentViewLevel === "company" ? selectedCompany :
+                "all companies"
+              }
+            </DialogDescription>
           </DialogHeader>
-          <div className="overflow-y-auto max-h-[60vh]">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  {currentViewLevel === "team" && selectedCompany && selectedRole ? (
-                    <TableHead>Question</TableHead>
-                  ) : currentViewLevel === "company" && selectedCompany ? (
-                    <TableHead>Team/Role</TableHead>
-                  ) : (
-                    <TableHead>Company</TableHead>
-                  )}
-                  <TableHead className="text-right">Score</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {/* Show question scores when in team view */}
-                {currentViewLevel === "team" && questionScores.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{item.question}</TableCell>
-                    <TableCell className="text-right">
-                      <span 
-                        className={`font-semibold ${
-                          item.score >= 80 ? 'text-green-600' : 
-                          item.score >= 60 ? 'text-amber-600' : 'text-red-600'
-                        }`}
-                      >
-                        {item.score}%
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                
-                {/* Show team scores when in company view */}
-                {currentViewLevel === "company" && teamScores.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{item.role}</TableCell>
-                    <TableCell className="text-right">
-                      <span 
-                        className={`font-semibold ${
-                          item.score >= 80 ? 'text-green-600' : 
-                          item.score >= 60 ? 'text-amber-600' : 'text-red-600'
-                        }`}
-                      >
-                        {item.score}%
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                
-                {/* Show company scores in holding view */}
-                {currentViewLevel !== "team" && currentViewLevel !== "company" && companyScores.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{item.company}</TableCell>
-                    <TableCell className="text-right">
-                      <span 
-                        className={`font-semibold ${
-                          item.score >= 80 ? 'text-green-600' : 
-                          item.score >= 60 ? 'text-amber-600' : 'text-red-600'
-                        }`}
-                      >
-                        {item.score}%
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                
-                {/* Show messages when no data available */}
-                {currentViewLevel === "team" && questionScores.length === 0 && (
-                  <TableRow>
-                    <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
-                      No question data available for {selectedRole}
-                    </TableCell>
-                  </TableRow>
-                )}
-                {currentViewLevel === "company" && teamScores.length === 0 && (
-                  <TableRow>
-                    <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
-                      No team data available for {selectedCompany}
-                    </TableCell>
-                  </TableRow>
-                )}
-                {currentViewLevel !== "team" && currentViewLevel !== "company" && companyScores.length === 0 && (
-                  <TableRow>
-                    <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
-                      No company data available
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
+          
+          {/* Tabs for different data views */}
+          <Tabs defaultValue="primary" value={dialogActiveTab} onValueChange={setDialogActiveTab} className="mt-2">
+            <TabsList className="grid w-full grid-cols-2">
+              {/* Primary tab label changes based on view level */}
+              <TabsTrigger value="primary">
+                {currentViewLevel === "team" ? "Questions" : 
+                 currentViewLevel === "company" ? "Teams" : 
+                 "Companies"}
+              </TabsTrigger>
+              
+              {/* Secondary tab changes based on view level */}
+              <TabsTrigger value="secondary">
+                {currentViewLevel === "team" ? "Team Comparison" : 
+                 currentViewLevel === "holding" ? "Teams" : 
+                 "Questions"}
+              </TabsTrigger>
+            </TabsList>
+            
+            {/* Primary tab content - changes based on view level */}
+            <TabsContent value="primary" className="mt-4">
+              <div className="overflow-y-auto max-h-[60vh]">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      {currentViewLevel === "team" ? (
+                        <TableHead>Question</TableHead>
+                      ) : currentViewLevel === "company" ? (
+                        <TableHead>Team/Role</TableHead>
+                      ) : (
+                        <TableHead>Company</TableHead>
+                      )}
+                      <TableHead className="text-right">Score</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {/* Show question scores in team view primary tab */}
+                    {currentViewLevel === "team" && questionScores.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{item.question}</TableCell>
+                        <TableCell className="text-right">
+                          <span 
+                            className={`font-semibold ${
+                              item.score >= 80 ? 'text-green-600' : 
+                              item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                            }`}
+                          >
+                            {item.score}%
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    
+                    {/* Show team scores in company view primary tab */}
+                    {currentViewLevel === "company" && teamScores.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{item.role}</TableCell>
+                        <TableCell className="text-right">
+                          <span 
+                            className={`font-semibold ${
+                              item.score >= 80 ? 'text-green-600' : 
+                              item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                            }`}
+                          >
+                            {item.score}%
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    
+                    {/* Show company scores in holding view primary tab */}
+                    {currentViewLevel === "holding" && companyScores.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{item.company}</TableCell>
+                        <TableCell className="text-right">
+                          <span 
+                            className={`font-semibold ${
+                              item.score >= 80 ? 'text-green-600' : 
+                              item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                            }`}
+                          >
+                            {item.score}%
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    
+                    {/* Show "no data" messages */}
+                    {currentViewLevel === "team" && questionScores.length === 0 && (
+                      <TableRow>
+                        <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                          No question data available for {selectedRole}
+                        </TableCell>
+                      </TableRow>
+                    )}
+                    {currentViewLevel === "company" && teamScores.length === 0 && (
+                      <TableRow>
+                        <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                          No team data available for {selectedCompany}
+                        </TableCell>
+                      </TableRow>
+                    )}
+                    {currentViewLevel === "holding" && companyScores.length === 0 && (
+                      <TableRow>
+                        <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                          No company data available
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            </TabsContent>
+            
+            {/* Secondary tab content - changes based on view level */}
+            <TabsContent value="secondary" className="mt-4">
+              <div className="overflow-y-auto max-h-[60vh]">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      {currentViewLevel === "team" ? (
+                        <TableHead>Team/Role</TableHead>
+                      ) : (
+                        <TableHead>Question</TableHead>
+                      )}
+                      <TableHead className="text-right">Score</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {/* Show team comparison in team view secondary tab */}
+                    {currentViewLevel === "team" && teamScores.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{item.role}</TableCell>
+                        <TableCell className="text-right">
+                          <span 
+                            className={`font-semibold ${
+                              item.score >= 80 ? 'text-green-600' : 
+                              item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                            }`}
+                          >
+                            {item.score}%
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    
+                    {/* Show question scores in company & holding view secondary tab */}
+                    {(currentViewLevel === "company" || currentViewLevel === "holding") && 
+                      questionScores.map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium">{item.question}</TableCell>
+                          <TableCell className="text-right">
+                            <span 
+                              className={`font-semibold ${
+                                item.score >= 80 ? 'text-green-600' : 
+                                item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                              }`}
+                            >
+                              {item.score}%
+                            </span>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    }
+                    
+                    {/* Show "no data" messages */}
+                    {currentViewLevel === "team" && teamScores.length === 0 && (
+                      <TableRow>
+                        <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                          No team comparison data available
+                        </TableCell>
+                      </TableRow>
+                    )}
+                    {(currentViewLevel === "company" || currentViewLevel === "holding") && 
+                      questionScores.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                            No question data available
+                          </TableCell>
+                        </TableRow>
+                      )
+                    }
+                  </TableBody>
+                </Table>
+              </div>
+            </TabsContent>
+          </Tabs>
         </DialogContent>
       </Dialog>
     </div>
