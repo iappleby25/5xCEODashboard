@@ -4,6 +4,7 @@ import RadialMenu from '@/components/RadialMenu';
 import PanelView from '@/components/PanelView';
 import FocusEffectivenessAnalysis from '@/components/FocusEffectivenessAnalysis';
 import FocusEffectivenessComparison from '@/components/FocusEffectivenessComparison';
+import CategoryAnalysis from '@/components/analysis/CategoryAnalysis';
 import { 
   assessmentData as defaultFrameworkCategories, 
   FrameworkCategory, 

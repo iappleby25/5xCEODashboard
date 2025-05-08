@@ -4,6 +4,7 @@ import RadialMenu from '@/components/RadialMenu';
 import PanelView from '@/components/PanelView';
 import FocusEffectivenessAnalysis from '@/components/FocusEffectivenessAnalysis';
 import FocusEffectivenessComparison from '@/components/FocusEffectivenessComparison';
+import CategoryAnalysis from '@/components/analysis/CategoryAnalysis';
 import { assessmentData as frameworkCategories, FrameworkCategory, mockCompanies, getCategoryColor } from '@/lib/mockData';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
@@ -268,58 +269,18 @@ const MyCEO = () => {
               </div>
             </motion.div>
             
-            {/* Company Compare Title Section - Only show when comparison company is selected */}
+            {/* Category Analysis - Always show */}
+            <motion.div variants={itemVariants} className="mb-8">
+              <CategoryAnalysis 
+                category={selectedAnalysisCategory}
+                company={selectedCompany}
+                period="Q1 2023"
+              />
+            </motion.div>
+            
+            {/* Company Compare - Only show when comparison company is selected */}
             {comparisonCompany && (
               <>
-                <motion.div variants={itemVariants} className="mb-4 mt-8">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h2 className="text-2xl font-semibold text-neutral-900">
-                        {(() => {
-                          // Dynamically change the title based on selected category
-                          switch (selectedAnalysisCategory) {
-                            case 'strategic-clarity':
-                              return 'Strategic Clarity Comparison';
-                            case 'scalable-talent':
-                              return 'Talent Scalability Comparison';
-                            case 'relentless-focus':
-                              return 'Focus Effectiveness Comparison';
-                            case 'disciplined-execution':
-                              return 'Execution Impact Comparison';
-                            case 'energized-culture':
-                              return 'Culture Value Comparison';
-                            default:
-                              return 'Company Compare';
-                          }
-                        })()}
-                      </h2>
-                      <p className="text-neutral-600 mt-1">
-                        {(() => {
-                          // Dynamically change the description based on selected category
-                          switch (selectedAnalysisCategory) {
-                            case 'strategic-clarity':
-                              return 'Comparing vision alignment and strategic decision-making between companies';
-                            case 'scalable-talent':
-                              return 'Comparing talent development and organizational capacity';
-                            case 'relentless-focus':
-                              return 'Comparing prioritization and resource allocation efficiency';
-                            case 'disciplined-execution':
-                              return 'Comparing operational efficiency and execution quality';
-                            case 'energized-culture':
-                              return 'Comparing cultural health and employee engagement metrics';
-                            default:
-                              return 'Compare performance metrics between companies across the selected framework category';
-                          }
-                        })()}
-                      </p>
-                    </div>
-                    <div className="text-sm text-neutral-500">
-                      Data for Q1 2023
-                    </div>
-                  </div>
-                </motion.div>
-                
-                {/* Comparison Component */}
                 <motion.div variants={itemVariants} className="mb-8">
                   <FocusEffectivenessComparison
                     primaryCompany={selectedCompany}
