@@ -737,9 +737,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                           <div>
                             <h3 className="text-md font-medium text-green-600 mb-2">Top 5 Questions</h3>
                             {topQuestions.map((item, index) => (
-                              <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
-                                <span className="text-sm truncate flex-1 mr-2">{item.question}</span>
-                                <span className="font-semibold whitespace-nowrap">{item.score}%</span>
+                              <div key={index} className="flex items-start justify-between mb-2 p-2 bg-green-50 rounded-md">
+                                <span className="text-sm break-words flex-1 mr-2">{item.question}</span>
+                                <span className="font-semibold whitespace-nowrap ml-2">{item.score}%</span>
                               </div>
                             ))}
                             {topQuestions.length === 0 && (
@@ -750,9 +750,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                           <div>
                             <h3 className="text-md font-medium text-amber-600 mb-2">Bottom 5 Questions</h3>
                             {bottomQuestions.map((item, index) => (
-                              <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
-                                <span className="text-sm truncate flex-1 mr-2">{item.question}</span>
-                                <span className="font-semibold whitespace-nowrap">{item.score}%</span>
+                              <div key={index} className="flex items-start justify-between mb-2 p-2 bg-amber-50 rounded-md">
+                                <span className="text-sm break-words flex-1 mr-2">{item.question}</span>
+                                <span className="font-semibold whitespace-nowrap ml-2">{item.score}%</span>
                               </div>
                             ))}
                             {bottomQuestions.length === 0 && (
@@ -852,7 +852,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                     {/* Show question scores in team view primary tab */}
                     {currentViewLevel === "team" && questionScores.map((item, index) => (
                       <TableRow key={index}>
-                        <TableCell className="font-medium">{item.question}</TableCell>
+                        <TableCell className="font-medium whitespace-normal break-words">{item.question}</TableCell>
                         <TableCell className="text-right">
                           <span 
                             className={`font-semibold ${
@@ -963,7 +963,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                     {currentViewLevel === "company" && 
                       questionScores.map((item, index) => (
                         <TableRow key={index}>
-                          <TableCell className="font-medium">{item.question}</TableCell>
+                          <TableCell className="font-medium whitespace-normal break-words">{item.question}</TableCell>
                           <TableCell className="text-right">
                             <span 
                               className={`font-semibold ${
@@ -1013,7 +1013,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                       {/* Display question scores across all companies */}
                       {questionScores.map((item, index) => (
                         <TableRow key={index}>
-                          <TableCell className="font-medium">{item.question}</TableCell>
+                          <TableCell className="font-medium whitespace-normal break-words">{item.question}</TableCell>
                           <TableCell className="text-right">
                             <span 
                               className={`font-semibold ${
