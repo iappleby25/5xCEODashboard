@@ -405,6 +405,7 @@ const FiveXCEO = () => {
                   category={selectedAnalysisCategory}
                   company={selectedCompany}
                   period={selectedPeriod}
+                  comparisonCompany={comparisonCompany || undefined}
                 />
               )}
             </div>
