@@ -18,7 +18,7 @@ const MyCEO = () => {
   // State for analysis and comparison
   const [selectedAnalysisCategory, setSelectedAnalysisCategory] = useState<string>('relentless-focus');
   const [selectedCompany, setSelectedCompany] = useState<string>("GlobalSolutions");
-  const [comparisonCompany, setComparisonCompany] = useState<string>("TechVision");
+  const [comparisonCompany, setComparisonCompany] = useState<string | null>(null);
 
   const handleToggleView = () => {
     // In MyCEO page, this would navigate to 5xCEO page instead
@@ -188,7 +188,7 @@ const MyCEO = () => {
             <motion.div variants={itemVariants} className="mb-8">
               <div className="bg-white p-6 rounded-xl shadow-md">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-                  <h2 className="text-xl font-semibold mb-4 sm:mb-0">Assessment Summary</h2>
+                  <h2 className="text-xl font-semibold mb-4 sm:mb-0">Company Compare</h2>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="w-full sm:w-60">
                       <Select value={selectedCompany} onValueChange={handleCompanyChange}>
@@ -205,11 +205,25 @@ const MyCEO = () => {
                       </Select>
                     </div>
                     <div className="w-full sm:w-60">
-                      <Select value={comparisonCompany} onValueChange={handleComparisonCompanyChange}>
+                      <Select 
+                        value={comparisonCompany || "none"} 
+                        onValueChange={(value) => {
+                          if (value === "none") {
+                            setComparisonCompany(null);
+                            console.log("Comparison company selected:", "none");
+                            console.log("comparisonCompany state after change:", null);
+                          } else {
+                            setComparisonCompany(value);
+                            console.log("Comparison company selected:", value);
+                            console.log("comparisonCompany state after change:", value);
+                          }
+                        }}
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Compare with..." />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value="none">None</SelectItem>
                           {mockCompanies
                             .filter(company => company.name !== selectedCompany)
                             .map((company) => (
@@ -222,66 +236,70 @@ const MyCEO = () => {
                     </div>
                   </div>
                 </div>
-                
-                {/* Assessment Summary blocks as buttons */}
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                  {frameworkCategories.map((category) => {
-                    // Determine if this category is selected
-                    const isSelected = selectedAnalysisCategory === category.id;
-                    // Create dynamic styles based on selection state
-                    const borderColor = getCategoryColor(category.id);
-                    const blockClasses = isSelected 
-                      ? "border-4 bg-neutral-50 cursor-pointer rounded-lg p-4 shadow-md transform scale-105 transition-all duration-200" 
-                      : "border-2 bg-neutral-50 hover:bg-neutral-100 cursor-pointer rounded-lg p-4 transition-all duration-200";
-                    
-                    return (
-                      <div 
-                        key={category.id}
-                        className={blockClasses}
-                        style={{ borderColor: borderColor }}
-                        onClick={() => handleAnalysisCategoryChange(category.id)}
-                      >
-                        <h3 className="font-medium">{category.name}</h3>
-                        <div className="mt-3">
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
-                            <div 
-                              className="h-2.5 rounded-full" 
-                              style={{ 
-                                width: `${category.score}%`,
-                                backgroundColor: getCategoryColor(category.id)
-                              }}
-                            ></div>
-                          </div>
-                          <div className="flex justify-between mt-1 text-sm">
-                            <span>Score:</span>
-                            <span className="font-medium">{category.score}%</span>
-                          </div>
-                          {isSelected && (
-                            <div className="text-xs text-green-600 mt-1 font-medium">
-                              Selected for Analysis
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
               </div>
             </motion.div>
             
-            {/* Category Analysis - Always show */}
-            <motion.div variants={itemVariants} className="mb-8">
-              <CategoryAnalysis 
-                category={selectedAnalysisCategory}
-                company={selectedCompany}
-                period="Q1 2023"
-                comparisonCompany={comparisonCompany || undefined}
-              />
-            </motion.div>
-            
-            {/* Company Compare - Only show when comparison company is selected */}
+            {/* Only show content when both companies are selected */}
             {comparisonCompany && (
               <>
+                <motion.div variants={itemVariants} className="mb-8">
+                  <div className="bg-white p-6 rounded-xl shadow-md">
+                    <h2 className="text-xl font-semibold mb-4">5xCEO Framework Analysis</h2>
+                    {/* Assessment Summary blocks as buttons */}
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                      {frameworkCategories.map((category) => {
+                        // Determine if this category is selected
+                        const isSelected = selectedAnalysisCategory === category.id;
+                        // Create dynamic styles based on selection state
+                        const borderColor = getCategoryColor(category.id);
+                        const blockClasses = isSelected 
+                          ? "border-4 bg-neutral-50 cursor-pointer rounded-lg p-4 shadow-md transform scale-105 transition-all duration-200" 
+                          : "border-2 bg-neutral-50 hover:bg-neutral-100 cursor-pointer rounded-lg p-4 transition-all duration-200";
+                        
+                        return (
+                          <div 
+                            key={category.id}
+                            className={blockClasses}
+                            style={{ borderColor: borderColor }}
+                            onClick={() => handleAnalysisCategoryChange(category.id)}
+                          >
+                            <h3 className="font-medium">{category.name}</h3>
+                            <div className="mt-3">
+                              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                <div 
+                                  className="h-2.5 rounded-full" 
+                                  style={{ 
+                                    width: `${category.score}%`,
+                                    backgroundColor: getCategoryColor(category.id)
+                                  }}
+                                ></div>
+                              </div>
+                              <div className="flex justify-between mt-1 text-sm">
+                                <span>Score:</span>
+                                <span className="font-medium">{category.score}%</span>
+                              </div>
+                              {isSelected && (
+                                <div className="text-xs text-green-600 mt-1 font-medium">
+                                  Selected for Analysis
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div variants={itemVariants} className="mb-8">
+                  <CategoryAnalysis 
+                    category={selectedAnalysisCategory}
+                    company={selectedCompany}
+                    period="Q1 2023"
+                    comparisonCompany={comparisonCompany}
+                  />
+                </motion.div>
+                
                 <motion.div variants={itemVariants} className="mb-8">
                   <FocusEffectivenessComparison
                     primaryCompany={selectedCompany}
