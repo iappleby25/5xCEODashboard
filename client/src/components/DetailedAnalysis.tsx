@@ -416,7 +416,12 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
       return findTopAndBottomCompanies();
     }
     
-    // Otherwise, show top/bottom framework categories
+    // If in company view, show top/bottom teams
+    if (currentViewLevel === "company" && selectedCompany) {
+      return findTopAndBottomTeams();
+    }
+    
+    // Otherwise (team view), show top/bottom framework categories
     const scores = [
       { name: 'Strategic Clarity', value: averageScores.strategicClarity },
       { name: 'Scalable Talent', value: averageScores.scalableTalent },
@@ -429,6 +434,33 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     return {
       strengths: sortedScores.slice(0, 2),
       weaknesses: sortedScores.slice(-2).reverse()
+    };
+  };
+  
+  // Find top and bottom teams for company view
+  const findTopAndBottomTeams = () => {
+    // Get all roles/teams with their total scores for the selected company
+    const teamScores = filteredData
+      .filter(item => item.companyName === selectedCompany && item.role && item.scores)
+      .map(item => ({
+        name: item.role || "",
+        value: item.scores?.totalScore || 0
+      }))
+      // Remove duplicates by role name
+      .reduce((unique, item) => {
+        const exists = unique.find(i => i.name === item.name);
+        if (!exists) {
+          unique.push(item);
+        }
+        return unique;
+      }, [] as { name: string, value: number }[]);
+    
+    // Sort teams by score
+    const sortedTeams = [...teamScores].sort((a, b) => b.value - a.value);
+    
+    return {
+      strengths: sortedTeams.slice(0, 3), // Top 3 teams
+      weaknesses: sortedTeams.slice(-3).reverse() // Bottom 3 teams
     };
   };
   
@@ -673,7 +705,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
               <div className="space-y-4">
                 <div>
                   <h3 className="text-md font-medium text-green-600 mb-2">
-                    {currentViewLevel === "holding" ? "Top 3 Companies" : "Top Strengths"}
+                    {currentViewLevel === "holding" ? "Top 3 Companies" : 
+                     currentViewLevel === "company" ? "Top 3 Teams" : "Top Strengths"}
                   </h3>
                   {strengths.map((item, index) => (
                     <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
@@ -684,7 +717,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                 </div>
                 <div>
                   <h3 className="text-md font-medium text-amber-600 mb-2">
-                    {currentViewLevel === "holding" ? "Bottom 3 Companies" : "Areas for Improvement"}
+                    {currentViewLevel === "holding" ? "Bottom 3 Companies" : 
+                     currentViewLevel === "company" ? "Bottom 3 Teams" : "Areas for Improvement"}
                   </h3>
                   {weaknesses.map((item, index) => (
                     <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
