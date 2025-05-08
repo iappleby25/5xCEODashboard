@@ -136,88 +136,28 @@ export default function FilterBar({
             </div>
           )}
 
+          {/* Only show the role selector for team view, no company selector */}
           {currentViewLevel === "team" && (
-            <>
-              <div>
-                <label className="text-xs font-medium text-neutral-500 mb-1 block">
-                  Company
-                </label>
-                <Select 
-                  value={selectedCompany} 
-                  onValueChange={onCompanyChange}
-                  disabled={!onCompanyChange}
-                >
-                  <SelectTrigger className="h-9 w-[180px]">
-                    <SelectValue placeholder="Select company" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {companies.map((company) => (
-                      <SelectItem key={company} value={company}>
-                        {company}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <label className="text-xs font-medium text-neutral-500 mb-1 block">
-                  Role
-                </label>
-                <Select 
-                  value={selectedRole} 
-                  onValueChange={onRoleChange}
-                  disabled={!onRoleChange}
-                >
-                  <SelectTrigger className="h-9 w-[180px]">
-                    <SelectValue placeholder="Select role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {roles.map((role) => (
-                      <SelectItem key={role} value={role}>
-                        {role}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </>
-          )}
-
-          {/* Only show company dropdown for PE & BOD users */}
-          {currentViewLevel === "company" && !isRestrictedUser && (
             <div>
               <label className="text-xs font-medium text-neutral-500 mb-1 block">
-                Company
+                Role
               </label>
               <Select 
-                value={selectedCompany} 
-                onValueChange={onCompanyChange}
-                disabled={!onCompanyChange}
+                value={selectedRole} 
+                onValueChange={onRoleChange}
+                disabled={!onRoleChange}
               >
                 <SelectTrigger className="h-9 w-[180px]">
-                  <SelectValue placeholder="Select company" />
+                  <SelectValue placeholder="Select role" />
                 </SelectTrigger>
                 <SelectContent>
-                  {companies.map((company) => (
-                    <SelectItem key={company} value={company}>
-                      {company}
+                  {roles.map((role) => (
+                    <SelectItem key={role} value={role}>
+                      {role}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-          )}
-          
-          {/* For CEO/LEADERSHIP users show the company as read-only */}
-          {currentViewLevel === "company" && isRestrictedUser && (
-            <div>
-              <label className="text-xs font-medium text-neutral-500 mb-1 block">
-                Company
-              </label>
-              <div className="h-9 w-[180px] px-3 flex items-center rounded-md border border-neutral-200 bg-neutral-50 text-sm text-neutral-600">
-                {selectedCompany || "GlobalSolutions"}
-              </div>
             </div>
           )}
 
