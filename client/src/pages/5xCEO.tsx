@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RadialMenu from '@/components/RadialMenu';
 import PanelView from '@/components/PanelView';
+import FocusEffectivenessAnalysis from '@/components/FocusEffectivenessAnalysis';
+import FocusEffectivenessComparison from '@/components/FocusEffectivenessComparison';
 import { 
   assessmentData as defaultFrameworkCategories, 
   FrameworkCategory, 
@@ -9,12 +11,20 @@ import {
   mockCompanies 
 } from '@/lib/mockData';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { CompanyData } from '@/lib/dataProcessor';
+import { useAuth } from '@/context/AuthContext';
 
 const FiveXCEO = () => {
+  const { user } = useAuth();
   const [activeView, setActiveView] = useState<'MyCEO' | '5xCEO'>('5xCEO');
   const [selectedCategory, setSelectedCategory] = useState<FrameworkCategory | null>(null);
   const [selectedCompany, setSelectedCompany] = useState("GlobalSolutions");
+  const [comparisonCompany, setComparisonCompany] = useState<string | null>(null);
   const [frameworkCategories, setFrameworkCategories] = useState<FrameworkCategory[]>(defaultFrameworkCategories);
+  const [selectedPeriod, setSelectedPeriod] = useState("Q1 2025");
+
+  // Check if user is PE & BOD or ADMIN to show comparison feature
+  const canCompare = user?.role === 'PE & BOD' || user?.role === 'ADMIN';
 
   // Get available companies from mock data
   const availableCompanies = mockCompanies.map(company => company.name);
@@ -22,6 +32,11 @@ const FiveXCEO = () => {
   // Handle company change
   const handleCompanyChange = (company: string) => {
     setSelectedCompany(company);
+    
+    // Clear comparison company if the same as selected company
+    if (comparisonCompany === company) {
+      setComparisonCompany(null);
+    }
     
     // Create a copy of the framework categories and update the company and scores
     const selectedCompanyData = mockCompanies.find(c => c.name === company);
@@ -38,6 +53,11 @@ const FiveXCEO = () => {
       
       setFrameworkCategories(updatedCategories);
     }
+  };
+  
+  // Handle comparison company change
+  const handleComparisonChange = (company: string) => {
+    setComparisonCompany(company === "none" ? null : company);
   };
 
   // Helper function to get the score for a specific category from company data
@@ -148,6 +168,31 @@ const FiveXCEO = () => {
                     </SelectContent>
                   </Select>
                 </div>
+                
+                {canCompare && (
+                  <div>
+                    <label className="text-sm text-neutral-500 font-medium mb-1 block">Comparison:</label>
+                    <Select 
+                      value={comparisonCompany || "none"} 
+                      onValueChange={handleComparisonChange}
+                    >
+                      <SelectTrigger className="h-9 w-[200px]">
+                        <SelectValue placeholder="Compare with..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">None</SelectItem>
+                        {availableCompanies
+                          .filter(company => company !== selectedCompany)
+                          .map((company) => (
+                            <SelectItem key={company} value={company}>
+                              {company}
+                            </SelectItem>
+                          ))
+                        }
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
               </div>
               <div className="flex items-center space-x-3">
                 <label htmlFor="quarterSelect" className="text-sm text-neutral-500 font-medium">Quarter:</label>
