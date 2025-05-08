@@ -34,8 +34,8 @@ export default function Dashboard() {
       ]
     : user?.role === 'LEADERSHIP TEAM'
     ? [
-        { value: "compare", label: "Compare" },
-        { value: "company", label: "Company" }
+        { value: "company", label: "Company" },
+        { value: "compare", label: "Compare" }
       ]
     : [
         { value: "company", label: "Company" },
