@@ -22,8 +22,8 @@ export default function Comparisons() {
   const [selectedCompanies, setSelectedCompanies] = useState<CompanyData[]>([]);
   const [isComparisonOpen, setIsComparisonOpen] = useState(false);
 
-  // Check if user is PE & BOD
-  const isPortfolioUser = user?.role === 'PE & BOD';
+  // Check if user is PE & BOD or ADMIN
+  const isPortfolioUser = user?.role === 'PE & BOD' || user?.role === 'ADMIN';
 
   // Fetch companies data (using mock for now)
   const { data: companies = [], isLoading } = useQuery({
@@ -117,7 +117,7 @@ export default function Comparisons() {
               <h2 className="text-xl font-semibold text-yellow-800">Access Restricted</h2>
               <p className="text-yellow-700 max-w-md">
                 Comparative insights are only available at the portfolio level. 
-                Please log in with a PE & BOD account to access benchmarking across companies.
+                Please log in with a PE & BOD or ADMIN account to access benchmarking across companies.
               </p>
               
               <div className="flex items-center justify-center mt-4 gap-2 bg-white p-4 rounded-lg border border-yellow-200 w-full max-w-md">
