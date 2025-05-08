@@ -725,7 +725,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
             <Card>
               <CardHeader>
                 <CardTitle>
-                  {currentViewLevel === "holding" ? "Company Performance" : "Framework Performance"}
+                  {currentViewLevel === "holding" || currentViewLevel === "all" ? "Company Performance" : "Framework Performance"}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -753,8 +753,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                         <div className="text-center py-2 text-neutral-500">No team data available</div>
                       )}
                     </div>
-                  ) : (
-                    // For holding view - show top and bottom companies
+                  ) : currentViewLevel === "holding" || currentViewLevel === "all" ? (
+                    // For holding and all survey takers view - show top and bottom companies
                     <>
                       <div>
                         <h3 className="text-md font-medium text-green-600 mb-2">
@@ -779,6 +779,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                         ))}
                       </div>
                     </>
+                  ) : (
+                    // For other views - default
+                    <div className="text-center py-2 text-neutral-500">No performance data available</div>
                   )}
                 </div>
               </CardContent>
@@ -906,8 +909,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
               <div className="mb-2 text-sm font-medium">
                 Question scores for {selectedCategory}
               </div>
-            ) : currentViewLevel === "holding" ? (
-              // Three tabs for holding view
+            ) : currentViewLevel === "holding" || currentViewLevel === "all" ? (
+              // Three tabs for holding and all survey takers view
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="primary">Companies</TabsTrigger>
                 <TabsTrigger value="secondary">Teams</TabsTrigger>
@@ -972,8 +975,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                       </TableRow>
                     ))}
                     
-                    {/* Show company scores in holding view primary tab */}
-                    {currentViewLevel === "holding" && companyScores.map((item, index) => (
+                    {/* Show company scores in holding and all view primary tab */}
+                    {(currentViewLevel === "holding" || currentViewLevel === "all") && companyScores.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell className="font-medium">{item.company}</TableCell>
                         <TableCell className="text-right">
@@ -1004,7 +1007,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                         </TableCell>
                       </TableRow>
                     )}
-                    {currentViewLevel === "holding" && companyScores.length === 0 && (
+                    {(currentViewLevel === "holding" || currentViewLevel === "all") && companyScores.length === 0 && (
                       <TableRow>
                         <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
                           No company data available
@@ -1022,7 +1025,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      {currentViewLevel === "holding" ? (
+                      {currentViewLevel === "holding" || currentViewLevel === "all" ? (
                         <TableHead>Team/Role</TableHead>
                       ) : (
                         <TableHead>Question</TableHead>
@@ -1031,8 +1034,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {/* In holding view, secondary tab shows teams/roles across all companies */}
-                    {currentViewLevel === "holding" && teamScores.map((item, index) => (
+                    {/* In holding and all survey takers view, secondary tab shows teams/roles across all companies */}
+                    {(currentViewLevel === "holding" || currentViewLevel === "all") && teamScores.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell className="font-medium">{item.role}</TableCell>
                         <TableCell className="text-right">
@@ -1068,7 +1071,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                     }
                     
                     {/* Show "no data" messages */}
-                    {currentViewLevel === "holding" && teamScores.length === 0 && (
+                    {(currentViewLevel === "holding" || currentViewLevel === "all") && teamScores.length === 0 && (
                       <TableRow>
                         <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
                           No team data available
@@ -1087,9 +1090,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
               </div>
             </TabsContent>
             
-            {/* Tertiary tab content - questions tab in holding view */}
+            {/* Tertiary tab content - questions tab in holding and all view */}
             <TabsContent value="tertiary" className="mt-4">
-              {currentViewLevel === "holding" && (
+              {(currentViewLevel === "holding" || currentViewLevel === "all") && (
                 <div className="overflow-y-auto max-h-[60vh]">
                   <Table>
                     <TableHeader>
