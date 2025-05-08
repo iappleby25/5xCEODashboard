@@ -95,8 +95,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     const categoryKey = getCategoryKey(category);
     
     if (categoryKey) {
-      // Create a Map to store unique companies with their scores
-      const companyScoreMap = new Map<string, number>();
+      // Create a Map to store companies with their score totals and counts
+      const companyScoreMap = new Map<string, { total: number; count: number }>();
       
       // Populate the map with company names and scores
       filteredData
@@ -105,20 +105,27 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           const companyName = item.companyName;
           const score = item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0;
           
-          // If company already exists in map, we keep the highest score
+          // Calculate running total and count for average
           if (companyScoreMap.has(companyName)) {
-            const existingScore = companyScoreMap.get(companyName) || 0;
-            if (score > existingScore) {
-              companyScoreMap.set(companyName, score);
-            }
+            const current = companyScoreMap.get(companyName)!;
+            companyScoreMap.set(companyName, {
+              total: current.total + score,
+              count: current.count + 1
+            });
           } else {
-            companyScoreMap.set(companyName, score);
+            companyScoreMap.set(companyName, {
+              total: score,
+              count: 1
+            });
           }
         });
       
-      // Convert map to array and sort
+      // Convert map to array, calculate averages, and sort
       const scores = Array.from(companyScoreMap.entries())
-        .map(([company, score]) => ({ company, score }))
+        .map(([company, { total, count }]) => ({ 
+          company, 
+          score: Math.round(total / count) // Calculate average score
+        }))
         .sort((a, b) => b.score - a.score); // Sort highest to lowest
       
       setSelectedCategory(category);
@@ -567,9 +574,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{selectedCategory} Scores by Company</DialogTitle>
+            <DialogTitle>{selectedCategory} Average Scores by Company</DialogTitle>
             <DialogDescription>
-              Click on any bar in the chart to view detailed scores for each company.
+              Shows average scores across all roles for each company for the selected framework category.
             </DialogDescription>
           </DialogHeader>
           <div className="overflow-y-auto max-h-[60vh]">
