@@ -326,33 +326,34 @@ const FiveXCEO = () => {
         </motion.div>
 
         {/* Analysis Area with Company Selection */}
-        <motion.div variants={itemVariants} className="mb-8">
-          <div className="bg-white p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Company Compare</h2>
-            
-            {/* Duplicate company selection for the analysis area */}
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 border-b pb-4 border-neutral-200">
-              <div className="flex flex-col md:flex-row md:items-center gap-3">
-                <div>
-                  <label className="text-sm text-neutral-500 font-medium mb-1 block">Company:</label>
-                  <Select 
-                    value={selectedCompany} 
-                    onValueChange={handleCompanyChange}
-                  >
-                    <SelectTrigger className="h-9 w-[200px]">
-                      <SelectValue placeholder="Select company" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {availableCompanies.map((company) => (
-                        <SelectItem key={company} value={company}>
-                          {company}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                {canCompare && (
+        {/* Company Compare Section - Only visible for PE & BOD and ADMIN users */}
+        {canCompare && (
+          <motion.div variants={itemVariants} className="mb-8">
+            <div className="bg-white p-4 rounded-xl shadow-md">
+              <h2 className="text-xl font-semibold mb-4">Company Compare</h2>
+              
+              {/* Duplicate company selection for the analysis area */}
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 border-b pb-4 border-neutral-200">
+                <div className="flex flex-col md:flex-row md:items-center gap-3">
+                  <div>
+                    <label className="text-sm text-neutral-500 font-medium mb-1 block">Company:</label>
+                    <Select 
+                      value={selectedCompany} 
+                      onValueChange={handleCompanyChange}
+                    >
+                      <SelectTrigger className="h-9 w-[200px]">
+                        <SelectValue placeholder="Select company" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {availableCompanies.map((company) => (
+                          <SelectItem key={company} value={company}>
+                            {company}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
                   <div>
                     <label className="text-sm text-neutral-500 font-medium mb-1 block">Comparison:</label>
                     <Select 
@@ -375,64 +376,124 @@ const FiveXCEO = () => {
                       </SelectContent>
                     </Select>
                   </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <label htmlFor="analysisQuarterSelect" className="text-sm text-neutral-500 font-medium">Quarter:</label>
+                  <select 
+                    id="analysisQuarterSelect" 
+                    className="px-3 py-1 text-sm border border-neutral-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    value={selectedPeriod}
+                    onChange={(e) => setSelectedPeriod(e.target.value)}
+                  >
+                    <option value="Q1 2023">Q1 2023</option>
+                    <option value="Q2 2023">Q2 2023</option>
+                    <option value="Q3 2023">Q3 2023</option>
+                    <option value="Q4 2023">Q4 2023</option>
+                    <option value="Q1 2024">Q1 2024</option>
+                    <option value="Q2 2024">Q2 2024</option>
+                    <option value="Q3 2024">Q3 2024</option>
+                    <option value="Q4 2024">Q4 2024</option>
+                    <option value="Q1 2025">Q1 2025</option>
+                  </select>
+                </div>
+              </div>
+              
+              {/* Category Analysis specific to the selected category */}
+              <div className="mb-8">
+                {selectedAnalysisCategory && (
+                  <CategoryAnalysis 
+                    category={selectedAnalysisCategory}
+                    company={selectedCompany}
+                    period={selectedPeriod}
+                    comparisonCompany={comparisonCompany || undefined}
+                  />
                 )}
               </div>
-              <div className="flex items-center space-x-3">
-                <label htmlFor="analysisQuarterSelect" className="text-sm text-neutral-500 font-medium">Quarter:</label>
-                <select 
-                  id="analysisQuarterSelect" 
-                  className="px-3 py-1 text-sm border border-neutral-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                  value={selectedPeriod}
-                  onChange={(e) => setSelectedPeriod(e.target.value)}
-                >
-                  <option value="Q1 2023">Q1 2023</option>
-                  <option value="Q2 2023">Q2 2023</option>
-                  <option value="Q3 2023">Q3 2023</option>
-                  <option value="Q4 2023">Q4 2023</option>
-                  <option value="Q1 2024">Q1 2024</option>
-                  <option value="Q2 2024">Q2 2024</option>
-                  <option value="Q3 2024">Q3 2024</option>
-                  <option value="Q4 2024">Q4 2024</option>
-                  <option value="Q1 2025">Q1 2025</option>
-                </select>
-              </div>
-            </div>
-            
-            {/* Category Analysis specific to the selected category */}
-            <div className="mb-8">
-              {selectedAnalysisCategory && (
-                <CategoryAnalysis 
-                  category={selectedAnalysisCategory}
-                  company={selectedCompany}
-                  period={selectedPeriod}
-                  comparisonCompany={comparisonCompany || undefined}
-                />
+              
+              {/* Comparison Analysis - only show if comparison company is selected */}
+              {comparisonCompany && (
+                <div className="mt-8">
+                  {(() => {
+                    const mainCompanyData = mockCompanies.find(c => c.name === selectedCompany);
+                    const comparisonCompanyData = mockCompanies.find(c => c.name === comparisonCompany);
+                    
+                    if (mainCompanyData && comparisonCompanyData) {
+                      return (
+                        <FocusEffectivenessComparison
+                          primaryCompany={mainCompanyData.name}
+                          comparisonCompany={comparisonCompanyData.name}
+                          period={selectedPeriod}
+                          selectedCategory={selectedAnalysisCategory || 'strategic-clarity'}
+                        />
+                      );
+                    }
+                    return null;
+                  })()}
+                </div>
               )}
             </div>
-            
-            {/* Comparison Analysis - only show if comparison company is selected */}
-            {comparisonCompany && (
-              <div className="mt-8">
-                {(() => {
-                  const mainCompanyData = mockCompanies.find(c => c.name === selectedCompany);
-                  const comparisonCompanyData = mockCompanies.find(c => c.name === comparisonCompany);
-                  
-                  if (mainCompanyData && comparisonCompanyData) {
-                    return (
-                      <FocusEffectivenessComparison
-                        primaryCompany={mainCompanyData.name}
-                        comparisonCompany={comparisonCompanyData.name}
-                        period={selectedPeriod}
-                        selectedCategory={selectedAnalysisCategory || 'strategic-clarity'}
-                      />
-                    );
-                  }
-                  return null;
-                })()}
+          </motion.div>
+        )}
+        
+        {/* Company Analysis Section - For CEO and LEADERSHIP TEAM users */}
+        {!canCompare && (
+          <motion.div variants={itemVariants} className="mb-8">
+            <div className="bg-white p-4 rounded-xl shadow-md">
+              <h2 className="text-xl font-semibold mb-4">Company Analysis</h2>
+              
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 border-b pb-4 border-neutral-200">
+                <div>
+                  <label className="text-sm text-neutral-500 font-medium mb-1 block">Company:</label>
+                  <Select 
+                    value={selectedCompany} 
+                    onValueChange={handleCompanyChange}
+                  >
+                    <SelectTrigger className="h-9 w-[200px]">
+                      <SelectValue placeholder="Select company" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableCompanies.map((company) => (
+                        <SelectItem key={company} value={company}>
+                          {company}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <label htmlFor="singleCompanyQuarterSelect" className="text-sm text-neutral-500 font-medium">Quarter:</label>
+                  <select 
+                    id="singleCompanyQuarterSelect" 
+                    className="px-3 py-1 text-sm border border-neutral-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    value={selectedPeriod}
+                    onChange={(e) => setSelectedPeriod(e.target.value)}
+                  >
+                    <option value="Q1 2023">Q1 2023</option>
+                    <option value="Q2 2023">Q2 2023</option>
+                    <option value="Q3 2023">Q3 2023</option>
+                    <option value="Q4 2023">Q4 2023</option>
+                    <option value="Q1 2024">Q1 2024</option>
+                    <option value="Q2 2024">Q2 2024</option>
+                    <option value="Q3 2024">Q3 2024</option>
+                    <option value="Q4 2024">Q4 2024</option>
+                    <option value="Q1 2025">Q1 2025</option>
+                  </select>
+                </div>
               </div>
-            )}
-          </div>
-        </motion.div>
+              
+              {/* Single Company Analysis */}
+              <div className="mb-8">
+                {selectedAnalysisCategory && (
+                  <CategoryAnalysis 
+                    category={selectedAnalysisCategory}
+                    company={selectedCompany}
+                    period={selectedPeriod}
+                  />
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
       </motion.div>
 
       {/* Panel View Modal */}
