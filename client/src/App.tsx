@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import AppShell from "@/components/AppShell";
 import Dashboard from "@/pages/Dashboard";
 import UploadData from "@/pages/UploadData";
-import History from "@/pages/History";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
@@ -60,9 +59,6 @@ function Router() {
       </Route>
       <Route path="/upload">
         {(params) => <PrivateRoute component={UploadData} path="/upload" />}
-      </Route>
-      <Route path="/history">
-        {(params) => <PrivateRoute component={History} path="/history" />}
       </Route>
       <Route path="/5xCEO">
         {(params) => <PrivateRoute component={FiveXCEO} path="/5xCEO" />}

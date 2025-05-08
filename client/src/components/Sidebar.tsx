@@ -111,28 +111,12 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                   Upload Data
                 </Link>
               </li>
-              <li>
-                <Link 
-                  href="/history" 
-                  onClick={isMobile ? onClose : undefined}
-                  className={linkClasses("/history")}
-                >
-                  <Clock className="mr-3 h-4 w-4" />
-                  History
-                </Link>
-              </li>
             </ul>
           </li>
           
           <li className="mt-8 px-2">
             <span className="px-4 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wider">Analysis</span>
             <ul className="mt-2 space-y-1">
-              <li>
-                <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-neutral-600 hover:bg-neutral-100">
-                  <BarChart4 className="mr-3 h-4 w-4" />
-                  Reports
-                </a>
-              </li>
               {isPeBod && (
                 <li>
                   <Link 
