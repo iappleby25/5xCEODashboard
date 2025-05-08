@@ -260,14 +260,50 @@ const MyCEO = () => {
               <>
                 <motion.div variants={itemVariants} className="mb-4 mt-8">
                   <div className="flex justify-between items-center">
-                    <h2 className="text-2xl font-semibold text-neutral-900">Company Compare</h2>
+                    <div>
+                      <h2 className="text-2xl font-semibold text-neutral-900">
+                        {(() => {
+                          // Dynamically change the title based on selected category
+                          switch (selectedAnalysisCategory) {
+                            case 'strategic-clarity':
+                              return 'Strategic Clarity Comparison';
+                            case 'scalable-talent':
+                              return 'Talent Scalability Comparison';
+                            case 'relentless-focus':
+                              return 'Focus Effectiveness Comparison';
+                            case 'disciplined-execution':
+                              return 'Execution Impact Comparison';
+                            case 'energized-culture':
+                              return 'Culture Value Comparison';
+                            default:
+                              return 'Company Compare';
+                          }
+                        })()}
+                      </h2>
+                      <p className="text-neutral-600 mt-1">
+                        {(() => {
+                          // Dynamically change the description based on selected category
+                          switch (selectedAnalysisCategory) {
+                            case 'strategic-clarity':
+                              return 'Comparing vision alignment and strategic decision-making between companies';
+                            case 'scalable-talent':
+                              return 'Comparing talent development and organizational capacity';
+                            case 'relentless-focus':
+                              return 'Comparing prioritization and resource allocation efficiency';
+                            case 'disciplined-execution':
+                              return 'Comparing operational efficiency and execution quality';
+                            case 'energized-culture':
+                              return 'Comparing cultural health and employee engagement metrics';
+                            default:
+                              return 'Compare performance metrics between companies across the selected framework category';
+                          }
+                        })()}
+                      </p>
+                    </div>
                     <div className="text-sm text-neutral-500">
                       Data for Q1 2023
                     </div>
                   </div>
-                  <p className="text-neutral-600 mt-1">
-                    Compare performance metrics between companies across the selected framework category
-                  </p>
                 </motion.div>
                 
                 {/* Comparison Component */}
