@@ -21,7 +21,14 @@ export default function Dashboard() {
   // Now we allow them to access the Dashboard as well
   
   // Define view levels for the filter based on user role (order flipped as requested)
-  const viewLevels: ViewLevel[] = (user?.role === 'PE & BOD' || user?.role === 'ADMIN')
+  const viewLevels: ViewLevel[] = user?.role === 'ADMIN'
+    ? [
+        { value: "all", label: "All Survey Takers" },
+        { value: "holding", label: "Holding" },
+        { value: "company", label: "Company" },
+        { value: "team", label: "Team" }
+      ]
+    : user?.role === 'PE & BOD'
     ? [
         { value: "holding", label: "Holding" },
         { value: "company", label: "Company" },
@@ -163,10 +170,19 @@ export default function Dashboard() {
       return;
     }
     
+    // For non-ADMIN users, prevent setting view level to all
+    if (value === "all" && user?.role !== "ADMIN") {
+      return;
+    }
+    
     setCurrentViewLevel(value as ViewLevelType);
     
     // Set appropriate defaults based on view level
-    if (value === "holding") {
+    if (value === "all") {
+      // Reset both company and role when in all view
+      setSelectedCompany(undefined);
+      setSelectedRole(undefined);
+    } else if (value === "holding") {
       // Reset both company and role when in holding view
       setSelectedCompany(undefined);
       setSelectedRole(undefined);

@@ -1,5 +1,5 @@
 // Define types for our data
-export type ViewLevelType = "team" | "company" | "holding" | "compare";
+export type ViewLevelType = "team" | "company" | "holding" | "compare" | "all";
 
 // Company score categories based on the 5xCEO framework
 export interface CompanyScores {
@@ -48,6 +48,11 @@ export function filterSurveyData(
   if (!data || data.length === 0) return [];
 
   let filtered = [...data];
+  
+  // For "all" view level, return all data (for admin only)
+  if (viewLevel === "all") {
+    return filtered;
+  }
 
   // Apply company filter if applicable based on view level
   if ((viewLevel === "company" || viewLevel === "team" || viewLevel === "compare") && company) {
