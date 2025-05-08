@@ -320,63 +320,196 @@ const PanelView: React.FC<PanelViewProps> = ({
             </div>
           </div>
           
-          {/* Dual Axis Performance Mockup - With more compelling and impactful language */}
+          {/* Improved visualization section with multiple data-rich visualizations */}
           <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
-            <h3 className="text-lg font-semibold mb-3">Performance Impact</h3>
-            
-            <div className="company-name text-center font-medium text-neutral-700 mb-4">
-              {category.company || "ABC Company"}
-            </div>
-            
-            <div className="grid grid-cols-2 gap-6">
-              <div className="flex flex-col">
-                <h4 className="text-sm font-medium text-center mb-1">Current State</h4>
-                <p className="text-xs text-center mb-2 text-neutral-500">
-                  {category.id === 'strategic-clarity' && "Competitive limitations"}
-                  {category.id === 'relentless-focus' && "Resource dilution"}
-                  {category.id === 'disciplined-execution' && "Missed opportunities"}
-                  {category.id === 'scalable-talent' && "Talent drag"}
-                  {category.id === 'energized-culture' && "Silent disengagement"}
-                  {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && "Performance gap"}
-                </p>
-                <div className="bg-gray-50 rounded-lg p-4 h-32 flex items-center justify-center">
-                  <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center border-4 border-gray-300">
-                    <span className="text-2xl font-bold text-gray-700">{category.score}%</span>
-                  </div>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold">
+                {category.id === 'strategic-clarity' && "Strategic Impact Analysis"}
+                {category.id === 'relentless-focus' && "Focus Effectiveness Analysis"}
+                {category.id === 'disciplined-execution' && "Execution Impact Analysis"}
+                {category.id === 'scalable-talent' && "Talent Optimization Analysis"}
+                {category.id === 'energized-culture' && "Culture Value Analysis"}
+                {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && "Business Impact Analysis"}
+              </h3>
+              <div className="flex items-center gap-2">
+                <span className="text-xs bg-gray-100 px-2 py-1 rounded text-neutral-600">Q1 2025</span>
+                <div className="company-name font-medium text-neutral-700">
+                  {category.company || "GlobalSolutions"}
                 </div>
-                <p className="text-xs mt-2 text-center text-neutral-500 px-2">
-                  {category.id === 'strategic-clarity' && "Unclear priorities costing an estimated $1.2M in misdirected effort annually"}
-                  {category.id === 'relentless-focus' && "Scattered resources leading to 32% capacity waste on low-value activities"}
-                  {category.id === 'disciplined-execution' && "Delayed timelines costing approximately $850K in lost market opportunities"}
-                  {category.id === 'scalable-talent' && "Talent gaps creating ~$2.3M in productivity losses and recruitment costs"}
-                  {category.id === 'energized-culture' && "Engagement issues driving 24% higher turnover than industry benchmark"}
-                  {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && "Performance challenges creating measurable business impact"}
-                </p>
               </div>
-              
-              <div className="flex flex-col">
-                <h4 className="text-sm font-medium text-center mb-1">Transformed State</h4>
-                <p className="text-xs text-center mb-2 text-neutral-500">
-                  {category.id === 'strategic-clarity' && "Unlocked potential"}
-                  {category.id === 'relentless-focus' && "Optimal resource alignment"}
-                  {category.id === 'disciplined-execution' && "Value maximization"}
-                  {category.id === 'scalable-talent' && "Talent acceleration"}
-                  {category.id === 'energized-culture' && "Peak engagement"}
-                  {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && "Optimized performance"}
-                </p>
-                <div className="bg-gray-50 rounded-lg p-4 h-32 flex items-center justify-center">
-                  <div className="w-24 h-24 rounded-full bg-amber-400 flex items-center justify-center border-4 border-amber-300 shadow-lg">
-                    <span className="text-2xl font-bold text-white">{Math.min(100, Math.round(category.score * 1.25))}%</span>
+            </div>
+
+            {/* Trend & Benchmark Section */}
+            <div className="grid grid-cols-1 gap-4 mb-5">
+              <div className="border border-gray-200 rounded-lg p-4">
+                <h4 className="text-sm font-medium mb-3">Performance Trajectory</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-1/2">
+                    <div className="relative h-24 flex items-end gap-1 pt-5 pb-1">
+                      {/* Simple bar chart showing score trend over last 4 quarters */}
+                      <div className="w-1/4 bg-gray-200 relative h-[60%] flex flex-col justify-end items-center">
+                        <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '65%', opacity: 0.7 }}></div>
+                        <span className="text-[10px] font-medium absolute -bottom-5">Q2</span>
+                      </div>
+                      <div className="w-1/4 bg-gray-200 relative h-[70%] flex flex-col justify-end items-center">
+                        <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '70%', opacity: 0.8 }}></div>
+                        <span className="text-[10px] font-medium absolute -bottom-5">Q3</span>
+                      </div>
+                      <div className="w-1/4 bg-gray-200 relative h-[78%] flex flex-col justify-end items-center">
+                        <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: '78%', opacity: 0.9 }}></div>
+                        <span className="text-[10px] font-medium absolute -bottom-5">Q4</span>
+                      </div>
+                      <div className="w-1/4 bg-gray-200 relative h-[85%] flex flex-col justify-end items-center">
+                        <div className={`${colors.accent} w-full absolute bottom-0`} style={{ height: `${category.score}%` }}></div>
+                        <span className="text-[10px] font-medium absolute -bottom-5">Q1</span>
+                      </div>
+                      {/* Current target line */}
+                      <div className="absolute top-2 left-0 right-0 border-t-2 border-dashed border-amber-400 flex justify-end">
+                        <span className="bg-amber-400 text-white text-[10px] px-1 rounded">Target</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-1/2 pl-6">
+                    <p className="text-sm mb-2">
+                      <span className="font-medium">Trend analysis:</span> <span className="text-green-600">+20%</span> improvement over last 3 quarters
+                    </p>
+                    <p className="text-xs text-neutral-600">
+                      {category.id === 'strategic-clarity' && "Accelerating alignment is creating increasingly visible market advantages"}
+                      {category.id === 'relentless-focus' && "Progressive improvement in prioritization is freeing up strategic resources"}
+                      {category.id === 'disciplined-execution' && "Consistent execution gains are translating to improved delivery predictability"}
+                      {category.id === 'scalable-talent' && "Systematic talent development is reducing capability gaps in critical areas"}
+                      {category.id === 'energized-culture' && "Cultural improvements are driving better retention and team performance"}
+                      {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && "Consistent improvement showing positive trajectory toward target state"}
+                    </p>
                   </div>
                 </div>
-                <p className="text-xs mt-2 text-center text-neutral-600 font-medium px-2">
-                  {category.id === 'strategic-clarity' && `Potential ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% improvement unlocks ~$3.5M in value through aligned execution`}
-                  {category.id === 'relentless-focus' && `Potential ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% improvement releases 25% more capacity for high-value work`}
-                  {category.id === 'disciplined-execution' && `Potential ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% improvement accelerates time-to-market by up to 40%`}
-                  {category.id === 'scalable-talent' && `Potential ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% improvement drives innovation and reduces talent costs by 35%`}
-                  {category.id === 'energized-culture' && `Potential ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% improvement reduces attrition and creates ~$1.8M in retention value`}
-                  {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && `Potential ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% improvement creates substantial business value`}
-                </p>
+              </div>
+            </div>
+
+            {/* Business Impact & Benchmark Comparison Section */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* Left side - Business Impact Metrics */}
+              <div className="border border-gray-200 rounded-lg p-3">
+                <h4 className="text-sm font-medium mb-2">Business Impact Metrics</h4>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex justify-between text-xs mb-1">
+                      <span>{category.id === 'strategic-clarity' ? 'Decision velocity' : 
+                            category.id === 'relentless-focus' ? 'Resource optimization' :
+                            category.id === 'disciplined-execution' ? 'Execution effectiveness' :
+                            category.id === 'scalable-talent' ? 'Talent optimization' :
+                            category.id === 'energized-culture' ? 'Employee engagement' : 'Primary metric'}</span>
+                      <span className="text-emerald-600 font-medium">+{Math.round(category.score / 5)}%</span>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-1.5">
+                      <div className="bg-emerald-500 h-1.5 rounded-full" style={{ width: `${category.score / 2 + 50}%` }}></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-xs mb-1">
+                      <span>{category.id === 'strategic-clarity' ? 'Strategic alignment' : 
+                             category.id === 'relentless-focus' ? 'Project completion rate' :
+                             category.id === 'disciplined-execution' ? 'On-time delivery' :
+                             category.id === 'scalable-talent' ? 'Leadership capability' :
+                             category.id === 'energized-culture' ? 'Innovation index' : 'Secondary metric'}</span>
+                      <span className="text-blue-600 font-medium">+{Math.round(category.score / 6)}%</span>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-1.5">
+                      <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: `${category.score / 2.2 + 45}%` }}></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-xs mb-1">
+                      <span>{category.id === 'strategic-clarity' ? 'Investment efficiency' : 
+                             category.id === 'relentless-focus' ? 'Strategic capacity' :
+                             category.id === 'disciplined-execution' ? 'Quality index' :
+                             category.id === 'scalable-talent' ? 'Retention rate' :
+                             category.id === 'energized-culture' ? 'Team effectiveness' : 'Tertiary metric'}</span>
+                      <span className="text-purple-600 font-medium">+{Math.round(category.score / 7)}%</span>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-1.5">
+                      <div className="bg-purple-500 h-1.5 rounded-full" style={{ width: `${category.score / 2.5 + 40}%` }}></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <div className="bg-amber-50 p-2 rounded border border-amber-200">
+                    <p className="text-xs text-amber-800 font-medium">
+                      {category.id === 'strategic-clarity' && "Total estimated value: $3.5M annual impact through improved execution and market position"}
+                      {category.id === 'relentless-focus' && "Total estimated value: $2.8M through capacity optimization and strategic acceleration"}
+                      {category.id === 'disciplined-execution' && "Total estimated value: $2.9M from market timing advantage and reduced delivery costs"}
+                      {category.id === 'scalable-talent' && "Total estimated value: $2.3M from reduced talent costs and increased innovation value"}
+                      {category.id === 'energized-culture' && "Total estimated value: $1.8M from enhanced retention and productivity gains"}
+                      {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && "Total estimated value: $2.5M+ in combined business impact"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right side - Competitive Benchmark */}
+              <div className="border border-gray-200 rounded-lg p-3">
+                <h4 className="text-sm font-medium mb-2">Competitive Benchmark</h4>
+                <div className="h-[140px] relative">
+                  {/* Simple competitive benchmark comparison */}
+                  <div className="absolute inset-0">
+                    <div className="w-full h-full flex flex-col justify-center space-y-4">
+                      <div className="flex items-center w-full px-1">
+                        <span className="text-xs w-28">Industry Average</span>
+                        <div className="flex-1 pl-2">
+                          <div className="bg-gray-200 rounded-r-full h-4 relative">
+                            <div className="absolute inset-y-0 left-0 bg-neutral-400 rounded-r-full" style={{ width: '65%' }}></div>
+                            <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">65%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center w-full px-1">
+                        <span className="text-xs w-28">Top Quartile</span>
+                        <div className="flex-1 pl-2">
+                          <div className="bg-gray-200 rounded-r-full h-4 relative">
+                            <div className="absolute inset-y-0 left-0 bg-neutral-500 rounded-r-full" style={{ width: '82%' }}></div>
+                            <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">82%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center w-full px-1">
+                        <span className="text-xs w-28">Your Company</span>
+                        <div className="flex-1 pl-2">
+                          <div className="bg-gray-200 rounded-r-full h-4 relative">
+                            <div className={`absolute inset-y-0 left-0 ${colors.accent} rounded-r-full`} style={{ width: `${category.score}%` }}></div>
+                            <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">{category.score}%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center w-full px-1">
+                        <span className="text-xs w-28">Target (2025)</span>
+                        <div className="flex-1 pl-2">
+                          <div className="bg-gray-200 rounded-r-full h-4 relative">
+                            <div className="absolute inset-y-0 left-0 bg-amber-400 rounded-r-full" style={{ width: `${Math.min(100, Math.round(category.score * 1.25))}%` }}></div>
+                            <span className="absolute inset-y-0 right-2 flex items-center text-[10px] font-medium">{Math.min(100, Math.round(category.score * 1.25))}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <div className="bg-amber-50 p-2 rounded border border-amber-200">
+                    <p className="text-xs text-amber-800 font-medium">
+                      {category.id === 'strategic-clarity' && 
+                        `Your organization is outperforming ${Math.round(category.score - 15)}% of your competitors, but there's a critical ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% gap separating you from industry leadership. Companies who close this gap typically see 3-4x greater market share growth in key segments.`}
+                      {category.id === 'relentless-focus' && 
+                        `While you're more focused than ${Math.round(category.score - 15)}% of competitors, the highest-performing organizations are capturing 40% more value from their strategic initiatives. The focus gap is costing you millions in unrealized opportunity.`}
+                      {category.id === 'disciplined-execution' && 
+                        `Your execution velocity exceeds ${Math.round(category.score - 10)}% of the industry, but the execution gap between you and top performers is allowing competitors to respond to market shifts 30% faster. This timing advantage is worth an estimated $4.2M annually.`}
+                      {category.id === 'scalable-talent' && 
+                        `You've built stronger talent systems than ${Math.round(category.score - 5)}% of organizations, but elite companies are generating 2.5x more innovation from their teams. Your talent optimization gap is limiting your competitive ceiling.`}
+                      {category.id === 'energized-culture' && 
+                        `While your culture outperforms ${Math.round(category.score - 12)}% of organizations, the ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% gap to your potential is creating a competitive vulnerability. Top-tier cultures report 44% higher resilience during market disruption.`}
+                      {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && 
+                        `Your performance places you above ${Math.round(category.score - 10)}% of organizations, but the ${Math.min(100, Math.round(category.score * 1.25)) - category.score}% gap to your full potential represents significant unrealized business value. Top performers in this area achieve 35% higher returns.`}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
