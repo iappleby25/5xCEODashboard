@@ -152,9 +152,7 @@ const RadialMenu: React.FC<RadialMenuProps> = ({
             <span className={`mt-1 text-sm ${isHighlightCategory ? 'font-extrabold' : 'font-bold'}`}>
               {category.score}%
             </span>
-            {isHighlightCategory && (
-              <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${colors.accent} animate-pulse`}></div>
-            )}
+{/* Removed animated indicator */}
           </motion.div>
         );
       })}

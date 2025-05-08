@@ -22,61 +22,61 @@ const PanelView: React.FC<PanelViewProps> = ({
   const colorName = getCategoryColor(category.id);
   const interpretation = generateInterpretation(category, viewMode);
   
-  // Helper function to convert color code to Tailwind classes
+  // Helper function to convert color code to Tailwind classes with improved colors
   const getColorClasses = (colorCode: string) => {
     const baseColor = colorCode === '#FF5722' ? 'orange' 
-                    : colorCode === '#4CAF50' ? 'green' 
-                    : colorCode === '#2196F3' ? 'blue' 
-                    : colorCode === '#9C27B0' ? 'purple' 
+                    : colorCode === '#4CAF50' ? 'emerald' 
+                    : colorCode === '#2196F3' ? 'sky' 
+                    : colorCode === '#9C27B0' ? 'violet' 
                     : colorCode === '#FFC107' ? 'amber' 
                     : 'gray';
     
     return {
       bg: `bg-${baseColor}-50`,
       text: `text-${baseColor}-800`,
-      border: `border-${baseColor}-300`,
+      border: `border-${baseColor}-200`,
       accent: `bg-${baseColor}-500`
     };
   };
   
-  // Generate Triple Threat Solutions based on category
+  // Generate Actionable Solutions based on category with more compelling language
   const getTripleThreatSolutions = (categoryId: string) => {
     switch(categoryId) {
       case 'strategic-clarity':
         return [
-          "Create a one-page strategic plan that every employee can understand and reference",
-          "Schedule monthly strategic alignment sessions with all department heads",
-          "Implement a strategic objectives dashboard visible to all team members"
+          "Crystallize Vision: Develop a one-page strategic plan that translates complex goals into clear actions every employee can understand and champion",
+          "Alignment Accelerator: Implement monthly cross-functional strategic sessions that eliminate silos and ensure all departments are moving in perfect concert",
+          "Decision GPS: Create a real-time strategic dashboard that visualizes company-wide progress and empowers teams to make faster, better decisions"
         ];
       case 'relentless-focus':
         return [
-          "Institute a project prioritization matrix that aligns with strategic objectives",
-          "Conduct weekly focus review meetings to eliminate low-value activities",
-          "Use time-tracking analytics to identify and reduce time spent on non-core activities"
+          "Strategic Filter: Build a decision matrix that aligns every project with your core objectives, preventing the dilution of resources on non-essential activities",
+          "Value Maximizer: Establish weekly focus audits that systematically eliminate low-impact work and redirect energy to breakthrough opportunities",
+          "Productivity Spotlight: Deploy time analytics that identify exactly where high-value time is being consumed by low-value activities, increasing overall impact by 30%"
         ];
       case 'disciplined-execution':
         return [
-          "Implement a structured accountability framework with clear owners for each deliverable",
-          "Establish a regular cadence of execution reviews with predefined metrics",
-          "Create a recognition program specifically for execution excellence"
+          "Ownership Architecture: Implement a transparent accountability framework that creates crystal-clear ownership for every critical deliverable",
+          "Execution Rhythm: Establish a cadence of results-focused reviews that use predefined metrics to maintain momentum and catch issues before they become problems",
+          "Impact Recognition: Create a structured program that celebrates execution excellence, reinforcing a culture where follow-through becomes part of your competitive advantage"
         ];
       case 'scalable-talent':
         return [
-          "Develop skill matrices for each role with clear development pathways", 
-          "Implement quarterly capability assessments tied to growth objectives",
-          "Create cross-functional mentoring pairs to accelerate knowledge transfer"
+          "Capability Mapping: Develop role-specific competency matrices with personalized growth pathways that connect individual development to company objectives", 
+          "Growth Pulse Assessments: Implement quarterly capability reviews that identify skill gaps before they become performance issues and link directly to market opportunities",
+          "Knowledge Acceleration Network: Create strategic cross-functional mentoring partnerships that break down silos and transfer critical institutional knowledge 5x faster than traditional methods"
         ];
       case 'energized-culture':
         return [
-          "Launch a structured employee feedback program with action tracking",
-          "Establish team-level culture champions with specific improvement metrics",
-          "Create regular team-building activities aligned with company values"
+          "Engagement Ecosystem: Launch a structured feedback system that not only captures sentiment but transforms insights into concrete actions that visibly improve working conditions",
+          "Culture Accelerators: Establish team-level champions with specific metrics who serve as catalysts for cultural transformation and accountability",
+          "Values in Action: Design team experiences that transform abstract company values into lived experiences, strengthening emotional connection and reducing turnover by up to 40%"
         ];
       default:
         return [
-          "Establish clear metrics to track progress in this area",
-          "Schedule regular review sessions to evaluate improvement",
-          "Designate a champion to lead initiatives in this category"
+          "Performance Visibility: Establish metrics that connect this area directly to business outcomes, making progress transparent and meaningful",
+          "Momentum System: Create a structured review cadence that maintains focus and drives continuous improvement through regular accountability",
+          "Change Catalyst: Appoint a dedicated champion who owns transformation in this area, ensuring initiatives receive the attention and resources they deserve"
         ];
     }
   };
@@ -215,14 +215,40 @@ const PanelView: React.FC<PanelViewProps> = ({
           className="space-y-4"
           variants={itemVariants}
         >
-          {/* Triple Threat Solution Section - Improved to match the screenshot */}
+          {/* Solution Blueprint Section */}
           <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
             <div className="flex justify-between items-center mb-3">
-              <h3 className="text-lg font-semibold">Triple Threat Solution</h3>
+              <h3 className="text-lg font-semibold">
+                {category.id === 'strategic-clarity' && "Vision Acceleration Blueprint"}
+                {category.id === 'relentless-focus' && "Priority Optimization Blueprint"}
+                {category.id === 'disciplined-execution' && "Execution Excellence Blueprint"}
+                {category.id === 'scalable-talent' && "Talent Acceleration Blueprint"}
+                {category.id === 'energized-culture' && "Culture Transformation Blueprint"}
+                {category.id !== 'strategic-clarity' && 
+                 category.id !== 'relentless-focus' && 
+                 category.id !== 'disciplined-execution' && 
+                 category.id !== 'scalable-talent' && 
+                 category.id !== 'energized-culture' && "Performance Optimization Blueprint"}
+              </h3>
               <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-800">GPT-Powered</span>
             </div>
             <p className="text-sm text-neutral-600 mb-4">
-              Based on current performance, focus on {category.name.toLowerCase()} initiatives that will drive business growth and team alignment.
+              {category.id === 'strategic-clarity' && 
+                "Your strategic clarity gap is costing you market share. This blueprint provides targeted interventions that will align your organization and accelerate decision-making."}
+              {category.id === 'relentless-focus' && 
+                "Diluted focus is draining your resources. These precision interventions will eliminate distractions and concentrate your team's energy on your highest-impact opportunities."}
+              {category.id === 'disciplined-execution' && 
+                "Execution inconsistency is undermining your strategy. These interventions will transform intentions into measurable outcomes through systematic accountability."}
+              {category.id === 'scalable-talent' && 
+                "Your talent gap is costing you millions in unrealized potential. This blueprint will unlock hidden capabilities and create sustainable competitive advantage."}
+              {category.id === 'energized-culture' && 
+                "Cultural erosion is silently driving talent loss. These targeted interventions will transform engagement and create an environment where innovation thrives."}
+              {category.id !== 'strategic-clarity' && 
+               category.id !== 'relentless-focus' && 
+               category.id !== 'disciplined-execution' && 
+               category.id !== 'scalable-talent' && 
+               category.id !== 'energized-culture' && 
+                "Based on current performance, these focused interventions will drive significant improvement in outcomes and competitive positioning."}
             </p>
             <div className="space-y-3">
               {tripleThreatSolutions.map((solution, index) => (
