@@ -606,122 +606,56 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
             <CardTitle>Framework Score Analysis</CardTitle>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="mb-4">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="comparative">Radar View</TabsTrigger>
-                <TabsTrigger value="trends">Distribution</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="overview">
-                <div className="mb-6">
-                  <h3 className="text-lg font-medium mb-2">5xCEO Score Distribution</h3>
-                  <div className="h-[350px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart
-                        data={prepareBarChartData()}
-                        margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis 
-                          dataKey="name" 
-                          angle={0} 
-                          interval={0}
-                          height={60}
-                          tick={(props) => {
-                            const { x, y, payload } = props;
-                            const words = payload.value.split(' ');
-                            return (
-                              <g transform={`translate(${x},${y})`}>
-                                {words.map((word: string, index: number) => (
-                                  <text
-                                    key={index}
-                                    x={0}
-                                    y={0}
-                                    dy={14 + index * 12}
-                                    textAnchor="middle"
-                                    fill="#666"
-                                    fontSize={12}
-                                  >
-                                    {word}
-                                  </text>
-                                ))}
-                              </g>
-                            );
-                          }}
-                        />
-                        <YAxis domain={[0, 100]} />
-                        <Tooltip formatter={(value) => [`${value}%`, 'Score']} />
-                        <Legend />
-                        <Bar 
-                          dataKey="value" 
-                          fill="#2563eb" 
-                          name="Score (%)" 
-                          onClick={handleBarClick}
-                          cursor="pointer"
-                        />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="comparative">
-                <div className="mb-6">
-                  <h3 className="text-lg font-medium mb-2">5xCEO Score Radar</h3>
-                  <div className="h-[350px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart 
-                        cx="50%" 
-                        cy="50%" 
-                        outerRadius="80%" 
-                        data={getRadarData()}
-                      >
-                        <PolarGrid />
-                        <PolarAngleAxis dataKey="subject" />
-                        <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                        <Radar
-                          name="Average Scores"
-                          dataKey="value"
-                          stroke="#2563eb"
-                          fill="#2563eb"
-                          fillOpacity={0.6}
-                        />
-                        <Tooltip formatter={(value) => [`${value}%`, 'Score']} />
-                        <Legend />
-                      </RadarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="trends">
-                <div className="mb-6">
-                  <h3 className="text-lg font-medium mb-2">Score Distribution</h3>
-                  <div className="h-[350px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={preparePieChartData()}
-                          cx="50%"
-                          cy="50%"
-                          labelLine={true}
-                          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                          outerRadius={120}
-                          fill="#8884d8"
-                          dataKey="value"
-                        >
-                          {preparePieChartData().map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip formatter={(value) => [`${value}%`, 'Score']} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-2">5xCEO Framework Scores</h3>
+              <div className="h-[400px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={prepareBarChartData()}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis 
+                      dataKey="name" 
+                      angle={0} 
+                      interval={0}
+                      height={60}
+                      tick={(props) => {
+                        const { x, y, payload } = props;
+                        const words = payload.value.split(' ');
+                        return (
+                          <g transform={`translate(${x},${y})`}>
+                            {words.map((word: string, index: number) => (
+                              <text
+                                key={index}
+                                x={0}
+                                y={0}
+                                dy={14 + index * 12}
+                                textAnchor="middle"
+                                fill="#666"
+                                fontSize={12}
+                              >
+                                {word}
+                              </text>
+                            ))}
+                          </g>
+                        );
+                      }}
+                    />
+                    <YAxis domain={[0, 100]} />
+                    <Tooltip formatter={(value) => [`${value}%`, 'Score']} />
+                    <Legend />
+                    <Bar 
+                      dataKey="value" 
+                      fill="#2563eb" 
+                      name="Score (%)" 
+                      onClick={handleBarClick}
+                      cursor="pointer"
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           </CardContent>
         </Card>
       )}
