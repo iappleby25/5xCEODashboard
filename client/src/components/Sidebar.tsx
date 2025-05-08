@@ -168,10 +168,14 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50">
+                  <Link 
+                    href="/admin/data-configuration" 
+                    onClick={isMobile ? onClose : undefined}
+                    className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50"
+                  >
                     <BarChart4 className="mr-3 h-4 w-4" />
                     Data Configuration
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className="flex items-center px-4 py-2 text-sm rounded-md text-purple-600 hover:bg-purple-50">
