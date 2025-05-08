@@ -9,7 +9,7 @@ import DetailedAnalysis from "@/components/DetailedAnalysis";
 import AiInsightsView from "@/components/AiInsightsView";
 import { filterSurveyData, getUniqueCompanies, getUniqueRoles, SurveyData, ViewLevelType } from "@/lib/dataProcessor";
 import { useQuery } from "@tanstack/react-query";
-import { mockCompanies, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
+import { mockCompanies, getMockSurveyData, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
 import { useAuth } from "@/context/AuthContext";
 import { useLocation } from "wouter";
 
@@ -77,10 +77,21 @@ export default function Dashboard() {
     logo: company.logo
   }));
 
-  // Combine both survey data sources to ensure we have all companies
-  const combinedMockSurveyData = [...allMockSurveyData, ...convertedMockSurveyData.filter(
-    item => !allMockSurveyData.some(existingItem => existingItem.companyName === item.companyName)
-  )];
+  // Get survey data with question information
+  const surveyDataWithQuestions = getMockSurveyData();
+  
+  // Combine all survey data sources to ensure we have all companies and question data
+  const combinedMockSurveyData = [
+    ...allMockSurveyData,
+    ...surveyDataWithQuestions.filter(item => 
+      !allMockSurveyData.some(existingItem => 
+        existingItem.companyName === item.companyName && existingItem.role === item.role
+      )
+    ),
+    ...convertedMockSurveyData.filter(
+      item => !allMockSurveyData.some(existingItem => existingItem.companyName === item.companyName)
+    )
+  ];
 
   // Compute filtered data based on selected filters
   const [filteredData, setFilteredData] = useState<SurveyData[]>(combinedMockSurveyData);
