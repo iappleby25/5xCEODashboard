@@ -1,209 +1,331 @@
 import React from 'react';
-import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, Tooltip } from 'recharts';
-import { CompanyData } from '@/lib/dataProcessor';
-import { BarChart3 } from 'lucide-react';
+import { BarChart2, ArrowUpDown, ExternalLink } from 'lucide-react';
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface FocusEffectivenessComparisonProps {
-  mainCompany: CompanyData;
-  comparisonCompany: CompanyData;
+  primaryCompany: string;
+  comparisonCompany: string;
   period: string;
   selectedCategory?: string;
 }
 
 const FocusEffectivenessComparison: React.FC<FocusEffectivenessComparisonProps> = ({
-  mainCompany,
+  primaryCompany,
   comparisonCompany,
   period,
   selectedCategory = 'strategic-clarity'
 }) => {
-  // Helper function to get category display name
-  const getCategoryDisplayName = (categoryId: string): string => {
-    switch (categoryId) {
+  // Helper function to get title based on selected category
+  const getComparisonTitle = () => {
+    switch (selectedCategory) {
       case 'strategic-clarity':
-        return 'Strategic Clarity';
+        return 'Strategic Clarity Comparison';
       case 'scalable-talent':
-        return 'Scalable Talent';
+        return 'Talent Scalability Comparison';
       case 'relentless-focus':
-        return 'Relentless Focus';
+        return 'Focus Effectiveness Comparison';
       case 'disciplined-execution':
-        return 'Disciplined Execution';
+        return 'Execution Impact Comparison';
       case 'energized-culture':
-        return 'Energized Culture';
+        return 'Culture Value Comparison';
       default:
-        return 'Strategic Clarity';
+        return 'Focus Effectiveness Comparison';
     }
   };
   
-  // Helper function to get category score key
-  const getCategoryScoreKey = (categoryId: string): keyof typeof mainCompany.scores => {
-    switch (categoryId) {
+  // Helper function to get description based on selected category
+  const getComparisonDescription = () => {
+    switch (selectedCategory) {
       case 'strategic-clarity':
-        return 'strategicClarity';
+        return 'Comparing vision alignment and strategic decision-making';
       case 'scalable-talent':
-        return 'scalableTalent';
+        return 'Comparing talent development and organizational capacity';
       case 'relentless-focus':
-        return 'relentlessFocus';
+        return 'Comparing prioritization and resource allocation';
       case 'disciplined-execution':
-        return 'disciplinedExecution';
+        return 'Comparing operational efficiency and execution quality';
       case 'energized-culture':
-        return 'energizedCulture';
+        return 'Comparing cultural health and employee engagement';
       default:
-        return 'strategicClarity';
+        return 'Comparing prioritization and resource allocation';
     }
   };
-  
-  // Get current category display name and score key
-  const currentCategoryName = getCategoryDisplayName(selectedCategory);
-  const currentCategoryKey = getCategoryScoreKey(selectedCategory);
-  
-  // Format data for radar chart
-  const radarData = [
-    { subject: 'Strategic Clarity', mainCompany: mainCompany.scores.strategicClarity, comparisonCompany: comparisonCompany.scores.strategicClarity },
-    { subject: 'Scalable Talent', mainCompany: mainCompany.scores.scalableTalent, comparisonCompany: comparisonCompany.scores.scalableTalent },
-    { subject: 'Relentless Focus', mainCompany: mainCompany.scores.relentlessFocus, comparisonCompany: comparisonCompany.scores.relentlessFocus },
-    { subject: 'Disciplined Execution', mainCompany: mainCompany.scores.disciplinedExecution, comparisonCompany: comparisonCompany.scores.disciplinedExecution },
-    { subject: 'Energized Culture', mainCompany: mainCompany.scores.energizedCulture, comparisonCompany: comparisonCompany.scores.energizedCulture }
-  ];
-  
-  // Create category-specific data
-  const selectedCategoryData = {
-    mainCompanyScore: mainCompany.scores[currentCategoryKey],
-    comparisonCompanyScore: comparisonCompany.scores[currentCategoryKey],
-    difference: mainCompany.scores[currentCategoryKey] - comparisonCompany.scores[currentCategoryKey]
+
+  // Generate comparison data based on selected category
+  const generateComparisonData = () => {
+    // This would be dynamically generated from real data
+    // Using mock data for demonstration purposes
+    switch (selectedCategory) {
+      case 'strategic-clarity':
+        return [
+          { 
+            name: 'Vision Alignment', 
+            [primaryCompany]: 78, 
+            [comparisonCompany]: 65,
+            fullMark: 100 
+          },
+          { 
+            name: 'Decision Cohesion', 
+            [primaryCompany]: 82, 
+            [comparisonCompany]: 71,
+            fullMark: 100 
+          },
+          { 
+            name: 'Mission Understanding', 
+            [primaryCompany]: 74, 
+            [comparisonCompany]: 82,
+            fullMark: 100 
+          },
+        ];
+      case 'scalable-talent':
+        return [
+          { 
+            name: 'Talent Retention', 
+            [primaryCompany]: 79, 
+            [comparisonCompany]: 73,
+            fullMark: 100 
+          },
+          { 
+            name: 'Leadership Pipeline', 
+            [primaryCompany]: 68, 
+            [comparisonCompany]: 79,
+            fullMark: 100 
+          },
+          { 
+            name: 'Skills Development', 
+            [primaryCompany]: 77, 
+            [comparisonCompany]: 72,
+            fullMark: 100 
+          },
+        ];
+      case 'relentless-focus':
+        return [
+          { 
+            name: 'Resource Optimization', 
+            [primaryCompany]: 83, 
+            [comparisonCompany]: 71,
+            fullMark: 100 
+          },
+          { 
+            name: 'Project Completion', 
+            [primaryCompany]: 76, 
+            [comparisonCompany]: 68,
+            fullMark: 100 
+          },
+          { 
+            name: 'Strategic Capacity', 
+            [primaryCompany]: 72, 
+            [comparisonCompany]: 80,
+            fullMark: 100 
+          },
+        ];
+      case 'disciplined-execution':
+        return [
+          { 
+            name: 'Process Efficiency', 
+            [primaryCompany]: 81, 
+            [comparisonCompany]: 69,
+            fullMark: 100 
+          },
+          { 
+            name: 'Quality Control', 
+            [primaryCompany]: 85, 
+            [comparisonCompany]: 71,
+            fullMark: 100 
+          },
+          { 
+            name: 'Deadline Achievement', 
+            [primaryCompany]: 74, 
+            [comparisonCompany]: 82,
+            fullMark: 100 
+          },
+        ];
+      case 'energized-culture':
+        return [
+          { 
+            name: 'Employee Engagement', 
+            [primaryCompany]: 74, 
+            [comparisonCompany]: 83,
+            fullMark: 100 
+          },
+          { 
+            name: 'Collaboration Index', 
+            [primaryCompany]: 79, 
+            [comparisonCompany]: 75,
+            fullMark: 100 
+          },
+          { 
+            name: 'Innovation Index', 
+            [primaryCompany]: 67, 
+            [comparisonCompany]: 77,
+            fullMark: 100 
+          },
+        ];
+      default:
+        return [
+          { 
+            name: 'Resource Optimization', 
+            [primaryCompany]: 83, 
+            [comparisonCompany]: 71,
+            fullMark: 100 
+          },
+          { 
+            name: 'Project Completion', 
+            [primaryCompany]: 76, 
+            [comparisonCompany]: 68,
+            fullMark: 100 
+          },
+          { 
+            name: 'Strategic Capacity', 
+            [primaryCompany]: 72, 
+            [comparisonCompany]: 80,
+            fullMark: 100 
+          },
+        ];
+    }
   };
 
-  // Generate insights from comparison
-  const generateComparativeInsights = () => {
-    // Find biggest difference areas (both positive and negative)
-    const differences = Object.keys(mainCompany.scores)
-      .filter(key => key !== 'totalScore')
-      .map(key => {
-        const scoreKey = key as keyof typeof mainCompany.scores;
-        const mainScore = mainCompany.scores[scoreKey];
-        const comparisonScore = comparisonCompany.scores[scoreKey];
-        const difference = mainScore - comparisonScore;
-        const formattedKey = key.replace(/([A-Z])/g, ' $1').trim();
-        
-        return {
-          category: formattedKey,
-          difference,
-          mainScore,
-          comparisonScore
-        };
-      })
-      .sort((a, b) => Math.abs(b.difference) - Math.abs(a.difference));
-
-    // Generate insights for top 3 differences
-    return differences.slice(0, 3).map((diff, index) => {
-      const isPositive = diff.difference > 0;
-      return (
-        <div key={index} className={`p-3 rounded-md ${isPositive ? 'bg-green-50 text-green-800' : 'bg-amber-50 text-amber-800'} mb-2`}>
-          <p className="text-sm">
-            <span className="font-medium">{diff.category}:</span> {isPositive 
-              ? `${mainCompany.name} outperforms ${comparisonCompany.name} by ${Math.abs(diff.difference).toFixed(0)}%. This suggests stronger ${diff.category.toLowerCase()} practices.` 
-              : `${comparisonCompany.name} outperforms ${mainCompany.name} by ${Math.abs(diff.difference).toFixed(0)}%. Consider studying their ${diff.category.toLowerCase()} approach.`
-            }
-          </p>
-        </div>
-      );
-    });
+  // Get the gap insight based on the category
+  const getGapInsight = () => {
+    switch (selectedCategory) {
+      case 'strategic-clarity':
+        return `${primaryCompany} shows stronger vision alignment (+13%), while ${comparisonCompany} has better mission understanding (+8%). Opportunity exists to share best practices in strategic communication.`;
+      case 'scalable-talent':
+        return `${primaryCompany} outperforms in talent retention (+6%), but ${comparisonCompany} has a more robust leadership pipeline (+11%). Consider exchanging leadership development approaches.`;
+      case 'relentless-focus':
+        return `${primaryCompany} excels at resource optimization (+12%), while ${comparisonCompany} demonstrates higher strategic capacity (+8%). There may be a tradeoff between efficiency and flexibility.`;
+      case 'disciplined-execution':
+        return `${primaryCompany} shows superior quality control (+14%), but ${comparisonCompany} has better deadline achievement (+8%). Consider adopting complementary execution frameworks.`;
+      case 'energized-culture':
+        return `${comparisonCompany} has significantly higher employee engagement (+9%), though ${primaryCompany} shows a stronger collaboration index (+4%). Investigate engagement drivers at ${comparisonCompany}.`;
+      default:
+        return `${primaryCompany} excels at resource optimization (+12%), while ${comparisonCompany} demonstrates higher strategic capacity (+8%). There may be a tradeoff between efficiency and flexibility.`;
+    }
   };
 
-  // Calculate overall comparative metrics
-  const overallDifference = mainCompany.averageScore - comparisonCompany.averageScore;
-  const isOverallBetter = overallDifference > 0;
+  // Get the market position insight based on the category
+  const getMarketPositionInsight = () => {
+    switch (selectedCategory) {
+      case 'strategic-clarity':
+        return `Combined, both companies are in the top 15% of your industry for strategic clarity. The average competitor is 22% less effective in this area.`;
+      case 'scalable-talent':
+        return `${primaryCompany} is in the top 25% for talent development, while ${comparisonCompany} is in the top 20% for leadership pipeline strength, both above industry average.`;
+      case 'relentless-focus':
+        return `Both companies are in the top quartile for focus metrics, with a combined 32% advantage over the industry median in resource efficiency.`;
+      case 'disciplined-execution':
+        return `${primaryCompany} ranks in the 85th percentile for execution quality, while ${comparisonCompany} is in the 78th, both well above the industry average of 65%.`;
+      case 'energized-culture':
+        return `${comparisonCompany} is in the top 10% for cultural health, while ${primaryCompany} is in the top 30%, against an industry where 60% of companies struggle with engagement.`;
+      default:
+        return `Both companies are in the top quartile for focus metrics, with a combined 32% advantage over the industry median in resource efficiency.`;
+    }
+  };
+
+  // Get comparison data
+  const comparisonData = generateComparisonData();
+  const comparisonTitle = getComparisonTitle();
+  const comparisonDescription = getComparisonDescription();
+  const gapInsight = getGapInsight();
+  const marketPositionInsight = getMarketPositionInsight();
+
+  // Calculate performance differential
+  const getDifferential = () => {
+    const averagePrimary = comparisonData.reduce((sum, item) => sum + item[primaryCompany], 0) / comparisonData.length;
+    const averageComparison = comparisonData.reduce((sum, item) => sum + item[comparisonCompany], 0) / comparisonData.length;
+    return {
+      value: (averagePrimary - averageComparison).toFixed(1),
+      isPositive: averagePrimary > averageComparison
+    };
+  };
+
+  const differential = getDifferential();
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md mt-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-semibold">{currentCategoryName} Comparison</h2>
-          <p className="text-sm text-neutral-500">Comparing performance metrics and insights</p>
+          <h2 className="text-2xl font-semibold">{comparisonTitle}</h2>
+          <p className="text-sm text-neutral-500">{comparisonDescription}</p>
         </div>
         <div className="bg-neutral-100 px-3 py-1 rounded-md text-sm font-medium">
           {period}
         </div>
+        <div className="flex items-center">
+          <span className="text-lg font-semibold">{primaryCompany}</span>
+          <ArrowUpDown className="h-4 w-4 mx-2" />
+          <span className="text-lg font-semibold">{comparisonCompany}</span>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
         <div>
-          <h3 className="text-lg font-medium mb-2">Framework Performance Comparison</h3>
-          <p className="text-sm text-neutral-500 mb-4">Showing overall framework with highlighted focus on {currentCategoryName}</p>
-          <div className="h-[350px]">
+          <h3 className="text-lg font-medium mb-3">Comparative Metrics</h3>
+          <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                <Radar
-                  name={mainCompany.name}
-                  dataKey="mainCompany"
-                  stroke="#2196F3"
-                  fill="#2196F3"
-                  fillOpacity={0.5}
+              <BarChart
+                data={comparisonData}
+                margin={{ top: 20, right: 10, left: 10, bottom: 30 }}
+                barSize={20}
+              >
+                <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                <XAxis 
+                  dataKey="name" 
+                  angle={-45} 
+                  textAnchor="end" 
+                  tick={{ fontSize: 12 }}
+                  height={60}
                 />
-                <Radar
-                  name={comparisonCompany.name}
-                  dataKey="comparisonCompany"
-                  stroke="#FF5722"
-                  fill="#FF5722"
-                  fillOpacity={0.5}
-                />
-                <Legend />
+                <YAxis hide />
                 <Tooltip />
-              </RadarChart>
+                <Bar 
+                  dataKey={primaryCompany} 
+                  fill="#3b82f6" 
+                  radius={[4, 4, 0, 0]}
+                  name={primaryCompany}
+                />
+                <Bar 
+                  dataKey={comparisonCompany} 
+                  fill="#10b981" 
+                  radius={[4, 4, 0, 0]}
+                  name={comparisonCompany}
+                />
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         <div>
-          <h3 className="text-lg font-medium mb-4">Comparative Insights</h3>
-          
-          <div className={`p-4 mb-4 rounded-md ${isOverallBetter ? 'bg-blue-50 border border-blue-200' : 'bg-amber-50 border border-amber-200'}`}>
-            <div className="flex items-center mb-2">
-              <BarChart3 className="h-5 w-5 mr-2 text-blue-700" />
-              <h4 className="font-medium">{currentCategoryName} Performance</h4>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-medium mb-3">Performance Differential</h3>
+              <div className={`flex items-center text-4xl font-bold ${differential.isPositive ? 'text-green-500' : 'text-red-500'}`}>
+                {differential.isPositive ? '+' : ''}{differential.value}%
+              </div>
+              <p className="text-neutral-600 mt-2">
+                Overall performance differential between {primaryCompany} and {comparisonCompany}
+              </p>
             </div>
-            <p className="text-sm">
-              {selectedCategoryData.difference > 0 
-                ? `${mainCompany.name} scores ${Math.abs(selectedCategoryData.difference).toFixed(0)}% higher than ${comparisonCompany.name} in ${currentCategoryName}.`
-                : selectedCategoryData.difference < 0
-                  ? `${comparisonCompany.name} scores ${Math.abs(selectedCategoryData.difference).toFixed(0)}% higher than ${mainCompany.name} in ${currentCategoryName}.`
-                  : `${mainCompany.name} and ${comparisonCompany.name} have identical scores for ${currentCategoryName}.`
-              }
-            </p>
-          </div>
-          
-          <div className="p-4 mb-4 rounded-md bg-neutral-50 border border-neutral-200">
-            <h4 className="font-medium mb-2">Detailed Comparison</h4>
-            <div className="flex flex-col space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium">{mainCompany.name}:</span>
-                <span className="text-sm">{selectedCategoryData.mainCompanyScore}%</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium">{comparisonCompany.name}:</span>
-                <span className="text-sm">{selectedCategoryData.comparisonCompanyScore}%</span>
-              </div>
-              <div className="flex justify-between items-center font-medium">
-                <span className="text-sm">Difference:</span>
-                <span className={`text-sm ${selectedCategoryData.difference > 0 ? 'text-green-600' : selectedCategoryData.difference < 0 ? 'text-red-600' : 'text-gray-600'}`}>
-                  {selectedCategoryData.difference > 0 ? '+' : ''}{selectedCategoryData.difference}%
-                </span>
+
+            <div>
+              <h3 className="text-lg font-medium mb-3">Gap Analysis</h3>
+              <div className="bg-blue-50 border border-blue-200 rounded-md p-4 text-blue-800">
+                <p className="text-sm">{gapInsight}</p>
               </div>
             </div>
-          </div>
-          
-          <div className="mt-4 p-4 bg-neutral-50 rounded-md border border-neutral-200">
-            <h4 className="font-medium mb-2">{currentCategoryName} Recommendation</h4>
-            <p className="text-sm text-neutral-700">
-              {selectedCategoryData.difference > 0 
-                ? `Maintain your strong ${currentCategoryName.toLowerCase()} practices while sharing successful strategies with ${comparisonCompany.name} through collaborative workshops or best practice documentation.`
-                : selectedCategoryData.difference < 0
-                  ? `Consider organizing knowledge-sharing sessions with ${comparisonCompany.name} to identify and adopt their best practices in ${currentCategoryName.toLowerCase()}.`
-                  : `Both companies show similar performance in ${currentCategoryName.toLowerCase()}. Consider joint initiatives to further strengthen this area together.`
-              }
-            </p>
+
+            <div>
+              <h3 className="text-lg font-medium mb-3">Market Position</h3>
+              <div className="bg-purple-50 border border-purple-200 rounded-md p-4 text-purple-800">
+                <p className="text-sm">{marketPositionInsight}</p>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <button className="inline-flex items-center text-blue-600 hover:text-blue-800">
+                <span>View detailed comparison report</span>
+                <ExternalLink className="h-4 w-4 ml-1" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

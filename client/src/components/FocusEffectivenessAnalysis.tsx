@@ -9,6 +9,7 @@ interface FocusEffectivenessAnalysisProps {
   resourceOptimization: number;
   projectCompletionRate: number;
   strategicCapacity: number;
+  selectedCategory?: string; // Add selectedCategory prop
 }
 
 const FocusEffectivenessAnalysis: React.FC<FocusEffectivenessAnalysisProps> = ({
@@ -17,7 +18,8 @@ const FocusEffectivenessAnalysis: React.FC<FocusEffectivenessAnalysisProps> = ({
   trendPercentage,
   resourceOptimization,
   projectCompletionRate,
-  strategicCapacity
+  strategicCapacity,
+  selectedCategory = 'strategic-clarity'
 }) => {
   // Sample data for the performance trajectory chart
   const trajectoryData = [
@@ -27,10 +29,93 @@ const FocusEffectivenessAnalysis: React.FC<FocusEffectivenessAnalysisProps> = ({
     { name: 'Q1', value: 85 }
   ];
 
+  // Helper function to get title based on selected category
+  const getAnalysisTitle = () => {
+    switch (selectedCategory) {
+      case 'strategic-clarity':
+        return 'Strategic Clarity Analysis';
+      case 'scalable-talent':
+        return 'Talent Scalability Analysis';
+      case 'relentless-focus':
+        return 'Focus Effectiveness Analysis';
+      case 'disciplined-execution':
+        return 'Execution Impact Analysis';
+      case 'energized-culture':
+        return 'Culture Value Analysis';
+      default:
+        return 'Focus Effectiveness Analysis';
+    }
+  };
+  
+  // Helper function to get description based on selected category
+  const getAnalysisDescription = () => {
+    switch (selectedCategory) {
+      case 'strategic-clarity':
+        return 'Measuring vision alignment and strategic decision-making';
+      case 'scalable-talent':
+        return 'Evaluating talent development and organizational capacity';
+      case 'relentless-focus':
+        return 'Analyzing prioritization and resource allocation';
+      case 'disciplined-execution':
+        return 'Measuring operational efficiency and execution quality';
+      case 'energized-culture':
+        return 'Assessing cultural health and employee engagement';
+      default:
+        return 'Analyzing prioritization and resource allocation';
+    }
+  };
+  
+  // Helper function to get metrics title based on selected category
+  const getCategoryMetricsTitle = () => {
+    switch (selectedCategory) {
+      case 'strategic-clarity':
+        return 'Strategic Alignment Metrics';
+      case 'scalable-talent':
+        return 'Talent Development Metrics';
+      case 'relentless-focus':
+        return 'Business Impact Metrics';
+      case 'disciplined-execution':
+        return 'Execution Quality Metrics';
+      case 'energized-culture':
+        return 'Cultural Health Metrics';
+      default:
+        return 'Business Impact Metrics';
+    }
+  };
+  
+  // Helper function to get value statement based on selected category
+  const getValueStatement = () => {
+    switch (selectedCategory) {
+      case 'strategic-clarity':
+        return 'strategic alignment and vision coherence';
+      case 'scalable-talent':
+        return 'leadership development and talent optimization';
+      case 'relentless-focus':
+        return 'capacity optimization and strategic acceleration';
+      case 'disciplined-execution':
+        return 'process efficiency and quality improvement';
+      case 'energized-culture':
+        return 'engagement enhancements and cultural innovation';
+      default:
+        return 'capacity optimization and strategic acceleration';
+    }
+  };
+
+  // Get title and description for current analysis
+  const analysisTitle = getAnalysisTitle();
+  const analysisDescription = getAnalysisDescription();
+  
+  // Pre-calculate these values to avoid reference errors
+  const metricsSectionTitle = getCategoryMetricsTitle();
+  const valuePhrasing = getValueStatement();
+  
   return (
     <div className="bg-white p-6 rounded-xl shadow-md">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-semibold">Focus Effectiveness Analysis</h2>
+        <div>
+          <h2 className="text-2xl font-semibold">{analysisTitle}</h2>
+          <p className="text-sm text-neutral-500">{analysisDescription}</p>
+        </div>
         <div className="bg-neutral-100 px-3 py-1 rounded-md text-sm font-medium">
           {period}
         </div>
@@ -74,38 +159,208 @@ const FocusEffectivenessAnalysis: React.FC<FocusEffectivenessAnalysisProps> = ({
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
         <div>
-          <h3 className="text-lg font-medium mb-4">Business Impact Metrics</h3>
+          <h3 className="text-lg font-medium mb-4">{metricsSectionTitle}</h3>
           <div className="space-y-4">
-            <div>
-              <div className="flex justify-between mb-1">
-                <span>Resource optimization</span>
-                <span className="text-green-500">+{resourceOptimization}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div className="bg-emerald-500 h-2.5 rounded-full" style={{ width: `${resourceOptimization * 3}%` }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between mb-1">
-                <span>Project completion rate</span>
-                <span className="text-blue-500">+{projectCompletionRate}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: `${projectCompletionRate * 3}%` }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between mb-1">
-                <span>Strategic capacity</span>
-                <span className="text-purple-500">+{strategicCapacity}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: `${strategicCapacity * 3}%` }}></div>
-              </div>
-            </div>
+            {(() => {
+              // Determine which metrics to show based on the selected category
+              switch (selectedCategory) {
+                case 'strategic-clarity':
+                  return (
+                    <>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Vision alignment</span>
+                          <span className="text-green-500">+{resourceOptimization + 3}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-sky-500 h-2.5 rounded-full" style={{ width: `${(resourceOptimization + 3) * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Decision cohesion</span>
+                          <span className="text-blue-500">+{projectCompletionRate - 2}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: `${(projectCompletionRate - 2) * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Mission understanding</span>
+                          <span className="text-purple-500">+{strategicCapacity + 4}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: `${(strategicCapacity + 4) * 3}%` }}></div>
+                        </div>
+                      </div>
+                    </>
+                  );
+                case 'scalable-talent':
+                  return (
+                    <>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Talent retention</span>
+                          <span className="text-green-500">+{resourceOptimization - 2}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-emerald-500 h-2.5 rounded-full" style={{ width: `${(resourceOptimization - 2) * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Leadership pipeline</span>
+                          <span className="text-blue-500">+{projectCompletionRate + 4}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: `${(projectCompletionRate + 4) * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Skills development</span>
+                          <span className="text-purple-500">+{strategicCapacity + 2}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: `${(strategicCapacity + 2) * 3}%` }}></div>
+                        </div>
+                      </div>
+                    </>
+                  );
+                case 'relentless-focus':
+                  return (
+                    <>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Resource optimization</span>
+                          <span className="text-green-500">+{resourceOptimization}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-emerald-500 h-2.5 rounded-full" style={{ width: `${resourceOptimization * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Project completion rate</span>
+                          <span className="text-blue-500">+{projectCompletionRate}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: `${projectCompletionRate * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Strategic capacity</span>
+                          <span className="text-purple-500">+{strategicCapacity}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: `${strategicCapacity * 3}%` }}></div>
+                        </div>
+                      </div>
+                    </>
+                  );
+                case 'disciplined-execution':
+                  return (
+                    <>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Process efficiency</span>
+                          <span className="text-green-500">+{resourceOptimization + 5}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-emerald-500 h-2.5 rounded-full" style={{ width: `${(resourceOptimization + 5) * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Quality control</span>
+                          <span className="text-blue-500">+{projectCompletionRate + 8}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: `${(projectCompletionRate + 8) * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Deadline achievement</span>
+                          <span className="text-purple-500">+{strategicCapacity + 3}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: `${(strategicCapacity + 3) * 3}%` }}></div>
+                        </div>
+                      </div>
+                    </>
+                  );
+                case 'energized-culture':
+                  return (
+                    <>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Employee engagement</span>
+                          <span className="text-green-500">+{resourceOptimization - 4}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-emerald-500 h-2.5 rounded-full" style={{ width: `${(resourceOptimization - 4) * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Collaboration index</span>
+                          <span className="text-blue-500">+{projectCompletionRate - 2}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: `${(projectCompletionRate - 2) * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Innovation index</span>
+                          <span className="text-purple-500">+{strategicCapacity - 1}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: `${(strategicCapacity - 1) * 3}%` }}></div>
+                        </div>
+                      </div>
+                    </>
+                  );
+                default:
+                  return (
+                    <>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Resource optimization</span>
+                          <span className="text-green-500">+{resourceOptimization}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-emerald-500 h-2.5 rounded-full" style={{ width: `${resourceOptimization * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Project completion rate</span>
+                          <span className="text-blue-500">+{projectCompletionRate}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: `${projectCompletionRate * 3}%` }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span>Strategic capacity</span>
+                          <span className="text-purple-500">+{strategicCapacity}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: `${strategicCapacity * 3}%` }}></div>
+                        </div>
+                      </div>
+                    </>
+                  );
+              }
+            })()}
             <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 mt-4 text-amber-800">
               <p className="text-sm">
-                Total estimated value: <span className="font-semibold">$2.8M</span> through capacity optimization and strategic acceleration
+                Total estimated value: <span className="font-semibold">$2.8M</span> through {valuePhrasing}
               </p>
             </div>
           </div>
