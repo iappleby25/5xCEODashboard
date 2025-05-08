@@ -196,13 +196,10 @@ export default function Dashboard() {
     }
   };
 
-  // Handle company change - this is now simplified as company is locked
+  // Handle company change
   const handleCompanyChange = (value: string) => {
-    // Only PE & BOD and ADMIN users can change companies, all other roles are locked to GlobalSolutions
-    if (user?.role !== "PE & BOD" && user?.role !== "ADMIN") {
-      return; // No company change allowed for non-PE & BOD/ADMIN users
-    }
-    
+    // Only PE & BOD and ADMIN users can change companies freely
+    // Other roles are locked to GlobalSolutions, but we don't want to restrict them from selecting it
     setSelectedCompany(value);
     
     if (currentViewLevel === "team") {
