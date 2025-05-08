@@ -9,9 +9,13 @@ import DetailedAnalysis from "@/components/DetailedAnalysis";
 import AiInsightsView from "@/components/AiInsightsView";
 import { filterSurveyData, getUniqueCompanies, getUniqueRoles, SurveyData, ViewLevelType } from "@/lib/dataProcessor";
 import { useQuery } from "@tanstack/react-query";
-import { mockCompanies, getMockSurveyData, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
+import { mockCompanies as allMockCompanies, getMockSurveyData, mockSurveyData as allMockSurveyData } from "@/lib/mockData";
 import { useAuth } from "@/context/AuthContext";
 import { useLocation } from "wouter";
+
+// Filter to show only the original 9 companies that are also in MyCEO and Comparisons pages
+// Original comment: We have 13 companies in the overview tab but had 9 when we started
+const mockCompanies = allMockCompanies.slice(0, 9);
 
 export default function Dashboard() {
   const { user } = useAuth();
