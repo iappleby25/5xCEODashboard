@@ -261,12 +261,16 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
         setTeamScores([]);
       }
       
-      // For holding view, prepare company scores
-      if (currentViewLevel === "holding" || currentViewLevel === "compare") {
+      // For holding and all survey takers view, prepare company scores
+      if (currentViewLevel === "holding" || currentViewLevel === "all" || currentViewLevel === "compare") {
         const companyScoreMap = new Map<string, { total: number; count: number }>();
         
+        // For holding view, filter companies by firm (if needed)
+        // For all survey takers view, include all companies
+        let dataToProcess = filteredData;
+        
         // Populate the map with company names and scores
-        filteredData
+        dataToProcess
           .filter(item => item.scores && item.companyName)
           .forEach(item => {
             const companyName = item.companyName;
