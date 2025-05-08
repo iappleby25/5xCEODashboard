@@ -20,21 +20,21 @@ export default function Dashboard() {
   // Previously PE & BOD users were redirected to Comparisons page
   // Now we allow them to access the Dashboard as well
   
-  // Define view levels for the filter based on user role
+  // Define view levels for the filter based on user role (order flipped as requested)
   const viewLevels: ViewLevel[] = user?.role === 'PE & BOD' 
     ? [
-        { value: "team", label: "Team" },
+        { value: "holding", label: "Holding" },
         { value: "company", label: "Company" },
-        { value: "holding", label: "Holding" }
+        { value: "team", label: "Team" }
       ]
     : user?.role === 'LEADERSHIP TEAM'
     ? [
-        { value: "company", label: "Company" },
-        { value: "compare", label: "Compare" }
+        { value: "compare", label: "Compare" },
+        { value: "company", label: "Company" }
       ]
     : [
-        { value: "team", label: "Team" },
-        { value: "company", label: "Company" }
+        { value: "company", label: "Company" },
+        { value: "team", label: "Team" }
       ];
 
   // Define time periods for the filter
