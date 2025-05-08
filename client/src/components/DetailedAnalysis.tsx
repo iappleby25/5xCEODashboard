@@ -29,10 +29,11 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
 }) => {
   // Get the user role to determine what should be shown
   const { user } = useAuth();
-  // State for dialog to show company-specific scores
+  // State for dialog to show company-specific scores or team/role scores
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [companyScores, setCompanyScores] = useState<Array<{ company: string; score: number }>>([]);
+  const [teamScores, setTeamScores] = useState<Array<{ role: string; score: number }>>([]);
   
   // State for comparison view
   const [comparisonData, setComparisonData] = useState<ComparisonData[]>([]);
@@ -95,41 +96,83 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
     const categoryKey = getCategoryKey(category);
     
     if (categoryKey) {
-      // Create a Map to store companies with their score totals and counts
-      const companyScoreMap = new Map<string, { total: number; count: number }>();
-      
-      // Populate the map with company names and scores
-      filteredData
-        .filter(item => item.scores && item.companyName)
-        .forEach(item => {
-          const companyName = item.companyName;
-          const score = item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0;
-          
-          // Calculate running total and count for average
-          if (companyScoreMap.has(companyName)) {
-            const current = companyScoreMap.get(companyName)!;
-            companyScoreMap.set(companyName, {
-              total: current.total + score,
-              count: current.count + 1
-            });
-          } else {
-            companyScoreMap.set(companyName, {
-              total: score,
-              count: 1
-            });
-          }
-        });
-      
-      // Convert map to array, calculate averages, and sort
-      const scores = Array.from(companyScoreMap.entries())
-        .map(([company, { total, count }]) => ({ 
-          company, 
-          score: Math.round(total / count) // Calculate average score
-        }))
-        .sort((a, b) => b.score - a.score); // Sort highest to lowest
-      
       setSelectedCategory(category);
-      setCompanyScores(scores);
+      
+      // Handle differently based on current view level
+      if (currentViewLevel === "company" && selectedCompany) {
+        // In company view, show scores for each team/role within the selected company
+        const roleScoreMap = new Map<string, { total: number; count: number }>();
+        
+        // Populate the map with role names and scores for the selected company
+        filteredData
+          .filter(item => item.scores && item.role && item.companyName === selectedCompany)
+          .forEach(item => {
+            const role = item.role;
+            const score = item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0;
+            
+            // Calculate running total and count for average
+            if (roleScoreMap.has(role)) {
+              const current = roleScoreMap.get(role)!;
+              roleScoreMap.set(role, {
+                total: current.total + score,
+                count: current.count + 1
+              });
+            } else {
+              roleScoreMap.set(role, {
+                total: score,
+                count: 1
+              });
+            }
+          });
+        
+        // Convert map to array, calculate averages, and sort
+        const roleScores = Array.from(roleScoreMap.entries())
+          .map(([role, { total, count }]) => ({ 
+            role, 
+            score: Math.round(total / count) // Calculate average score
+          }))
+          .sort((a, b) => b.score - a.score); // Sort highest to lowest
+        
+        setTeamScores(roleScores);
+        setCompanyScores([]); // Clear company scores since we're showing team scores
+      } else {
+        // For holding view (or any other), show scores for each company
+        const companyScoreMap = new Map<string, { total: number; count: number }>();
+        
+        // Populate the map with company names and scores
+        filteredData
+          .filter(item => item.scores && item.companyName)
+          .forEach(item => {
+            const companyName = item.companyName;
+            const score = item.scores ? item.scores[categoryKey as keyof CompanyScores] : 0;
+            
+            // Calculate running total and count for average
+            if (companyScoreMap.has(companyName)) {
+              const current = companyScoreMap.get(companyName)!;
+              companyScoreMap.set(companyName, {
+                total: current.total + score,
+                count: current.count + 1
+              });
+            } else {
+              companyScoreMap.set(companyName, {
+                total: score,
+                count: 1
+              });
+            }
+          });
+        
+        // Convert map to array, calculate averages, and sort
+        const scores = Array.from(companyScoreMap.entries())
+          .map(([company, { total, count }]) => ({ 
+            company, 
+            score: Math.round(total / count) // Calculate average score
+          }))
+          .sort((a, b) => b.score - a.score); // Sort highest to lowest
+        
+        setCompanyScores(scores);
+        setTeamScores([]); // Clear team scores since we're showing company scores
+      }
+      
       setDialogOpen(true);
     }
   };
@@ -570,25 +613,58 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
 
       {/* Context Summary removed as requested */}
 
-      {/* Dialog to show company scores when bar is clicked */}
+      {/* Dialog to show company or team scores when bar is clicked */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{selectedCategory} Average Scores by Company</DialogTitle>
-            <DialogDescription>
-              Shows average scores across all roles for each company for the selected framework category.
-            </DialogDescription>
+            {currentViewLevel === "company" && selectedCompany ? (
+              <>
+                <DialogTitle>{selectedCategory} Scores by Team for {selectedCompany}</DialogTitle>
+                <DialogDescription>
+                  Shows average scores for each team/role within {selectedCompany} for the selected framework category.
+                </DialogDescription>
+              </>
+            ) : (
+              <>
+                <DialogTitle>{selectedCategory} Average Scores by Company</DialogTitle>
+                <DialogDescription>
+                  Shows average scores across all roles for each company for the selected framework category.
+                </DialogDescription>
+              </>
+            )}
           </DialogHeader>
           <div className="overflow-y-auto max-h-[60vh]">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Company</TableHead>
+                  {currentViewLevel === "company" && selectedCompany ? (
+                    <TableHead>Team/Role</TableHead>
+                  ) : (
+                    <TableHead>Company</TableHead>
+                  )}
                   <TableHead className="text-right">Score</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {companyScores.map((item, index) => (
+                {/* Show team scores when in company view */}
+                {currentViewLevel === "company" && teamScores.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{item.role}</TableCell>
+                    <TableCell className="text-right">
+                      <span 
+                        className={`font-semibold ${
+                          item.score >= 80 ? 'text-green-600' : 
+                          item.score >= 60 ? 'text-amber-600' : 'text-red-600'
+                        }`}
+                      >
+                        {item.score}%
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                
+                {/* Show company scores in holding view */}
+                {currentViewLevel !== "company" && companyScores.map((item, index) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium">{item.company}</TableCell>
                     <TableCell className="text-right">
@@ -603,7 +679,16 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                     </TableCell>
                   </TableRow>
                 ))}
-                {companyScores.length === 0 && (
+                
+                {/* Show message when no data available */}
+                {currentViewLevel === "company" && teamScores.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                      No team data available for {selectedCompany}
+                    </TableCell>
+                  </TableRow>
+                )}
+                {currentViewLevel !== "company" && companyScores.length === 0 && (
                   <TableRow>
                     <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
                       No company data available
