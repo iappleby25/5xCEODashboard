@@ -9,6 +9,12 @@ interface CategoryAnalysisProps {
   comparisonCompany?: string;
 }
 
+type ComparisonDataItem = {
+  name: string;
+  insight: string;
+  [key: string]: string | number;
+};
+
 const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
   category,
   company,
@@ -105,27 +111,27 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
   const [activeMetric, setActiveMetric] = useState<string | null>(null);
 
   // Generate comparison data
-  const generateComparisonData = () => {
+  const generateComparisonData = (): ComparisonDataItem[] => {
     // This would come from API in a real app
     switch (category) {
       case 'strategic-clarity':
         return [
           { 
             name: 'Vision alignment', 
-            [company]: 75, 
-            [comparisonCompany]: 68,
+            [company as string]: 75, 
+            [comparisonCompany as string]: 68,
             insight: `${company} has stronger vision alignment with executives (+7%), leading to more cohesive strategic decisions across departments.`
           },
           { 
             name: 'Decision cohesion', 
-            [company]: 68, 
-            [comparisonCompany]: 71,
+            [company as string]: 68, 
+            [comparisonCompany as string]: 71,
             insight: `${comparisonCompany} demonstrates better decision alignment (+3%) through their structured decision framework established in Q3 2024.`
           },
           { 
             name: 'Mission understanding', 
-            [company]: 82, 
-            [comparisonCompany]: 74,
+            [company as string]: 82, 
+            [comparisonCompany as string]: 74,
             insight: `${company}'s company-wide mission training program launched in Q4 2024 has resulted in significantly higher mission understanding (+8%).`
           },
         ];
@@ -133,14 +139,14 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
         return [
           { 
             name: 'Talent optimization', 
-            [company]: 65, 
-            [comparisonCompany]: 70,
+            [company as string]: 65, 
+            [comparisonCompany as string]: 70,
             insight: `${comparisonCompany}'s talent development program is showing +5% better results through their structured mentorship approach.`
           },
           { 
             name: 'Leadership capability', 
-            [company]: 72, 
-            [comparisonCompany]: 65,
+            [company as string]: 72, 
+            [comparisonCompany as string]: 65,
             insight: `${company}'s investment in leadership development is yielding +7% stronger results in leadership capabilities and decision making.`
           },
           { 
