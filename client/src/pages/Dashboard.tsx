@@ -17,13 +17,8 @@ export default function Dashboard() {
   const { user } = useAuth();
   const [_, navigate] = useLocation();
   
-  // Redirect PE & BOD users to the Comparisons page
-  // They don't need access to the Performance Overview
-  useEffect(() => {
-    if (user?.role === 'PE & BOD') {
-      navigate('/comparisons');
-    }
-  }, [user, navigate]);
+  // Previously PE & BOD users were redirected to Comparisons page
+  // Now we allow them to access the Dashboard as well
   
   // Define view levels for the filter based on user role
   const viewLevels: ViewLevel[] = user?.role === 'PE & BOD' 
@@ -221,7 +216,7 @@ export default function Dashboard() {
           className="w-full"
         >
           <TabsList className={`grid w-full md:w-auto ${user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM' ? 'grid-cols-2' : 'grid-cols-3'} h-auto`}>
-            {user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM' && <TabsTrigger value="overview">Overview</TabsTrigger>}
+            {(user?.role !== 'CEO' && user?.role !== 'LEADERSHIP TEAM') && <TabsTrigger value="overview">Overview</TabsTrigger>}
             <TabsTrigger value="details">Details</TabsTrigger>
             <TabsTrigger value="insights">Insights</TabsTrigger>
           </TabsList>
