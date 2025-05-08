@@ -398,61 +398,15 @@ const FiveXCEO = () => {
               </div>
             </div>
             
-            {/* Focus Effectiveness Analysis */}
+            {/* Category Analysis specific to the selected category */}
             <div className="mb-8">
-              {(() => {
-                const companyData = mockCompanies.find(c => c.name === selectedCompany);
-                if (companyData) {
-                  // Get category-specific information
-                  const category = selectedAnalysisCategory || 'strategic-clarity';
-                  const categoryName = frameworkCategories.find(c => c.id === category)?.name || 'Strategic Clarity';
-                  
-                  // For demo purposes, we'll use different values based on the selected category
-                  const trendPercentageMap: Record<string, number> = {
-                    'strategic-clarity': 20,
-                    'scalable-talent': 15,
-                    'relentless-focus': 25,
-                    'disciplined-execution': 18,
-                    'energized-culture': 12
-                  };
-                  
-                  const resourceOptimizationMap: Record<string, number> = {
-                    'strategic-clarity': 16,
-                    'scalable-talent': 12,
-                    'relentless-focus': 22,
-                    'disciplined-execution': 19,
-                    'energized-culture': 14
-                  };
-                  
-                  const projectCompletionRateMap: Record<string, number> = {
-                    'strategic-clarity': 13,
-                    'scalable-talent': 14,
-                    'relentless-focus': 18,
-                    'disciplined-execution': 21,
-                    'energized-culture': 11
-                  };
-                  
-                  const strategicCapacityMap: Record<string, number> = {
-                    'strategic-clarity': 11,
-                    'scalable-talent': 9,
-                    'relentless-focus': 16,
-                    'disciplined-execution': 14,
-                    'energized-culture': 10
-                  };
-                  
-                  return (
-                    <FocusEffectivenessAnalysis
-                      companyName={companyData.name}
-                      period={selectedPeriod}
-                      trendPercentage={trendPercentageMap[category] || 20}
-                      resourceOptimization={resourceOptimizationMap[category] || 16}
-                      projectCompletionRate={projectCompletionRateMap[category] || 13}
-                      strategicCapacity={strategicCapacityMap[category] || 11}
-                    />
-                  );
-                }
-                return null;
-              })()}
+              {selectedAnalysisCategory && (
+                <CategoryAnalysis 
+                  category={selectedAnalysisCategory}
+                  company={selectedCompany}
+                  period={selectedPeriod}
+                />
+              )}
             </div>
             
             {/* Comparison Analysis - only show if comparison company is selected */}
