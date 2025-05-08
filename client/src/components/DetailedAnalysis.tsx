@@ -219,6 +219,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
             item.companyName === selectedCompany
           );
         }
+        // For holding view, we use all data across all companies
         
         // Populate the map with role names and scores
         dataToProcess
@@ -750,21 +751,24 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
           
           {/* Tabs for different data views */}
           <Tabs defaultValue="primary" value={dialogActiveTab} onValueChange={setDialogActiveTab} className="mt-2">
-            <TabsList className="grid w-full grid-cols-2">
-              {/* Primary tab label changes based on view level */}
-              <TabsTrigger value="primary">
-                {currentViewLevel === "team" ? "Questions" : 
-                 currentViewLevel === "company" ? "Teams" : 
-                 "Companies"}
-              </TabsTrigger>
-              
-              {/* Secondary tab changes based on view level */}
-              <TabsTrigger value="secondary">
-                {currentViewLevel === "team" ? "Team Comparison" : 
-                 currentViewLevel === "holding" ? "Teams" : 
-                 "Questions"}
-              </TabsTrigger>
-            </TabsList>
+            {currentViewLevel === "team" ? (
+              // No tabs in team view - just show the questions
+              <div className="mb-2 text-sm font-medium">
+                Question scores for {selectedCategory}
+              </div>
+            ) : (
+              <TabsList className="grid w-full grid-cols-2">
+                {/* Primary tab label changes based on view level */}
+                <TabsTrigger value="primary">
+                  {currentViewLevel === "company" ? "Teams" : "Companies"}
+                </TabsTrigger>
+                
+                {/* Secondary tab is always Questions for company and holding views */}
+                <TabsTrigger value="secondary">
+                  Questions
+                </TabsTrigger>
+              </TabsList>
+            )}
             
             {/* Primary tab content - changes based on view level */}
             <TabsContent value="primary" className="mt-4">
@@ -867,7 +871,7 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      {currentViewLevel === "team" ? (
+                      {currentViewLevel === "holding" ? (
                         <TableHead>Team/Role</TableHead>
                       ) : (
                         <TableHead>Question</TableHead>
@@ -876,8 +880,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {/* Show team comparison in team view secondary tab */}
-                    {currentViewLevel === "team" && teamScores.map((item, index) => (
+                    {/* In holding view, secondary tab shows teams/roles across all companies */}
+                    {currentViewLevel === "holding" && teamScores.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell className="font-medium">{item.role}</TableCell>
                         <TableCell className="text-right">
@@ -893,8 +897,8 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                       </TableRow>
                     ))}
                     
-                    {/* Show question scores in company & holding view secondary tab */}
-                    {(currentViewLevel === "company" || currentViewLevel === "holding") && 
+                    {/* In company view, secondary tab shows questions */}
+                    {currentViewLevel === "company" && 
                       questionScores.map((item, index) => (
                         <TableRow key={index}>
                           <TableCell className="font-medium">{item.question}</TableCell>
@@ -913,22 +917,20 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                     }
                     
                     {/* Show "no data" messages */}
-                    {currentViewLevel === "team" && teamScores.length === 0 && (
+                    {currentViewLevel === "holding" && teamScores.length === 0 && (
                       <TableRow>
                         <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
-                          No team comparison data available
+                          No team data available
                         </TableCell>
                       </TableRow>
                     )}
-                    {(currentViewLevel === "company" || currentViewLevel === "holding") && 
-                      questionScores.length === 0 && (
-                        <TableRow>
-                          <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
-                            No question data available
-                          </TableCell>
-                        </TableRow>
-                      )
-                    }
+                    {currentViewLevel === "company" && questionScores.length === 0 && (
+                      <TableRow>
+                        <TableCell colSpan={2} className="text-center py-4 text-neutral-500">
+                          No question data available
+                        </TableCell>
+                      </TableRow>
+                    )}
                   </TableBody>
                 </Table>
               </div>
