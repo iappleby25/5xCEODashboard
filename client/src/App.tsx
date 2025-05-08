@@ -17,6 +17,7 @@ import Login from "@/pages/Login";
 import FiveXCEO from "@/pages/5xCEO";
 import Comparisons from "@/pages/Comparisons";
 import UserManagement from "@/pages/UserManagement";
+import DataConfiguration from "@/pages/DataConfiguration";
 
 // Layout wrapper components
 const PublicRoute = ({ component: Component, ...rest }: { component: React.ComponentType<any>, path: string }) => {
@@ -71,6 +72,9 @@ function Router() {
       </Route>
       <Route path="/admin/users">
         {(params) => <PrivateRoute component={UserManagement} path="/admin/users" />}
+      </Route>
+      <Route path="/admin/data-configuration">
+        {(params) => <PrivateRoute component={DataConfiguration} path="/admin/data-configuration" />}
       </Route>
       
       {/* Redirect /MyCEO to /5xCEO for backward compatibility */}

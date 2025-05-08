@@ -17,7 +17,7 @@ import {
   TableHeader, 
   TableRow 
 } from "@/components/ui/table";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth, UserRole } from "@/context/AuthContext";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 
@@ -29,10 +29,10 @@ export default function DataConfiguration() {
   const [activeTable, setActiveTable] = useState<DBTable>("users");
   
   // Only admin should access this page
-  const isAdmin = user?.role === "ADMIN" || user?.role === "Administrator";
+  const isAdmin = user?.role === "ADMIN" as UserRole;
 
   // Query for the selected table data
-  const { data: tableData, isLoading, error } = useQuery({
+  const { data: tableData = [], isLoading, error } = useQuery<any[]>({
     queryKey: [`/api/${activeTable}`],
     enabled: isAdmin, // Only fetch if user is admin
   });
