@@ -61,7 +61,8 @@ export default function Dashboard() {
 
   // State for filters - default to appropriate view level based on user role
   const getDefaultViewLevel = (): ViewLevelType => {
-    if (user?.role === 'PE & BOD' || user?.role === 'ADMIN') return "holding";
+    if (user?.role === 'ADMIN') return "all"; // Admin defaults to all survey takers view
+    if (user?.role === 'PE & BOD') return "holding";
     if (user?.role === 'CEO' || user?.role === 'LEADERSHIP TEAM') return "company";
     return "team"; // Default to team view for other users instead of individual
   };
@@ -294,7 +295,8 @@ export default function Dashboard() {
                   <p className="text-xs text-muted-foreground mt-1">
                     {currentViewLevel === "team" ? "Company + Role" : 
                      currentViewLevel === "company" ? "Company only" : 
-                     currentViewLevel === "holding" ? "All companies" : "All data"}
+                     currentViewLevel === "holding" ? "All companies in firm" : 
+                     currentViewLevel === "all" ? "All survey takers across all firms" : "All data"}
                   </p>
                 </CardContent>
               </Card>
