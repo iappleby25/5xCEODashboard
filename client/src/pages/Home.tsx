@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, LayoutDashboard } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 // Import the logo from assets
 import logoSvg from '../assets/advantage-ceo-final.svg';
 
 const Home = () => {
+  const { user, isAuthenticated } = useAuth();
+  
   return (
     <div className="flex-1 bg-gradient-to-br from-white to-neutral-100">
       <div className="max-w-6xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
@@ -45,12 +48,26 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-10"
           >
-            <Link href="/login">
-              <Button className="rounded-md px-8 py-3 text-base font-medium">
-                Login
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <div className="space-y-4">
+                <div className="text-xl font-medium text-primary">
+                  Welcome back, {user?.email?.split('@')[0]}!
+                </div>
+                <Link href="/dashboard">
+                  <Button className="rounded-md px-8 py-3 text-base font-medium">
+                    Go to Dashboard
+                    <LayoutDashboard className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <Link href="/login">
+                <Button className="rounded-md px-8 py-3 text-base font-medium">
+                  Login
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            )}
           </motion.div>
         </div>
 
