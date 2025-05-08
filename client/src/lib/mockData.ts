@@ -7,6 +7,7 @@ export interface FrameworkCategory {
   description: string;
   questions: { id: string; text: string; }[];
   score: number;
+  company?: string; // Optional company name property
 }
 
 export const getCategoryColor = (categoryId: string): string => {
@@ -56,7 +57,8 @@ export const assessmentData: FrameworkCategory[] = [
       { id: 'sc2', text: 'Does the strategy align with market opportunities?' },
       { id: 'sc3', text: 'How effectively is the strategy communicated throughout the organization?' }
     ],
-    score: 85
+    score: 85,
+    company: "GlobalSolutions"
   },
   {
     id: 'scalable-talent',
@@ -67,7 +69,8 @@ export const assessmentData: FrameworkCategory[] = [
       { id: 'st2', text: 'Are roles clearly defined with appropriate accountability?' },
       { id: 'st3', text: 'Does the company invest in employee development?' }
     ],
-    score: 72
+    score: 72,
+    company: "GlobalSolutions"
   },
   {
     id: 'relentless-focus',
@@ -78,7 +81,8 @@ export const assessmentData: FrameworkCategory[] = [
       { id: 'rf2', text: 'Does the leadership team avoid distraction from core objectives?' },
       { id: 'rf3', text: 'Are resources allocated to support key priorities?' }
     ],
-    score: 68
+    score: 68,
+    company: "GlobalSolutions"
   },
   {
     id: 'disciplined-execution',
@@ -89,7 +93,8 @@ export const assessmentData: FrameworkCategory[] = [
       { id: 'de2', text: 'Are performance metrics clearly defined and tracked?' },
       { id: 'de3', text: 'Is there accountability for results throughout the organization?' }
     ],
-    score: 79
+    score: 79,
+    company: "GlobalSolutions"
   },
   {
     id: 'energized-culture',
@@ -100,7 +105,8 @@ export const assessmentData: FrameworkCategory[] = [
       { id: 'ec2', text: 'Does the culture align with the company\'s values?' },
       { id: 'ec3', text: 'Is continuous improvement encouraged and rewarded?' }
     ],
-    score: 81
+    score: 81,
+    company: "GlobalSolutions"
   }
 ];
 
