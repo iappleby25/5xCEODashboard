@@ -1,17 +1,19 @@
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-import { TrendingUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+import { TrendingUp, Info } from 'lucide-react';
 
 interface CategoryAnalysisProps {
   category: string;
   company: string;
   period: string;
+  comparisonCompany?: string;
 }
 
 const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
   category,
   company,
-  period
+  period,
+  comparisonCompany = 'FusionDynamics'
 }) => {
   // Data for each category (in real app would be fetched from API)
   const getCategoryData = () => {
@@ -99,17 +101,143 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
 
   const categoryData = getCategoryData();
   
-  // Generate trajectory data
-  const trajectoryData = [
-    { name: 'Q2', value: 60 },
-    { name: 'Q3', value: 65 },
-    { name: 'Q4', value: 70 },
-    { name: 'Q1', value: category === 'disciplined-execution' ? 78 :
-               category === 'strategic-clarity' ? 76 :
-               category === 'scalable-talent' ? 65 :
-               category === 'relentless-focus' ? 70 :
-               category === 'energized-culture' ? 71 : 70 },
-  ];
+  // State for hovering insights
+  const [activeMetric, setActiveMetric] = useState<string | null>(null);
+
+  // Generate comparison data
+  const generateComparisonData = () => {
+    // This would come from API in a real app
+    switch (category) {
+      case 'strategic-clarity':
+        return [
+          { 
+            name: 'Vision alignment', 
+            [company]: 75, 
+            [comparisonCompany]: 68,
+            insight: `${company} has stronger vision alignment with executives (+7%), leading to more cohesive strategic decisions across departments.`
+          },
+          { 
+            name: 'Decision cohesion', 
+            [company]: 68, 
+            [comparisonCompany]: 71,
+            insight: `${comparisonCompany} demonstrates better decision alignment (+3%) through their structured decision framework established in Q3 2024.`
+          },
+          { 
+            name: 'Mission understanding', 
+            [company]: 82, 
+            [comparisonCompany]: 74,
+            insight: `${company}'s company-wide mission training program launched in Q4 2024 has resulted in significantly higher mission understanding (+8%).`
+          },
+        ];
+      case 'scalable-talent':
+        return [
+          { 
+            name: 'Talent optimization', 
+            [company]: 65, 
+            [comparisonCompany]: 70,
+            insight: `${comparisonCompany}'s talent development program is showing +5% better results through their structured mentorship approach.`
+          },
+          { 
+            name: 'Leadership capability', 
+            [company]: 72, 
+            [comparisonCompany]: 65,
+            insight: `${company}'s investment in leadership development is yielding +7% stronger results in leadership capabilities and decision making.`
+          },
+          { 
+            name: 'Retention rate', 
+            [company]: 68, 
+            [comparisonCompany]: 76,
+            insight: `${comparisonCompany} has implemented more effective retention strategies (+8%), particularly in offering career advancement opportunities.`
+          },
+        ];
+      case 'relentless-focus':
+        return [
+          { 
+            name: 'Resource optimization', 
+            [company]: 70, 
+            [comparisonCompany]: 64,
+            insight: `${company} demonstrates stronger resource allocation efficiency (+6%) through their quarterly resource planning process.`
+          },
+          { 
+            name: 'Project completion rate', 
+            [company]: 74, 
+            [comparisonCompany]: 78,
+            insight: `${comparisonCompany} shows superior project completion metrics (+4%) with their agile methodology implementation.`
+          },
+          { 
+            name: 'Strategic capacity', 
+            [company]: 65, 
+            [comparisonCompany]: 69,
+            insight: `${comparisonCompany} has developed +4% more strategic capacity through effective delegation and workflow optimization.`
+          },
+        ];
+      case 'disciplined-execution':
+        return [
+          { 
+            name: 'Execution effectiveness', 
+            [company]: 78, 
+            [comparisonCompany]: 71,
+            insight: `${company}'s execution framework produces +7% better results through enhanced accountability and milestone tracking.`
+          },
+          { 
+            name: 'On-time delivery', 
+            [company]: 75, 
+            [comparisonCompany]: 80,
+            insight: `${comparisonCompany} achieves +5% better on-time delivery through their predictive planning tools implemented in Q3 2024.`
+          },
+          { 
+            name: 'Quality index', 
+            [company]: 80, 
+            [comparisonCompany]: 72,
+            insight: `${company} maintains an +8% higher quality index through their comprehensive quality assurance program and feedback loops.`
+          },
+        ];
+      case 'energized-culture':
+        return [
+          { 
+            name: 'Employee engagement', 
+            [company]: 71, 
+            [comparisonCompany]: 82,
+            insight: `${comparisonCompany} achieves significantly higher employee engagement (+11%) through their innovative recognition programs and flexible work policies.`
+          },
+          { 
+            name: 'Innovation index', 
+            [company]: 68, 
+            [comparisonCompany]: 62,
+            insight: `${company} shows +6% stronger innovation metrics from their dedicated innovation time and cross-department collaboration initiatives.`
+          },
+          { 
+            name: 'Team effectiveness', 
+            [company]: 75, 
+            [comparisonCompany]: 71,
+            insight: `${company} demonstrates +4% better team effectiveness through structured team-building and conflict resolution training.`
+          },
+        ];
+      default:
+        return [
+          { 
+            name: 'Vision alignment', 
+            [company]: 75, 
+            [comparisonCompany]: 68,
+            insight: `${company} has stronger vision alignment with executives (+7%), leading to more cohesive strategic decisions across departments.`
+          },
+          { 
+            name: 'Decision cohesion', 
+            [company]: 68, 
+            [comparisonCompany]: 71,
+            insight: `${comparisonCompany} demonstrates better decision alignment (+3%) through their structured decision framework established in Q3 2024.`
+          },
+          { 
+            name: 'Mission understanding', 
+            [company]: 82, 
+            [comparisonCompany]: 74,
+            insight: `${company}'s company-wide mission training program launched in Q4 2024 has resulted in significantly higher mission understanding (+8%).`
+          },
+        ];
+    }
+  };
+
+  const comparisonData = generateComparisonData();
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md">
@@ -125,18 +253,82 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
       </div>
 
       <div className="my-6">
-        <h3 className="text-lg font-medium mb-2">Performance Trajectory</h3>
-        <div className="h-[240px] border-t border-b border-dashed border-neutral-200 py-4">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="text-lg font-medium">Company Comparison</h3>
+          <div className="flex items-center gap-3 text-sm">
+            <div className="flex items-center">
+              <div className="w-3 h-3 rounded-full bg-blue-500 mr-1"></div>
+              <span>{company}</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
+              <span>{comparisonCompany}</span>
+            </div>
+          </div>
+        </div>
+        <div className="h-[280px] border-t border-b border-dashed border-neutral-200 py-4">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={trajectoryData} margin={{ top: 20, right: 30, left: 30, bottom: 10 }}>
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis hide domain={[0, 100]} />
-              <Bar dataKey="value" fill={categoryData.color} barSize={80} />
+            <BarChart 
+              data={comparisonData} 
+              margin={{ top: 20, right: 30, left: 50, bottom: 10 }}
+              barGap={10}
+              layout="vertical"
+              onMouseMove={(data) => {
+                if (data.isTooltipActive && data.activePayload && data.activeLabel) {
+                  setActiveMetric(data.activeLabel as string);
+                }
+              }}
+              onMouseLeave={() => setActiveMetric(null)}
+            >
+              <CartesianGrid strokeDasharray="3 3" horizontal={true} />
+              <XAxis type="number" domain={[0, 100]} />
+              <YAxis 
+                dataKey="name" 
+                type="category" 
+                width={120}
+                tick={{ fontSize: 12 }}
+              />
+              <Tooltip 
+                formatter={(value, name) => [`${value}%`, name]}
+                labelFormatter={(label) => `Metric: ${label}`}
+              />
+              <Legend />
+              <Bar 
+                dataKey={company} 
+                name={company} 
+                fill="#3b82f6" 
+                radius={[0, 4, 4, 0]}
+              />
+              <Bar 
+                dataKey={comparisonCompany} 
+                name={comparisonCompany} 
+                fill="#10b981" 
+                radius={[0, 4, 4, 0]}
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="text-center mt-2 text-amber-600 font-medium">Target</div>
+        
+        {activeMetric && (
+          <div className="mt-4 p-4 bg-blue-50 border border-blue-100 rounded-md text-blue-800 transition-all duration-300">
+            <div className="flex items-start gap-2">
+              <Info className="h-5 w-5 mt-0.5 flex-shrink-0" />
+              <div>
+                <h4 className="font-medium text-blue-900 mb-1">Performance Insight</h4>
+                <p className="text-sm">
+                  {comparisonData.find(d => d.name === activeMetric)?.insight || 
+                   "Hover over a metric to see detailed performance insights."}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {!activeMetric && (
+          <div className="mt-4 p-3 bg-neutral-50 border border-neutral-100 rounded-md text-neutral-500 text-sm text-center">
+            Hover over metrics to view detailed performance insights
+          </div>
+        )}
       </div>
 
       <div className="mt-6 mb-8">
