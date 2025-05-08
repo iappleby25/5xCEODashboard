@@ -297,10 +297,10 @@ export const mockCompanies: CompanyData[] = [
   }
 ];
 
-// Add 20 survey data points with different roles, companies, and scores
+// Add survey data points with question information
 export function getMockSurveyData(): SurveyData[] {
   const companies = ["GlobalSolutions", "TechForward", "FinanceBlue", "RetailGiant", "ManufacturingCo"];
-  const roles = ["CEO", "CFO", "CTO", "COO", "HR Director", "Marketing Director", "Sales Manager", "IT Manager"];
+  const roles = ["CEO", "PE & BOD", "LEADERSHIP TEAM", "COMPANY"];
   
   // Sample questions for each category
   const questions = {
