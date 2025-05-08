@@ -12,7 +12,6 @@ import History from "@/pages/History";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
-import MyCEO from "@/pages/MyCEO";
 import FiveXCEO from "@/pages/5xCEO";
 import Comparisons from "@/pages/Comparisons";
 import UserManagement from "@/pages/UserManagement";
@@ -25,10 +24,16 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/upload" component={UploadData} />
       <Route path="/history" component={History} />
-      <Route path="/MyCEO" component={MyCEO} />
       <Route path="/5xCEO" component={FiveXCEO} />
       <Route path="/comparisons" component={Comparisons} />
       <Route path="/admin/users" component={UserManagement} />
+      {/* Redirect /MyCEO to /5xCEO for backward compatibility */}
+      <Route path="/MyCEO">
+        {() => {
+          window.location.href = "/5xCEO";
+          return null;
+        }}
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );

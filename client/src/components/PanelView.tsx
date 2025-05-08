@@ -205,45 +205,63 @@ const PanelView: React.FC<PanelViewProps> = ({
                 </>
               )}
             </div>
-          </motion.div>
-
-          <motion.div 
-            className={`p-4 rounded-lg bg-white border ${colors.border}`}
-            variants={itemVariants}
-          >
-            <h3 className="text-lg font-semibold mb-2">Improvement Opportunity</h3>
-            <p>Based on current performance, focus on {category.name.toLowerCase()} initiatives that will drive business growth and team alignment.</p>
+            <div className="mt-3 text-sm text-neutral-600">
+              <p className="whitespace-pre-line">{interpretation}</p>
+            </div>
           </motion.div>
         </div>
 
-        {viewMode === '5xCEO' && (
-          <motion.div 
-            className="space-y-4"
-            variants={itemVariants}
-          >
-            <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
-              <h3 className="text-lg font-semibold mb-2">5xCEO Framework Insights</h3>
-              <div className="prose prose-sm">
-                <p className="whitespace-pre-line">{interpretation}</p>
-              </div>
+        <motion.div 
+          className="space-y-4"
+          variants={itemVariants}
+        >
+          {/* Triple Threat Solution Section - Moved up to align with Description */}
+          <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-semibold">Triple Threat Solution</h3>
+              <span className={`text-xs px-2 py-1 rounded-full ${colors.bg} ${colors.text}`}>GPT-Powered</span>
+            </div>
+            <p className="text-sm text-neutral-600 mb-3">
+              Based on current performance, focus on {category.name.toLowerCase()} initiatives that will drive business growth and team alignment.
+            </p>
+            <div className="prose prose-sm">
+              <ul className="space-y-2 list-disc pl-5">
+                {tripleThreatSolutions.map((solution, index) => (
+                  <li key={index} className="text-sm">{solution}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          
+          {/* Dual Axis Performance Mockup - Added at the bottom */}
+          <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
+            <h3 className="text-lg font-semibold mb-2">Performance Impact</h3>
+            
+            <div className="company-name text-center font-medium text-neutral-700 mb-3">
+              {category.company || "ABC Company"}
             </div>
             
-            {/* Triple Threat Solution Section */}
-            <div className={`p-4 rounded-lg bg-white border ${colors.border}`}>
-              <div className="flex justify-between items-center mb-2">
-                <h3 className="text-lg font-semibold">Triple Threat Solution</h3>
-                <span className={`text-xs px-2 py-1 rounded-full ${colors.bg} ${colors.text}`}>GPT-Powered</span>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <h4 className="text-sm font-medium text-center mb-2">Performance as-is</h4>
+                <div className="bg-neutral-100 rounded-lg p-3 h-32 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-neutral-200 flex items-center justify-center">
+                    <span className="text-xl font-bold">{category.score}%</span>
+                  </div>
+                </div>
               </div>
-              <div className="prose prose-sm">
-                <ul className="space-y-2 list-disc pl-5">
-                  {tripleThreatSolutions.map((solution, index) => (
-                    <li key={index} className="text-sm">{solution}</li>
-                  ))}
-                </ul>
+              
+              <div>
+                <h4 className="text-sm font-medium text-center mb-2">5x Solution</h4>
+                <div className="bg-neutral-100 rounded-lg p-3 h-32 flex items-center justify-center">
+                  <div className={`w-20 h-20 rounded-full ${colors.accent} flex items-center justify-center`}>
+                    <span className="text-xl font-bold text-white">{Math.min(100, Math.round(category.score * 1.3))}%</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </motion.div>
-        )}
+          </div>
+        </motion.div>
       </motion.div>
     </motion.div>
   );

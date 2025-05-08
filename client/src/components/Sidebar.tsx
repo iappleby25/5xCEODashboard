@@ -94,22 +94,12 @@ export default function Sidebar({ isMobile, isOpen, onClose }: SidebarProps) {
               </li>
               <li>
                 <Link 
-                  href="/MyCEO" 
-                  onClick={isMobile ? onClose : undefined}
-                  className={linkClasses("/MyCEO")}
-                >
-                  <BarChart className="mr-3 h-4 w-4" />
-                  MyCEO
-                </Link>
-              </li>
-              <li>
-                <Link 
                   href="/5xCEO" 
                   onClick={isMobile ? onClose : undefined}
                   className={linkClasses("/5xCEO")}
                 >
                   <PieChart className="mr-3 h-4 w-4" />
-                  5xCEO
+                  MyCEO
                 </Link>
               </li>
               <li>

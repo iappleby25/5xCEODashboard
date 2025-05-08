@@ -9,8 +9,8 @@ const FiveXCEO = () => {
   const [selectedCategory, setSelectedCategory] = useState<FrameworkCategory | null>(null);
 
   const handleToggleView = () => {
-    // In 5xCEO page, this would navigate to MyCEO page instead
-    window.location.href = '/MyCEO';
+    // Not used anymore since we only have one view
+    console.log("Toggle view not implemented");
   };
 
   const handleSelectCategory = (category: FrameworkCategory) => {
@@ -67,13 +67,21 @@ const FiveXCEO = () => {
       >
         <motion.div variants={itemVariants} className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-neutral-900">
-            5xCEO Framework Dashboard
+            MyCEO
           </h1>
-          <p className="text-neutral-600 mt-2">
-            Interpreted assessment data with framework-driven insights and improvement opportunities.
-          </p>
         </motion.div>
 
+        <motion.div variants={itemVariants} className="mb-8">
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Company: GlobalSolutions</h2>
+              <div className="text-sm text-neutral-500">
+                Assessment Date: Q1 2023
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        
         <motion.div variants={itemVariants} className="mb-8">
           <div className="bg-white p-6 rounded-xl shadow-md">
             <h2 className="text-xl font-semibold mb-6 text-center">Interactive 5xCEO Framework</h2>
@@ -84,7 +92,7 @@ const FiveXCEO = () => {
               onSelectCategory={handleSelectCategory}
             />
             <div className="text-center mt-6 text-sm text-neutral-500">
-              Click on any category to view detailed metrics or click the center button to switch to MyCEO view
+              Click on any category to view detailed metrics
             </div>
           </div>
         </motion.div>
