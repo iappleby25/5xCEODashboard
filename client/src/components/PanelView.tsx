@@ -39,6 +39,49 @@ const PanelView: React.FC<PanelViewProps> = ({
     };
   };
   
+  // Generate Triple Threat Solutions based on category
+  const getTripleThreatSolutions = (categoryId: string) => {
+    switch(categoryId) {
+      case 'strategic-clarity':
+        return [
+          "Create a one-page strategic plan that every employee can understand and reference",
+          "Schedule monthly strategic alignment sessions with all department heads",
+          "Implement a strategic objectives dashboard visible to all team members"
+        ];
+      case 'relentless-focus':
+        return [
+          "Institute a project prioritization matrix that aligns with strategic objectives",
+          "Conduct weekly focus review meetings to eliminate low-value activities",
+          "Use time-tracking analytics to identify and reduce time spent on non-core activities"
+        ];
+      case 'disciplined-execution':
+        return [
+          "Implement a structured accountability framework with clear owners for each deliverable",
+          "Establish a regular cadence of execution reviews with predefined metrics",
+          "Create a recognition program specifically for execution excellence"
+        ];
+      case 'scalable-talent':
+        return [
+          "Develop skill matrices for each role with clear development pathways", 
+          "Implement quarterly capability assessments tied to growth objectives",
+          "Create cross-functional mentoring pairs to accelerate knowledge transfer"
+        ];
+      case 'energized-culture':
+        return [
+          "Launch a structured employee feedback program with action tracking",
+          "Establish team-level culture champions with specific improvement metrics",
+          "Create regular team-building activities aligned with company values"
+        ];
+      default:
+        return [
+          "Establish clear metrics to track progress in this area",
+          "Schedule regular review sessions to evaluate improvement",
+          "Designate a champion to lead initiatives in this category"
+        ];
+    }
+  };
+  
+  const tripleThreatSolutions = getTripleThreatSolutions(category.id);
   const colors = getColorClasses(colorName);
 
   // Animation variants
