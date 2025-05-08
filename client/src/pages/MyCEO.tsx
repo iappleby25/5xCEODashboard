@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RadialMenu from '@/components/RadialMenu';
 import PanelView from '@/components/PanelView';
-import { assessmentData, FrameworkCategory } from '@/lib/mockData';
+import { assessmentData as frameworkCategories, FrameworkCategory } from '@/lib/mockData';
 
 const MyCEO = () => {
   const [activeView, setActiveView] = useState<'MyCEO' | '5xCEO'>('MyCEO');
@@ -22,21 +22,21 @@ const MyCEO = () => {
   };
 
   const handleNextCategory = () => {
-    const currentIndex = assessmentData.findIndex(
+    const currentIndex = frameworkCategories.findIndex(
       (cat) => cat.id === selectedCategory?.id
     );
-    const nextIndex = (currentIndex + 1) % assessmentData.length;
-    setSelectedCategory(assessmentData[nextIndex]);
+    const nextIndex = (currentIndex + 1) % frameworkCategories.length;
+    setSelectedCategory(frameworkCategories[nextIndex]);
   };
 
   const handlePreviousCategory = () => {
-    const currentIndex = assessmentData.findIndex(
+    const currentIndex = frameworkCategories.findIndex(
       (cat) => cat.id === selectedCategory?.id
     );
     const prevIndex = currentIndex === 0 
-      ? assessmentData.length - 1 
+      ? frameworkCategories.length - 1 
       : currentIndex - 1;
-    setSelectedCategory(assessmentData[prevIndex]);
+    setSelectedCategory(frameworkCategories[prevIndex]);
   };
 
   // Container animation
@@ -77,14 +77,14 @@ const MyCEO = () => {
         <motion.div variants={itemVariants} className="mb-8">
           <div className="bg-white p-4 rounded-xl shadow-md">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Company: {assessmentData.companyName}</h2>
+              <h2 className="text-xl font-semibold">Company: GlobalSolutions</h2>
               <div className="text-sm text-neutral-500">
-                Assessment Date: {assessmentData.date}
+                Assessment Date: Q1 2023
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-              {assessmentData.categories.map((category) => (
+              {frameworkCategories.map((category) => (
                 <div 
                   key={category.id}
                   className="bg-neutral-100 rounded-lg p-4 cursor-pointer hover:bg-neutral-200 transition-colors"
@@ -92,12 +92,8 @@ const MyCEO = () => {
                 >
                   <h3 className="font-medium">{category.name}</h3>
                   <div className="flex justify-between mt-2 text-sm">
-                    <span>Importance:</span>
-                    <span className="font-medium">{category.avgImportance}/5</span>
-                  </div>
-                  <div className="flex justify-between mt-1 text-sm">
-                    <span>Agreement:</span>
-                    <span className="font-medium">{category.avgAgreement}/5</span>
+                    <span>Score:</span>
+                    <span className="font-medium">{category.score}%</span>
                   </div>
                 </div>
               ))}
