@@ -458,6 +458,52 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
       weaknesses: sortedCompanies.slice(-3).reverse() // Bottom 3 companies
     };
   };
+  
+  // Find top and bottom question scores for the score breakdown tile
+  const findTopAndBottomQuestions = () => {
+    // Extract all questions from the data
+    const allQuestions: { question: string, score: number }[] = [];
+    
+    // Collect all questions and their scores from the filtered data
+    filteredData.forEach(item => {
+      if (item.questions) {
+        item.questions.forEach((q: { question: string; score: number; category?: string }) => {
+          if (q.question && q.score !== undefined) {
+            allQuestions.push({
+              question: q.question,
+              score: q.score
+            });
+          }
+        });
+      }
+    });
+    
+    // Group questions by name and calculate average score
+    const questionMap = new Map<string, number[]>();
+    allQuestions.forEach(item => {
+      if (!questionMap.has(item.question)) {
+        questionMap.set(item.question, []);
+      }
+      questionMap.get(item.question)?.push(item.score);
+    });
+    
+    // Calculate average score for each question
+    const questionAverages = Array.from(questionMap.entries()).map(([question, scores]) => {
+      const avgScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+      return {
+        question,
+        score: Math.round(avgScore)
+      };
+    });
+    
+    // Sort questions by score
+    const sortedQuestions = [...questionAverages].sort((a, b) => b.score - a.score);
+    
+    return {
+      topQuestions: sortedQuestions.slice(0, 5), // Top 5 questions
+      bottomQuestions: sortedQuestions.slice(-5).reverse() // Bottom 5 questions
+    };
+  };
 
   const { strengths, weaknesses } = findStrengthsAndWeaknesses();
 
@@ -719,7 +765,9 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
 
           <Card>
             <CardHeader>
-              <CardTitle>Score Breakdown</CardTitle>
+              <CardTitle>
+                {currentViewLevel === "holding" ? "Question Analysis" : "Score Breakdown"}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -744,28 +792,68 @@ const DetailedAnalysis: React.FC<DetailedAnalysisProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span>Strategic Clarity</span>
-                    <span>{averageScores.strategicClarity}%</span>
+                {currentViewLevel === "holding" ? (
+                  // In holding view, show top and bottom question scores
+                  <div className="pt-4 space-y-4">
+                    {/* Get top and bottom questions */}
+                    {(() => {
+                      const { topQuestions, bottomQuestions } = findTopAndBottomQuestions();
+                      return (
+                        <>
+                          <div>
+                            <h3 className="text-md font-medium text-green-600 mb-2">Top 5 Questions</h3>
+                            {topQuestions.map((item, index) => (
+                              <div key={index} className="flex items-center justify-between mb-2 p-2 bg-green-50 rounded-md">
+                                <span className="text-sm truncate flex-1 mr-2">{item.question}</span>
+                                <span className="font-semibold whitespace-nowrap">{item.score}%</span>
+                              </div>
+                            ))}
+                            {topQuestions.length === 0 && (
+                              <div className="text-center py-2 text-neutral-500">No question data available</div>
+                            )}
+                          </div>
+                          
+                          <div>
+                            <h3 className="text-md font-medium text-amber-600 mb-2">Bottom 5 Questions</h3>
+                            {bottomQuestions.map((item, index) => (
+                              <div key={index} className="flex items-center justify-between mb-2 p-2 bg-amber-50 rounded-md">
+                                <span className="text-sm truncate flex-1 mr-2">{item.question}</span>
+                                <span className="font-semibold whitespace-nowrap">{item.score}%</span>
+                              </div>
+                            ))}
+                            {bottomQuestions.length === 0 && (
+                              <div className="text-center py-2 text-neutral-500">No question data available</div>
+                            )}
+                          </div>
+                        </>
+                      );
+                    })()}
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span>Scalable Talent</span>
-                    <span>{averageScores.scalableTalent}%</span>
+                ) : (
+                  // In team and company view, show framework category scores
+                  <div className="pt-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span>Strategic Clarity</span>
+                      <span>{averageScores.strategicClarity}%</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Scalable Talent</span>
+                      <span>{averageScores.scalableTalent}%</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Relentless Focus</span>
+                      <span>{averageScores.relentlessFocus}%</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Disciplined Execution</span>
+                      <span>{averageScores.disciplinedExecution}%</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Energized Culture</span>
+                      <span>{averageScores.energizedCulture}%</span>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span>Relentless Focus</span>
-                    <span>{averageScores.relentlessFocus}%</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Disciplined Execution</span>
-                    <span>{averageScores.disciplinedExecution}%</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Energized Culture</span>
-                    <span>{averageScores.energizedCulture}%</span>
-                  </div>
-                </div>
+                )}
               </div>
             </CardContent>
           </Card>

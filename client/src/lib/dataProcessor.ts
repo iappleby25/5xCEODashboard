@@ -21,6 +21,11 @@ export interface SurveyData {
   };
   scores?: CompanyScores;
   logo?: string;
+  questions?: {
+    question: string;
+    score: number;
+    category?: string;
+  }[];
 }
 
 // Define company data with 5xCEO framework scores

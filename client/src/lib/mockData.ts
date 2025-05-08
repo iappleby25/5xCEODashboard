@@ -297,6 +297,116 @@ export const mockCompanies: CompanyData[] = [
   }
 ];
 
+// Add 20 survey data points with different roles, companies, and scores
+export function getMockSurveyData(): SurveyData[] {
+  const companies = ["GlobalSolutions", "TechForward", "FinanceBlue", "RetailGiant", "ManufacturingCo"];
+  const roles = ["CEO", "CFO", "CTO", "COO", "HR Director", "Marketing Director", "Sales Manager", "IT Manager"];
+  
+  // Sample questions for each category
+  const questions = {
+    strategicClarity: [
+      "Our organization has a clear vision that guides decision-making.",
+      "Leadership effectively communicates our strategic priorities.",
+      "Our strategy is well-defined and understood by all employees.",
+      "We have a robust process for adapting our strategy to market changes.",
+      "Our organization aligns resources effectively with strategic priorities."
+    ],
+    scalableTalent: [
+      "We have effective processes for recruiting top talent.",
+      "Our organization develops employees to reach their full potential.",
+      "We have a strong succession planning process in place.",
+      "Our performance management systems are fair and transparent.",
+      "Our compensation and benefits are competitive in the industry."
+    ],
+    relentlessFocus: [
+      "Our organization maintains focus on key priorities without distraction.",
+      "We effectively eliminate activities that don't add value.",
+      "Decision-making is efficient and timely in our organization.",
+      "We consistently meet our goals and targets.",
+      "Our resources are allocated to the most important priorities."
+    ],
+    disciplinedExecution: [
+      "We have clear accountability for results at all levels.",
+      "Our organization implements change initiatives effectively.",
+      "We deliver projects on time and within budget.",
+      "Our processes are well-documented and consistently followed.",
+      "We have effective systems for tracking performance and results."
+    ],
+    energizedCulture: [
+      "Employees are highly engaged and motivated.",
+      "Our workplace culture supports innovation and creativity.",
+      "There is strong collaboration across departments and teams.",
+      "Leadership behaviors consistently reflect our values.",
+      "Employees feel empowered to make decisions in their roles."
+    ]
+  };
+  
+  const surveyData: SurveyData[] = [];
+  
+  // Generate data for each company
+  companies.forEach((company, cIndex) => {
+    // Generate data for each role
+    roles.forEach((role, rIndex) => {
+      // Different scores based on role and company
+      const baseScore = 50 + Math.floor(Math.random() * 40);
+      const variance = 10;
+      
+      const strategicClarity = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
+      const scalableTalent = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
+      const relentlessFocus = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
+      const disciplinedExecution = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
+      const energizedCulture = Math.min(100, Math.max(0, baseScore + Math.floor(Math.random() * variance * 2) - variance));
+      
+      const totalScore = Math.round((strategicClarity + scalableTalent + relentlessFocus + disciplinedExecution + energizedCulture) / 5);
+      
+      // Generate question scores for each category
+      const questionItems = [];
+      
+      // Add questions with scores for each category
+      Object.entries(questions).forEach(([category, categoryQuestions]) => {
+        const categoryBaseScore = 
+          category === 'strategicClarity' ? strategicClarity : 
+          category === 'scalableTalent' ? scalableTalent :
+          category === 'relentlessFocus' ? relentlessFocus :
+          category === 'disciplinedExecution' ? disciplinedExecution : 
+          energizedCulture;
+        
+        categoryQuestions.forEach(question => {
+          // Score varies a bit around the category base score
+          const questionScore = Math.min(100, Math.max(0, categoryBaseScore + Math.floor(Math.random() * 16) - 8));
+          
+          questionItems.push({
+            question,
+            score: questionScore,
+            category
+          });
+        });
+      });
+      
+      surveyData.push({
+        companyName: company,
+        role,
+        responses: {
+          id: cIndex * 100 + rIndex,
+          totalPoints: totalScore,
+          status: "completed"
+        },
+        scores: {
+          strategicClarity,
+          scalableTalent,
+          relentlessFocus,
+          disciplinedExecution,
+          energizedCulture,
+          totalScore
+        },
+        questions: questionItems
+      });
+    });
+  });
+  
+  return surveyData;
+}
+
 // Mock survey data for MyCEO view
 export const mockSurveyData: SurveyData[] = [
   {
@@ -315,7 +425,16 @@ export const mockSurveyData: SurveyData[] = [
       energizedCulture: 76,
       totalScore: 80
     },
-    logo: mockCompanies[0].logo
+    logo: mockCompanies[0].logo,
+    questions: [
+      { question: "Our organization has a clear vision that guides decision-making", score: 87, category: "strategicClarity" },
+      { question: "Leadership effectively communicates our strategic priorities", score: 82, category: "strategicClarity" },
+      { question: "We have effective processes for recruiting top talent", score: 76, category: "scalableTalent" },
+      { question: "Our organization develops employees to reach their full potential", score: 80, category: "scalableTalent" },
+      { question: "Decision-making is efficient and timely in our organization", score: 84, category: "relentlessFocus" },
+      { question: "We deliver projects on time and within budget", score: 78, category: "disciplinedExecution" },
+      { question: "Employees are highly engaged and motivated", score: 74, category: "energizedCulture" }
+    ]
   },
   {
     companyName: "EcoWave",
