@@ -297,49 +297,14 @@ export const mockCompanies: CompanyData[] = [
   }
 ];
 
-// Add 20 survey data points with different roles, companies, and scores
+// Add survey data points with different roles, companies, and scores
+// using actual survey questions from the Excel file
 export function getMockSurveyData(): SurveyData[] {
+  // We're using hardcoded questions from the real survey data
+  // The questions were extracted from the Excel file
+
   const companies = ["GlobalSolutions", "TechForward", "FinanceBlue", "RetailGiant", "ManufacturingCo"];
   const roles = ["CEO", "CFO", "CTO", "COO", "HR Director", "Marketing Director", "Sales Manager", "IT Manager"];
-  
-  // Sample questions for each category
-  const questions = {
-    strategicClarity: [
-      "Our organization has a clear vision that guides decision-making.",
-      "Leadership effectively communicates our strategic priorities.",
-      "Our strategy is well-defined and understood by all employees.",
-      "We have a robust process for adapting our strategy to market changes.",
-      "Our organization aligns resources effectively with strategic priorities."
-    ],
-    scalableTalent: [
-      "We have effective processes for recruiting top talent.",
-      "Our organization develops employees to reach their full potential.",
-      "We have a strong succession planning process in place.",
-      "Our performance management systems are fair and transparent.",
-      "Our compensation and benefits are competitive in the industry."
-    ],
-    relentlessFocus: [
-      "Our organization maintains focus on key priorities without distraction.",
-      "We effectively eliminate activities that don't add value.",
-      "Decision-making is efficient and timely in our organization.",
-      "We consistently meet our goals and targets.",
-      "Our resources are allocated to the most important priorities."
-    ],
-    disciplinedExecution: [
-      "We have clear accountability for results at all levels.",
-      "Our organization implements change initiatives effectively.",
-      "We deliver projects on time and within budget.",
-      "Our processes are well-documented and consistently followed.",
-      "We have effective systems for tracking performance and results."
-    ],
-    energizedCulture: [
-      "Employees are highly engaged and motivated.",
-      "Our workplace culture supports innovation and creativity.",
-      "There is strong collaboration across departments and teams.",
-      "Leadership behaviors consistently reflect our values.",
-      "Employees feel empowered to make decisions in their roles."
-    ]
-  };
   
   const surveyData: SurveyData[] = [];
   
@@ -359,29 +324,120 @@ export function getMockSurveyData(): SurveyData[] {
       
       const totalScore = Math.round((strategicClarity + scalableTalent + relentlessFocus + disciplinedExecution + energizedCulture) / 5);
       
-      // Generate question scores for each category
-      const questionItems = [];
+      // Initialize the question items array
+      const questionItems: { question: string; score: number; category: string }[] = [];
       
-      // Add questions with scores for each category
-      Object.entries(questions).forEach(([category, categoryQuestions]) => {
-        const categoryBaseScore = 
-          category === 'strategicClarity' ? strategicClarity : 
-          category === 'scalableTalent' ? scalableTalent :
-          category === 'relentlessFocus' ? relentlessFocus :
-          category === 'disciplinedExecution' ? disciplinedExecution : 
-          energizedCulture;
+      // Get the real survey questions and assign scores to them
+      // Dynamically import works asynchronously, so we'll use a workaround with hardcoded questions
+      try {
+        // Copy the survey questions from the imported data
+        const realQuestions = [
+          { 
+            "question": "The leadership team and board are completely aligned on the value creation plan (maps out the core drivers of value creation).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "Employees at all levels clearly understand the company's strategic plan.",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The strategic plan is reviewed and refreshed annually to ensure relevance and alignment.",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "A comprehensive communication plan has been used to share the strategic plan and annual goals.",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The purpose (mission), vision and values (all three) are clearly understood by employees.",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The customer value proposition is clearly defined. (The value proposition defines how to gain or retain a competitive advantage.)",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The business model is clearly defined (an integrated set of choices made by the company that are unique relative to competitors).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The leadership team is aligned on the current stage of the business (early, growth, mature, declining) and near-term opportunities and threats.",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "A brand growth strategy with clear growth drivers has been defined (this explicitly defines how to grow revenue / market share by ensuring the brand matches a specific customer need).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The market has been thoroughly analyzed (size, segments, growth rates, level of maturity and key risks/opportunities for the core business).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The competitive landscape has been thoroughly analyzed (core competitors, emerging competitors, share shifts, what will win and who will win).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The leadership team meets at least once per quarter to review the competitive landscape and assess internal performance.",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The organization is encouraged to share and discuss competitive information proactively.",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The value creation plan has been translated into a 3-5 year strategic plan for the business (detailed roadmap that aligns key initiatives, financial targets, and execution timelines).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The organization has a clearly defined Innovation Strategy (this provides context for which investments to pursue, and which to not pursue).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The leadership team has established a clear innovation agenda (what focus areas to investigate and explore).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "The strategy is evaluated to inform the annual planning process.",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "Organizational culture (values, beliefs, and behaviors expected of its members) is explicitly defined.",
+            "category": "energizedCulture"
+          },
+          {
+            "question": "A clear digital/technology strategy exists (articulates what technology capabilities you need to achieve your strategic ambitions and how to accomplish it).",
+            "category": "strategicClarity"
+          },
+          {
+            "question": "A clearly defined capital allocation/investment strategy exists (articulates how capital will be allocated to long-term value creation across different uses and opportunities).",
+            "category": "strategicClarity"
+          }
+        ];
         
-        categoryQuestions.forEach(question => {
+        // Process each question
+        realQuestions.forEach(q => {
+          // Determine the base score for this category
+          const categoryBaseScore = 
+            q.category === 'strategicClarity' ? strategicClarity : 
+            q.category === 'scalableTalent' ? scalableTalent :
+            q.category === 'relentlessFocus' ? relentlessFocus :
+            q.category === 'disciplinedExecution' ? disciplinedExecution : 
+            energizedCulture;
+          
           // Score varies a bit around the category base score
           const questionScore = Math.min(100, Math.max(0, categoryBaseScore + Math.floor(Math.random() * 16) - 8));
           
+          // Add the question with its score
           questionItems.push({
-            question,
+            question: q.question,
             score: questionScore,
-            category
+            category: q.category
           });
         });
-      });
+        
+      } catch (error) {
+        console.error("Error loading real survey questions:", error);
+      }
       
       surveyData.push({
         companyName: company,
@@ -427,13 +483,41 @@ export const mockSurveyData: SurveyData[] = [
     },
     logo: mockCompanies[0].logo,
     questions: [
-      { question: "Our organization has a clear vision that guides decision-making", score: 87, category: "strategicClarity" },
-      { question: "Leadership effectively communicates our strategic priorities", score: 82, category: "strategicClarity" },
-      { question: "We have effective processes for recruiting top talent", score: 76, category: "scalableTalent" },
-      { question: "Our organization develops employees to reach their full potential", score: 80, category: "scalableTalent" },
-      { question: "Decision-making is efficient and timely in our organization", score: 84, category: "relentlessFocus" },
-      { question: "We deliver projects on time and within budget", score: 78, category: "disciplinedExecution" },
-      { question: "Employees are highly engaged and motivated", score: 74, category: "energizedCulture" }
+      { 
+        question: "The leadership team and board are completely aligned on the value creation plan (maps out the core drivers of value creation).", 
+        score: 87, 
+        category: "strategicClarity" 
+      },
+      { 
+        question: "Employees at all levels clearly understand the company's strategic plan.", 
+        score: 82, 
+        category: "strategicClarity" 
+      },
+      { 
+        question: "The leadership team has the functional expertise, commercial acumen and business knowledge needed to execute the strategy.", 
+        score: 76, 
+        category: "scalableTalent" 
+      },
+      { 
+        question: "There are significant cross-training opportunities to develop employees, especially for key roles.", 
+        score: 80, 
+        category: "scalableTalent" 
+      },
+      { 
+        question: "Company initiatives directly link to achieving the strategic plan and are clearly defined.", 
+        score: 84, 
+        category: "relentlessFocus" 
+      },
+      { 
+        question: "All meetings have clear agendas with appropriate participants and action items.", 
+        score: 78, 
+        category: "disciplinedExecution" 
+      },
+      { 
+        question: "Organizational culture (values, beliefs, and behaviors expected of its members) is explicitly defined.", 
+        score: 74, 
+        category: "energizedCulture" 
+      }
     ]
   },
   {
