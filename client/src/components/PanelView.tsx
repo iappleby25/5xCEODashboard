@@ -342,6 +342,21 @@ const PanelView: React.FC<PanelViewProps> = ({
               {!['strategic-clarity', 'relentless-focus', 'disciplined-execution', 'scalable-talent', 'energized-culture'].includes(category.id) && "Business Impact Analysis"}
             </h3>
             <div className="flex items-center gap-2">
+              {viewMode === 'MyCEO' && category.id === 'relentless-focus' && (
+                <div className="flex flex-col items-center gap-2 mr-4">
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant={showImproved ? "default" : "outline"}
+                      size="sm"
+                      className={`transition-all duration-300 ease-in-out ${showImproved ? 'bg-green-600 hover:bg-green-700 text-white' : 'text-gray-600'}`}
+                      onClick={() => setShowImproved(!showImproved)}
+                    >
+                      {showImproved ? "Improved" : "Current"}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-500">Compare before and after optimization</p>
+                </div>
+              )}
               <span className="text-xs bg-gray-100 px-2 py-1 rounded text-neutral-600">Q1 2025</span>
               <div className="company-name font-medium text-neutral-700">
                 {category.company || "GlobalSolutions"}
@@ -447,24 +462,7 @@ const PanelView: React.FC<PanelViewProps> = ({
           <div className="grid grid-cols-2 gap-5">
             {/* Left side - Business Impact Metrics */}
             <div className="border border-gray-200 rounded-lg p-4">
-              <div className="flex justify-between items-center mb-3">
-                <h4 className="text-sm font-medium">Business Impact Metrics</h4>
-                {viewMode === 'MyCEO' && (
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="flex items-center gap-2">
-                      <Button
-                        variant={showImproved ? "default" : "outline"}
-                        size="sm"
-                        className={`transition-all duration-300 ease-in-out ${showImproved ? 'bg-green-600 hover:bg-green-700 text-white' : 'text-gray-600'}`}
-                        onClick={() => setShowImproved(!showImproved)}
-                      >
-                        {showImproved ? "Improved" : "Current"}
-                      </Button>
-                    </div>
-                    <p className="text-xs text-gray-500">Compare performance impact before and after strategic optimization.</p>
-                  </div>
-                )}
-              </div>
+              <h4 className="text-sm font-medium mb-3">Business Impact Metrics</h4>
               
               <div className="space-y-4">
                 <div>
