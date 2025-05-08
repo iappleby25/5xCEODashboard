@@ -255,17 +255,17 @@ const MyCEO = () => {
               </div>
             </motion.div>
             
-            {/* Analysis Component */}
-            <motion.div variants={itemVariants} className="mb-8">
-              <FocusEffectivenessAnalysis
-                companyName={selectedCompany}
-                period="Q1 2023"
-                trendPercentage={7}
-                resourceOptimization={26}
-                projectCompletionRate={23}
-                strategicCapacity={19}
-                selectedCategory={selectedAnalysisCategory}
-              />
+            {/* Company Compare Title Section */}
+            <motion.div variants={itemVariants} className="mb-4 mt-8">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-semibold text-neutral-900">Company Compare</h2>
+                <div className="text-sm text-neutral-500">
+                  Data for Q1 2023
+                </div>
+              </div>
+              <p className="text-neutral-600 mt-1">
+                Compare performance metrics between companies across the selected framework category
+              </p>
             </motion.div>
             
             {/* Comparison Component */}

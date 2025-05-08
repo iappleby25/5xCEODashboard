@@ -267,27 +267,30 @@ const FocusEffectivenessComparison: React.FC<FocusEffectivenessComparisonProps> 
                 data={comparisonData}
                 margin={{ top: 20, right: 10, left: 10, bottom: 30 }}
                 barSize={20}
+                layout="vertical"
               >
-                <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis 
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                <XAxis type="number" />
+                <YAxis 
                   dataKey="name" 
-                  angle={-45} 
-                  textAnchor="end" 
+                  type="category"
+                  width={150}
                   tick={{ fontSize: 12 }}
-                  height={60}
                 />
-                <YAxis hide />
-                <Tooltip />
+                <Tooltip 
+                  formatter={(value, name) => [`${value}%`, name]}
+                  labelFormatter={(label) => `Metric: ${label}`}
+                />
                 <Bar 
                   dataKey={primaryCompany} 
                   fill="#3b82f6" 
-                  radius={[4, 4, 0, 0]}
+                  radius={[0, 4, 4, 0]}
                   name={primaryCompany}
                 />
                 <Bar 
                   dataKey={comparisonCompany} 
                   fill="#10b981" 
-                  radius={[4, 4, 0, 0]}
+                  radius={[0, 4, 4, 0]}
                   name={comparisonCompany}
                 />
               </BarChart>
@@ -298,13 +301,38 @@ const FocusEffectivenessComparison: React.FC<FocusEffectivenessComparisonProps> 
         <div>
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-medium mb-3">Performance Differential</h3>
-              <div className={`flex items-center text-4xl font-bold ${differential.isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                {differential.isPositive ? '+' : ''}{differential.value}%
+              <h3 className="text-lg font-medium mb-3">Performance Summary</h3>
+              <div className="flex items-center justify-between">
+                <div className="text-center p-4 bg-blue-50 rounded-lg flex-1 mr-2">
+                  <div className="text-sm text-blue-700 mb-1">{primaryCompany}</div>
+                  <div className="text-3xl font-bold text-blue-600">
+                    {(comparisonData.reduce((sum, item) => sum + Number(item[primaryCompany]), 0) / comparisonData.length).toFixed(1)}%
+                  </div>
+                  <div className="text-xs text-blue-500 mt-1">Average Score</div>
+                </div>
+                <div className="text-center p-4 bg-green-50 rounded-lg flex-1 ml-2">
+                  <div className="text-sm text-green-700 mb-1">{comparisonCompany}</div>
+                  <div className="text-3xl font-bold text-green-600">
+                    {(comparisonData.reduce((sum, item) => sum + Number(item[comparisonCompany]), 0) / comparisonData.length).toFixed(1)}%
+                  </div>
+                  <div className="text-xs text-green-500 mt-1">Average Score</div>
+                </div>
               </div>
-              <p className="text-neutral-600 mt-2">
-                Overall performance differential between {primaryCompany} and {comparisonCompany}
-              </p>
+              
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                <div className="flex justify-between mb-1">
+                  <span className="text-sm font-medium text-gray-700">Performance Differential</span>
+                  <span className={`text-sm font-medium ${differential.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+                    {differential.isPositive ? '+' : ''}{differential.value}%
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div 
+                    className={`h-2.5 rounded-full ${differential.isPositive ? 'bg-green-500' : 'bg-red-500'}`}
+                    style={{ width: `${Math.abs(parseFloat(differential.value)) * 4}%`, maxWidth: '100%' }}
+                  />
+                </div>
+              </div>
             </div>
 
             <div>
