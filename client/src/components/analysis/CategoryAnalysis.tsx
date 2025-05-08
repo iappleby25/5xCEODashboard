@@ -7,6 +7,7 @@ interface CategoryAnalysisProps {
   company: string;
   period: string;
   comparisonCompany?: string;
+  canCompare?: boolean;
 }
 
 type ComparisonDataItem = {
@@ -19,7 +20,8 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
   category,
   company,
   period,
-  comparisonCompany
+  comparisonCompany,
+  canCompare = true
 }) => {
   // Data for each category (in real app would be fetched from API)
   const getCategoryData = () => {
@@ -113,25 +115,28 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
   // Generate comparison data
   const generateComparisonData = (): ComparisonDataItem[] => {
     // This would come from API in a real app
+    const companyStr = company as string;
+    const comparisonStr = comparisonCompany || '';
+
     switch (category) {
       case 'strategic-clarity':
         return [
           { 
             name: 'Vision alignment', 
-            [company as string]: 75, 
-            [comparisonCompany as string]: 68,
+            [companyStr]: 75, 
+            [comparisonStr]: 68,
             insight: `${company} has stronger vision alignment with executives (+7%), leading to more cohesive strategic decisions across departments.`
           },
           { 
             name: 'Decision cohesion', 
-            [company as string]: 68, 
-            [comparisonCompany as string]: 71,
+            [companyStr]: 68, 
+            [comparisonStr]: 71,
             insight: `${comparisonCompany} demonstrates better decision alignment (+3%) through their structured decision framework established in Q3 2024.`
           },
           { 
             name: 'Mission understanding', 
-            [company as string]: 82, 
-            [comparisonCompany as string]: 74,
+            [companyStr]: 82, 
+            [comparisonStr]: 74,
             insight: `${company}'s company-wide mission training program launched in Q4 2024 has resulted in significantly higher mission understanding (+8%).`
           },
         ];
@@ -139,20 +144,20 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
         return [
           { 
             name: 'Talent optimization', 
-            [company as string]: 65, 
-            [comparisonCompany as string]: 70,
+            [companyStr]: 65, 
+            [comparisonStr]: 70,
             insight: `${comparisonCompany}'s talent development program is showing +5% better results through their structured mentorship approach.`
           },
           { 
             name: 'Leadership capability', 
-            [company as string]: 72, 
-            [comparisonCompany as string]: 65,
+            [companyStr]: 72, 
+            [comparisonStr]: 65,
             insight: `${company}'s investment in leadership development is yielding +7% stronger results in leadership capabilities and decision making.`
           },
           { 
             name: 'Retention rate', 
-            [company]: 68, 
-            [comparisonCompany]: 76,
+            [companyStr]: 68, 
+            [comparisonStr]: 76,
             insight: `${comparisonCompany} has implemented more effective retention strategies (+8%), particularly in offering career advancement opportunities.`
           },
         ];
@@ -160,20 +165,20 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
         return [
           { 
             name: 'Resource optimization', 
-            [company]: 70, 
-            [comparisonCompany]: 64,
+            [companyStr]: 70, 
+            [comparisonStr]: 64,
             insight: `${company} demonstrates stronger resource allocation efficiency (+6%) through their quarterly resource planning process.`
           },
           { 
             name: 'Project completion rate', 
-            [company]: 74, 
-            [comparisonCompany]: 78,
+            [companyStr]: 74, 
+            [comparisonStr]: 78,
             insight: `${comparisonCompany} shows superior project completion metrics (+4%) with their agile methodology implementation.`
           },
           { 
             name: 'Strategic capacity', 
-            [company]: 65, 
-            [comparisonCompany]: 69,
+            [companyStr]: 65, 
+            [comparisonStr]: 69,
             insight: `${comparisonCompany} has developed +4% more strategic capacity through effective delegation and workflow optimization.`
           },
         ];
@@ -181,20 +186,20 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
         return [
           { 
             name: 'Execution effectiveness', 
-            [company]: 78, 
-            [comparisonCompany]: 71,
+            [companyStr]: 78, 
+            [comparisonStr]: 71,
             insight: `${company}'s execution framework produces +7% better results through enhanced accountability and milestone tracking.`
           },
           { 
             name: 'On-time delivery', 
-            [company]: 75, 
-            [comparisonCompany]: 80,
+            [companyStr]: 75, 
+            [comparisonStr]: 80,
             insight: `${comparisonCompany} achieves +5% better on-time delivery through their predictive planning tools implemented in Q3 2024.`
           },
           { 
             name: 'Quality index', 
-            [company]: 80, 
-            [comparisonCompany]: 72,
+            [companyStr]: 80, 
+            [comparisonStr]: 72,
             insight: `${company} maintains an +8% higher quality index through their comprehensive quality assurance program and feedback loops.`
           },
         ];
@@ -202,20 +207,20 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
         return [
           { 
             name: 'Employee engagement', 
-            [company]: 71, 
-            [comparisonCompany]: 82,
+            [companyStr]: 71, 
+            [comparisonStr]: 82,
             insight: `${comparisonCompany} achieves significantly higher employee engagement (+11%) through their innovative recognition programs and flexible work policies.`
           },
           { 
             name: 'Innovation index', 
-            [company]: 68, 
-            [comparisonCompany]: 62,
+            [companyStr]: 68, 
+            [comparisonStr]: 62,
             insight: `${company} shows +6% stronger innovation metrics from their dedicated innovation time and cross-department collaboration initiatives.`
           },
           { 
             name: 'Team effectiveness', 
-            [company]: 75, 
-            [comparisonCompany]: 71,
+            [companyStr]: 75, 
+            [comparisonStr]: 71,
             insight: `${company} demonstrates +4% better team effectiveness through structured team-building and conflict resolution training.`
           },
         ];
@@ -223,20 +228,20 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
         return [
           { 
             name: 'Vision alignment', 
-            [company]: 75, 
-            [comparisonCompany]: 68,
+            [companyStr]: 75, 
+            [comparisonStr]: 68,
             insight: `${company} has stronger vision alignment with executives (+7%), leading to more cohesive strategic decisions across departments.`
           },
           { 
             name: 'Decision cohesion', 
-            [company]: 68, 
-            [comparisonCompany]: 71,
+            [companyStr]: 68, 
+            [comparisonStr]: 71,
             insight: `${comparisonCompany} demonstrates better decision alignment (+3%) through their structured decision framework established in Q3 2024.`
           },
           { 
             name: 'Mission understanding', 
-            [company]: 82, 
-            [comparisonCompany]: 74,
+            [companyStr]: 82, 
+            [comparisonStr]: 74,
             insight: `${company}'s company-wide mission training program launched in Q4 2024 has resulted in significantly higher mission understanding (+8%).`
           },
         ];
@@ -259,7 +264,8 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
       </div>
 
       <div className="my-6">
-        {comparisonCompany ? (
+        {canCompare && comparisonCompany ? (
+          // Comparison View - Only shown for PE & BOD and ADMIN when they select comparison 
           <>
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-lg font-medium">Company Comparison</h3>
@@ -332,40 +338,9 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
                 Hover over metrics to view detailed performance insights
               </div>
             )}
-            
-            <div className="mt-6 mb-8">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-5 w-5 text-green-500" />
-                <span className="text-lg font-medium">Trend analysis: <span className="text-green-500">{categoryData.trend}</span></span>
-              </div>
-              <p className="text-neutral-600">improvement over last 3 quarters</p>
-              <p className="mt-2 text-neutral-700">{categoryData.insightText}</p>
-            </div>
-
-            <div className="mt-8">
-              <h3 className="text-lg font-medium mb-4">Strategic Alignment Metrics</h3>
-              <div className="space-y-6">
-                {categoryData.metrics.map((metric) => (
-                  <div key={metric.name}>
-                    <div className="flex justify-between mb-1">
-                      <span>{metric.name}</span>
-                      <span className="text-green-500 font-medium">{metric.improvement}</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div 
-                        className="h-2.5 rounded-full" 
-                        style={{ 
-                          width: `${metric.value}%`,
-                          backgroundColor: categoryData.color
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </>
-        ) : (
+        ) : canCompare ? (
+          // Empty comparison state - Only shown for PE & BOD and ADMIN when no comparison is selected
           <div className="text-center py-8 bg-gray-50 rounded-md border border-dashed border-gray-300">
             <h3 className="text-lg font-medium text-gray-700 mb-2">Company Comparison</h3>
             <p className="text-gray-500 mb-4">Select a comparison company to view performance metrics</p>
@@ -374,7 +349,38 @@ const CategoryAnalysis: React.FC<CategoryAnalysisProps> = ({
               <span>Use the dropdown at the top to select a company to compare with {company}</span>
             </div>
           </div>
-        )}
+        ) : null}
+
+        {/* Metrics section shown for all users */}
+        <div className={`${canCompare && comparisonCompany ? 'mt-8' : 'mt-0'}`}>
+          <div className="flex items-center gap-2 mb-4">
+            <TrendingUp className="h-5 w-5 text-green-500" />
+            <span className="text-lg font-medium">Trend analysis: <span className="text-green-500">{categoryData.trend}</span></span>
+          </div>
+          <p className="text-neutral-600 mb-2">improvement over last 3 quarters</p>
+          <p className="text-neutral-700 mb-6">{categoryData.insightText}</p>
+
+          <h3 className="text-lg font-medium mb-4">{canCompare ? 'Strategic Alignment Metrics' : 'Performance Metrics'}</h3>
+          <div className="space-y-6">
+            {categoryData.metrics.map((metric) => (
+              <div key={metric.name}>
+                <div className="flex justify-between mb-1">
+                  <span>{metric.name}</span>
+                  <span className="text-green-500 font-medium">{metric.improvement}</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div 
+                    className="h-2.5 rounded-full" 
+                    style={{ 
+                      width: `${metric.value}%`,
+                      backgroundColor: categoryData.color
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

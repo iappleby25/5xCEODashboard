@@ -406,6 +406,7 @@ const FiveXCEO = () => {
                     company={selectedCompany}
                     period={selectedPeriod}
                     comparisonCompany={comparisonCompany || undefined}
+                    canCompare={canCompare}
                   />
                 )}
               </div>
