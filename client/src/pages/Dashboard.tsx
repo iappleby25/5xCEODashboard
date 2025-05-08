@@ -66,7 +66,7 @@ export default function Dashboard() {
   const [responseStatusFilter, setResponseStatusFilter] = useState("all");
   
   // For CEO/LEADERSHIP users, default to their company (GlobalSolutions)
-  const defaultCompany = user?.role !== 'PE & BOD' ? "GlobalSolutions" : undefined;
+  const defaultCompany = (user?.role !== 'PE & BOD' && user?.role !== 'ADMIN') ? "GlobalSolutions" : undefined;
   const [selectedCompany, setSelectedCompany] = useState<string | undefined>(defaultCompany);
   const [selectedRole, setSelectedRole] = useState<string | undefined>(undefined);
   
@@ -172,7 +172,7 @@ export default function Dashboard() {
       setSelectedRole(undefined);
     } else if (value === "company") {
       // Set default company for company view (GlobalSolutions for CEO/Leadership, first company for others)
-      if (user?.role !== "PE & BOD") {
+      if (user?.role !== "PE & BOD" && user?.role !== "ADMIN") {
         setSelectedCompany("GlobalSolutions");
       } else if (companies.length > 0) {
         setSelectedCompany(companies[0]);
@@ -181,7 +181,7 @@ export default function Dashboard() {
       setSelectedRole(undefined);
     } else if (value === "team") {
       // Set default company and role for team view
-      if (user?.role !== "PE & BOD") {
+      if (user?.role !== "PE & BOD" && user?.role !== "ADMIN") {
         setSelectedCompany("GlobalSolutions");
       } else if (companies.length > 0) {
         setSelectedCompany(companies[0]);
