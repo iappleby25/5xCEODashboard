@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RadialMenu from '@/components/RadialMenu';
 import PanelView from '@/components/PanelView';
-import { assessmentData as frameworkCategories, FrameworkCategory } from '@/lib/mockData';
+import FocusEffectivenessAnalysis from '@/components/FocusEffectivenessAnalysis';
+import FocusEffectivenessComparison from '@/components/FocusEffectivenessComparison';
+import { assessmentData as frameworkCategories, FrameworkCategory, mockCompanies, getCategoryColor } from '@/lib/mockData';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const MyCEO = () => {
+  // User role simulation - in a real app, this would come from authentication context
+  const [userRole, setUserRole] = useState<string>("PE & BOD"); // Options: "CEO", "PE & BOD", "LEADERSHIP TEAM", "COMPANY"
+  
   const [activeView, setActiveView] = useState<'MyCEO' | '5xCEO'>('MyCEO');
   const [selectedCategory, setSelectedCategory] = useState<FrameworkCategory | null>(null);
+  
+  // State for analysis and comparison
+  const [selectedAnalysisCategory, setSelectedAnalysisCategory] = useState<string>('relentless-focus');
+  const [selectedCompany, setSelectedCompany] = useState<string>("GlobalSolutions");
+  const [comparisonCompany, setComparisonCompany] = useState<string>("TechVision");
 
   const handleToggleView = () => {
     // In MyCEO page, this would navigate to 5xCEO page instead
@@ -37,6 +48,22 @@ const MyCEO = () => {
       ? frameworkCategories.length - 1 
       : currentIndex - 1;
     setSelectedCategory(frameworkCategories[prevIndex]);
+  };
+  
+  // Handle analysis category selection
+  const handleAnalysisCategoryChange = (categoryId: string) => {
+    setSelectedAnalysisCategory(categoryId);
+    console.log("Selected analysis category:", categoryId);
+  };
+  
+  // Handle company selection change
+  const handleCompanyChange = (company: string) => {
+    setSelectedCompany(company);
+  };
+  
+  // Handle comparison company selection change
+  const handleComparisonCompanyChange = (company: string) => {
+    setComparisonCompany(company);
   };
 
   // Container animation
@@ -115,6 +142,111 @@ const MyCEO = () => {
             </div>
           </div>
         </motion.div>
+        
+        {/* Company Selection and Comparison - Only visible for PE & BOD role */}
+        {userRole === "PE & BOD" && (
+          <>
+            <motion.div variants={itemVariants} className="mb-8">
+              <div className="bg-white p-6 rounded-xl shadow-md">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+                  <h2 className="text-xl font-semibold mb-4 sm:mb-0">Assessment Summary</h2>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="w-full sm:w-60">
+                      <Select value={selectedCompany} onValueChange={handleCompanyChange}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select company" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {mockCompanies.map((company) => (
+                            <SelectItem key={company.id} value={company.name}>
+                              {company.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="w-full sm:w-60">
+                      <Select value={comparisonCompany} onValueChange={handleComparisonCompanyChange}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Compare with..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {mockCompanies
+                            .filter(company => company.name !== selectedCompany)
+                            .map((company) => (
+                              <SelectItem key={company.id} value={company.name}>
+                                {company.name}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Assessment Summary blocks as buttons */}
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                  {frameworkCategories.map((category) => {
+                    // Determine if this category is selected
+                    const isSelected = selectedAnalysisCategory === category.id;
+                    // Create dynamic styles based on selection state
+                    const blockStyle = isSelected 
+                      ? `border-4 border-${getCategoryColor(category.id).slice(1)} bg-neutral-50 cursor-pointer rounded-lg p-4 shadow-md transform scale-105 transition-all duration-200` 
+                      : `border-2 border-${getCategoryColor(category.id).slice(1)} bg-neutral-50 hover:bg-neutral-100 cursor-pointer rounded-lg p-4 transition-all duration-200`;
+                    
+                    return (
+                      <div 
+                        key={category.id}
+                        className={blockStyle}
+                        onClick={() => handleAnalysisCategoryChange(category.id)}
+                      >
+                        <h3 className="font-medium">{category.name}</h3>
+                        <div className="mt-3">
+                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                            <div 
+                              className="h-2.5 rounded-full" 
+                              style={{ 
+                                width: `${category.score}%`,
+                                backgroundColor: getCategoryColor(category.id)
+                              }}
+                            ></div>
+                          </div>
+                          <div className="flex justify-between mt-1 text-sm">
+                            <span>Score:</span>
+                            <span className="font-medium">{category.score}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
+            
+            {/* Analysis Component */}
+            <motion.div variants={itemVariants} className="mb-8">
+              <FocusEffectivenessAnalysis
+                companyName={selectedCompany}
+                period="Q1 2023"
+                trendPercentage={7}
+                resourceOptimization={26}
+                projectCompletionRate={23}
+                strategicCapacity={19}
+                selectedCategory={selectedAnalysisCategory}
+              />
+            </motion.div>
+            
+            {/* Comparison Component */}
+            <motion.div variants={itemVariants} className="mb-8">
+              <FocusEffectivenessComparison
+                primaryCompany={selectedCompany}
+                comparisonCompany={comparisonCompany}
+                period="Q1 2023"
+                selectedCategory={selectedAnalysisCategory}
+              />
+            </motion.div>
+          </>
+        )}
       </motion.div>
 
       {/* Panel View Modal */}

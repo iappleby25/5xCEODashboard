@@ -230,8 +230,9 @@ const FocusEffectivenessComparison: React.FC<FocusEffectivenessComparisonProps> 
 
   // Calculate performance differential
   const getDifferential = () => {
-    const averagePrimary = comparisonData.reduce((sum, item) => sum + item[primaryCompany], 0) / comparisonData.length;
-    const averageComparison = comparisonData.reduce((sum, item) => sum + item[comparisonCompany], 0) / comparisonData.length;
+    // Use Number() to ensure we're dealing with numeric values
+    const averagePrimary = comparisonData.reduce((sum, item) => sum + Number(item[primaryCompany]), 0) / comparisonData.length;
+    const averageComparison = comparisonData.reduce((sum, item) => sum + Number(item[comparisonCompany]), 0) / comparisonData.length;
     return {
       value: (averagePrimary - averageComparison).toFixed(1),
       isPositive: averagePrimary > averageComparison
