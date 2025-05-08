@@ -166,34 +166,28 @@ export default function FilterBar({
           
           {/* PE users in holding view - PE Firm filter is hidden completely */}
 
-          {/* Show company selector for company and team views (locked for CEO and LEADERSHIP TEAM) */}
-          {(currentViewLevel === "company" || currentViewLevel === "team") && (
+          {/* Show company selector for company and team views (completely hidden for CEO and LEADERSHIP TEAM) */}
+          {(currentViewLevel === "company" || currentViewLevel === "team") && !isRestrictedUser && (
             <div>
               <label className="text-xs font-medium text-neutral-500 mb-1 block">
                 Company
               </label>
-              {isRestrictedUser && selectedCompany === "GlobalSolutions" ? (
-                <div className="h-9 w-[180px] px-3 flex items-center rounded-md border border-neutral-200 bg-neutral-50 text-sm text-neutral-600">
-                  GlobalSolutions
-                </div>
-              ) : (
-                <Select 
-                  value={selectedCompany} 
-                  onValueChange={onCompanyChange}
-                  disabled={!onCompanyChange}
-                >
-                  <SelectTrigger className="h-9 w-[180px]">
-                    <SelectValue placeholder="Select company" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {companies.map((company) => (
-                      <SelectItem key={company} value={company}>
-                        {company}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
+              <Select 
+                value={selectedCompany} 
+                onValueChange={onCompanyChange}
+                disabled={!onCompanyChange}
+              >
+                <SelectTrigger className="h-9 w-[180px]">
+                  <SelectValue placeholder="Select company" />
+                </SelectTrigger>
+                <SelectContent>
+                  {companies.map((company) => (
+                    <SelectItem key={company} value={company}>
+                      {company}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           )}
 
